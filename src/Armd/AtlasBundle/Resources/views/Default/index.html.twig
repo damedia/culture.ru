@@ -25,10 +25,78 @@
     </ul>
 
     <div class="blocksection w {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}logged-in{% endif %}" id="map-section">
+        <div class="atlas-center">
+            <div id="filter-tabs" class="content-tabs" style="margin-bottom:20px;">
+                <a id="filter_culture_objects" href="#" class="atlas-tab-filters {% if filterType is sameas('filter_culture_objects') %}active{% endif %}">
+                    {{ "atlas.culture_objects"|trans }}
+                </a>
+
+                <a id="filter_tourist_clusters" href="#" class="atlas-tab-filters {% if filterType is sameas('filter_tourist_clusters') %}active{% endif %}">
+                    {{ "atlas.tourist_clusters"|trans }}
+                </a>
+
+                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                    <a id="filter_user_objects" href="#" class="atlas-tab-filters {% if filterType is sameas('filter_user_objects') %}active{% endif %}">
+                        {{ "atlas.my_objects"|trans }}
+                    </a>
+                {% endif %}
+            </div>
+
+            <div class="clear"></div>
+
+            <div class="atlas-map">
+                <div class="bar bar-top"></div>
+                <div class="bar bar-right"></div>
+                <div class="bar bar-bottom"></div>
+                <div class="bar bar-left"></div>
+
+                <div id="map"></div>
+                <div id="ajax-loading" class="ajax-loading"></div>
+            </div>
+        </div>
+
         <div class="filter checks-filter sidebar">
+            <div class="simple-search">
+                <input type="text" class="ss-input" id="ss_input" placeholder="{{ "atlas.address"|trans }}"/>
+            </div>
 
-            <form id="atlas-filter-form" class="atlas-filter-form" action="{{ path('armd_atlas_default_filter') }}" method="POST">
+            <div id="atlas-side-tabs">
+                <div id="culture-objects-tab" data-type="filter_culture_objects" class="ajax-filter-tabs atlas-side-tab">
+                    {% render url('armd_atlas_ajax_filters', { 'typeTab': 'filter_culture_objects' }) %}
+                </div>
 
+                <div id="tourist-clusters-tab" data-type="filter_tourist_clusters" class="ajax-filter-tabs atlas-side-tab">
+                    {% render url('armd_atlas_ajax_filters', { 'typeTab': 'filter_tourist_clusters' }) %}
+                </div>
+
+                <div id="user-objects-tab" data-type="filter_user_objects" class="filter-sub-tab atlas-side-tab">
+                    This tab is under construction...
+
+                    {#
+                    <ol class="filter-sub-tab-list" id="myobj_list"></ol>
+
+                    <!-- template -->
+                    <script id="myobj_list_template" type="text/x-jquery-tmpl">
+                        <li data-id="${id}">
+                            <span>${title}</span>
+                            <a class="del" href="#" title="{{ "atlas.delete"|trans }}"></a>
+                            <div class="moder status${status}" title="${statusTitle}" data-reason="${reason}">
+                                <span>${status}</span>
+                            </div>
+                            <ins class="edit" title="Редактировать"></ins>
+                        </li>
+                    </script>
+                    <!-- /template -->
+
+                    <input id="atlas-objects-add" type="button" class="button green-button" value="{{ "atlas.object.add"|trans }}" />
+
+                    <div id="atlas-objects-add-hint">{{ "atlas.click_map"|trans }}</div>
+                    #}
+                </div>
+            </div>
+
+            {#
+            <form id="atlas-filter-form" class="atlas-filter-form" action="{{ path('armd_atlas_send_filters') }}" method="POST">
                 <input id="category-id" type="hidden" name="category" value="">
                 <input id="filter-type" type="hidden" name="filter_type" value="{{ filterType }}">
 
@@ -36,9 +104,7 @@
                     <input type="text" class="ss-input" id="ss_input" placeholder="{{ "atlas.address"|trans }}"/>
                 </div>
 
-
                 <div id="atlas-side-tabs">
-
                     <div id="culture-objects-tab" class="ajax-filter-tabs atlas-side-tab">
                         {% render url('armd_atlas_ajax_filters', {'typeTab': 'filter_culture_objects' }) %}
                     </div>
@@ -68,112 +134,11 @@
 
                         <div id="atlas-objects-add-hint">{{ "atlas.click_map"|trans }}</div>
                     </div>
-
                 </div>
-
-{#
-                <div class="filter-tabs">
-                    <ul class="filter-tabs-titles">
-                        <li class="active"><a href="#obj">{{ "atlas.objects"|trans }}</a></li>
-                        <li class=""><a href="#maps">{{ "atlas.my_map"|trans }}</a></li>
-                    </ul>
-                    &#123;&#35; Блок, который был на этом месте перенесен в шаблон src\Armd\AtlasBundle\Resources\views\Default\ajax_filter.html.twig &#35;&#125;
-                    &#123;&#35;
-                    <div class="filter-tab" id="mrsh">
-                        <!-- маршруты -->
-                    </div>
-                    &#35;&#125;
-                     
-                    <div class="filter-tab" id="maps">
-                        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                            <!-- мои карты -->
-                            <div class="filter-sub-tabs">
-                                <ul class="filter-sub-tabs-titles">
-                                    <li class="active"><a href="#myobj">Мои объекты</a></li>
-                                    &#123;&#35;<li><a href="#mymrsh">Мои маршруты</a></li>&#35;&#125;
-                                </ul>
-                                <div class="filter-sub-tab" id="myobj" style="display:block;">
-                                    <ol class="filter-sub-tab-list" id="myobj_list">
-                                        &#123;&#35;<li>
-                                            <span>Новый объект</span>
-                                            <a href="#" class="del" title="Удалить"></a>
-                                            <span class="moder"></span>
-                                        </li>&#35;&#125;
-                                    </ol>
-
-                                    <!-- template -->
-                                    <script id="myobj_list_template" type="text/x-jquery-tmpl">
-                                        <li data-id="${id}">
-                                            <span>${title}</span>
-                                            <a class="del" href="#" title="{{ "atlas.delete"|trans }}"></a>
-                                            <div class="moder status${status}" title="${statusTitle}" data-reason="${reason}">
-                                                <span>${status}</span>
-                                            </div>
-                                            &#123;&#35;<ins class="edit"></ins>&#35;&#125;
-                                        </li>
-                                    </script>
-                                    <!-- /template -->
-
-                                    <input id="atlas-objects-add" type="button" class="button green-button" value="{{ "atlas.object.add"|trans }}" />
-
-                                    <div id="atlas-objects-add-hint">{{ "atlas.click_map"|trans }}</div>
-                                </div>
-                                <div class="filter-sub-tab" id="mymrsh">
-
-                                </div>
-                            </div>
-                        {% else %}
-                            <div class="auth-required-msg">
-                                {{ "atlas.auth_required"|trans({ '%loginUrl%':path("fos_user_security_login"), '%registerUrl%':path("fos_user_registration_register") })|raw }}
-                            </div>
-                        {% endif %}
-                    </div>
-                </div>
-#}
-
             </form>
-        </div>
-        <div class="atlas-center">
-            {#
-            <div class="sort-filter sort-element-filter">
-                <a id="filter_culture_objects" href="#" class="atlas-tab-filters {% if filterType is sameas('filter_culture_objects') %}active{% endif %}">
-                    Объекты культуры
-                </a>
-                <a id="filter_tourist_clusters" href="#" class="atlas-tab-filters" {% if filterType is sameas('filter_tourist_clusters') %}active{% endif %}>
-                    Туристические кластеры
-                </a>
-                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                    <a id="filter_user_objects" href="#" class="atlas-tab-filters" {% if filterType is sameas('filter_user_objects') %}active{% endif %}>
-                        Мои объекты
-                    </a>
-                {% endif %}
-            </div>
             #}
-            <div class="content-tabs" style="margin-bottom:20px;">
-                <a id="filter_culture_objects" href="#" class="atlas-tab-filters  {% if filterType is sameas('filter_culture_objects') %}active{% endif %}">
-                    {{ "atlas.culture_objects"|trans }}
-                </a>
-
-                <a id="filter_tourist_clusters" href="#" class="atlas-tab-filters" {% if filterType is sameas('filter_tourist_clusters') %}active{% endif %}>
-                    {{ "atlas.tourist_clusters"|trans }}
-                </a>
-
-                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                    <a id="filter_user_objects" href="#" class="atlas-tab-filters" {% if filterType is sameas('filter_user_objects') %}active{% endif %}>
-                        {{ "atlas.my_objects"|trans }}
-                    </a>
-                {% endif %}
-            </div>
-            <div class="clear"></div>
-            <div class="atlas-map">
-                <div class="bar bar-top"></div>
-                <div class="bar bar-right"></div>
-                <div class="bar bar-bottom"></div>
-                <div class="bar bar-left"></div>
-                <div id="map"></div>
-                <div id="ajax-loading" class="ajax-loading"></div>
-            </div>
         </div>
+
     </div>
 
     <!-- popups -------------------------------------------- -->
@@ -359,8 +324,34 @@
     <script type="text/javascript" src="{{ asset('vendor/select2/select2.js') }}"></script>
     <script type="text/javascript" src="{{ asset('vendor/valums-file-uploader/client/fileuploader.js') }}"></script>
     <script type="text/javascript" src="{{ asset('vendor/fancybox/jquery.fancybox.js') }}"></script>
+
+    <script type="text/javascript" src="{{ asset('bundles/damediaatlasjsmodule/js/module.atlas.js') }}"></script>
+
+    {#
     <script type="text/javascript" src="{{ asset('bundles/armdatlas/js/atlas_new.js') }}"></script>
+    #}
+
     <script type="text/javascript">
+        $(document).ready(function(){
+            ATLAS_MODULE.init({
+                sendFiltersUrl: '{{ path('armd_atlas_send_filters') }}',
+                fetchPointDetailsUrl:  '{{ path('armd_atlas_fetch_point_details') }}',
+                pgMap: {
+                    placeholderId: 'map',
+                    locale: '{{ app.request.locale }}',
+                    mapClusterImagesUrl: '{{ asset('bundles/armdatlas/images') }}'
+                },
+                locationFinderAc: {
+                    placeholderId: 'ss_input'
+                },
+                filterTabs: {
+                    tabs_placeholderId: 'filter-tabs',
+                    filters_placeholderId: 'atlas-side-tabs'
+                }
+            });
+        });
+
+        /*
         $(function(){
             AT.init({
                 map: 'map',
@@ -368,8 +359,8 @@
                 zoom: 4,
                 leftLon: 10,
                 rightLon: -190,
-                fetchMarkersUri:       '{{ path('armd_atlas_default_filter') }}',
-                fetchMarkerDetailUri:  '{{ path('armd_atlas_default_objectballoon') }}',
+                fetchMarkersUri:       '{{ path('armd_atlas_send_filters') }}',
+                fetchMarkerDetailUri:  '{{ path('armd_atlas_fetch_point_details') }}',
                 fetchClusterDetailUri: '{{ path('armd_atlas_default_clusterballoon') }}',
                 fetchMyObjectsUri:     '{{ path('armd_atlas_default_objectsmy') }}',
                 deleteMyObjectsUri:    '{{ path('armd_atlas_default_objectsmydelete') }}',
@@ -380,5 +371,6 @@
                 objectId:              '{{ objectId }}'
             });
         });
+        */
     </script>
 {% endblock %}

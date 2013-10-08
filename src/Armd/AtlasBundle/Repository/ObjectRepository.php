@@ -15,24 +15,22 @@ use Doctrine\ORM\Tools\Pagination\Paginator as DoctrinePaginator;
 class ObjectRepository extends EntityRepository
 {
 
-    public function filter($params = array())
-    {
-        $categoryIds = array_map('intval', $params['category']);
-
-        $qb = $this->createQueryBuilder('o')
-              ->where('o.published = TRUE');
+    public function filter($params = array()) {
+        $qb = $this->createQueryBuilder('o')->where('o.published = TRUE');
 
         switch($params['filter_type']) {
             case 'filter_tourist_clusters':
                 $qb->innerJoin('o.touristCluster', 'c');
-                foreach ($categoryIds as $i => $clusterId) {
+
+                foreach ($params['category'] as $i => $clusterId) {
                     $qb->innerJoin("o.touristCluster", 'tc'.$i);
                     $parameterName = 'clusterId' . $i;
                     $qb->andWhere("tc$i = :$parameterName")->setParameter($parameterName, $clusterId);
                 }
                 break;
+
             default:
-                foreach ($categoryIds as $i => $categoryId) {
+                foreach ($params['category'] as $i => $categoryId) {
                     $qb->innerJoin("o.secondaryCategories", 'sc'.$i);
                     $parameterName = 'categoryId' . $i;
                     $qb->andWhere("sc$i = :$parameterName")->setParameter($parameterName, $categoryId);
@@ -40,12 +38,7 @@ class ObjectRepository extends EntityRepository
                 break;
         }
 
-
-        $rows = $qb->getQuery()->getResult();
-
-
-
-        return $rows;
+        return $qb->getQuery()->getResult();
     }
 
     public function getRussiaImagesCount()

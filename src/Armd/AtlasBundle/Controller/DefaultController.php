@@ -216,7 +216,7 @@ class DefaultController extends Controller
 
 
     /**
-     * @Route("/object/balloon", name="armd_atlas_default_objectballoon", options={"expose"=true})
+     * @Route("/object/balloon", name="armd_atlas_fetch_point_details", options={"expose"=true})
      * @Template("ArmdAtlasBundle:Default:object_balloon.html.twig")
      */
     public function objectBalloonAction()
@@ -318,48 +318,46 @@ class DefaultController extends Controller
      * @Route("/objects/afilters/{typeTab}", name="armd_atlas_ajax_filters", options={"expose"=true})
      * @Template("ArmdAtlasBundle:Default:ajax_filter.html.twig")
      */
-    public function ajaxFilterAction($typeTab)
-    {
+    public function ajaxFilterAction($typeTab) {
         $em = $this->getDoctrine()->getManager();
-        $categories = array();
 
         switch ($typeTab) {
             case 'filter_culture_objects':
                 $repo = $em->getRepository('ArmdAtlasBundle:Category');
                 $categories = $repo->getDataForFilter();
                 break;
+
             case 'filter_tourist_clusters':
                 $repo = $em->getRepository('ArmdAtlasBundle:TouristCluster');
                 $categories = $repo->getDataForFilter();
                 break;
+
+            default:
+                throw new NotFoundHttpException("Categories not found");
         }
-        // if (array_ count_values($categories))
-        //    throw new NotFoundHttpException("Categories not found");
 
         return array(
             'type_tab' => $typeTab,
             'categories' => $categories
         );
     }
+
     /**
-     * @Route("/objects/filter", defaults={"_format"="json"}, name="armd_atlas_default_filter", options={"expose"=true})
+     * @Route("/objects/filter", defaults={"_format"="json"}, name="armd_atlas_send_filters", options={"expose"=true})
      */
-    public function filterAction()
-    {
+    public function filterAction() {
         $request = $this->getRequest();
         $twigExtension = $this->get('sonata.media.twig.extension');
 
         try {
             $category = $request->get('category');
             $filterType = $request->get('filter_type');
-            if (empty($category))
-                throw new \Exception('Categories is null');
 
-            $categoryIds = explode(',', $category);
+            if (empty($category)) {
+                throw new \Exception('Parameter \'category\' is undefined or empty!');
+            }
 
-            if (empty($categoryIds))
-                throw new \Exception('Categories is null');
-
+            $categoryIds = array_map('intval', explode(',', $category));
             $categoryRepo = $this->getDoctrine()->getRepository('ArmdAtlasBundle:Category');
             $categoryTree = $categoryRepo->getDataForFilter($categoryIds);
 
@@ -373,16 +371,17 @@ class DefaultController extends Controller
             $repo = $this->getDoctrine()->getRepository('ArmdAtlasBundle:Object');
             $objects = $repo->filter($filterParams);
 
-            if (!$objects)
-                throw new \Exception('Not found');
+            if (!$objects) {
+                throw new \Exception('No corresponding objects were found!');
+            }
 
             $allCategoriesIds = $repo->fetchObjectsCategories($objects);
 
             $rows = array();
 
             foreach ($objects as $obj) {
-
                 $iconUrl = '';
+
                 if ($obj->getIcon()) {
                     $iconUrl = $twigExtension->path($obj->getIcon(), 'reference');
                 }
@@ -390,6 +389,7 @@ class DefaultController extends Controller
                 $obraz = false;
                 $imageUrl = '';
                 $sideDetails = '';
+
                 if ($obj->getPrimaryCategory()) {
                     if ($obj->getPrimaryCategory()->getId() == 74) {
                         $obraz = true;
