@@ -19,6 +19,28 @@ class ObjectRepository extends EntityRepository
         $qb = $this->createQueryBuilder('o')->where('o.published = TRUE');
 
         switch($params['filter_type']) {
+            case 'filter_culture_objects':
+                $counter = 0;
+                $whereCondition_and = array();
+
+                foreach($params['categoryTree'] as $section) {
+                    $whereCondition_or = array();
+
+                    foreach ($section['tags'] as $item) {
+                        $alias = 'sc'.$counter;
+                        $qb->innerJoin("o.secondaryCategories", $alias);
+                        $whereCondition_or[] = $alias . ' = ' . (int)$item['id']; //a bit weird that we are not using parameter here...
+                        $counter++;
+                    }
+
+                    $whereCondition_and[] = '('.implode($whereCondition_or, ' OR ').')';
+                    $counter++;
+                }
+
+                $whereCondition_and = implode($whereCondition_and, ' AND ');
+                $qb->andWhere($whereCondition_and);
+                break;
+
             case 'filter_tourist_clusters':
                 $qb->innerJoin('o.touristCluster', 'c');
 

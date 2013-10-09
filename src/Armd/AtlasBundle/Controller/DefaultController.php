@@ -348,77 +348,95 @@ class DefaultController extends Controller
     public function filterAction() {
         $request = $this->getRequest();
         $twigExtension = $this->get('sonata.media.twig.extension');
+        $legalFilterTypes = array('filter_culture_objects', 'filter_tourist_clusters', 'filter_user_objects');
+
+        $response = array(
+            'success' => true,
+            'result' => array(),
+            'allCategoriesIds' => array_unique(array()),
+        );
 
         try {
-            $category = $request->get('category');
             $filterType = $request->get('filter_type');
 
-            if (empty($category)) {
-                throw new \Exception('Parameter \'category\' is undefined or empty!');
+            if (!in_array($filterType, $legalFilterTypes)) {
+                throw new \Exception('Unknown filter type: \''.$filterType.'\'!');
             }
 
-            $categoryIds = array_map('intval', explode(',', $category));
             $categoryRepo = $this->getDoctrine()->getRepository('ArmdAtlasBundle:Category');
-            $categoryTree = $categoryRepo->getDataForFilter($categoryIds);
+            $objectRepo = $this->getDoctrine()->getRepository('ArmdAtlasBundle:Object');
 
-            $filterParams = array(
-                'term' => '',
-                'category' => $categoryIds,
-                'categoryTree' => $categoryTree,
-                'filter_type' => $filterType
-            );
+            if (($filterType == 'filter_culture_objects') || ($filterType == 'filter_tourist_clusters')) {
+                $category = $request->get('category');
 
-            $repo = $this->getDoctrine()->getRepository('ArmdAtlasBundle:Object');
-            $objects = $repo->filter($filterParams);
-
-            if (!$objects) {
-                throw new \Exception('No corresponding objects were found!');
-            }
-
-            $allCategoriesIds = $repo->fetchObjectsCategories($objects);
-
-            $rows = array();
-
-            foreach ($objects as $obj) {
-                $iconUrl = '';
-
-                if ($obj->getIcon()) {
-                    $iconUrl = $twigExtension->path($obj->getIcon(), 'reference');
+                if (empty($category)) {
+                    throw new \Exception('Parameter \'category\' is undefined or empty!');
                 }
 
-                $obraz = false;
-                $imageUrl = '';
-                $sideDetails = '';
+                $categoryIds = array_map('intval', $category);
+                $categoryTree = $categoryRepo->getDataForFilter($categoryIds);
 
-                if ($obj->getPrimaryCategory()) {
-                    if ($obj->getPrimaryCategory()->getId() == 74) {
-                        $obraz = true;
-                        $image = $obj->getPrimaryImage(); // @TODO Много запросов
-                        $imageUrl = $twigExtension->path($image, 'thumbnail');
-                        $sideDetails = $this->renderView('ArmdAtlasBundle:Default:object_side.html.twig', array(
-                            'entity' => $obj,
-                        ));
+                $filterParams = array(
+                    'term' => '',
+                    'category' => $categoryIds,
+                    'categoryTree' => $categoryTree,
+                    'filter_type' => $filterType
+                );
+
+                $objects = $objectRepo->filter($filterParams);
+
+                if (!$objects) {
+                    throw new \Exception('No corresponding objects were found!');
+                }
+
+                $allCategoriesIds = $objectRepo->fetchObjectsCategories($objects);
+
+                $rows = array();
+
+                foreach ($objects as $obj) {
+                    $iconUrl = '';
+
+                    if ($obj->getIcon()) {
+                        $iconUrl = $twigExtension->path($obj->getIcon(), 'reference');
                     }
+
+                    $obraz = false;
+                    $imageUrl = '';
+                    $sideDetails = '';
+
+                    if ($obj->getPrimaryCategory()) {
+                        if ($obj->getPrimaryCategory()->getId() == 74) {
+                            $obraz = true;
+                            $image = $obj->getPrimaryImage(); // @TODO Много запросов
+                            $imageUrl = $twigExtension->path($image, 'thumbnail');
+                            $sideDetails = $this->renderView('ArmdAtlasBundle:Default:object_side.html.twig', array(
+                                'entity' => $obj,
+                            ));
+                        }
+                    }
+
+                    $rows[] = array(
+                        'id' => $obj->getId(),
+                        'title' => $obj->getTitle(),
+                        'announce' => $obj->getAnnounce(),
+                        'lon' => $obj->getLon(),
+                        'lat' => $obj->getLat(),
+                        'icon' => $iconUrl,
+                        'obraz' => $obraz,
+                        'imageUrl' => $imageUrl,
+                        'sideDetails' => $sideDetails,
+                    );
                 }
 
-                $rows[] = array(
-                    'id' => $obj->getId(),
-                    'title' => $obj->getTitle(),
-                    'announce' => $obj->getAnnounce(),
-                    'lon' => $obj->getLon(),
-                    'lat' => $obj->getLat(),
-                    'icon' => $iconUrl,
-                    'obraz' => $obraz,
-                    'imageUrl' => $imageUrl,
-                    'sideDetails' => $sideDetails,
+                $response = array(
+                    'success' => true,
+                    'result' => $rows,
+                    'allCategoriesIds' => array_unique($allCategoriesIds),
                 );
             }
-
-            $response = array(
-                'success' => true,
-                'result' => $rows,
-                'allCategoriesIds' => array_unique($allCategoriesIds),
-            );
+            else { //it is 'filter_user_objects' filterType
+                //do nothing
+            }
         }
         catch (\Exception $e) {
             $response = array(

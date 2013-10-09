@@ -12,6 +12,7 @@ var ATLAS_MODULE = (function(){
 
         pgMap,
         pgMap_locale,
+        filterType,
         sendFiltersUrl,
         clusterPoints,
         mapClusterImagesUrl,
@@ -45,8 +46,7 @@ var ATLAS_MODULE = (function(){
 
             return this;
         },
-        tabsChanged = new ObjectCustomEvent(),
-        filtersChanged = new ObjectCustomEvent();
+        updateFilters = new ObjectCustomEvent();
 
     //TODO: Default options refactoring required.
     function initProGorodMap(options) {
@@ -86,14 +86,7 @@ var ATLAS_MODULE = (function(){
         //TODO: I don't know what this "baloon" thing is! Thus it's commented out for now.
         //pgMap.balloon.content.parentNode.style.width = '300px';
 
-        tabsChanged.subscribe(tabsChangedCallback);
-
-        filtersChanged.subscribe(function(sender, eventArgs){
-            var filtersPlaceholder = eventArgs.filters,
-                checkedFilters = filtersPlaceholder.find('label.checked');
-
-            console.log(checkedFilters);
-        });
+        updateFilters.subscribe(tabsChangedCallback);
     }
 
     //TODO: Default options refactoring required.
@@ -155,7 +148,6 @@ var ATLAS_MODULE = (function(){
             tabs_placeholder = document.getElementById(tabs_placeholderId),
             filters_placeholder = document.getElementById(filters_placeholderId),
             tabLinks,
-            activeTabLinkId,
             tabPanels;
 
         if (!tabs_placeholder) {
@@ -169,15 +161,43 @@ var ATLAS_MODULE = (function(){
         }
 
         tabLinks = $(tabs_placeholder).find('a');
-        activeTabLinkId = tabLinks.filter('.active').attr('id');
+        filterType = tabLinks.filter('.active').attr('id');
         tabPanels = $(filters_placeholder).children('div');
 
         $.each(tabPanels, function(){
-            var tab = $(this);
+            var tab = $(this),
+                tabFilters = $('label', tab);
 
-            if (tab.attr('data-type') !== activeTabLinkId) {
+            if (tab.attr('data-type') !== filterType) {
                 tab.hide();
             }
+
+            tabFilters.on('click', function(){
+                var item = $(this);
+
+                switch (filterType) {
+                    case 'filter_culture_objects':
+                        item.hasClass('checked') ? item.removeClass('checked') : item.addClass('checked');
+                        break;
+
+                    case 'filter_tourist_clusters':
+                        tabFilters.removeClass('checked');
+                        item.addClass('checked');
+                        break;
+
+                    case 'filter_user_objects':
+                        //
+                        break;
+
+                    default:
+                        console.warn('Error binding filters click handlers: Unknown filter type (' + filterType + ')!');
+
+                }
+
+                updateFilters.fire(undefined, {
+                    category: gatherActiveTabFilters_formatted(tab),
+                    filterType: filterType });
+            });
         });
 
         tabLinks.on('click', function(event){
@@ -189,33 +209,34 @@ var ATLAS_MODULE = (function(){
                 return;
             }
 
-            activeTabLinkId = clickedItem.attr('id');
+            filterType = clickedItem.attr('id');
 
             tabLinks.removeClass('active');
             clickedItem.addClass('active');
 
             tabPanels.hide();
-            tabPanels.filter('[data-type="' + activeTabLinkId + '"]').show();
+            tabPanels.filter('[data-type="' + filterType + '"]').show();
 
             if (typeof history.pushState !== 'undefined') {
-                history.pushState(null, document.title, Routing.generate('armd_atlas_index', { filterType: activeTabLinkId }));
+                history.pushState(null, document.title, Routing.generate('armd_atlas_index', { filterType: filterType }));
             }
 
-            tabsChanged.fire(undefined, { category: gatherCheckedTabFilters_formatted(tabPanels.filter('[data-type="' + activeTabLinkId + '"]')), filterType: activeTabLinkId });
+            updateFilters.fire(undefined, {
+                             category: gatherActiveTabFilters_formatted(tabPanels.filter('[data-type="' + filterType + '"]')),
+                             filterType: filterType });
         });
 
-        tabsChanged.fire(undefined, { category: gatherCheckedTabFilters_formatted(tabPanels.filter('[data-type="' + activeTabLinkId + '"]')), filterType: activeTabLinkId });
+        updateFilters.fire(undefined, {
+                         category: gatherActiveTabFilters_formatted(tabPanels.filter('[data-type="' + filterType + '"]')),
+                         filterType: filterType });
     }
 
 
-
-
-
-
-
-
+    /*===================================
+    ==== TODO: awaiting refactoring ===*/
     function tabsChangedCallback(sender, eventArgs){
         showLoadingGif();
+        clearMap();
 
         $.post(sendFiltersUrl, { category: eventArgs.category, filter_type: eventArgs.filterType })
             .done(function(json, textStatus, jqXHR){
@@ -225,8 +246,6 @@ var ATLAS_MODULE = (function(){
                     console.warn('Sending filters failed with response: ' + json.message);
                     return;
                 }
-
-                clearMap();
 
                 if (objects && objects.length) {
                     var points = [];
@@ -416,28 +435,51 @@ var ATLAS_MODULE = (function(){
             }
         }
     }
+    /*===== awaiting refactoring ========
+    ===================================*/
 
 
+    function gatherActiveTabFilters_formatted(activeTab) {
+        var checkedFilters = $('label.checked > span', activeTab),
+            filters = [],
+            checkFirstFilterIfNoneChecked = function(){
+                if (checkedFilters.length === 0) {
+                    checkedFilters = $('label.gray-checked:first > span', activeTab);
+                    checkedFilters.parent('label').addClass('checked');
+                }
+            };
 
+        switch (filterType) {
+            case 'filter_culture_objects': //TODO: duplication
+                checkFirstFilterIfNoneChecked();
 
+                $.each(checkedFilters, function(){
+                    var item = $(this);
 
+                    filters.push(item.attr('data-tag'));
+                });
+                break;
 
+            case 'filter_tourist_clusters': //TODO: duplication
+                checkFirstFilterIfNoneChecked();
 
+                $.each(checkedFilters, function(){
+                    var item = $(this);
 
-    function gatherCheckedTabFilters_formatted(tab) {
-        var checkedFilters = $('label.checked > span', tab),
-            result = [];
+                    filters.push(item.attr('data-tag'));
+                });
+                break;
 
-        if (checkedFilters.length === 0) {
-            checkedFilters = $('label.gray-checked:first > span', tab);
-            checkedFilters.parent('label').addClass('checked');
+            case 'filter_user_objects':
+                //
+                break;
+
+            default:
+                console.warn('Error gathering filters: Unknown filter type (' + filterType + ')!');
+
         }
 
-        $.each(checkedFilters, function(){
-            result.push($(this).attr('data-tag'));
-        });
-
-        return result.join(',');
+        return filters;
     }
 
     function showLoadingGif() {
