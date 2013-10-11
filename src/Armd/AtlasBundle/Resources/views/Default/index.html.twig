@@ -70,9 +70,6 @@
                 </div>
 
                 <div id="user-objects-tab" data-type="filter_user_objects" class="filter-sub-tab atlas-side-tab">
-                    This tab is under construction...
-
-                    {#
                     <ol class="filter-sub-tab-list" id="myobj_list"></ol>
 
                     <!-- template -->
@@ -88,55 +85,24 @@
                     </script>
                     <!-- /template -->
 
-                    <input id="atlas-objects-add" type="button" class="button green-button" value="{{ "atlas.object.add"|trans }}" />
+                    <input id="atlas-objects-add" type="button" class="button atlas-add-object-button" value="{{ "atlas.object.add"|trans }}" />
+
+                    <div class="profile-help_text">
+                        В этом разделе вы можете добавить на карту новый объект культуры.
+                        <ol>
+                            <li>Для этого нажмите кнопку «Добавить».</li>
+                            <li>Выберите на карте место расположения объекта.</li>
+                            <li>В появившемся окне введите точный адрес или координаты точки.</li>
+                            <li>Заполните остальные поля.</li>
+                            <li>Загрузите фото.</li>
+                            <li>Вы можете изменить информацию об объекте во вкладке "Мои объекты".</li>
+                        </ol>
+                        Объект будет доступен всем пользователям портала Культура.рф после модерации.
+                    </div>
 
                     <div id="atlas-objects-add-hint">{{ "atlas.click_map"|trans }}</div>
-                    #}
                 </div>
             </div>
-
-            {#
-            <form id="atlas-filter-form" class="atlas-filter-form" action="{{ path('armd_atlas_send_filters') }}" method="POST">
-                <input id="category-id" type="hidden" name="category" value="">
-                <input id="filter-type" type="hidden" name="filter_type" value="{{ filterType }}">
-
-                <div class="simple-search">
-                    <input type="text" class="ss-input" id="ss_input" placeholder="{{ "atlas.address"|trans }}"/>
-                </div>
-
-                <div id="atlas-side-tabs">
-                    <div id="culture-objects-tab" class="ajax-filter-tabs atlas-side-tab">
-                        {% render url('armd_atlas_ajax_filters', {'typeTab': 'filter_culture_objects' }) %}
-                    </div>
-
-                    <div id="tourist-clusters-tab" class="ajax-filter-tabs atlas-side-tab">
-                        {% render url('armd_atlas_ajax_filters', {'typeTab': 'filter_tourist_clusters' }) %}
-                    </div>
-
-                    <div id="user-objects-tab" class="filter-sub-tab atlas-side-tab">
-                        <ol class="filter-sub-tab-list" id="myobj_list">
-                        </ol>
-
-                        <!-- template -->
-                        <script id="myobj_list_template" type="text/x-jquery-tmpl">
-                            <li data-id="${id}">
-                                <span>${title}</span>
-                                <a class="del" href="#" title="{{ "atlas.delete"|trans }}"></a>
-                                <div class="moder status${status}" title="${statusTitle}" data-reason="${reason}">
-                                    <span>${status}</span>
-                                </div>
-                                <ins class="edit" title="Редактировать"></ins>
-                            </li>
-                        </script>
-                        <!-- /template -->
-
-                        <input id="atlas-objects-add" type="button" class="button green-button" value="{{ "atlas.object.add"|trans }}" />
-
-                        <div id="atlas-objects-add-hint">{{ "atlas.click_map"|trans }}</div>
-                    </div>
-                </div>
-            </form>
-            #}
         </div>
 
     </div>
@@ -327,15 +293,15 @@
 
     <script type="text/javascript" src="{{ asset('bundles/damediaatlasjsmodule/js/module.atlas.js') }}"></script>
 
-    {#
-    <script type="text/javascript" src="{{ asset('bundles/armdatlas/js/atlas_new.js') }}"></script>
-    #}
-
     <script type="text/javascript">
         $(document).ready(function(){
             ATLAS_MODULE.init({
                 sendFiltersUrl: '{{ path('armd_atlas_send_filters') }}',
                 fetchPointDetailsUrl:  '{{ path('armd_atlas_fetch_point_details') }}',
+                fetchMyObjectsUrl: '{{ path('armd_atlas_default_objectsmy') }}',
+                imageUploadUrl: '{{ path('armd_atlas_default_objectsmyupload') }}',
+                deleteMyObjectsUrl: '{{ path('armd_atlas_default_objectsmydelete') }}',
+                objectId: '{{ objectId }}',
                 pgMap: {
                     placeholderId: 'map',
                     locale: '{{ app.request.locale }}',

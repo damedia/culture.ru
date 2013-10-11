@@ -17,6 +17,10 @@ var ATLAS_MODULE = (function(){
         clusterPoints,
         mapClusterImagesUrl,
         fetchPointDetailsUrl,
+        fetchMyObjectsUrl,
+        imageUploadUrl,
+        deleteMyObjectsUrl,
+        givenObjectId,
         localeTiles = {
             'en': [
                 'http://h01.tiles.tmcrussia.com/map_en/', 'http://h02.tiles.tmcrussia.com/map_en/', 'http://h03.tiles.tmcrussia.com/map_en/',
@@ -231,6 +235,15 @@ var ATLAS_MODULE = (function(){
                          filterType: filterType });
     }
 
+    function initHacks() { //TODO: don't know what is this... these things exist on the page but invisible
+        $('.g-closer').live('click', function(){
+            $(this).closest('.b-balloon').data('point').hideBalloon();
+            return false;
+        });
+
+        $('div#map div.PGmap').css({ zIndex:0 });
+    }
+
 
     /*===================================
     ==== TODO: awaiting refactoring ===*/
@@ -240,7 +253,16 @@ var ATLAS_MODULE = (function(){
 
         $.post(sendFiltersUrl, { category: eventArgs.category, filter_type: eventArgs.filterType })
             .done(function(json, textStatus, jqXHR){
-                var objects = json.result;
+                var userObjectsList,
+                    userObjectsListTemplate,
+                    currentTab = $('.ajax-filter-tabs:visible'),
+                    jLi,
+                    objects = json.result,
+                    points = [],
+                    object,
+                    point,
+                    i,
+                    n;
 
                 if (json.success === false) {
                     console.warn('Sending filters failed with response: ' + json.message);
@@ -248,59 +270,140 @@ var ATLAS_MODULE = (function(){
                 }
 
                 if (objects && objects.length) {
-                    var points = [];
+                    if ((filterType === 'filter_culture_objects') || (filterType === 'filter_tourist_clusters')) {
+                        for (i in objects) { //TODO: duplication for cycle
+                            if (objects.hasOwnProperty(i)) {
+                                object = objects[i];
+                                point = placePoint(object);
 
-                    for (var i in objects) {
-                        var object = objects[i],
-                            point = placePoint(objects[i]);
+                                if (point && !object.obraz) {
+                                    points.push(point);
+                                }
+                            }
+                        }
 
-                        if (point && !object.obraz) {
-                            points.push(point);
+                        //cluster points
+                        if (points.length) {
+                            clusterPoints = new PGmap.GeometryLayer({
+                                points: points,
+                                clusterSize: 100,
+                                clusterImage: mapClusterImagesUrl + "/klaster_1.1.png"
+                            });
+
+                            clusterPoints.setClusterImageByCount = function(count){
+                                return "0px 0px";
+                            };
+
+                            clusterPoints.setClusters.callback = function(){
+                                for (n = clusterPoints.clusters.length; n--; ) {
+                                    (function(cluster){
+                                        //cluster balloon on cluster click
+                                        PGmap.Events.addHandlerByName(cluster.element, PGmap.EventFactory.eventsType.click, function(e){
+                                            var ids = [];
+
+                                            cluster.balloon = pgMap.balloon;
+
+                                            for (var i=0; i<cluster.points.length; i++) {
+                                                ids.push($(cluster.points[i].container).data('uid'));
+                                            }
+
+                                            clusterPoints.globals.mapObject().setCenterByBbox(cluster.bbox);
+                                        }, 'click_' + cluster.index);
+
+                                        PGmap.Events.addHandlerByName(cluster.element, 'mouseover', function(e){
+                                            //
+                                        }, 'mouseover_' + cluster.index);
+
+                                        PGmap.Events.addHandlerByName(cluster.element, 'mouseout', function(e){
+                                            //
+                                        }, 'mouseout_' + cluster.index);
+                                    })(clusterPoints.clusters[n]);
+                                }
+                            };
+
+                            clusterPoints.setClusters();
+                        }
+
+                        if (filterType === 'filter_culture_objects') {
+                            $('p.check_all', currentTab).click(function(){
+                                var parentDiv = $(this).closest('.simple-filter-block');
+
+                                if (!$(this).data('checked')) {
+                                    parentDiv.find('input:checkbox').attr('checked','checked');
+                                    parentDiv.find('label').addClass('checked');
+                                    $(this).data('checked', true).addClass('checked');
+                                }
+                                else {
+                                    parentDiv.find('input:checkbox').removeAttr('checked');
+                                    parentDiv.find('label').removeClass('checked');
+                                    $(this).data('checked', false).removeClass('checked');
+                                }
+
+                                updateFilters.fire(undefined, {
+                                    category: gatherActiveTabFilters_formatted(currentTab),
+                                    filterType: filterType });
+                            });
                         }
                     }
+                    else {
+                        userObjectsList = $('#myobj_list');
+                        userObjectsListTemplate = $('#myobj_list_template');
+                        userObjectsList.empty();
 
-                    //cluster points
-                    if (points.length) {
-                        clusterPoints = new PGmap.GeometryLayer({
-                            points: points,
-                            clusterSize: 100,
-                            clusterImage: mapClusterImagesUrl + "/klaster_1.1.png"
-                        });
+                        for (i in objects) { //TODO: duplication for cycle
+                            if (objects.hasOwnProperty(i)) {
+                                object = objects[i];
+                                point = placePoint(object);
 
-                        clusterPoints.setClusterImageByCount = function(count){
-                            return "0px 0px";
-                        };
-
-                        clusterPoints.setClusters.callback = function(){
-                            for (var n = clusterPoints.clusters.length; n--; ) {
-                                (function(cluster){
-                                    //cluster balloon on cluster click
-                                    PGmap.Events.addHandlerByName(cluster.element, PGmap.EventFactory.eventsType.click, function(e){
-                                        var ids = [];
-
-                                        cluster.balloon = pgMap.balloon;
-
-                                        for (var i=0; i<cluster.points.length; i++) {
-                                            ids.push($(cluster.points[i].container).data('uid'));
-                                        }
-
-                                        clusterPoints.globals.mapObject().setCenterByBbox(cluster.bbox);
-                                    }, 'click_' + cluster.index);
-
-                                    PGmap.Events.addHandlerByName(cluster.element, 'mouseover', function(e){
-                                        //
-                                    }, 'mouseover_' + cluster.index);
-
-                                    PGmap.Events.addHandlerByName(cluster.element, 'mouseout', function(e){
-                                        //
-                                    }, 'mouseout_' + cluster.index);
-                                })(clusterPoints.clusters[n]);
+                                jLi = userObjectsListTemplate.tmpl(object);
+                                jLi.data('point', point);
+                                userObjectsList.append(jLi);
                             }
-                        };
+                        }
 
-                        clusterPoints.setClusters();
+                        if (givenObjectId) {
+                            userObjectsList.find('li[data-id=' + givenObjectId + '] > span').trigger('click');
+                            givenObjectId = undefined;
+                            $('html, body').animate({ scrollTop: $("#filter_culture_objects").offset().top }, 500);
+                        }
                     }
                 }
+
+                //'edit' button inside the balloon
+                $('.bubble_content .edit').live('click', function(){
+                    var objectId = $(this).data('id'),
+                        point = pgMap.balloon.currEl,
+                        coord = point.coord;
+
+                    showLoadingGif();
+
+                    $.ajax({
+                        url: fetchMyObjectsUrl,
+                        data: { id: objectId },
+                        dataType: 'json',
+                        success: function(res){
+                            hideLoadingGif();
+
+                            if (res.success) {
+                                showObjectForm({
+                                    entity: res.result,
+                                    coord: coord,
+                                    point: point
+                                });
+
+                                pgMap.balloon.close();
+                            }
+                            else {
+                                alert(res.message);
+                            }
+                        }
+                    });
+
+                    return false;
+                });
+
+                //TODO: function name is probably not good; some things inside this will only apply for 'user_objects' tab
+                initMyObjectsTab(); //this is for proper acting trough objects balloon forms
 
                 fitMap(objects);
             })
@@ -392,26 +495,30 @@ var ATLAS_MODULE = (function(){
 
         //point click
         PGmap.Events.addHandler(point.container, PGmap.EventFactory.eventsType.click, function(){
-            if (point.draggable) {
-                return;
-            }
-
-            showLoadingGif();
-
-            $.ajax({
-                url: fetchPointDetailsUrl,
-                data: { id: $(point.container).data('uid') },
-                success: function(res) {
-                    point.name = res;
-                    point.balloon = pgMap.balloon;
-                    point.toggleBalloon();
-
-                    hideLoadingGif();
-                }
-            });
+            triggerPointClick(point);
         });
 
         return point;
+    }
+
+    function triggerPointClick(point) {
+        if (point.draggable) {
+            return;
+        }
+
+        showLoadingGif();
+
+        $.ajax({
+            url: fetchPointDetailsUrl,
+            data: { id: $(point.container).data('uid') },
+            success: function(res) {
+                point.name = res;
+                point.balloon = pgMap.balloon;
+                point.toggleBalloon();
+
+                hideLoadingGif();
+            }
+        });
     }
 
     function clearMap() {
@@ -434,6 +541,525 @@ var ATLAS_MODULE = (function(){
                 clusterPoints.removeClusters();
             }
         }
+    }
+
+    function initMyObjectsTab() {
+        var myObjlist = $('#myobj_list'),
+            jPopup = $('#add-object-form');
+
+        //click on myObject list item
+        myObjlist.find('li span').live('click', function(){
+            var jLi = $(this).closest('li'),
+                point = jLi.data('point');
+
+            pgMap.setCenterFast(point.coord);
+            triggerPointClick(point);
+        });
+
+        //click on myObject edit list item
+        myObjlist.find('li .edit').live('click', function(){
+            var jLi = $(this).closest('li'),
+                objectId = jLi.data('id'),
+                point = jLi.data('point'),
+                coord = point.coord;
+
+            showLoadingGif();
+
+            $.ajax({
+                url: fetchMyObjectsUrl,
+                data: { id: objectId },
+                dataType: 'json',
+                success: function(res){
+                    hideLoadingGif();
+
+                    if (!res.success) {
+                        alert(res.message);
+                    }
+
+                    showObjectForm({
+                        entity: res.result,
+                        coord: coord,
+                        point: point
+                    });
+                }
+            });
+        });
+
+        //click on myObject delete list item
+        myObjlist.find('li .del').live('click', function(){
+            if (confirm('Удалить?')) {
+                var el = $(this).closest('li'),
+                    id = el.data('id');
+
+                showLoadingGif();
+
+                $.ajax({
+                    dataType: 'json',
+                    url: deleteMyObjectsUrl,
+                    data: { id: id },
+                    success: function(json){
+                        var point;
+
+                        hideLoadingGif();
+
+                        if (json.success) {
+                            point = el.data('point');
+                            el.remove();
+                            pgMap.geometry.remove(point);
+                        }
+                        else {
+                            alert(json.message);
+                        }
+                    }
+                });
+            }
+
+            return false;
+        });
+
+        // Отправка объекта на модерацию
+        myObjlist.find('.moder').live('click', function(){
+            var el = $(this).closest('li'),
+                id = el.data('id'),
+                statusId = $(this).text(),
+                reason = $(this).data('reason'),
+                moderationObjectForm = $('#moderation-object-form');
+
+            $('#moderation-object-id').val(id);
+
+            if (statusId == 1) {
+                $('#moderation-object-form-1').show();
+            }
+            else if (statusId == 2) {
+                $('#moderation-object-form-2').show();
+            }
+            else if (statusId == 3) {
+                $('#moderation-object-form-3').show();
+                $('#moder-reason').text(reason);
+            }
+            else {
+                moderationObjectForm.show();
+            }
+
+            moderationObjectForm.find('form').ajaxForm({
+                dataType: 'json',
+                beforeSubmit: function(){
+                    showLoadingGif();
+                },
+                success: function(response, statusText, xhr, $form){
+                    hideLoadingGif();
+
+                    if (response.success) {
+                        var objectId = response.result.id,
+                            status = response.result.status,
+                            jLi = myObjlist.find('li').filter(function(){
+                                return $(this).data('id')==objectId;
+                            });
+
+                        jLi.find('.moder').removeClass('status0 status1 status2 status3').addClass('status' + status);
+                        jLi.find('.moder span').text(status);
+                    }
+
+                    moderationObjectForm.hide();
+                }
+            });
+        });
+
+        $('.moderation-object-form .rst-btn, .moderation-object-form .exit').on('click', function(){
+            $(this).closest('.moderation-object-form').hide();
+
+            return false;
+        });
+
+        //add pgMap object
+        $('#atlas-objects-add').click(function(e){
+            var droppedPoint;
+
+            $('#atlas-objects-add-hint').show();
+            $('.PGmap-layer-container').css('cursor', 'url("/bundles/armdatlas/images/cursor_pin.cur") 10 32, move');
+
+            if ($(this).hasClass('active')) {
+                $(this).removeClass('active');
+                $('#add-object-form').hide();
+                PGmap.Events.stopEvent(e);
+                droppedPoint = $('#atlas-objects-add').data('droppedPoint');
+
+                if (droppedPoint) {
+                    pgMap.geometry.remove(droppedPoint);
+                }
+
+                PGmap.Events.removeHandler(pgMap.globals.mainElement(), 'mousedown', onMouseDown);
+                PGmap.Events.removeHandler(pgMap.globals.mainElement(), 'mouseup', onMouseUp);
+
+                return false;
+            }
+            else {
+                $(this).addClass('active');
+                PGmap.Events.addHandler(pgMap.globals.mainElement(), 'mousedown', onMouseDown);
+            }
+
+            function onMouseDown(e) {
+                PGmap.Events.stopEvent(e);
+                PGmap.Events.addHandler(pgMap.globals.mainElement(), 'mousemove', onMouseMove);
+                PGmap.Events.addHandler(pgMap.globals.mainElement(), 'mouseup', onMouseUp);
+            }
+
+            function onMouseMove(e) {
+                PGmap.Events.removeHandler(pgMap.globals.mainElement(), 'mouseup', onMouseUp);
+            }
+
+            function onMouseUp(event) {
+                var diff = pgMap.globals.getPosition(),
+                    e = event || window.event,
+                    off = PGmap.Utils.getOffset(document.getElementById('map')),
+                    mousepos = { x: (e.pageX || e.clientX) - off.left, y: (e.pageY || e.clientY) - off.top },
+                    coord = pgMap.globals.xyToLonLat(mousepos.x - diff.left, mousepos.y - diff.top),
+                    point;
+
+                point = placePoint(coord, 1, function(){
+                    triggerPointClick(point);
+                    e.preventDefault();
+                });
+
+                $('#atlas-objects-add').data('droppedPoint', point);
+                showObjectForm({ coord: coord, point: point });
+
+                PGmap.Events.removeHandler(pgMap.globals.mainElement(), 'mousedown', onMouseDown);
+            }
+
+            function placePoint(coord, draggable, onClick) {
+                var point = new PGmap.Point({ draggable: draggable, coord: coord });
+
+                if (draggable) {
+                    point.draggable.callback("dragEnd", function(){
+                        var lon = PGmap.Utils.fromMercX(point.coord.lon).toFixed(6),
+                            lat = PGmap.Utils.fromMercY(point.coord.lat).toFixed(6);
+
+                        $('#lon').val(lon);
+                        $('#lat').val(lat);
+
+                        pgMap.search({
+                            lon: point.coord.lon,
+                            lat: point.coord.lat,
+                            type: 'geocode',
+                            lng: pgMap_locale
+                        }, function(r){
+                            var data = JSON.parse(r).res[0];
+
+                            $('#address').val(data.addr);
+                        });
+                    });
+                }
+
+                pgMap.geometry.add(point);
+
+                return point;
+            }
+        });
+
+        jPopup.find('.rst-btn, .exit').click(function(){
+            var myPoint;
+
+            $('#atlas-objects-add').removeClass('active');
+            $('#atlas-objects-add-hint').hide();
+
+            jPopup.hide();
+            myPoint = jPopup.data('myPoint');
+
+            if (myPoint.draggable) {
+                myPoint.draggable.kill();
+                myPoint.draggable = null;
+                myPoint.coord = jPopup.data('myPointCoord');
+                myPoint.update();
+
+                if (myPoint.balloon) {
+                    myPoint.balloon.close();
+                }
+            }
+
+            if (jPopup.hasClass('add')) {
+                pgMap.geometry.remove(myPoint);
+            }
+
+            return false;
+        });
+    }
+
+    function showObjectForm(params) {
+        var point = params.point,
+            jPopup = $('#add-object-form'),
+            jPopupForm = jPopup.find('form'),
+            jSuccess = $('#success-object-form'),
+            jSuccessForm = jSuccess.find('form'),
+            jMyObjectsList = $('#myobj_list'),
+            jAddedImages = jPopup.find('.added-images'),
+            objectImages,
+            i,
+            image,
+            addedImageTemplate = $('#added-image-template'),
+            addObjectFormImages = $('#add-object-form .added-images'),
+            addressPlaceholder = $('#address'),
+            uploader;
+
+        jPopup.data('myPoint', point);
+        jPopup.data('myPointCoord', point.coord);
+
+        jPopupForm.resetForm();
+        jAddedImages.empty();
+
+        jPopup.show();
+
+        $('#primary-category, #category').select2();
+
+        if (params.entity) {
+            jPopup.removeClass('add').addClass('edit');
+            $('#object-id').val(params.entity.id);
+            $('#name').val(params.entity.title);
+            addressPlaceholder.val(params.entity.address);
+            $('#descr').val(params.entity.announce);
+            $('#lon').val(params.entity.lon);
+            $('#lat').val(params.entity.lat);
+            $('#primary-category').select2('val', params.entity.primaryCategory);
+            $('#category').select2('val', params.entity.secondaryCategory);
+
+
+            if (params.entity.images && params.entity.images.length > 0) {
+                objectImages = params.entity.images;
+
+                for (i in objectImages) {
+                    if (objectImages.hasOwnProperty(i)) {
+                        image = params.entity.images[i];
+                        addedImageTemplate
+                            .tmpl({
+                                'id': image.id,
+                                'imageUrl': image.thumbUrl
+                            })
+                            .appendTo(addObjectFormImages);
+                    }
+                }
+            }
+
+            point.draggable = new PGmap.Events.Draggable(point, {
+                drag: function(pos){
+                    var lon,
+                        lat;
+
+                    point.coord = point.globals.xyToLonLat(pos.x, pos.y);
+                    lon = PGmap.Utils.fromMercX(point.coord.lon).toFixed(6);
+                    lat = PGmap.Utils.fromMercY(point.coord.lat).toFixed(6);
+                    $('#lon').val(lon);
+                    $('#lat').val(lat);
+                },
+                dragEnd: function(pos){
+                    pgMap.search({
+                        lon: point.coord.lon,
+                        lat: point.coord.lat,
+                        type: 'geocode',
+                        lng: pgMap_locale
+                    }, function(r){
+                        var data = JSON.parse(r).res[0];
+
+                        $('#address').val(data.addr);
+                    });
+                }
+            });
+        }
+        else {
+            jPopup.removeClass('edit').addClass('add');
+            $('#object-id').val('');
+            $('#lon').val(PGmap.Utils.fromMercX(params.coord.lon).toFixed(6));
+            $('#lat').val(PGmap.Utils.fromMercY(params.coord.lat).toFixed(6));
+        }
+
+        jSuccess.find('.exit').click(function(){
+            $('#atlas-objects-add').removeClass('active');
+            jSuccess.hide();
+
+            if (point.draggable) {
+                point.draggable.kill();
+            }
+
+            return false;
+        });
+
+        //address and geolocation
+        addressPlaceholder.autocomplete({
+            source: function(request, response){
+                pgMap.search({ q: request.term, type: 'search' }, function(r){
+                    var json = $.parseJSON(r),
+                        jsonRes = json.res,
+                        results = [],
+                        i,
+                        j,
+                        el,
+                        elMatches,
+                        match,
+                        obj;
+
+                    if (json.success) {
+                        for (i in jsonRes) {
+                            if (jsonRes.hasOwnProperty(i)) {
+                                el = jsonRes[i];
+
+                                if (el.type == "addr") {
+                                    elMatches = el.matches;
+
+                                    for (j in elMatches) {
+                                        if (elMatches.hasOwnProperty(j)) {
+                                            match = el.matches[j];
+                                            obj = {
+                                                label: match.addr,
+                                                value: match.addr,
+                                                match: match
+                                            };
+
+                                            results.push(obj);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        response(results);
+                    }
+                });
+            },
+            select: function(event, ui){
+                var lon = parseFloat(ui.item.match.x),
+                    lat = parseFloat(ui.item.match.y);
+
+                $('#lon').val(lon.toFixed(6));
+                $('#lat').val(lat.toFixed(6));
+
+                point.coord.lon = PGmap.Utils.mercX(lon);
+                point.coord.lat = PGmap.Utils.mercY(lat);
+                point.update();
+
+                pgMap.setCenter(new PGmap.Coord(lon, lat, true));
+            }
+        }).data('autocomplete');
+
+        //send data to add or update an object
+        jPopupForm.ajaxForm({
+            dataType: 'json',
+            beforeSubmit: function(){
+                showLoadingGif();
+            },
+            success: function(response, statusText, xhr, $form){
+                var createdObject;
+
+                hideLoadingGif();
+
+                if (response.success) {
+                    jPopup.hide();
+
+                    if (point.draggable) {
+                        point.draggable.kill();
+                    }
+
+                    createdObject = response.result;
+                    pgMap.geometry.remove(point);
+                    point = placePoint(createdObject);
+
+                    if (response.result.mode == 'edit') {
+                        jSuccess.removeClass('add').addClass('edit');
+                    }
+                    else if (response.result.mode == 'add') {
+                        jSuccess.removeClass('edit').addClass('add');
+                    }
+
+                    jSuccess.show();
+                    jSuccess.find('input[name=is_public]').removeAttr('checked');
+                    jSuccess.find('.object-id').val(createdObject.id);
+                    jSuccess.find('.object-title').val(createdObject.title);
+
+                }
+                else {
+                    alert(response.message);
+                }
+            }
+        });
+
+        //add an object to pgMap
+        jSuccessForm.ajaxForm({
+            dataType: 'json',
+            beforeSubmit: function(){
+                showLoadingGif();
+            },
+            success: function(response, statusText, xhr, $form){
+                var objectId,
+                    objectTitle,
+                    status,
+                    statusTitle,
+                    jLi;
+
+                hideLoadingGif();
+
+                if (response.success) {
+                    $('#atlas-objects-add').removeClass('active');
+                    $('#atlas-objects-add-hint').hide();
+                    jSuccess.hide();
+
+                    if (jPopup.hasClass('add')) {
+                        objectId = response.result.id;
+                        objectTitle = response.result.title;
+                        status = response.result.status;
+                        statusTitle = response.result.statusTitle;
+                        jLi = $('#myobj_list_template').tmpl({ 'title': objectTitle });
+
+                        jLi.data('id', objectId);
+                        jLi.data('point', point);
+                        jLi.find('.moder').removeClass('status0 status1 status2 status3')
+                            .addClass('status'+status)
+                            .attr('title', statusTitle);
+                        jLi.find('.moder span').text(status);
+                        jMyObjectsList.append(jLi);
+                    }
+                    else { //edit
+                        objectId = $('#object-id').val();
+                        status = response.result.status;
+                        statusTitle = response.result.statusTitle;
+
+                        jLi = jMyObjectsList.find('li').filter(function(){
+                            return $(this).data('id') == objectId;
+                        });
+
+                        jLi.find('span').text($('#name').val());
+                        jLi.find('.moder span').text(response.result.status);
+                        jLi.find('.moder').removeClass('status0 status1 status2 status3')
+                            .addClass('status'+status)
+                            .attr('title', statusTitle);
+                    }
+                }
+            }
+        });
+
+        //ajax file uploader
+        uploader = new qq.FileUploader({
+            element: document.getElementById('file-uploader'),
+            action: imageUploadUrl,
+            template: '<div class="qq-uploader">'+
+                    '<div class="qq-upload-drop-area" style="display:none;"><span>Перетащите файлы сюда</span></div>'+
+                    '<div class="qq-upload-button">Загрузить фото&hellip;</div>'+
+                    '<ul class="qq-upload-list">Загрузить фото&hellip;</ul>'+
+                '</div>',
+            onSubmit: function(id, name){
+                armdMk.startLoading();
+            },
+            onComplete: function(id, filename, response){
+                var jImageTemplate;
+
+                armdMk.stopLoading();
+
+                if (response.success) {
+                    jImageTemplate = $('#added-image-template').tmpl(response.result);
+                    jAddedImages.append(jImageTemplate);
+                }
+                else {
+                    alert(response.message);
+                }
+            }
+        });
     }
     /*===== awaiting refactoring ========
     ===================================*/
@@ -494,7 +1120,10 @@ var ATLAS_MODULE = (function(){
     /*===============
     ==== PUBLIC ===*/
     atlas.init = function(options){
+        var regionsSelector = $('#regions-selector select');
+
         sendFiltersUrl = options && options.sendFiltersUrl ? options.sendFiltersUrl.toString() : '';
+        givenObjectId = options && options.objectId ? options.objectId : undefined;
 
         if (sendFiltersUrl === '') {
             console.warn(warn_unableToInitAtlasModule + 'Couldn\'t find send filters URL!\nParameter \'sendFiltersUrl\' is incorrect or undefined!');
@@ -508,9 +1137,51 @@ var ATLAS_MODULE = (function(){
             return;
         }
 
+        fetchMyObjectsUrl = options && options.fetchMyObjectsUrl ? options.fetchMyObjectsUrl.toString() : '';
+
+        if (fetchMyObjectsUrl === '') {
+            console.warn(warn_unableToInitAtlasModule + 'Couldn\'t find fetch my objects URL!\nParameter \'fetchMyObjectsUrl\' is incorrect or undefined!');
+            return;
+        }
+
+        imageUploadUrl = options && options.imageUploadUrl ? options.imageUploadUrl.toString() : '';
+
+        if (imageUploadUrl === '') {
+            console.warn(warn_unableToInitAtlasModule + 'Couldn\'t find image upload URL!\nParameter \'imageUploadUrl\' is incorrect or undefined!');
+            return;
+        }
+
+        deleteMyObjectsUrl = options && options.deleteMyObjectsUrl ? options.deleteMyObjectsUrl.toString() : '';
+
+        if (deleteMyObjectsUrl === '') {
+            console.warn(warn_unableToInitAtlasModule + 'Couldn\'t find delete my objects URL!\nParameter \'deleteMyObjectsUrl\' is incorrect or undefined!');
+            return;
+        }
+
+        regionsSelector.chosen({ no_results_text:"Не найдено" }).change(function(){
+            pgMap.search({ q: $(this).find('option:selected').text(), type: 'search' }, function(r){
+                var json = $.parseJSON(r),
+                    bBox,
+                    addressBox;
+
+                if (json.success) {
+                    bBox = json.res[0].bbox;
+                    addressBox = {
+                        lon1: PGmap.Utils.mercX(bBox.x1),
+                        lon2: PGmap.Utils.mercX(bBox.x2),
+                        lat1: PGmap.Utils.mercY(bBox.y1),
+                        lat2: PGmap.Utils.mercY(bBox.y2)
+                    };
+
+                    pgMap.setCenterByBbox(addressBox);
+                }
+            });
+        });
+
         initProGorodMap(options.pgMap);
         initLocationFinderAc(options.locationFinderAc);
         initFilters(options.filterTabs);
+        initHacks();
     };
 
     return atlas;

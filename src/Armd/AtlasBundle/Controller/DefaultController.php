@@ -350,12 +350,6 @@ class DefaultController extends Controller
         $twigExtension = $this->get('sonata.media.twig.extension');
         $legalFilterTypes = array('filter_culture_objects', 'filter_tourist_clusters', 'filter_user_objects');
 
-        $response = array(
-            'success' => true,
-            'result' => array(),
-            'allCategoriesIds' => array_unique(array()),
-        );
-
         try {
             $filterType = $request->get('filter_type');
 
@@ -393,34 +387,34 @@ class DefaultController extends Controller
 
                 $rows = array();
 
-                foreach ($objects as $obj) {
+                foreach ($objects as $object) {
                     $iconUrl = '';
 
-                    if ($obj->getIcon()) {
-                        $iconUrl = $twigExtension->path($obj->getIcon(), 'reference');
+                    if ($object->getIcon()) {
+                        $iconUrl = $twigExtension->path($object->getIcon(), 'reference');
                     }
 
                     $obraz = false;
                     $imageUrl = '';
                     $sideDetails = '';
 
-                    if ($obj->getPrimaryCategory()) {
-                        if ($obj->getPrimaryCategory()->getId() == 74) {
+                    if ($object->getPrimaryCategory()) {
+                        if ($object->getPrimaryCategory()->getId() == 74) {
                             $obraz = true;
-                            $image = $obj->getPrimaryImage(); // @TODO Много запросов
+                            $image = $object->getPrimaryImage(); // @TODO Много запросов
                             $imageUrl = $twigExtension->path($image, 'thumbnail');
                             $sideDetails = $this->renderView('ArmdAtlasBundle:Default:object_side.html.twig', array(
-                                'entity' => $obj,
+                                'entity' => $object,
                             ));
                         }
                     }
 
                     $rows[] = array(
-                        'id' => $obj->getId(),
-                        'title' => $obj->getTitle(),
-                        'announce' => $obj->getAnnounce(),
-                        'lon' => $obj->getLon(),
-                        'lat' => $obj->getLat(),
+                        'id' => $object->getId(),
+                        'title' => $object->getTitle(),
+                        'announce' => $object->getAnnounce(),
+                        'lon' => $object->getLon(),
+                        'lat' => $object->getLat(),
                         'icon' => $iconUrl,
                         'obraz' => $obraz,
                         'imageUrl' => $imageUrl,
@@ -435,7 +429,94 @@ class DefaultController extends Controller
                 );
             }
             else { //it is 'filter_user_objects' filterType
-                //do nothing
+                $currentUser = $this->get('security.context')->getToken()->getUser();
+                $objectId = (int)$request->get('id');
+
+                if ($objectId) {
+                    $object = $objectRepo->findOneBy(array('createdBy' => $currentUser, 'id' => $objectId));
+
+                    $primaryCategory = $object->getPrimaryCategory();
+                    $primaryCategoryId = $primaryCategory ? $primaryCategory->getId() : 0;
+
+                    $secondaryCategoryIds = array();
+                    if ($secondaryCategories = $object->getSecondaryCategories()) {
+                        foreach ($secondaryCategories as $tag) {
+                            $secondaryCategoryIds[] = $tag->getId();
+                        }
+                    }
+
+                    $result = array(
+                        'id' => $object->getId(),
+                        'title' => $object->getTitle(),
+                        'announce' => $object->getAnnounce(),
+                        'address' => $object->getAddress(),
+                        'primaryCategory' => $primaryCategoryId,
+                        'secondaryCategory' => $secondaryCategoryIds,
+                        'lon' => $object->getLon(),
+                        'lat' => $object->getLat(),
+                        'icon' => 'http://api-maps.yandex.ru/2.0.14/release/../images/a19ee1e1e845c583b3dce0038f66be2b',
+                    );
+
+                    if ($object->getPrimaryImage()) {
+                        $result['primaryImage'] = array(
+                            'id' => $object->getPrimaryImage()->getId(),
+                            'thumbUrl' => $this->get('sonata.media.twig.extension')->path($object->getPrimaryImage(), 'thumbnail')
+                        );
+                    }
+                    else {
+                        $result['primaryImage'] = false;
+                    }
+
+                    $result['images'] = array();
+                    if ($object->getImages()->count()) {
+                        foreach ($object->getImages() as $image) {
+                            $result['images'][] = array(
+                                'id' => $image->getId(),
+                                'thumbUrl' => $this->get('sonata.media.twig.extension')->path($image, 'thumbnail')
+                            );
+                        }
+                    }
+                }
+                else {
+                    $result = array();
+                    $entities = $objectRepo->findBy(array('createdBy' => $currentUser), array('updatedAt' => 'DESC'));
+
+                    foreach ($entities as $object) {
+                        $imageUrl = '';
+
+                        if ($object->getPrimaryCategory()) {
+                            $image = $object->getPrimaryCategory()->getIconMedia();
+                            $imageUrl = $this->get('sonata.media.twig.extension')->path($image, 'reference');
+                        }
+
+                        if ($objStatus = $object->getStatus()) {
+                            $status = $objStatus->getId();
+                            $statusTitle = $objStatus->getActionTitle();
+                            $reason = $object->getReason();
+                        }
+                        else {
+                            $status = 0;
+                            $statusTitle = '';
+                            $reason = '';
+                        }
+
+                        $result[] = array(
+                            'id' => $object->getId(),
+                            'title' => $object->getTitle(),
+                            'lon' => $object->getLon(),
+                            'lat' => $object->getLat(),
+                            'icon' => $imageUrl,
+                            'status' => $status,
+                            'statusTitle' => $statusTitle,
+                            'reason' => $reason,
+                        );
+                    }
+                }
+
+                $response = array(
+                    'success' => true,
+                    'result' => $result,
+                );
             }
         }
         catch (\Exception $e) {

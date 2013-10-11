@@ -3,6 +3,11 @@
         <div class="simple-filter-block">
             <div class="simple-filter-header clearfix">
                 <span>{{ category.title }}</span>
+                {% if typeTab == 'filter_culture_objects'  %}
+                    <p class="check_all">
+                        <span>Все</span>
+                    </p>
+                {% endif %}
             </div>
             <div class="simple-filter-options">
                 {% for tag in category.tags %}
