@@ -1,0 +1,22 @@
+{% import 'ArmdNewsBundle::date_macro.html.twig' as armd_news %}
+<div class="b-colored-articles-block b-sidebar-wrap m-sidebar-wrap-last">
+    <h3 class="e-block-title">Анонс</h3>
+
+    {% if entity is not empty %}
+        <article class="b-colored-article">
+            <h1 class="e-article-title" style="text-align: center;">
+                <a href="{{ path('armd_news_item_by_category', {'id': entity.id, 'category': entity.category.slug }) }}" class="tn-list-title">{{ entity.title }}</a>
+            </h1>
+
+            {% if entity.image %}
+                <img class="tn-list-image" src="{% path entity.image, 'list' %}" alt="{{ entity.title|escape }}" style="display: block; margin-left:auto; margin-right:auto">
+            {% else %}
+                <img class="tn-list-image" src="/img/temp_125_125.png" alt="{{ entity.title|escape }}" style="display: block; margin-left:auto; margin-right:auto">
+            {% endif %}
+
+            <section class="e-article-description">
+                {{ entity.announce|raw }}
+            </section>
+        </article>
+    {% endif %}
+</div>

@@ -117,6 +117,19 @@ class NewsRepository extends BaseRepository
         return $this;
     }
 
+    public function getLastAnnounce() {
+        $qb = $this->createQueryBuilder('p');
+
+        return $qb->select('p')->setMaxResults(1)
+                               ->where('p.published = :published')
+                               ->setParameter('published', true)
+                               ->andWhere('p.category = :category')
+                               ->setParameter('category', 3) //3 - events (announces)
+                               ->orderBy('p.newsDate', 'DESC')
+                               ->getQuery()
+                               ->getSingleResult();
+    }
+
     public function findForMainPage($date, $limit = 5)
     {
         $dt = new \DateTime();

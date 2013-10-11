@@ -15,6 +15,17 @@ use DateTime;
 
 class NewsController extends Controller
 {
+    public function lastAnnounceAction() {
+        $entity = $this->getDoctrine()->getManager()->getRepository('ArmdNewsBundle:News')->getLastAnnounce();
+
+        return $this->render(
+            'ArmdNewsBundle:Default:lastAnnounce.html.twig',
+            array(
+                'entity' => $entity
+            )
+        );
+    }
+
     /**
      * @param int $count
      *
