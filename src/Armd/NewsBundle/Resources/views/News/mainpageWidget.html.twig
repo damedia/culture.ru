@@ -3,7 +3,7 @@
     {% if items is not empty %}
         <div class="b-main-wrap b-post b-block-main m-main-press-center">
             <header class="b-block-heading">
-                <h3 class="e-block-title">Пресс-центр</h3>
+                <h3 class="e-block-title">{{ "menu.media"|trans|raw }}</h3>
                 <span class="e-current-date">сегодня {{ armd_news.news_date_short('now'|date()) }}</span>
                 <a href="{{ path('armd_news_list_index') }}" class="e-section-link">перейти в раздел</a>
             </header>
