@@ -121,10 +121,12 @@
                     <label for="name">{{ "atlas.object.title"|trans }}</label>
                     <input name="title" type="text" value="" placeholder="" id="name" />
                 </li>
+
                 <li>
-                    <label for="address">{{ "atlas.object.address"|trans }}</label>
-                    <input name="address" type="text" value="" placeholder="" id="address" />
+                    <label for="descr">{{ "atlas.object.announce"|trans }}</label>
+                    <textarea name="description" id="descr" cols="30" rows="10"></textarea>
                 </li>
+
                 <li class="coords">
                     <div class="coords-block">
                         <label for="lat">{{ "atlas.object.latitude"|trans }}</label>
@@ -135,24 +137,29 @@
                         <input name="lon" type="text" value="" id="lon" />
                     </div>
                 </li>
+
                 <li>
-                    <label for="descr">{{ "atlas.object.description"|trans }}</label>
-                    <textarea name="description" id="descr" cols="30" rows="10"></textarea>
+                    {{ "atlas.object.classification"|trans }}
                 </li>
+
+                <!-- TODO: This form field twig logic duplicates the same field logic from SonataAdmin! -->
                 <li>
                     <label for="category">{{ "atlas.object.category"|trans }}</label>
-                    <select id="primary-category" name="primary_category" class="chzn-select" data-placeholder="{{ "atlas.object.choose_category"|trans }}" style="width:298px">
+                    <select id="primary-category" name="primary_category" class="chzn-select atlas-object-form-select" data-placeholder="{{ "atlas.object.choose_category"|trans }}">
                         <option value=""></option>
-                        {% for optgroup in categories if optgroup.title=='Object Type' or optgroup.title=='Тип объекта' %}
-                            {% for tag in optgroup.tags if tag.hasIcon %}
-                                <option value="{{ tag.id }}">{{ tag.title }}</option>
-                            {% endfor %}
+                        {% for optgroup in categories if (optgroup.title == 'Object Type' or optgroup.title == 'Тип объекта' or optgroup.title == 'Theme' or optgroup.title == 'Тематика') %}
+                            <optgroup label="{{ optgroup.title }}">
+                                {% for tag in optgroup.tags if tag.hasIcon %}
+                                    <option value="{{ tag.id }}">{{ tag.title }}</option>
+                                {% endfor %}
+                            </optgroup>
                         {% endfor %}
                     </select>
                 </li>
+
                 <li>
                     <label for="category">{{ "atlas.object.additional_tags"|trans }}</label>
-                    <select id="category" name="category[]" class="chzn-select" multiple="multiple" data-placeholder="{{ "atlas.object.choose_category"|trans }}" style="width:298px">
+                    <select id="category" name="category[]" class="chzn-select atlas-object-form-select" multiple="multiple" data-placeholder="{{ "atlas.object.choose_category"|trans }}">
                         <option value=""></option>
                         {% for optgroup in categories %}
                             <optgroup label="{{ optgroup.title }}">
@@ -163,6 +170,27 @@
                         {% endfor %}
                     </select>
                 </li>
+
+                <li>
+                    {{ "atlas.object.contacts"|trans }}
+                </li>
+
+
+
+
+
+
+                <li>
+                    <label for="address">{{ "atlas.object.address"|trans }}</label>
+                    <input name="address" type="text" value="" placeholder="" id="address" />
+                </li>
+
+
+
+
+
+
+
                 <li class="add-photos">
                     <div id="file-uploader"></div>
                     <div class="added-images">

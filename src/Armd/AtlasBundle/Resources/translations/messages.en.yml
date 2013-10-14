@@ -11,6 +11,8 @@ atlas:
         category: Category
         additional_tags: Tags
         choose_category: Choose category...
+        classification: Classification
+        contacts: Contacts
     address: Address
     all: All
     atlas: Atlas
