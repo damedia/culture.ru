@@ -3,16 +3,33 @@ atlas:
     object:
         add: Добавить объект
         edit: Редактировать объект
+
         title: Название
-        address: Адрес
-        latitude: Широта
-        longitude: Долгота
         announce: Анонс
-        category: Категория
-        additional_tags: Дополнительные категории
-        choose_category: Выберите категорию...
+        lat: Широта
+        lon: Долгота
+
         classification: Классификация
+
+        primaryCategory: Категория
+        secondaryCategories: Дополнительные категории
+        choose_category: Выберите категорию...
+
         contacts: Контакты
+
+        siteUrl: Адрес сайта
+        email: E-mail
+        phone: Телефон
+        regions: Регионы
+        choose_region: Выберите регион...
+        address: Адрес
+        workTime: График работы
+        weekends: Выходные
+        choose_weekends: Выберите выходные...
+
+        media: Медиа
+        upload_button: Загрузить...
+
     address: Адрес
     all: Все
     atlas: Атлас

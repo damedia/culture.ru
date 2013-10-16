@@ -11,6 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 use Application\Sonata\MediaBundle\Entity\Media;
 use Armd\MainBundle\Model\ChangeHistorySavableInterface;
+
 /**
  * Armd\AtlasBundle\Entity\Object
  *
@@ -764,9 +765,9 @@ class Object implements Taggable, ChangeHistorySavableInterface
      * @param \Armd\AtlasBundle\Entity\WeekDay $weekends
      * @return Object
      */
-    public function addWeekend(\Armd\AtlasBundle\Entity\WeekDay $weekend)
+    public function addWeekend(\Armd\AtlasBundle\Entity\WeekDay $weekends)
     {
-        $this->weekends[] = $weekend;
+        $this->weekends[] = $weekends;
 
         return $this;
     }
@@ -774,7 +775,7 @@ class Object implements Taggable, ChangeHistorySavableInterface
     /**
      * Remove weekends
      *
-     * @param <variableType$weekends
+     * @param \Armd\AtlasBundle\Entity\WeekDay $weekends
      */
     public function removeWeekend(\Armd\AtlasBundle\Entity\WeekDay $weekends)
     {
@@ -836,7 +837,7 @@ class Object implements Taggable, ChangeHistorySavableInterface
     /**
      * Add videos
      *
-     * @param \Armd\TvigleVideoBundle\Entity\TvigleVideo $videos
+     * @param \Armd\TvigleVideoBundle\Entity\TvigleVideo $video
      * @return Object
      */
     public function addVideo(\Armd\TvigleVideoBundle\Entity\TvigleVideo $video)
@@ -851,7 +852,7 @@ class Object implements Taggable, ChangeHistorySavableInterface
     /**
      * Remove videos
      *
-     * @param \Armd\TvigleVideoBundle\Entity\TvigleVideo $videos
+     * @param \Armd\TvigleVideoBundle\Entity\TvigleVideo $video
      */
     public function removeVideo(\Armd\TvigleVideoBundle\Entity\TvigleVideo $video)
     {
@@ -1061,7 +1062,7 @@ class Object implements Taggable, ChangeHistorySavableInterface
         return $this->regions;
     }
 
-    public function setRegions($regions)
+    public function setRegions($regions) //TODO: This probably has to be removed!
     {
         $this->regions = $regions;
     }

@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Armd\AtlasBundle\Entity\ObjectManager;
 use Symfony\Component\DependencyInjection\Exception\RuntimeException;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Security\Acl\Exception\Exception;
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,7 +26,6 @@ use Symfony\Component\HttpFoundation\Request;
 
 class DefaultController extends Controller
 {
-    const MAX_USER_OBJECTS = 10;
     /**
      * @Route("/objects", defaults={"_format"="json"})
      */
@@ -166,7 +166,7 @@ class DefaultController extends Controller
      *      defaults={"offset"="0", "limit"="10"}
      * )
      */
-    public function  russiaImagesListAction($templateName, $offset = 0, $limit = 10)
+    public function russiaImagesListAction($templateName, $offset = 0, $limit = 10)
     {
         $templates = array(
             'tile' => 'ArmdAtlasBundle:Default:russia_images_list_tile.html.twig',
@@ -285,30 +285,38 @@ class DefaultController extends Controller
      * )
      * @Template()
      */
-    public function indexAction($filterType)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $repo = $em->getRepository('ArmdAtlasBundle:Category');
+    public function indexAction($filterType) {
         $request = $this->getRequest();
+        $em = $this->getDoctrine()->getManager();
 
-        $categories = $repo->getDataForFilter();
-        if (!$categories)
+        $categoriesRepository = $em->getRepository('ArmdAtlasBundle:Category');
+        $regionsRepository = $em->getRepository('ArmdAtlasBundle:Region');
+        $weekendsRepository = $em->getRepository('ArmdAtlasBundle:WeekDay');
+
+        $categories = $categoriesRepository->getDataForFilter();
+        if (!$categories) {
             throw new NotFoundHttpException("Categories not found");
-        $regionsRepo = $em->getRepository('ArmdAtlasBundle:Region');
-        $regions = $regionsRepo->findBy(array(), array('title' => 'ASC'));
-        if (!$regions)
+        }
+
+        $regions = $regionsRepository->findBy(array(), array('title' => 'ASC'));
+        if (!$regions) {
             throw new NotFoundHttpException("Regions not found");
+        }
+
+        $weekends = $weekendsRepository->findBy(array(), array('sortIndex' => 'ASC'));
 
         if ($request->query->has('object_id')) {
             $filterType = 'filter_user_objects';
             $objectId = $request->get('object_id');
-        } else {
+        }
+        else {
             $objectId = false;
         }
 
         return array(
             'categories' => $categories,
             'regions' => $regions,
+            'weekends' => $weekends,
             'filterType' => $filterType,
             'objectId' => $objectId
         );
@@ -534,124 +542,101 @@ class DefaultController extends Controller
      *
      * @Route("/objects/add", defaults={"_format"="json"})
      */
-    public function objectsAddAction()
-    {
+    public function objectsAddAction() {
         try {
             $request = $this->getRequest();
+
+            $author = $this->get('security.context')->getToken()->getUser();
+            if (!$author) {
+                throw new \Exception('Автор не опознан!');
+            }
+
+            $objectUserData = $this->verifyAndRefineAtlasObjectUserData($request);
+
             $em = $this->getDoctrine()->getManager();
             $repoObjectStatus = $em->getRepository('ArmdAtlasBundle:ObjectStatus');
             $repoCategory = $em->getRepository('ArmdAtlasBundle:Category');
             $repoObject = $em->getRepository('ArmdAtlasBundle:Object');
-            $currentUser = $this->get('security.context')->getToken()->getUser();
 
-            // user can't create lot of objects
-            $objectCount = $em->createQuery('SELECT COUNT(o) FROM ArmdAtlasBundle:Object o WHERE o.createdBy = :createdBy')
-                ->setParameter('createdBy', $currentUser)
-                ->getSingleScalarResult();
-            if ($objectCount + 1 >= self::MAX_USER_OBJECTS) {
-                throw new \RuntimeException('Слишком много объектов');
-            }
-
-            // Название объекта
-            $title = trim($request->get('title'));
-            if (!$title)
-                throw new \Exception('Заполните название');
-
-            // Анонс
-            $announce = trim($request->get('description'));
-            if (!$announce)
-                throw new \Exception('Заполните анонс');
-
-            // Автор
-            if (!$currentUser)
-                throw new \Exception('Пользователь не найден');
-
-            // Создаем или редактируем объект
             $objectId = (int)$request->get('id');
+
             if ($objectId) {
                 $mode = 'edit';
-                $entity = $repoObject->findOneBy(array('id' => $objectId, 'createdBy' => $currentUser));
-                if (!$entity)
-                    throw new \Exception('Редактируемый объект не найден');
-            } else {
-                $mode = 'add';
-                $entity = new Object();
-            }
+                $entity = $repoObject->findOneBy(array('id' => $objectId, 'createdBy' => $author));
 
-            $entity->setTitle($title);
-            $entity->setAnnounce($announce);
-            $entity->setAddress($request->get('address'));
-            $entity->setLon($request->get('lon'));
-            $entity->setLat($request->get('lat'));
-            $entity->setIsOfficial(false); // Пользовательский объект
-
-            // Устанавливаем статус ожидания - не нужна
-            $status = $repoObjectStatus->find(0);
-            $entity->setStatus($status);
-
-            // Главная категория
-            $primaryCategoryId = $request->get('primary_category');
-            if ($primaryCategoryId) {
-                $primaryCategory = $repoCategory->find($primaryCategoryId);
-                if ($primaryCategory) {
-                    $entity->setPrimaryCategory($primaryCategory);
+                if (!$entity) {
+                    throw new \Exception('Редактируемый объект не найден!');
                 }
-            } else
-                throw new \Exception('Укажите главную категорию');
 
-            // Второстепенные категории
-            if ($objectId) {
                 $secondaryCategories = $entity->getSecondaryCategories();
                 foreach ($secondaryCategories as $category) {
                     $entity->removeSecondaryCategory($category);
                 }
-            }
-            $categoryIds = $request->get('category');
-            if (is_array($categoryIds) && sizeof($categoryIds)) {
-                foreach ($categoryIds as $id) {
-                    $id = (int) $id;
-                    $category = $repoCategory->find($id);
-                    if ($category) {
-                        $entity->addSecondaryCategory($category);
-                    }
-                }
-            } else
-                throw new \Exception('Укажите хотя бы одну второстепенную категорию');
 
-            // Изображения
-            $mediaManager = $this->get('sonata.media.manager.media');
-            $mediaIds = $request->get('media');
-            if (is_array($mediaIds) && sizeof($mediaIds)) {
-                foreach ($mediaIds as $id) {
-                    $id = (int) $id;
-                    $media = $mediaManager->findOneBy(array('id' => $id));
-                    if ($media && !$entity->getImages()->contains($media)) {
-                        $entity->addImage($media);
-                    }
+                $regions = $entity->getRegions();
+                foreach ($regions as $region) {
+                    $entity->removeRegion($region);
                 }
+
+                $weekends = $entity->getWeekends();
+                foreach ($weekends as $weekend) {
+                    $entity->removeWeekend($weekend);
+                }
+
+                $entity->setIsOfficial(false); //it is a user object
+                $entity->setStatus($repoObjectStatus->find(0)); // Устанавливаем статус ожидания - не нужна
+            }
+            else {
+                $mode = 'add';
+                $entity = new Object();
             }
 
-            // Сохраняем объект
+            $entity->setTitle($objectUserData['title']);
+            $entity->setAnnounce($objectUserData['announce']);
+            $entity->setLat($objectUserData['lat']);
+            $entity->setLon($objectUserData['lon']);
+
+            $entity->setPrimaryCategory($objectUserData['primaryCategory']);
+            foreach ($objectUserData['secondaryCategories'] as $category) {
+                $entity->addSecondaryCategory($category);
+            }
+
+            $entity->setSiteUrl($objectUserData['siteUrl']);
+            $entity->setEmail($objectUserData['email']);
+            $entity->setPhone($objectUserData['phone']);
+            foreach ($objectUserData['regions'] as $region) {
+                $entity->addRegion($region);
+            }
+            $entity->setAddress($objectUserData['address']);
+            $entity->setWorkTime($objectUserData['workTime']);
+            foreach ($objectUserData['weekends'] as $weekend) {
+                print "X";
+                $entity->addWeekend($weekend);
+            }
+
+            foreach ($objectUserData['images'] as $image) {
+                $entity->addImage($image);
+            }
+
             $em->persist($entity);
             $em->flush();
 
             // Добавляем объект в ACL
             $aclManager = $this->get('armd_user.manager.acl');
-            $aclManager->grant($currentUser, $entity, MaskBuilder::MASK_EDIT | MaskBuilder::MASK_VIEW);
+            $aclManager->grant($author, $entity, MaskBuilder::MASK_EDIT | MaskBuilder::MASK_VIEW);
 
             // Возвращаем созданный объект для отрисовки иконки точки
             $lon = $entity->getLon();
             $lat = $entity->getLat();
-            $imageUrl = '';
-            if ($entity->getPrimaryCategory()) {
-                $image = $entity->getPrimaryCategory()->getIconMedia();
-                $imageUrl = $this->get('sonata.media.twig.extension')->path($image, 'reference');
-            }
+            $image = $entity->getPrimaryCategory()->getIconMedia();
+            $imageUrl = $this->get('sonata.media.twig.extension')->path($image, 'reference');
+
             if ($objStatus = $entity->getStatus()) {
                 $status = $objStatus->getId();
                 $statusTitle = $objStatus->getActionTitle();
                 $reason = $entity->getReason();
-            } else {
+            }
+            else {
                 $status = 0;
                 $statusTitle = '';
                 $reason = '';
@@ -729,8 +714,7 @@ class DefaultController extends Controller
      *
      * @Route("/objects/my", defaults={"_format"="json"}, name="armd_atlas_default_objectsmy")
      */
-    public function objectsMyAction()
-    {
+    public function objectsMyAction() {
         try {
             $request = $this->getRequest();
             $em = $this->getDoctrine()->getManager();
@@ -739,26 +723,51 @@ class DefaultController extends Controller
 
             $objectId = (int) $request->get('id');
             if ($objectId) {
-                $obj = $repo->findOneBy(
-                    array('createdBy' => $currentUser, 'id' => $objectId)
-                );
+                $obj = $repo->findOneBy(array('createdBy' => $currentUser, 'id' => $objectId));
+
                 $primaryCategory = $obj->getPrimaryCategory();
                 $primaryCategoryId = $primaryCategory ? $primaryCategory->getId() : 0;
-                $secondaryCategoryIds = array();
+
+                $secondaryCategoriesIds = array();
                 if ($secondaryCategories = $obj->getSecondaryCategories()) {
                     foreach ($secondaryCategories as $tag) {
-                        $secondaryCategoryIds[] = $tag->getId();
+                        $secondaryCategoriesIds[] = $tag->getId();
                     }
                 }
+
+                $regionsIds = array();
+                if ($regions = $obj->getRegions()) {
+                    foreach ($regions as $tag) {
+                        $regionsIds[] = $tag->getId();
+                    }
+                }
+
+                $weekendsIds = array();
+                if ($weekends = $obj->getWeekends()) {
+                    foreach ($weekends as $tag) {
+                        $weekendsIds[] = $tag->getId();
+                    }
+                }
+
                 $result = array(
                     'id' => $obj->getId(),
+
                     'title' => $obj->getTitle(),
                     'announce' => $obj->getAnnounce(),
-                    'address' => $obj->getAddress(),
-                    'primaryCategory' => $primaryCategoryId,
-                    'secondaryCategory' => $secondaryCategoryIds,
-                    'lon' => $obj->getLon(),
                     'lat' => $obj->getLat(),
+                    'lon' => $obj->getLon(),
+
+                    'primaryCategory' => $primaryCategoryId,
+                    'secondaryCategories' => $secondaryCategoriesIds,
+
+                    'siteUrl' => $obj->getSiteUrl(),
+                    'email' => $obj->getEmail(),
+                    'phone' => $obj->getPhone(),
+                    'regions' => $regionsIds,
+                    'address' => $obj->getAddress(),
+                    'workTime' => $obj->getWorkTime(),
+                    'weekends' => $weekendsIds,
+
                     'icon' => 'http://api-maps.yandex.ru/2.0.14/release/../images/a19ee1e1e845c583b3dce0038f66be2b',
                 );
                 if ($obj->getPrimaryImage()) {
@@ -766,7 +775,8 @@ class DefaultController extends Controller
                         'id' => $obj->getPrimaryImage()->getId(),
                         'thumbUrl' => $this->get('sonata.media.twig.extension')->path($obj->getPrimaryImage(), 'thumbnail')
                     );
-                } else {
+                }
+                else {
                     $result['primaryImage'] = false;
                 }
 
@@ -780,7 +790,8 @@ class DefaultController extends Controller
                     }
                 }
 
-            } else {
+            }
+            else {
                 $result = array();
                 $entities = $repo->findBy(array('createdBy' => $currentUser), array('updatedAt' => 'DESC'));
                 foreach ($entities as $obj) {
@@ -1174,9 +1185,129 @@ class DefaultController extends Controller
     /**
      * @return \Armd\AtlasBundle\Repository\ObjectRepository
      */
-    private function getObjectRepository()
-    {
+    private function getObjectRepository() { //TODO: remove this method!
         return $this->getDoctrine()->getRepository('ArmdAtlasBundle:Object');
     }
 
+    private function verifyAndRefineAtlasObjectUserData(Request $request) { //TODO: Field names in Exceptions duplicate/require translations...
+        $result = array();
+        $em = $this->getDoctrine()->getManager();
+        $categoryRepository = $em->getRepository('ArmdAtlasBundle:Category');
+        $regionRepository = $em->getRepository('ArmdAtlasBundle:Region');
+        $weekdayRepository = $em->getRepository('ArmdAtlasBundle:WeekDay');
+
+        //title (required!)
+        $title = trim($request->get('title')); //TODO: filter!
+        if (!$title) {
+            throw new \Exception('Заполните поле "Название"!');
+        }
+        $result['title'] = $title;
+
+        //announce (required!)
+        $announce = trim($request->get('announce')); //TODO: filter!
+        if (!$announce) {
+            throw new \Exception('Заполните поле "Анонс"!');
+        }
+        $result['announce'] = $announce;
+
+        //latitude (NOT required!)
+        $latitude = $request->get('lat'); //TODO: filter!
+        $result['lat'] = $latitude;
+
+        //longitude (NOT required!)
+        $longitude = $request->get('lon'); //TODO: filter!
+        $result['lon'] = $longitude;
+
+        //main category (required!)
+        $primaryCategoryId = (int)$request->get('primaryCategory');
+        if (!$primaryCategoryId) {
+            throw new \Exception('Укажите значение поля "Категория"!');
+        }
+        $primaryCategory = $categoryRepository->find($primaryCategoryId);
+        if (!$primaryCategory) {
+            throw new \Exception('Указанная категория (id = '.$primaryCategoryId.') не существует!');
+        }
+        $result['primaryCategory'] = $primaryCategory;
+
+        //secondary categories (at least one is required!)
+        $result['secondaryCategories'] = array();
+        $secondaryCategoriesIds = $request->get('secondaryCategories');
+
+        if (!is_array($secondaryCategoriesIds) || (count($secondaryCategoriesIds) == 0)) {
+            throw new \Exception('Укажите хотя бы одно значение в поле "Дополнительные категории"!');
+        }
+        $secondaryCategoriesIds = array_map('intval', $secondaryCategoriesIds);
+        foreach ($secondaryCategoriesIds as $id) {
+            $category = $categoryRepository->find($id);
+            if (!$category) {
+                throw new \Exception('Указанная категория (id = '.$id.') не существует!');
+            }
+            $result['secondaryCategories'][] = $category;
+        }
+
+        //site URL (NOT required!)
+        $siteUrl = trim($request->get('siteUrl')); //TODO: filter!
+        $result['siteUrl'] = $siteUrl;
+
+        //e-mail (NOT required!)
+        $email = trim($request->get('email')); //TODO: filter!
+        $result['email'] = $email;
+
+        //phone (NOT required!)
+        $phone = trim($request->get('phone')); //TODO: filter!
+        $result['phone'] = $phone;
+
+        //regions (NOT required!)
+        $result['regions'] = array();
+        $regionsIds = $request->get('regions');
+        if (is_array($regionsIds) && (count($regionsIds) > 0)) {
+            $regionsIds = array_map('intval', $regionsIds);
+            foreach ($regionsIds as $id) {
+                $region = $regionRepository->find($id);
+                if (!$region) {
+                    throw new \Exception('Указанный регион (id = '.$id.') не существует!');
+                }
+                $result['regions'][] = $region;
+            }
+        }
+
+        //address (NOT required!)
+        $address = trim($request->get('address')); //TODO: filter!
+        $result['address'] = $address;
+
+        //work time (NOT required!)
+        $workTime = trim($request->get('workTime')); //TODO: filter!
+        $result['workTime'] = $workTime;
+
+        //weekends (NOT required!)
+        $result['weekends'] = array();
+        $weekendsIds = $request->get('weekends');
+        if (is_array($weekendsIds) && (count($weekendsIds) > 0)) {
+            $weekendsIds = array_map('intval', $weekendsIds);
+            foreach ($weekendsIds as $id) {
+                $weekday = $weekdayRepository->find($id);
+                if (!$weekday) {
+                    throw new \Exception('Указанный день недели (id = '.$id.') не существует!');
+                }
+                $result['weekday'][] = $weekday;
+            }
+        }
+
+        //images (NOT required!)
+        $result['images'] = array();
+        $mediaManager = $this->get('sonata.media.manager.media');
+        $mediaIds = $request->get('media');
+        if (is_array($mediaIds) && sizeof($mediaIds)) {
+            $mediaIds = array_map('intval', $mediaIds);
+            foreach ($mediaIds as $id) {
+                $image = $mediaManager->findOneBy(array('id' => $id));
+                if (!$image) {
+                    throw new \Exception('Указанное изображение (id = '.$id.') не существует!');
+                }
+                $result['images'][] = $image;
+            }
+        }
+
+        return $result;
+    }
 }

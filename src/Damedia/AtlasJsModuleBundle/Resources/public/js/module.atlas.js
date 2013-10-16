@@ -787,19 +787,37 @@ var ATLAS_MODULE = (function(){
 
     function showObjectForm(params) {
         var point = params.point,
+
             jPopup = $('#add-object-form'),
             jPopupForm = jPopup.find('form'),
+
             jSuccess = $('#success-object-form'),
             jSuccessForm = jSuccess.find('form'),
+
             jMyObjectsList = $('#myobj_list'),
             jAddedImages = jPopup.find('.added-images'),
+            objectPrimaryImage,
             objectImages,
-            i,
             image,
+            fileUploaderTemplate = $('#file-uploader-template'),
             addedImageTemplate = $('#added-image-template'),
             addObjectFormImages = $('#add-object-form .added-images'),
-            addressPlaceholder = $('#address'),
-            uploader;
+            entityData = params.entity,
+
+            formObject_id = $('#object-id', jPopupForm),
+            formObject_title = $('#title', jPopupForm),
+            formObject_announce = $('#announce', jPopupForm),
+            formObject_lat = $('#lat', jPopupForm),
+            formObject_lon = $('#lon', jPopupForm),
+            formObject_primaryCategory = $('#primaryCategory', jPopupForm),
+            formObject_secondaryCategories = $('#secondaryCategories', jPopupForm),
+            formObject_siteUrl = $('#siteUrl', jPopupForm),
+            formObject_email = $('#email', jPopupForm),
+            formObject_phone = $('#phone', jPopupForm),
+            formObject_regions = $('#regions', jPopupForm),
+            formObject_address = $('#address', jPopupForm),
+            formObject_workTime = $('#workTime', jPopupForm),
+            formObject_weekends = $('#weekends', jPopupForm);
 
         jPopup.data('myPoint', point);
         jPopup.data('myPointCoord', point.coord);
@@ -809,26 +827,63 @@ var ATLAS_MODULE = (function(){
 
         jPopup.show();
 
-        $('#primary-category, #category').select2();
+        formObject_primaryCategory.select2();
+        formObject_secondaryCategories.select2();
+        formObject_regions.select2();
+        formObject_weekends.select2();
 
-        if (params.entity) {
+        new qq.FileUploader({ //Ajax file uploader for images. It works with pure DOM Elements only, so no jQuery objects here!
+            element: document.getElementById('file-uploader'),
+            action: imageUploadUrl,
+            template: fileUploaderTemplate.tmpl({ }).html(),
+            onSubmit: function(){
+                armdMk.startLoading();
+            },
+            onComplete: function(id, filename, response){
+                armdMk.stopLoading();
+
+                if (response.success) {
+                    jAddedImages.append(addedImageTemplate.tmpl(response.result));
+                }
+                else {
+                    alert(response.message);
+                }
+            }
+        });
+
+        if (entityData) {
             jPopup.removeClass('add').addClass('edit');
-            $('#object-id').val(params.entity.id);
-            $('#name').val(params.entity.title);
-            addressPlaceholder.val(params.entity.address);
-            $('#descr').val(params.entity.announce);
-            $('#lon').val(params.entity.lon);
-            $('#lat').val(params.entity.lat);
-            $('#primary-category').select2('val', params.entity.primaryCategory);
-            $('#category').select2('val', params.entity.secondaryCategory);
 
+            formObject_id.val(entityData.id);
 
-            if (params.entity.images && params.entity.images.length > 0) {
-                objectImages = params.entity.images;
+            formObject_title.val(entityData.title);
+            formObject_announce.val(entityData.announce);
+            formObject_lat.val(entityData.lat);
+            formObject_lon.val(entityData.lon);
 
-                for (i in objectImages) {
+            formObject_primaryCategory.select2('val', entityData.primaryCategory);
+            formObject_secondaryCategories.select2('val', entityData.secondaryCategories);
+
+            formObject_siteUrl.val(entityData.siteUrl);
+            formObject_email.val(entityData.email);
+            formObject_phone.val(entityData.phone);
+            formObject_regions.select2('val', entityData.regions);
+            formObject_address.val(entityData.address);
+            formObject_workTime.val(entityData.workTime);
+            formObject_weekends.select2('val', entityData.weekends);
+
+            if (entityData.primaryImage) {
+                objectPrimaryImage = entityData.primaryImage;
+
+                console.log('id = ' + objectPrimaryImage.id + ', url = ' + objectPrimaryImage.thumbUrl);
+            }
+
+            if (entityData.images && entityData.images.length > 0) {
+                objectImages = entityData.images;
+
+                for (var i in objectImages) {
                     if (objectImages.hasOwnProperty(i)) {
-                        image = params.entity.images[i];
+                        image = entityData.images[i];
                         addedImageTemplate
                             .tmpl({
                                 'id': image.id,
@@ -840,35 +895,38 @@ var ATLAS_MODULE = (function(){
             }
 
             point.draggable = new PGmap.Events.Draggable(point, {
-                drag: function(pos){
+                drag: function(position){
                     var lon,
                         lat;
 
-                    point.coord = point.globals.xyToLonLat(pos.x, pos.y);
+                    point.coord = point.globals.xyToLonLat(position.x, position.y);
                     lon = PGmap.Utils.fromMercX(point.coord.lon).toFixed(6);
                     lat = PGmap.Utils.fromMercY(point.coord.lat).toFixed(6);
-                    $('#lon').val(lon);
-                    $('#lat').val(lat);
-                },
-                dragEnd: function(pos){
-                    pgMap.search({
-                        lon: point.coord.lon,
-                        lat: point.coord.lat,
-                        type: 'geocode',
-                        lng: pgMap_locale
-                    }, function(r){
-                        var data = JSON.parse(r).res[0];
 
-                        $('#address').val(data.addr);
+                    formObject_lat.val(lat);
+                    formObject_lon.val(lon);
+console.log(position); //TODO: easier way to set lat/lon???
+                },
+                dragEnd: function(position){
+                    pgMap.search({ lon: point.coord.lon, lat: point.coord.lat, type: 'geocode', lng: pgMap_locale }, function(res){
+                        var pointData = JSON.parse(res).res[0],
+                            regionName = pointData.subject_name,
+                            address = pointData.addr;
+
+alert('Set Region name!!!');
+
+                        formObject_address.val(address);
                     });
                 }
             });
         }
         else {
             jPopup.removeClass('edit').addClass('add');
-            $('#object-id').val('');
-            $('#lon').val(PGmap.Utils.fromMercX(params.coord.lon).toFixed(6));
-            $('#lat').val(PGmap.Utils.fromMercY(params.coord.lat).toFixed(6));
+
+            formObject_id.val('');
+
+            formObject_lat.val(PGmap.Utils.fromMercY(params.coord.lat).toFixed(6));
+            formObject_lon.val(PGmap.Utils.fromMercX(params.coord.lon).toFixed(6));
         }
 
         jSuccess.find('.exit').click(function(){
@@ -883,28 +941,26 @@ var ATLAS_MODULE = (function(){
         });
 
         //address and geolocation
-        addressPlaceholder.autocomplete({
+        formObject_address.autocomplete({
             source: function(request, response){
                 pgMap.search({ q: request.term, type: 'search' }, function(r){
                     var json = $.parseJSON(r),
                         jsonRes = json.res,
                         results = [],
-                        i,
-                        j,
                         el,
                         elMatches,
                         match,
                         obj;
 
                     if (json.success) {
-                        for (i in jsonRes) {
+                        for (var i in jsonRes) {
                             if (jsonRes.hasOwnProperty(i)) {
                                 el = jsonRes[i];
 
                                 if (el.type == "addr") {
                                     elMatches = el.matches;
 
-                                    for (j in elMatches) {
+                                    for (var j in elMatches) {
                                         if (elMatches.hasOwnProperty(j)) {
                                             match = el.matches[j];
                                             obj = {
@@ -981,7 +1037,7 @@ var ATLAS_MODULE = (function(){
         });
 
         //add an object to pgMap
-        jSuccessForm.ajaxForm({
+        jSuccessForm.ajaxForm({ //TODO: What is this form?
             dataType: 'json',
             beforeSubmit: function(){
                 showLoadingGif();
@@ -1030,33 +1086,6 @@ var ATLAS_MODULE = (function(){
                             .addClass('status'+status)
                             .attr('title', statusTitle);
                     }
-                }
-            }
-        });
-
-        //ajax file uploader
-        uploader = new qq.FileUploader({
-            element: document.getElementById('file-uploader'),
-            action: imageUploadUrl,
-            template: '<div class="qq-uploader">'+
-                    '<div class="qq-upload-drop-area" style="display:none;"><span>Перетащите файлы сюда</span></div>'+
-                    '<div class="qq-upload-button">Загрузить фото&hellip;</div>'+
-                    '<ul class="qq-upload-list">Загрузить фото&hellip;</ul>'+
-                '</div>',
-            onSubmit: function(id, name){
-                armdMk.startLoading();
-            },
-            onComplete: function(id, filename, response){
-                var jImageTemplate;
-
-                armdMk.stopLoading();
-
-                if (response.success) {
-                    jImageTemplate = $('#added-image-template').tmpl(response.result);
-                    jAddedImages.append(jImageTemplate);
-                }
-                else {
-                    alert(response.message);
                 }
             }
         });
