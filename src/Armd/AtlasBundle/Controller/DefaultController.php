@@ -551,17 +551,14 @@ class DefaultController extends Controller
                 throw new \Exception('Автор не опознан!');
             }
 
+            $em = $this->getDoctrine()->getManager();
             $objectUserData = $this->verifyAndRefineAtlasObjectUserData($request);
 
-            $em = $this->getDoctrine()->getManager();
-            $repoObjectStatus = $em->getRepository('ArmdAtlasBundle:ObjectStatus');
-            $repoCategory = $em->getRepository('ArmdAtlasBundle:Category');
-            $repoObject = $em->getRepository('ArmdAtlasBundle:Object');
-
             $objectId = (int)$request->get('id');
-
             if ($objectId) {
                 $mode = 'edit';
+
+                $repoObject = $em->getRepository('ArmdAtlasBundle:Object');
                 $entity = $repoObject->findOneBy(array('id' => $objectId, 'createdBy' => $author));
 
                 if (!$entity) {
@@ -584,6 +581,8 @@ class DefaultController extends Controller
                 }
 
                 $entity->setIsOfficial(false); //it is a user object
+
+                $repoObjectStatus = $em->getRepository('ArmdAtlasBundle:ObjectStatus');
                 $entity->setStatus($repoObjectStatus->find(0)); // Устанавливаем статус ожидания - не нужна
             }
             else {
@@ -609,8 +608,8 @@ class DefaultController extends Controller
             }
             $entity->setAddress($objectUserData['address']);
             $entity->setWorkTime($objectUserData['workTime']);
+
             foreach ($objectUserData['weekends'] as $weekend) {
-                print "X";
                 $entity->addWeekend($weekend);
             }
 
@@ -1289,7 +1288,7 @@ class DefaultController extends Controller
                 if (!$weekday) {
                     throw new \Exception('Указанный день недели (id = '.$id.') не существует!');
                 }
-                $result['weekday'][] = $weekday;
+                $result['weekends'][] = $weekday;
             }
         }
 

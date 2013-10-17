@@ -440,7 +440,7 @@ var ATLAS_MODULE = (function(){
     function placePoint(object) {
         var point;
 
-        if (! (object.lon || object.lat)) {
+        if (!(object.lon || object.lat)) {
             return false;
         }
 
@@ -723,31 +723,22 @@ var ATLAS_MODULE = (function(){
 
                 $('#atlas-objects-add').data('droppedPoint', point);
                 showObjectForm({ coord: coord, point: point });
+                fillCoords_withGeoData(jPopup, point.coord.lat, point.coord.lon);
+                fillAddress_withGeoData(jPopup, point.coord.lat, point.coord.lon);
 
                 PGmap.Events.removeHandler(pgMap.globals.mainElement(), 'mousedown', onMouseDown);
             }
 
-            function placePoint(coord, draggable, onClick) {
+            function placePoint(coord, draggable, onClick) { //place a grey dot on the map when creating new object
                 var point = new PGmap.Point({ draggable: draggable, coord: coord });
 
                 if (draggable) {
-                    point.draggable.callback("dragEnd", function(){
-                        var lon = PGmap.Utils.fromMercX(point.coord.lon).toFixed(6),
-                            lat = PGmap.Utils.fromMercY(point.coord.lat).toFixed(6);
-
-                        $('#lon').val(lon);
-                        $('#lat').val(lat);
-
-                        pgMap.search({
-                            lon: point.coord.lon,
-                            lat: point.coord.lat,
-                            type: 'geocode',
-                            lng: pgMap_locale
-                        }, function(r){
-                            var data = JSON.parse(r).res[0];
-
-                            $('#address').val(data.addr);
-                        });
+                    point.draggable.callback("drag", function(position){
+                        point.coord = point.globals.xyToLonLat(position.x, position.y);
+                        fillCoords_withGeoData(jPopup, point.coord.lat, point.coord.lon);
+                    });
+                    point.draggable.callback("dragEnd", function(position){
+                        fillAddress_withGeoData(jPopup, point.coord.lat, point.coord.lon);
                     });
                 }
 
@@ -785,6 +776,38 @@ var ATLAS_MODULE = (function(){
         });
     }
 
+    function fillAddress_withGeoData(form, lat, lon){
+        pgMap.search({ lat: lat, lon: lon, type: 'geocode', lng: pgMap_locale }, function(res){
+            //TODO: Set region name into form (make chzn plugin select it). RegionName = pointData.subject_name
+            var pointData = JSON.parse(res).res[0],
+                address = pointData.addr,
+                addressPlaceholder = $('#address', form);
+
+            if (addressPlaceholder.length === 0) {
+                console.log('Can\'t find addressPlaceholder!');
+            }
+
+            addressPlaceholder.val(address);
+        });
+    }
+
+    function fillCoords_withGeoData(form, lat, lon){
+        var lonFixed = PGmap.Utils.fromMercX(lon).toFixed(6),
+            latFixed = PGmap.Utils.fromMercY(lat).toFixed(6),
+            lonPlaceholder = $('#lon', form),
+            latPlaceholder = $('#lat', form);
+
+        if (latPlaceholder.length === 0) {
+            console.log('Can\'t find latPlaceholder!');
+        }
+        if (lonPlaceholder.length === 0) {
+            console.log('Can\'t find lonPlaceholder!');
+        }
+
+        latPlaceholder.val(latFixed);
+        lonPlaceholder.val(lonFixed);
+    }
+
     function showObjectForm(params) {
         var point = params.point,
 
@@ -796,7 +819,6 @@ var ATLAS_MODULE = (function(){
 
             jMyObjectsList = $('#myobj_list'),
             jAddedImages = jPopup.find('.added-images'),
-            objectPrimaryImage,
             objectImages,
             image,
             fileUploaderTemplate = $('#file-uploader-template'),
@@ -853,7 +875,6 @@ var ATLAS_MODULE = (function(){
 
         if (entityData) {
             jPopup.removeClass('add').addClass('edit');
-
             formObject_id.val(entityData.id);
 
             formObject_title.val(entityData.title);
@@ -871,12 +892,6 @@ var ATLAS_MODULE = (function(){
             formObject_address.val(entityData.address);
             formObject_workTime.val(entityData.workTime);
             formObject_weekends.select2('val', entityData.weekends);
-
-            if (entityData.primaryImage) {
-                objectPrimaryImage = entityData.primaryImage;
-
-                console.log('id = ' + objectPrimaryImage.id + ', url = ' + objectPrimaryImage.thumbUrl);
-            }
 
             if (entityData.images && entityData.images.length > 0) {
                 objectImages = entityData.images;
@@ -896,37 +911,18 @@ var ATLAS_MODULE = (function(){
 
             point.draggable = new PGmap.Events.Draggable(point, {
                 drag: function(position){
-                    var lon,
-                        lat;
-
                     point.coord = point.globals.xyToLonLat(position.x, position.y);
-                    lon = PGmap.Utils.fromMercX(point.coord.lon).toFixed(6);
-                    lat = PGmap.Utils.fromMercY(point.coord.lat).toFixed(6);
-
-                    formObject_lat.val(lat);
-                    formObject_lon.val(lon);
-console.log(position); //TODO: easier way to set lat/lon???
+                    fillCoords_withGeoData(jPopup, point.coord.lat, point.coord.lon);
                 },
                 dragEnd: function(position){
-                    pgMap.search({ lon: point.coord.lon, lat: point.coord.lat, type: 'geocode', lng: pgMap_locale }, function(res){
-                        var pointData = JSON.parse(res).res[0],
-                            regionName = pointData.subject_name,
-                            address = pointData.addr;
-
-alert('Set Region name!!!');
-
-                        formObject_address.val(address);
-                    });
+                    fillAddress_withGeoData(jPopup, point.coord.lat, point.coord.lon);
                 }
             });
+
         }
         else {
             jPopup.removeClass('edit').addClass('add');
-
             formObject_id.val('');
-
-            formObject_lat.val(PGmap.Utils.fromMercY(params.coord.lat).toFixed(6));
-            formObject_lon.val(PGmap.Utils.fromMercX(params.coord.lon).toFixed(6));
         }
 
         jSuccess.find('.exit').click(function(){
@@ -1037,7 +1033,7 @@ alert('Set Region name!!!');
         });
 
         //add an object to pgMap
-        jSuccessForm.ajaxForm({ //TODO: What is this form?
+        jSuccessForm.ajaxForm({
             dataType: 'json',
             beforeSubmit: function(){
                 showLoadingGif();
