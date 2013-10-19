@@ -1244,12 +1244,12 @@ padding: 0 9px 0 0;
 border-right: 1px dotted #7d8687
 }
 
-.b-page .b-link-list li .all-authors-link {
+.b-page .b-link-list li .selected-link {
 color: #17693d;
 text-decoration: underline
 }
 
-.b-page .b-link-list li .all-authors-link:hover {
+.b-page .b-link-list li .selected-link:hover {
 text-decoration: none
 }
 
@@ -1264,12 +1264,12 @@ line-height: 24px
 text-decoration: underline
 }
 
-.b-page .b-link-list li.all-authors-link a {
+.b-page .b-link-list li.selected-link a {
 color: #17693d;
 text-decoration: underline
 }
 
-.b-page .b-link-list li.all-authors-link a:hover {
+.b-page .b-link-list li.selected-link a:hover {
 text-decoration: none
 }
 
