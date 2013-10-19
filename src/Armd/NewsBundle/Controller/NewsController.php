@@ -13,8 +13,93 @@ use Armd\ListBundle\Controller\ListController;
 use Armd\MkCommentBundle\Entity\Thread;
 use DateTime;
 
-class NewsController extends Controller
-{
+class NewsController extends Controller {
+    /**
+     * @Route("/", name="armd_news_list_index", options={"expose"=true})
+     * @Route("/{category}/", requirements={"category" = "[a-z]+"}, name="armd_news_list_index_by_category", options={"expose"=true})
+     * @Template("ArmdNewsBundle:NewsNew:index.html.twig")
+     */
+    function newsIndexAction($category = null) {
+        $request = $this->getRequest();
+        $newsManager = $this->get('armd_news.manager.news');
+        $categoryRepository = $this->getDoctrine()->getRepository('ArmdNewsBundle:Category');
+
+        $categories = $categoryRepository->findAll();
+
+        $searchQuery = $request->get('search_query');
+        //$category = $categorySlug ? $categoryRepository->findOneBySlug($categorySlug) : null;
+        //$category = $category ? array($category) : array('news', 'interviews', 'reportages', 'articles'); //TODO: weird!
+
+        //$newsByDate = array();
+/*
+        if ($request->query->has('to_date') || $request->query->has('from_date')) {
+            $criteria = array(
+                NewsManager::CRITERIA_LIMIT => 100
+            );
+
+            if ($request->query->has('from_date')) {
+                $criteria[NewsManager::CRITERIA_NEWS_DATE_SINCE] = new \DateTime($request->get('from_date'));
+            }
+            if ($request->query->has('to_date')) {
+                $criteria[NewsManager::CRITERIA_NEWS_DATE_TILL] = new \DateTime($request->get('to_date'));
+            }
+
+            $news = $newsManager->findObjects($criteria);
+            $newsByDate = $this->getDateGroupedNews($category, $news);
+        }
+        */
+        //else { //the default way
+            $firstLoadedDate = new \DateTime($request->get('first_loaded_date')); //at first get minimal date
+
+            if ($request->query->has('first_loaded_date')) {
+                $firstLoadedDate->sub(new \DateInterval('P1D'))->setTime(0, 0);
+            }
+
+            $criteria = array(
+                NewsManager::CRITERIA_CATEGORY_SLUGS_OR => $category,
+                NewsManager::CRITERIA_NEWS_DATE_TILL => $firstLoadedDate,
+                NewsManager::CRITERIA_LIMIT => 25,
+                NewsManager::CRITERIA_ORDER_BY => array('date' => 'DESC')
+            );
+
+            $news = $newsManager->findObjects($criteria);
+//print count($news);
+            /*
+            if (count($news) > 0) {
+                // this is low date
+                $criteria[NewsManager::CRITERIA_NEWS_DATE_SINCE] = $news[count($news) - 1]->getNewsDate();
+
+                // now get news
+                unset($criteria[NewsManager::CRITERIA_LIMIT]);
+                $news = $newsManager->findObjects($criteria);
+                $newsByDate = $this->getDateGroupedNews($category, $news);
+            }
+            */
+        //}
+//print count($newsByDate);
+//exit;
+        return array('news' => $news, 'categories' => $categories, 'currentCategory' => $category);
+    }
+
+    /**
+     * @Route("/two-column-news-list/{category}", name="armd_news_two_column_list", defaults={"category"=null}, options={"expose"=true})
+     */
+    function twoColumnNewsListAction($category = null, $limit = null) {
+        $request = $this->getRequest();
+
+
+
+
+    }
+
+
+
+
+
+
+
+
+
     public function lastAnnounceAction() {
         $entity = $this->getDoctrine()->getManager()->getRepository('ArmdNewsBundle:News')->getLastAnnounce();
 
@@ -200,116 +285,6 @@ class NewsController extends Controller
         catch (\Exception $e) {
             print $e->getMessage();
         }
-    }
-
-    /**
-     * @Route("/", name="armd_news_list_index", options={"expose"=true})
-     * @Route("/{category}/", requirements={"category" = "[a-z]+"}, name="armd_news_list_index_by_category", options={"expose"=true})
-     * @Template("ArmdNewsBundle:News:index.html.twig")
-     */
-    function newsIndexAction($category = null)
-    {
-        $request = $this->getRequest();
-
-        // fix menu
-        $menu = $this->get('armd_main.menu.main');
-        $menuFinder = $this->get('armd_main.menu_finder');
-        if(!$menuFinder->findByUri($menu, $request->getRequestUri())) {
-            $menu->setCurrentUri(
-                $this->get('router')->generate('armd_news_list_index')
-            );
-        }
-
-
-        if ($category) {
-            $categoryEntity = $this->getDoctrine()->getRepository('ArmdNewsBundle:Category')
-                ->findOneBySlug($category);
-        } else {
-            $categoryEntity = null;
-        }
-
-        $searchQuery = $request->get('search_query');
-
-        return array(
-            'category' => $category,
-            'categoryEntity' => $categoryEntity,
-            'searchQuery' => $searchQuery
-        );
-    }
-
-
-    /**
-     * @Route("/two-column-news-list/{category}", name="armd_news_two_column_list", defaults={"category"=null}, options={"expose"=true})
-     */
-    function twoColumnNewsListAction($category = null, $limit = null)
-    {
-        $category = $category ? array($category) : array('news', 'interviews', 'reportages', 'articles');
-        $request = $this->getRequest();
-        $newsManager = $this->get('armd_news.manager.news');
-
-//        $categoryEntity = $this->getDoctrine()->getRepository('ArmdNewsBundle:Category')
-//            ->findOneBySlug($category);
-//
-//        if (empty($categoryEntity)) {
-//            throw new \RuntimeException('Cant find category ' . $category);
-//        }
-
-        if ($request->query->has('to_date') || $request->query->has('from_date')) {
-            $limit = $limit ? $limit : 100;
-            $criteria = array(
-                NewsManager::CRITERIA_LIMIT => $limit
-            );
-            if ($request->query->has('from_date')) {
-                $criteria[NewsManager::CRITERIA_NEWS_DATE_SINCE] = new \DateTime($request->get('from_date'));
-            }
-            if ($request->query->has('to_date')) {
-                $criteria[NewsManager::CRITERIA_NEWS_DATE_TILL] = new \DateTime($request->get('to_date'));
-            }
-            $news = $newsManager->findObjects($criteria);
-            $newsByDate = $this->getDateGroupedNews($category, $news);
-
-        } else {
-            // at first get minimal date
-            $limit = $limit ? $limit : 25;
-
-            $firstLoadedDate = new \DateTime($request->get('first_loaded_date'));
-            if ($request->query->has('first_loaded_date')) {
-                $firstLoadedDate->sub(new \DateInterval('P1D'))->setTime(0, 0);
-            }
-
-            $criteria = array(
-                NewsManager::CRITERIA_CATEGORY_SLUGS_OR => $category,
-                NewsManager::CRITERIA_NEWS_DATE_TILL => $firstLoadedDate,
-                NewsManager::CRITERIA_LIMIT => $limit,
-            );
-            $news = $newsManager->findObjects($criteria);
-
-            if (empty($news)) {
-                $newsByDate = array();
-            } else {
-                // this is low date
-                $criteria[NewsManager::CRITERIA_NEWS_DATE_SINCE] = $news[count($news) - 1]->getNewsDate();
-
-                // now get news
-                unset($criteria[NewsManager::CRITERIA_LIMIT]);
-                $news = $newsManager->findObjects($criteria);
-                $newsByDate = $this->getDateGroupedNews($category, $news);
-            }
-        }
-
-//        if (in_array('articles', $category) || in_array('news', $category)) {
-//            $template = 'ArmdNewsBundle:News:one-column-list.html.twig';
-//        } else {
-//            $template = 'ArmdNewsBundle:News:two-column-list.html.twig';
-//        }
-
-        return $this->render(
-            'ArmdNewsBundle:News:one-column-list.html.twig',
-            array(
-                'newsByDate' => $newsByDate,
-                'category' => $category
-            )
-        );
     }
 
     /**
