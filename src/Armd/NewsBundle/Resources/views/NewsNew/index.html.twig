@@ -2,11 +2,11 @@
 
 {% import 'ArmdNewsBundle::date_macro.html.twig' as armd_news %}
 
-{% block title %}Медиа{% endblock %}
+{% block title %}{{ 'Media'|trans }}{% endblock %}
 
 {% block body %}
     <div class="b-main-wrap b-post">
-        <h1 class="b-left-title">Медиа</h1>
+        <h1 class="b-left-title">{{ 'Media'|trans }}</h1>
 
         <ul class="b-link-list m-left-bordered">
             {% for category in categories %}
@@ -21,7 +21,7 @@
                 {{ include('ArmdNewsBundle:NewsNew:list_item.html.twig', { 'item': item }) }}
             </section>
         {% else %}
-            {{ 'К сожалению, новостей с заданными критериями не найдено.' }}
+            {{ 'Empty_list'|trans }}
         {% endfor %}
     </div>
 {% endblock %}

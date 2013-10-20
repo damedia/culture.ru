@@ -19,14 +19,14 @@ class NewsController extends Controller {
      * @Route("/{category}/", requirements={"category" = "[a-z]+"}, name="armd_news_list_index_by_category", options={"expose"=true})
      * @Template("ArmdNewsBundle:NewsNew:index.html.twig")
      */
-    function newsIndexAction($category = null) {
+    function newsIndexAction($category = null) { //TODO: should be renamed to '$categorySlug'
         $request = $this->getRequest();
         $newsManager = $this->get('armd_news.manager.news');
         $categoryRepository = $this->getDoctrine()->getRepository('ArmdNewsBundle:Category');
 
         $categories = $categoryRepository->findAll();
 
-        $searchQuery = $request->get('search_query');
+        //$searchQuery = $request->get('search_query');
         //$category = $categorySlug ? $categoryRepository->findOneBySlug($categorySlug) : null;
         //$category = $category ? array($category) : array('news', 'interviews', 'reportages', 'articles'); //TODO: weird!
 
@@ -84,12 +84,8 @@ class NewsController extends Controller {
     /**
      * @Route("/two-column-news-list/{category}", name="armd_news_two_column_list", defaults={"category"=null}, options={"expose"=true})
      */
-    function twoColumnNewsListAction($category = null, $limit = null) {
-        $request = $this->getRequest();
-
-
-
-
+    function twoColumnNewsListAction($category = null, $limit = null) { //TODO: this thing is used by name alias and is now BROKEN!
+        //
     }
 
 
