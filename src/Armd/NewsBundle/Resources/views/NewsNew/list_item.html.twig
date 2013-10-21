@@ -1,15 +1,21 @@
 <article>
     <div class="teaser-thumb">
-        <span class="date">{{ armd_news.news_date_short(item.newsDate) }}</span>
-        <br />
-        <img alt="{{ item.title|escape }}" src="{% path item.image, 'list' %}" />
+        {% if item.image %}
+            <img alt="{{ item.title|escape }}" src="{% path item.image, 'adminPreview' %}" style="width: 290px; height: auto;" />
+        {% else %}
+            <div style="width: 100px; height: 110px;"></div>
+        {% endif %}
     </div>
-    <header>
-        <div class="b-post-info">
-            <a class="desc-post-link" style="margin: 0" href="{{ path('armd_news_item_by_category', {'id': item.id, 'category': item.category.slug }) }}">{{ item.title }}</a>
+    <header style="margin: 0; padding: 0; min-width: 370px; background: none;">
+        <div class="b-post-info" style="margin-bottom: 15px;">
+            <span class="date">{{ armd_news.news_date_short(item.newsDate) }}</span>
+            <br />
+            <a class="desc-post-link" style="margin: 15px 0 0 0" href="{{ path('armd_news_item_by_category', {'id': item.id, 'category': item.category.slug }) }}">
+                {{ item.title }}
+            </a>
         </div>
     </header>
-    <div class="teaser-content">
+    <div class="teaser-content" style="min-width: 370px; margin: 0;">
         {{ item.announce|raw }}
     </div>
 </article>

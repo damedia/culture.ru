@@ -1245,12 +1245,11 @@ border-right: 1px dotted #7d8687
 }
 
 .b-page .b-link-list li .selected-link {
-color: #17693d;
-text-decoration: underline
+text-decoration: underline;
 }
 
 .b-page .b-link-list li .selected-link:hover {
-text-decoration: none
+text-decoration: none;
 }
 
 .b-page .b-link-list li a {
@@ -1265,12 +1264,12 @@ text-decoration: underline
 }
 
 .b-page .b-link-list li.selected-link a {
-color: #17693d;
-text-decoration: underline
+text-decoration: underline;
+color: #17693d !important;
 }
 
 .b-page .b-link-list li.selected-link a:hover {
-text-decoration: none
+text-decoration: none;
 }
 
 .b-page .b-link-list.m-left-bordered li {
@@ -3039,4 +3038,38 @@ left: 0;
 top: 2px;
 width: 20px;
 height: auto;
+}
+
+
+/*================
+==== Palette ===*/
+.palette-color-1 {
+    color: #95BD59 !important;
+}
+
+
+/*=================
+==== Hub menu ===*/
+ul.hub-menu {
+    margin: 0 0 60px 160px;
+    padding: 23px 30px 0 0;
+}
+ul.hub-menu li {
+    display: inline;
+    list-style: none outside none;
+    margin: 0 10px 0 0;
+    padding: 0 10px 0 0;
+    background: url("../../img/new/vertical-separator.png") no-repeat scroll right center rgba(0, 0, 0, 0);
+}
+ul.hub-menu li:last-child {
+    background: none;
+}
+ul.hub-menu li a {
+    text-decoration: underline;
+    color: #7D8687;
+    font-size: 17px;
+    text-transform: lowercase;
+}
+ul.hub-menu li a:hover {
+    text-decoration: none;
 }

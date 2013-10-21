@@ -8,12 +8,24 @@
     <div class="b-main-wrap b-post">
         <h1 class="b-left-title">{{ 'Media'|trans }}</h1>
 
-        <ul class="b-link-list m-left-bordered">
-            {% for category in categories %}
-                <li{% if category.slug == currentCategory %} class="selected-link"{% endif %}>
-                    <a href="{{ path('armd_news_list_index_by_category', { 'category': category.slug }) }}">{{ category.title }}</a>
+        <ul class="hub-menu">
+        {% spaceless %}
+            {% for category in categories if category.filtrable %}
+                <li>
+                    <a{% if category.slug == currentCategory %} class="palette-color-1"{% endif %} href="{{ path('armd_news_list_index_by_category', { 'category': category.slug }) }}">
+                        {{- category.title -}}
+                    </a>
                 </li>
             {% endfor %}
+            <br />
+            {% for category in categories if not category.filtrable %}
+                <li>
+                    <a{% if category.slug == currentCategory %} class="palette-color-1"{% endif %} href="{{ path('armd_news_list_index_by_category', { 'category': category.slug }) }}">
+                        {{- category.title -}}
+                    </a>
+                </li>
+            {% endfor %}
+        {% endspaceless %}
         </ul>
 
         {% for item in news %}
@@ -27,7 +39,7 @@
 {% endblock %}
 
 {% block sidebar %}
-    Block 'sidebar' is empty
+    The 'sidebar' block got left empty just for now.
 
     <!--<div class="popular-container">
         {% render 'BlogBundle:Default:popular' %}
