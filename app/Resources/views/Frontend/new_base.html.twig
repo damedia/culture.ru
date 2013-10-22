@@ -166,7 +166,9 @@
         <div class="b-footer-content">
             <div class="footer-inner">
                 <div class="left-direction">
-                    <a title="Культура.рф" href="{{ path('armd_main_homepage') }}"><img src="/img/new/footer-logo-img.png" alt=""/></a>
+                    <a title="Культура.рф" href="{{ path('armd_main_homepage') }}">
+                        <img src="/img/new/{% if app.request.locale == 'ru' %}logo_ru.png{% else %}logo_en.png{% endif %}" width="316" height="70" alt="{{ 'Main.SiteName'|trans }}" />
+                    </a>
                     {{ knp_menu_render('footer', {
                     'template':      ':Frontend:menu.html.twig',
                     'currentClass':  'active',

@@ -1091,7 +1091,13 @@ margin-left: 3px
 display: block;
 height: 28px;
 padding: 5px 0 2px 55px;
-background: url("../../img/new/icons/en-lang-icon.png") left 0 no-repeat
+}
+
+.b-lang-select a.ru-selected {
+    background: url("../../img/new/icons/en-lang-icon.png") left 0 no-repeat;
+}
+.b-lang-select a.en-selected {
+    background: url("../../img/new/icons/ru-lang-icon.png") left 0 no-repeat;
 }
 
 .aa-link {
