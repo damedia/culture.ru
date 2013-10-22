@@ -10,7 +10,7 @@
         <div class="b-post-info" style="margin-bottom: 15px;">
             <span class="date">{{ armd_news.news_date_short(item.newsDate) }}</span>
             <br />
-            <a class="desc-post-link" style="margin: 15px 0 0 0" href="{{ path('armd_news_item_by_category', {'id': item.id, 'category': item.category.slug }) }}">
+            <a class="desc-post-link" style="margin: 15px 0 0 0" href="{{ path('armd_news_item_by_category', {'id': item.id }) }}">
                 {{ item.title }}
             </a>
         </div>

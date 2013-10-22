@@ -1,6 +1,12 @@
 Main:
     SiteName: Culture.ru
 
+Item:
+    SocialShare: Share in social networks
+    Comments: Comments
+
+
+
 calendar:
     full:
         Jan: January

@@ -1,6 +1,12 @@
 Main:
     SiteName: Культура.рф
 
+Item:
+    SocialShare: Опубликовать в социальных сетях
+    Comments: Комментарии
+
+
+
 calendar:
     full:
         Jan: Января

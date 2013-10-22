@@ -82,6 +82,48 @@ class NewsController extends Controller {
     }
 
     /**
+     * @Route("/{id}/", requirements={"id" = "\d+"}, name="armd_news_item_by_category", options={"expose"=true})
+     * @Template("ArmdNewsBundle:NewsNew:item.html.twig")
+     */
+    function newsItemAction($id) {
+        /*
+        $menu = $this->get('armd_main.menu.main');
+        $menuFinder = $this->get('armd_main.menu_finder');
+        if(!$menuFinder->findByUri($menu, $this->getRequest()->getRequestUri())) {
+            $menu->setCurrentUri(
+                $this->get('router')->generate('armd_news_list_index')
+            );
+        }
+        */
+
+        $entity = $this->getDoctrine()->getManager()->getRepository('ArmdNewsBundle:News')->findOneBy(array('id' => $id, 'published' => true));
+        if (null === $entity) {
+            throw $this->createNotFoundException(sprintf('Unable to find record %d', $id));
+        }
+        $this->getTagManager()->loadTagging($entity);
+
+        $categories = $this->getNewsManager()->getCategories();
+
+        $calendarDate = $entity->getDate();
+
+        return array(
+            'item'      => $entity,
+            //'category'    => $category,
+            //'categories'  => $categories,
+            //'calendarDate'  => $calendarDate,
+            //'comments'    => $this->getComments($entity->getThread()),
+            //'thread'      => $entity->getThread(),
+        );
+    }
+
+
+
+
+
+
+
+
+    /**
      * @Route("/two-column-news-list/{category}", name="armd_news_two_column_list", defaults={"category"=null}, options={"expose"=true})
      */
     function twoColumnNewsListAction($category = null, $limit = null) { //TODO: this thing is used by name alias and is now BROKEN!
@@ -311,44 +353,6 @@ class NewsController extends Controller {
         return array(
             'news' => $news
         );
-    }
-
-
-    /**
-     * @Route("/{category}/{id}/", requirements={"category" = "[a-z]+", "id" = "\d+"}, name="armd_news_item_by_category", options={"expose"=true})
-     * @Route("/{category}/{id}/print", requirements={"category" = "[a-z]+", "id" = "\d+"}, defaults={"isPrint"=true}, name="armd_news_item_by_category_print")
-     */
-    function newsItemAction($id, $category, $template = null, $isPrint = false) { //show single News item
-        // menu fix
-        $menu = $this->get('armd_main.menu.main');
-        $menuFinder = $this->get('armd_main.menu_finder');
-        if(!$menuFinder->findByUri($menu, $this->getRequest()->getRequestUri())) {
-            $menu->setCurrentUri(
-                $this->get('router')->generate('armd_news_list_index')
-            );
-        }
-
-        $entity = $this->getDoctrine()->getManager()->getRepository('ArmdNewsBundle:News')->findOneBy(array('id' => $id, 'published' => true));
-        if (null === $entity) {
-            throw $this->createNotFoundException(sprintf('Unable to find record %d', $id));
-        }
-        $this->getTagManager()->loadTagging($entity);
-
-        $template = $template ? $template : 'ArmdNewsBundle:News:item.html.twig';
-        $template = $isPrint ? 'ArmdNewsBundle:News:item-print.html.twig' : $template;
-
-        $categories = $this->getNewsManager()->getCategories();
-
-        $calendarDate = $entity->getDate();
-
-        return $this->render($template, array(
-            'entity'      => $entity,
-            'category'    => $category,
-            'categories'  => $categories,
-            'calendarDate'  => $calendarDate,
-            'comments'    => $this->getComments($entity->getThread()),
-            'thread'      => $entity->getThread(),
-        ));
     }
 
     /**

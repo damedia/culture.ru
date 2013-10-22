@@ -1,0 +1,97 @@
+{% extends ':Frontend:new_base.html.twig' %}
+
+{% import 'ArmdNewsBundle::date_macro.html.twig' as armd_news %}
+
+{% block title %}{{ item.title }}{% endblock %}
+
+{% block opengraph %}
+    <meta property="og:title" content="{{ item.title }}" />
+    <meta property="og:description" content="{{ item.announce }}" />
+    <meta property="og:site_name" content="{{ 'Portal title'|trans }}" />
+    <meta property="og:url" content="{{ app.request.uri }}" />
+{% endblock %}
+
+{% block page_header_title %}{{ item.title }}{% endblock %}
+
+{% block body %}
+    <div class="b-main-wrap b-post b-post-taxonomy">
+        <h1 class="b-left-title">{{ 'Media'|trans }}</h1>
+
+        <div class="b-post-image">
+            <div class="b-post-image_wrapper">
+                <img width="698" height="476" alt="{{ item.image.description }}" src="{% path item.image, 'big' %}" />
+                <div class="image-description">
+                    <strong>{{ item.title|raw }}</strong>
+                    <span class="date">{{ armd_news.news_date_short(item.newsDate) }}</span>
+                </div>
+            </div>
+            <i class="image-caption">{{ item.image.description }}</i>
+        </div>
+
+        {{ item.body|raw }}
+
+        <div class="b-share-buttons">
+            <span class="small-title m-first">{{ "Item.SocialShare"|trans }}: </span><span id="yandex-share"></span>
+        </div>
+    </div>
+
+    <div class="b-comments{% if not is_granted('ROLE_USER') %} not-login{% endif %}" id="post-comments">
+        <div class="commtents-header">
+            {{ "Item.Comments"|trans }}
+            {% if not is_granted('ROLE_USER') %}
+                <div class="header-tooltip">
+                    {{ "comments_auth_require"|trans({ '%loginUrl%': path('fos_user_security_login', {'post_auth_redirect': app.request.uri }) })|raw }}
+                </div>
+            {% endif %}
+        </div>
+
+        {% set comment_thread_id = app.request.locale ~ '_' ~ constant('Armd\\MkCommentBundle\\Model\\CommentInterface::SECTION_BLOGS') ~ '_' ~ item.id %}
+        {% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': comment_thread_id } %}
+
+        {% if not is_granted('ROLE_USER') %}
+            <div class="b-user-not-login">
+                {{ "comments_auth_require"|trans({ '%loginUrl%': path('fos_user_security_login', {'post_auth_redirect': app.request.uri }) })|raw }}
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block sidebar %}
+    The 'sidebar' block got left empty just for now.
+
+    <!--
+    <div class="popular-container">
+        {% render 'BlogBundle:Default:popular' %}
+    </div>
+    -->
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript" src="http://yandex.st/share/share.js" charset="utf-8"></script>
+
+    <script type="text/javascript">
+        $(function(){
+            new Ya.share({
+                element: 'yandex-share',
+                l10n: {% if app.request.locale == 'ru' %}'ru'{% else %}'en'{% endif %},
+                elementStyle: { 'type': 'none', 'border': false, 'quickServices': ['vkontakte', 'lj', 'twitter', 'facebook', 'odnoklassniki']},
+                link: '{{ url('view_blog', { 'id': item.id }) }}',
+                title: '{{ item.title }}',
+                description: '{{ item.announce|replace({"\n":'',"\r":''})|striptags }}'
+            });
+
+            $('#search-form').bind('submit', function(event){
+                if ($('#search-this-section').prop('checked')) {
+                    event.preventDefault();
+                    window.location = Routing.generate('armd_news_list_index', {'search_query': $('#search-txt').val()})
+                }
+            });
+        });
+    </script>
+
+    {% javascripts "@BlogBundle/Resources/public/blogs.js" %}
+        <script src="{{ asset_url }}" type="text/javascript"></script>
+    {% endjavascripts %}
+{% endblock %}
