@@ -126,7 +126,7 @@ class Builder extends ContainerAware {
         $menu->setChildrenAttributes(array('class' => 'b-menu'));
 
         //Media
-        $mediaMenu = $menu->addChild('menu.media', array('route' => 'armd_news_list_index'));
+        $mediaMenu = $menu->addChild('menu.media', array('route' => 'armd_news_list_index_by_category'));
         $mediaMenu->setAttribute('class', 'm-color-1');
 
         //Blog
@@ -180,7 +180,7 @@ class Builder extends ContainerAware {
         $menu->setChildrenAttributes(array('class' => 'footer-menu'));
 
         //Media
-        $menu->addChild('menu.news', array('route' => 'armd_news_list_index'));
+        $menu->addChild('menu.news', array('route' => 'armd_news_list_index_by_category'));
 
         //Blog
         //$blogMenu = $menu->addChild('menu.blog', array('route' => 'blog_list'));

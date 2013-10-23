@@ -17,8 +17,7 @@ class NewsController extends Controller {
     private $cssClass_paletteColor = 'palette-color-1';
 
     /**
-     * @Route("/", name="armd_news_list_index", options={"expose"=true})
-     * @Route("/{category}/", requirements={"category" = "[a-z]+"}, name="armd_news_list_index_by_category", options={"expose"=true})
+     * @Route("/{category}", requirements={"category" = "[a-z]+"}, defaults={"category" = null}, name="armd_news_list_index_by_category", options={"expose"=true})
      * @Template("ArmdNewsBundle:NewsNew:index.html.twig")
      */
     function newsIndexAction($category = null) { //TODO: should be renamed to '$categorySlug'
@@ -93,7 +92,7 @@ class NewsController extends Controller {
         $menuFinder = $this->get('armd_main.menu_finder');
         if(!$menuFinder->findByUri($menu, $this->getRequest()->getRequestUri())) {
             $menu->setCurrentUri(
-                $this->get('router')->generate('armd_news_list_index')
+                $this->get('router')->generate('armd_news_list_index_by_category')
             );
         }
         */

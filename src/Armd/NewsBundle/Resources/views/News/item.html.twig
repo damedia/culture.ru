@@ -282,7 +282,7 @@
             $('#search-form').bind('submit', function(event) {
                 if ($('#search-this-section').prop('checked')) {
                     event.preventDefault();
-                    window.location = Routing.generate('armd_news_list_index', {'search_query': $('#search-txt').val()})
+                    window.location = Routing.generate('armd_news_list_index_by_category', {'search_query': $('#search-txt').val()})
                 }
             });
         });
