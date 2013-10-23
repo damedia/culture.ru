@@ -20,46 +20,61 @@
     <div class="b-main-wrap b-post b-post-taxonomy">
         <h1 class="b-left-title">{{ 'Media'|trans }}</h1>
 
+        {{ include('ArmdNewsBundle:NewsNew:hub_menu.html.twig', { 'categories': categories, 'paletteColor': paletteColor, 'currentCategory': entity.category.slug }) }}
+
         <div class="b-post-image">
-            <div class="b-post-image_wrapper">
-                <img width="698" height="476" alt="{{ entity.image.description }}" src="{% path entity.image, 'big' %}" />
-                <div class="image-description">
-                    {% if entity.date %}
-                        {{ entity.date|date('d.m.Y') }}
-                        {% if entity.endDate %} - {{ entity.endDate|date('d.m.Y') }}{% endif %}
-                    {% endif %}
-
-                    <strong>
-                        {{ entity.title|raw }}
-                        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                            <a href="#" class="user-favorites-button" title="{{ "Entity.AddToFavorites"|trans }}" data-type="{{ constant('Armd\\UserBundle\\Entity\\Favorites::TYPE_MEDIA') }}" data-id="{{ entity.id }}">
-                                <img src="{{ asset('img/favorites.png') }}" alt="{{ "Entity.AddToFavorites"|trans }}" />
-                            </a>
+            {% if entity.date %}
+                <div class="entity-date-of-event">
+                    <span class="title">{{ 'Entity.DateOfEvent'|trans }}:</span>
+                    <span class="interval">{{ 'Entity.DateOfEventFrom'|trans }} {{ armd_news.news_date_short(entity.date) }}
+                        {% if entity.endDate %}
+                            {{ 'Entity.DateOfEventTo'|trans }} {{ armd_news.news_date_short(entity.endDate) }}
                         {% endif %}
-                    </strong>
-
-                    <span class="date">
-                        {{ armd_news.macro_date_standart(entity.newsDate) }}
-                        {% if entity.source is not empty %} | {{ entity.source }}{% endif %}
                     </span>
                 </div>
+            {% endif %}
+
+            <div class="entity-image-wrapper">
+                <img class="entity-image" alt="{{ entity.image.description }}" src="{% path entity.image, 'big' %}" />
+
+                <div class="image-description">
+                    <span class="title">{{ entity.title|raw }}</span>
+                    <span class="date">{{ armd_news.macro_date_standart(entity.newsDate) }} </span>
+                </div>
             </div>
-            <i class="image-caption">{{ entity.image.description }}</i>
+
+            <div class="entity-image-footer">
+                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                    <span class="favorites {{ paletteColor }} {{ favoritesPaletteIcon }}">в избранное</span>
+
+                    <!--<a href="#" class="user-favorites-button" title="{{ 'Entity.AddToFavorites'|trans }}" data-type="{{ constant('Armd\\UserBundle\\Entity\\Favorites::TYPE_MEDIA') }}" data-id="{{ entity.id }}">
+                                <img src="{{ asset('img/favorites.png') }}" alt="{{ 'Entity.AddToFavorites'|trans }}" />
+                            </a>-->
+                {% endif %}
+                <span class="description">
+                    {{ entity.image.description }}
+                    {% if entity.source is not empty %}
+                        <span class="source">{{ 'Entity.Source'|trans }}: {{ entity.source }}</span>
+                    {% endif %}
+                </span>
+            </div>
         </div>
 
         {{ entity.body|raw }}
 
         <div class="b-share-buttons">
-            <span class="small-title m-first">{{ "Entity.SocialShare"|trans }}: </span><span id="yandex-share"></span>
+            <span class="small-title m-first">{{ 'Entity.SocialShare'|trans }}:</span>
+            <span id="yandex-share"></span>
         </div>
     </div>
 
     <div class="b-comments{% if not is_granted('ROLE_USER') %} not-login{% endif %}" id="post-comments">
         <div class="commtents-header">
-            {{ "Entity.Comments"|trans }}
+            {{ 'Entity.Comments'|trans }}
+
             {% if not is_granted('ROLE_USER') %}
                 <div class="header-tooltip">
-                    {{ "comments_auth_require"|trans({ '%loginUrl%': path('fos_user_security_login', {'post_auth_redirect': app.request.uri }) })|raw }}
+                    {{ 'comments_auth_require'|trans({ '%loginUrl%': path('fos_user_security_login', {'post_auth_redirect': app.request.uri }) })|raw }}
                 </div>
             {% endif %}
         </div>
@@ -69,7 +84,7 @@
 
         {% if not is_granted('ROLE_USER') %}
             <div class="b-user-not-login">
-                {{ "comments_auth_require"|trans({ '%loginUrl%': path('fos_user_security_login', {'post_auth_redirect': app.request.uri }) })|raw }}
+                {{ 'comments_auth_require'|trans({ '%loginUrl%': path('fos_user_security_login', {'post_auth_redirect': app.request.uri }) })|raw }}
             </div>
         {% endif %}
     </div>
@@ -113,8 +128,4 @@
             });
         });
     </script>
-
-    {% javascripts "@BlogBundle/Resources/public/blogs.js" %}
-        <script src="{{ asset_url }}" type="text/javascript"></script>
-    {% endjavascripts %}
 {% endblock %}

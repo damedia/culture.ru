@@ -8,6 +8,10 @@ Entity:
     SocialShare: Share in social networks
     Comments: Comments
     AddToFavorites: Add to 'Favorites'
+    DateOfEvent: Date of event
+    DateOfEventFrom: from
+    DateOfEventTo: to
+    Source: Source
 
 
 

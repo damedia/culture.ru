@@ -1,7 +1,7 @@
 {% import 'ArmdNewsBundle::date_macro.html.twig' as armd_news %}
 {% if expandFirst == true %}
     <div class="b-list-image">
-        <div class="b-post-image_wrapper">
+        <div class="entity-image-wrapper">
             {% if blog.topImage is not empty %}
             <img width="698" height="476" alt="{{ blog.title }}" src="{% path blog.topImage, 'default' %}">
             {% endif %}

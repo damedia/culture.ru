@@ -8,6 +8,10 @@ Entity:
     SocialShare: Опубликовать в социальных сетях
     Comments: Комментарии
     AddToFavorites: Добавить в «Избранное»
+    DateOfEvent: Дата проведения
+    DateOfEventFrom: с
+    DateOfEventTo: по
+    Source: Источник
 
 
 

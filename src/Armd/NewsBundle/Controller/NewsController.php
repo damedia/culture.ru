@@ -15,6 +15,7 @@ use DateTime;
 
 class NewsController extends Controller {
     private $cssClass_paletteColor = 'palette-color-1';
+    private $cssClass_favoritesPaletteIcon = 'favorites-palette-icon-1';
 
     /**
      * @Route("/{category}", requirements={"category" = "[a-z]+"}, defaults={"category" = null}, name="armd_news_list_index_by_category", options={"expose"=true})
@@ -83,7 +84,7 @@ class NewsController extends Controller {
     }
 
     /**
-     * @Route("/{id}/", requirements={"id" = "\d+"}, name="armd_news_item_by_category", options={"expose"=true})
+     * @Route("/{id}", requirements={"id" = "\d+"}, name="armd_news_item_by_category", options={"expose"=true})
      * @Template("ArmdNewsBundle:NewsNew:item.html.twig")
      */
     function newsItemAction($id) {
@@ -97,6 +98,8 @@ class NewsController extends Controller {
         }
         */
 
+        $categoryRepository = $this->getDoctrine()->getRepository('ArmdNewsBundle:Category');
+
         $entity = $this->getDoctrine()->getManager()->getRepository('ArmdNewsBundle:News')->findOneBy(array('id' => $id, 'published' => true));
         if (null === $entity) {
             throw $this->createNotFoundException(sprintf('Unable to find record %d', $id));
@@ -107,10 +110,14 @@ class NewsController extends Controller {
 
         $calendarDate = $entity->getDate();
 
+        $categories = $categoryRepository->findAll();
+
         return array(
             'entity'      => $entity,
             //'category'    => $category,
-            //'categories'  => $categories,
+            'categories'  => $categories,
+            'paletteColor' => $this->cssClass_paletteColor,
+            'favoritesPaletteIcon' => $this->cssClass_favoritesPaletteIcon
             //'calendarDate'  => $calendarDate,
             //'comments'    => $this->getComments($entity->getThread()),
             //'thread'      => $entity->getThread(),

@@ -1,0 +1,24 @@
+<ul class="hub-menu">
+    {% spaceless %}
+        <li>
+            <a{% if currentCategory is empty %} class="{{ paletteColor }}"{% endif %} href="{{ path('armd_news_list_index_by_category') }}">
+                {{- "Hub.MenuAll"|trans -}}
+            </a>
+        </li>
+        {% for category in categories if category.filtrable %}
+            <li>
+                <a{% if category.slug == currentCategory %} class="{{ paletteColor }}"{% endif %} href="{{ path('armd_news_list_index_by_category', { 'category': category.slug }) }}">
+                    {{- category.title -}}
+                </a>
+            </li>
+        {% endfor %}
+        <br />
+        {% for category in categories if not category.filtrable %}
+            <li>
+                <a{% if category.slug == currentCategory %} class="{{ paletteColor }}"{% endif %} href="{{ path('armd_news_list_index_by_category', { 'category': category.slug }) }}">
+                    {{- category.title -}}
+                </a>
+            </li>
+        {% endfor %}
+    {% endspaceless %}
+</ul>

@@ -8,33 +8,7 @@
     <div class="b-main-wrap b-post">
         <h1 class="b-left-title">{{ 'Media'|trans }}</h1>
 
-
-        <ul class="hub-menu">
-        <!-- BEGIN:  This block should probably be generated inside the News bundle, not here! -->
-        {% spaceless %}
-            <li>
-                <a{% if currentCategory is empty %} class="{{ paletteColor }}"{% endif %} href="{{ path('armd_news_list_index') }}">
-                    {{- "Hub.MenuAll"|trans -}}
-                </a>
-            </li>
-            {% for category in categories if category.filtrable %}
-                <li>
-                    <a{% if category.slug == currentCategory %} class="{{ paletteColor }}"{% endif %} href="{{ path('armd_news_list_index_by_category', { 'category': category.slug }) }}">
-                        {{- category.title -}}
-                    </a>
-                </li>
-            {% endfor %}
-            <br />
-            {% for category in categories if not category.filtrable %}
-                <li>
-                    <a{% if category.slug == currentCategory %} class="{{ paletteColor }}"{% endif %} href="{{ path('armd_news_list_index_by_category', { 'category': category.slug }) }}">
-                        {{- category.title -}}
-                    </a>
-                </li>
-            {% endfor %}
-        {% endspaceless %}
-        <!-- END: The end of external block! -->
-        </ul>
+        {{ include('ArmdNewsBundle:NewsNew:hub_menu.html.twig', { 'categories': categories, 'paletteColor': paletteColor, 'currentCategory': currentCategory }) }}
 
         {% for item in news %}
             <section class="hub-list-item">
