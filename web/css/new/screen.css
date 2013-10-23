@@ -12,14 +12,6 @@ min-height: 700px
 overflow: hidden
 }
 
-.b-main-inner .b-main-wrap {
-margin-bottom: 70px;
-}
-
-.b-main-inner .b-main-wrap.b-block-double {
-margin-bottom: 86px
-}
-
 .clear-both, .footer-inner {
 clear: both
 }
@@ -2064,7 +2056,7 @@ border-bottom-color: transparent !important
 border-bottom-color: transparent !important
 }
 
-.b-main-inner .b-main-wrap.m-main-press-center {
+.m-main-press-center {
 margin: 0px 0 50px;
 padding: 17px 0 0 0
 }
@@ -2499,7 +2491,7 @@ padding: 0 10px 0 0px
 padding: 0 10px 0 0px
 }
 
-.b-main-wrap.m-specialproject {
+.m-specialproject {
 margin-bottom: 32px
 }
 
@@ -3057,6 +3049,16 @@ ul.hub-menu li a:hover {
     cursor: pointer;
     overflow: hidden;
     float: right;
+}
+
+
+/*==================
+==== Main Wrap ===*/
+.b-main-wrap {
+    margin-bottom: 70px;
+}
+.b-main-wrap > section:last-child > article {
+    border-bottom: none;
 }
 
 
