@@ -759,20 +759,6 @@ float: right
 margin: 0 0 26px 0
 }
 
-.b-quick-search .text-field {
-padding: 0 8px;
-height: 26px;
-font-size: 14px;
-line-height: 26px;
-border: 1px solid #dde1e1;
-width: 190px;
-color: #cdd1d4;
--webkit-transition: border-color 0.3s;
--moz-transition: border-color 0.3s;
--o-transition: border-color 0.3s;
-transition: border-color 0.3s
-}
-
 .b-quick-search .text-field:focus {
 border-color: #e1e3e4
 }
@@ -800,17 +786,6 @@ background: #fff
 .b-quick-search .text-field::-webkit-input-placeholder {
 color: #cdd1d4;
 background: #fff
-}
-
-.b-quick-search .search-button {
-width: 28px;
-height: 28px;
-background: #313336 url("../../img/new/icons/search-icon.png") center center no-repeat;
-text-indent: 30px;
-text-decoration: none;
-border: 0;
-cursor: pointer;
-overflow: hidden
 }
 
 .b-quick-search .search-button:hover, .b-quick-search .search-button:focus {
@@ -1507,10 +1482,6 @@ padding: 3px 20px 14px 20px
 margin: 9px 0 3px
 }
 
-.b-post-list {
-margin: 0 0 27px
-}
-
 .b-post-list>article {
 border-bottom: 3px solid #eeeff0;
 margin: 45px 0 0 0
@@ -1543,17 +1514,6 @@ padding: 0
 
 .b-post-list .desc-post-link {
 margin: 0 80px 16px 0
-}
-
-.teaser-thumb {
-float: left;
-margin: 0 40px 35px 0
-}
-
-.teaser-content {
-overflow: hidden;
-margin: 0 0 0 125px;
-min-width: 420px
 }
 
 .b-load-more {
@@ -1682,12 +1642,6 @@ text-transform: uppercase;
 font-size: 1.286em
 }
 
-.date {
-color: #7d8687;
-font-size: 14px;
-line-height: 18px
-}
-
 .b-share-buttons {
 padding: 15px 0 16px 40px;
 border-width: 1px 0;
@@ -1709,8 +1663,8 @@ margin: 0
 }
 
 .b-share-buttons .small-title {
-width: 138px;
-margin: 0
+white-space: nowrap;
+margin: 0 10px 0 0;
 }
 
 .small-title {
@@ -3108,4 +3062,112 @@ ul.hub-menu li a {
 }
 ul.hub-menu li a:hover {
     text-decoration: none;
+}
+
+
+/*=======================
+==== User Favorites ===*/
+.user-favorites-button img {
+    width: 14px;
+    vertical-align: 6px;
+    display: inline-block;
+}
+
+
+/*=====================
+==== Quick search ===*/
+.b-quick-search .text-field {
+    padding: 0 8px;
+    height: 27px;
+    font-size: 14px;
+    line-height: 26px;
+    border: 1px solid #dde1e1;
+    width: 79%;
+    float: left;
+    color: #cdd1d4;
+    -webkit-transition: border-color 0.3s;
+    -moz-transition: border-color 0.3s;
+    -o-transition: border-color 0.3s;
+    transition: border-color 0.3s;
+}
+.b-quick-search .search-button {
+    width: 28px;
+    height: 28px;
+    background: #313336 url("../../img/new/icons/search-icon.png") center center no-repeat;
+    text-indent: 30px;
+    text-decoration: none;
+    border: 0;
+    cursor: pointer;
+    overflow: hidden;
+    float: right;
+}
+
+
+/*===============
+==== Entity ===*/
+.hub-list-item {
+    margin: 0 0 40px 0;
+}
+.hub-list-item > article {
+    border-bottom: 3px solid #EEEFF0;
+    margin: 40px 0 0 0;
+    font-family: "PTSansRegular", sans-serif;
+}
+.hub-list-item > article:after {
+    content: '';
+    display: block;
+    height: 0;
+    clear: both;
+    font-size: 0;
+}
+.hub-list-item > article p {
+    padding: 0;
+    margin: 0;
+    font-size: 1em;
+}
+
+.teaser-thumb {
+    float: left;
+    margin: 0 40px 30px 0;
+}
+.teaser-thumb img {
+    width: 290px;
+    height: auto;
+}
+
+.teaser-header {
+    margin: 0 0 0 150px;
+    padding: 0;
+    min-width: 370px;
+    background: none;
+    top: -3px;
+}
+.teaser-header span {
+    color: #7D8687;
+    font-size: 14px;
+    display: inline-block;
+    margin: 0 0 10px 0;
+}
+.teaser-header span.item-type {
+    float: right;
+}
+.teaser-item-link {
+    margin: 0 0 10px 0;
+    text-decoration: none;
+    text-transform: uppercase;
+    line-height: 1.1em;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 1.2em;
+    display: block;
+}
+.teaser-item-link:hover {
+    text-decoration: none;
+    color: #7d8687;
+}
+
+.teaser-content {
+    overflow: hidden;
+    margin: 0 0 30px 150px;
+    min-width: 370px;
 }

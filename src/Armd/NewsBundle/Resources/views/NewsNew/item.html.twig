@@ -2,16 +2,19 @@
 
 {% import 'ArmdNewsBundle::date_macro.html.twig' as armd_news %}
 
-{% block title %}{{ item.title }}{% endblock %}
+{% block title %}{{ entity.seoTitle|default(entity.title) }} &mdash; {{ parent() }}{% endblock %}
+{% block meta_keywords %}{{ entity.seoKeywords }}{% endblock %}
+{% block meta_description %}{{ entity.seoDescription }}{% endblock %}
 
 {% block opengraph %}
-    <meta property="og:title" content="{{ item.title }}" />
-    <meta property="og:description" content="{{ item.announce }}" />
+    <meta property="og:title" content="{{ entity.title }}" />
+    <meta property="og:description" content="{{ entity.announce }}" />
     <meta property="og:site_name" content="{{ 'Portal title'|trans }}" />
     <meta property="og:url" content="{{ app.request.uri }}" />
+    {% if entity.image is not empty %}
+        <meta property="og:image" content="{% path entity.image, 'reference' %}" />
+    {% endif %}
 {% endblock %}
-
-{% block page_header_title %}{{ item.title }}{% endblock %}
 
 {% block body %}
     <div class="b-main-wrap b-post b-post-taxonomy">
@@ -19,25 +22,41 @@
 
         <div class="b-post-image">
             <div class="b-post-image_wrapper">
-                <img width="698" height="476" alt="{{ item.image.description }}" src="{% path item.image, 'big' %}" />
+                <img width="698" height="476" alt="{{ entity.image.description }}" src="{% path entity.image, 'big' %}" />
                 <div class="image-description">
-                    <strong>{{ item.title|raw }}</strong>
-                    <span class="date">{{ armd_news.news_date_short(item.newsDate) }}</span>
+                    {% if entity.date %}
+                        {{ entity.date|date('d.m.Y') }}
+                        {% if entity.endDate %} - {{ entity.endDate|date('d.m.Y') }}{% endif %}
+                    {% endif %}
+
+                    <strong>
+                        {{ entity.title|raw }}
+                        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                            <a href="#" class="user-favorites-button" title="{{ "Entity.AddToFavorites"|trans }}" data-type="{{ constant('Armd\\UserBundle\\Entity\\Favorites::TYPE_MEDIA') }}" data-id="{{ entity.id }}">
+                                <img src="{{ asset('img/favorites.png') }}" alt="{{ "Entity.AddToFavorites"|trans }}" />
+                            </a>
+                        {% endif %}
+                    </strong>
+
+                    <span class="date">
+                        {{ armd_news.macro_date_standart(entity.newsDate) }}
+                        {% if entity.source is not empty %} | {{ entity.source }}{% endif %}
+                    </span>
                 </div>
             </div>
-            <i class="image-caption">{{ item.image.description }}</i>
+            <i class="image-caption">{{ entity.image.description }}</i>
         </div>
 
-        {{ item.body|raw }}
+        {{ entity.body|raw }}
 
         <div class="b-share-buttons">
-            <span class="small-title m-first">{{ "Item.SocialShare"|trans }}: </span><span id="yandex-share"></span>
+            <span class="small-title m-first">{{ "Entity.SocialShare"|trans }}: </span><span id="yandex-share"></span>
         </div>
     </div>
 
     <div class="b-comments{% if not is_granted('ROLE_USER') %} not-login{% endif %}" id="post-comments">
         <div class="commtents-header">
-            {{ "Item.Comments"|trans }}
+            {{ "Entity.Comments"|trans }}
             {% if not is_granted('ROLE_USER') %}
                 <div class="header-tooltip">
                     {{ "comments_auth_require"|trans({ '%loginUrl%': path('fos_user_security_login', {'post_auth_redirect': app.request.uri }) })|raw }}
@@ -45,7 +64,7 @@
             {% endif %}
         </div>
 
-        {% set comment_thread_id = app.request.locale ~ '_' ~ constant('Armd\\MkCommentBundle\\Model\\CommentInterface::SECTION_BLOGS') ~ '_' ~ item.id %}
+        {% set comment_thread_id = app.request.locale ~ '_' ~ constant('Armd\\MkCommentBundle\\Model\\CommentInterface::SECTION_BLOGS') ~ '_' ~ entity.id %}
         {% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': comment_thread_id } %}
 
         {% if not is_granted('ROLE_USER') %}
@@ -58,6 +77,10 @@
 
 {% block sidebar %}
     The 'sidebar' block got left empty just for now.
+    <br /><br />
+    Linked Special Projects
+    <br /><br />
+    Related content (by tags)
 
     <!--
     <div class="popular-container">
@@ -77,9 +100,9 @@
                 element: 'yandex-share',
                 l10n: {% if app.request.locale == 'ru' %}'ru'{% else %}'en'{% endif %},
                 elementStyle: { 'type': 'none', 'border': false, 'quickServices': ['vkontakte', 'lj', 'twitter', 'facebook', 'odnoklassniki']},
-                link: '{{ url('view_blog', { 'id': item.id }) }}',
-                title: '{{ item.title }}',
-                description: '{{ item.announce|replace({"\n":'',"\r":''})|striptags }}'
+                link: '{{ url('view_blog', { 'id': entity.id }) }}',
+                title: '{{ entity.title }}',
+                description: '{{ entity.announce|replace({"\n":'',"\r":''})|striptags }}'
             });
 
             $('#search-form').bind('submit', function(event){

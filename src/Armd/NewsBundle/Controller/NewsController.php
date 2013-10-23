@@ -14,6 +14,8 @@ use Armd\MkCommentBundle\Entity\Thread;
 use DateTime;
 
 class NewsController extends Controller {
+    private $cssClass_paletteColor = 'palette-color-1';
+
     /**
      * @Route("/", name="armd_news_list_index", options={"expose"=true})
      * @Route("/{category}/", requirements={"category" = "[a-z]+"}, name="armd_news_list_index_by_category", options={"expose"=true})
@@ -59,7 +61,7 @@ class NewsController extends Controller {
                 NewsManager::CRITERIA_CATEGORY_SLUGS_OR => $category,
                 NewsManager::CRITERIA_NEWS_DATE_TILL => $firstLoadedDate,
                 NewsManager::CRITERIA_LIMIT => 25,
-                NewsManager::CRITERIA_ORDER_BY => array('date' => 'DESC')
+                NewsManager::CRITERIA_ORDER_BY => array('newsDate' => 'DESC')
             );
 
             $news = $newsManager->findObjects($criteria);
@@ -78,7 +80,7 @@ class NewsController extends Controller {
         //}
 //print count($newsByDate);
 //exit;
-        return array('news' => $news, 'categories' => $categories, 'currentCategory' => $category);
+        return array('news' => $news, 'categories' => $categories, 'currentCategory' => $category, 'paletteColor' => $this->cssClass_paletteColor);
     }
 
     /**
@@ -107,7 +109,7 @@ class NewsController extends Controller {
         $calendarDate = $entity->getDate();
 
         return array(
-            'item'      => $entity,
+            'entity'      => $entity,
             //'category'    => $category,
             //'categories'  => $categories,
             //'calendarDate'  => $calendarDate,

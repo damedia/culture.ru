@@ -1,9 +1,13 @@
 Main:
     SiteName: Культура.рф
 
-Item:
+Hub:
+    MenuAll: все
+
+Entity:
     SocialShare: Опубликовать в социальных сетях
     Comments: Комментарии
+    AddToFavorites: Добавить в «Избранное»
 
 
 

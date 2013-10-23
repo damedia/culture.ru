@@ -9,3 +9,7 @@
 {% macro news_month(value) %}
     {{ ('calendar.month.'~value|date('M'))|trans }}{{ value|date(' /Y') }}
 {% endmacro %}
+
+{% macro macro_date_standart(value) %}
+    {{ value|date('j ')}}{{ ('calendar.full.'~value|date('M'))|trans }}{{ value|date(' Y') }}
+{% endmacro %}

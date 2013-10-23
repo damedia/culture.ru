@@ -1,9 +1,13 @@
 Main:
     SiteName: Culture.ru
 
-Item:
+Hub:
+    MenuAll: all
+
+Entity:
     SocialShare: Share in social networks
     Comments: Comments
+    AddToFavorites: Add to 'Favorites'
 
 
 

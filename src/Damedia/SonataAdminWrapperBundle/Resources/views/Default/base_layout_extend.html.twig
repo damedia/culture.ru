@@ -1,7 +1,11 @@
 {#
+    TODO:
     This twig extends ':Backend:base.html.twig' template which extends 'SonataAdminBundle::standard_layout.html.twig' and
     it is kind of bad... We should move stuff out of the middle template (which is the legacy from Armada), remove
     unnecessary crap, refactor and make this world a better place overall.
+
+    TODO:
+    Module 'AdminEntitiesUrlMapper' here must be placed into a separate javascript file I believe!
 #}
 
 {% extends ':Backend:base.html.twig' %}
@@ -20,7 +24,7 @@
         var AdminEntitiesUrlMapper = (function(){
             var mapper = {},
                 knownEntities = {
-                    'armd/news/news': { prefix: '/press-centre/news/', suffix: '/' },
+                    'armd/news/news': { prefix: '/press-centre/', suffix: '/' },
                     'lecture_cinema': { prefix: '/cinema/view/', suffix: ''}
                 };
 
