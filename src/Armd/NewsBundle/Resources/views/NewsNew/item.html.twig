@@ -20,7 +20,7 @@
     <div class="b-main-wrap b-post b-post-taxonomy">
         <h1 class="b-left-title">{{ 'Media'|trans }}</h1>
 
-        {{ include('ArmdNewsBundle:NewsNew:hub_menu.html.twig', { 'categories': categories, 'paletteColor': paletteColor, 'currentCategory': entity.category.slug }) }}
+        {{ include('ArmdNewsBundle:NewsNew:hub_menu.html.twig', { 'categories': categories, 'palette_color': palette_color, 'currentCategory': entity.category.slug }) }}
 
         <div class="b-post-image">
             {% if entity.date %}
@@ -45,7 +45,7 @@
 
             <div class="entity-image-footer">
                 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                    <span class="favorites {{ paletteColor }} {{ favoritesPaletteIcon }}">в избранное</span>
+                    <span class="favorites {{ palette_color }} {{ palette_favoritesIcon }}">{{ 'Entity.AddToFavorites'|trans }}</span>
 
                     <!--<a href="#" class="user-favorites-button" title="{{ 'Entity.AddToFavorites'|trans }}" data-type="{{ constant('Armd\\UserBundle\\Entity\\Favorites::TYPE_MEDIA') }}" data-id="{{ entity.id }}">
                                 <img src="{{ asset('img/favorites.png') }}" alt="{{ 'Entity.AddToFavorites'|trans }}" />
@@ -68,26 +68,7 @@
         </div>
     </div>
 
-    <div class="b-comments{% if not is_granted('ROLE_USER') %} not-login{% endif %}" id="post-comments">
-        <div class="commtents-header">
-            {{ 'Entity.Comments'|trans }}
-
-            {% if not is_granted('ROLE_USER') %}
-                <div class="header-tooltip">
-                    {{ 'comments_auth_require'|trans({ '%loginUrl%': path('fos_user_security_login', {'post_auth_redirect': app.request.uri }) })|raw }}
-                </div>
-            {% endif %}
-        </div>
-
-        {% set comment_thread_id = app.request.locale ~ '_' ~ constant('Armd\\MkCommentBundle\\Model\\CommentInterface::SECTION_BLOGS') ~ '_' ~ entity.id %}
-        {% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': comment_thread_id } %}
-
-        {% if not is_granted('ROLE_USER') %}
-            <div class="b-user-not-login">
-                {{ 'comments_auth_require'|trans({ '%loginUrl%': path('fos_user_security_login', {'post_auth_redirect': app.request.uri }) })|raw }}
-            </div>
-        {% endif %}
-    </div>
+    {{ include('ArmdMkCommentBundle:Default:placeholder.html.twig', { 'entity_type': 'news', 'palette_background': palette_background }) }}
 {% endblock %}
 
 {% block sidebar %}

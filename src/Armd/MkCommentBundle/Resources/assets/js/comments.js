@@ -1,13 +1,4 @@
 /**
- * This file is part of the FOSCommentBundle package.
- *
- * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
- *
- * This source file is subject to the MIT license that is bundled
- * with this source code in the file LICENSE.
- */
-
-/**
  * To use this reference javascript, you must also have jQuery installed. If
  * you want to embed comments cross-domain, then easyXDM CORS is also required.
  *
@@ -98,6 +89,8 @@
                     FOS_COMMENT.thread_container.html(data);
                     FOS_COMMENT.thread_container.attr('data-thread', identifier);
                     FOS_COMMENT.thread_container.trigger('comments_loaded');
+
+                    $('#commentSubmit', FOS_COMMENT.thread_container).addClass(fos_comment_new_comment_post_button_class);
                 }
             );
         },

@@ -137,25 +137,6 @@ font-weight: normal;
 font-style: normal
 }
 
-.btn {
-background: #00753d;
-font-size: 14px;
-line-height: 18px;
-border: 0 none;
-color: #fff;
-padding: 10px 15px 11px 20px;
-text-decoration: none;
-border: 0 none;
-display: inline-block;
-cursor: pointer;
-vertical-align: top
-}
-
-.btn:hover {
-text-decoration: none;
-background: #313336
-}
-
 textarea {
 border: 1px solid #b3bebf;
 resize: vertical;
@@ -2948,12 +2929,39 @@ margin: 0 0 5px;
 
 
 /*================
+==== Commons ===*/
+.displayNone {
+    display: none;
+}
+
+
+/*========================
+==== MkCommentBundle ===*/
+.comment-post-button {
+    font-size: 0.9em;
+    border: 0 none;
+    color: #fff;
+    padding: 10px 15px 10px 15px;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+}
+.comment-post-button:hover {
+    text-decoration: none;
+    background: #313336;
+}
+
+
+/*================
 ==== Palette ===*/
 .palette-color-1 {
     color: #95BD59 !important;
 }
-.favorites-palette-icon-1 {
-    background: url(../../img/new/icons/favorites-palette-color-1.png) no-repeat;
+.palette-favoritesIcon-1 {
+    background: url(../../img/new/icons/palette-favorites-icon-1.png) no-repeat;
+}
+.palette-background-1 {
+    background: #95BD59;
 }
 .palette-color-2 {
     color: #17693D !important;
@@ -3116,7 +3124,6 @@ ul.hub-menu li a:hover {
     text-transform: uppercase;
     line-height: 1.1em;
     font-weight: bold;
-    text-transform: uppercase;
     font-size: 1.2em;
     display: block;
 }

@@ -14,8 +14,9 @@ use Armd\MkCommentBundle\Entity\Thread;
 use DateTime;
 
 class NewsController extends Controller {
-    private $cssClass_paletteColor = 'palette-color-1';
-    private $cssClass_favoritesPaletteIcon = 'favorites-palette-icon-1';
+    private $palette_color = 'palette-color-1';
+    private $palette_favoritesIcon = 'palette-favoritesIcon-1';
+    private $palette_background = 'palette-background-1';
 
     /**
      * @Route("/{category}", requirements={"category" = "[a-z]+"}, defaults={"category" = null}, name="armd_news_list_index_by_category", options={"expose"=true})
@@ -60,7 +61,7 @@ class NewsController extends Controller {
             $criteria = array(
                 NewsManager::CRITERIA_CATEGORY_SLUGS_OR => $category,
                 NewsManager::CRITERIA_NEWS_DATE_TILL => $firstLoadedDate,
-                NewsManager::CRITERIA_LIMIT => 25,
+                NewsManager::CRITERIA_LIMIT => 10,
                 NewsManager::CRITERIA_ORDER_BY => array('newsDate' => 'DESC')
             );
 
@@ -78,9 +79,13 @@ class NewsController extends Controller {
             }
             */
         //}
-//print count($newsByDate);
-//exit;
-        return array('news' => $news, 'categories' => $categories, 'currentCategory' => $category, 'paletteColor' => $this->cssClass_paletteColor);
+
+        return array(
+            'news' => $news,
+            'categories' => $categories,
+            'currentCategory' => $category,
+            'palette_color' => $this->palette_color
+        );
     }
 
     /**
@@ -112,17 +117,36 @@ class NewsController extends Controller {
 
         $categories = $categoryRepository->findAll();
 
+
+
+
+
         return array(
             'entity'      => $entity,
             //'category'    => $category,
             'categories'  => $categories,
-            'paletteColor' => $this->cssClass_paletteColor,
-            'favoritesPaletteIcon' => $this->cssClass_favoritesPaletteIcon
+            'palette_color' => $this->palette_color,
+            'palette_favoritesIcon' => $this->palette_favoritesIcon,
+            'palette_background' => $this->palette_background,
+            'isCommentable' => $this->isCommentable($entity)
             //'calendarDate'  => $calendarDate,
             //'comments'    => $this->getComments($entity->getThread()),
             //'thread'      => $entity->getThread(),
         );
     }
+
+
+
+    private function isCommentable($entity) { //TODO: this method should be elsewhere!
+        $interfaces = class_implements(get_class($entity));
+
+        return (isset($interfaces['Armd\MkCommentBundle\Model\CommentableInterface'])) ? true : false;
+    }
+
+
+
+
+
 
 
 

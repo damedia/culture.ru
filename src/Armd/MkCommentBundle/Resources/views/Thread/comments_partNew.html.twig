@@ -1,0 +1,7 @@
+{% for comment in comments %}
+    {% include "FOSCommentBundle:Thread:comment.html.twig" with { "children": comment.children, "comment": comment.comment, "depth": depth, "view": view } %}
+{% endfor %}
+
+{% if fos_comment_can_comment_thread(thread) %}
+   {% render url("fos_comment_new_thread_comments", {"id": thread.id}) %}
+{% endif %}

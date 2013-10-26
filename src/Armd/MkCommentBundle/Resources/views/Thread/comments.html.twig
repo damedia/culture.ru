@@ -1,67 +1,13 @@
 {#
-
- This file is part of the FOSCommentBundle package.
-
- (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
-
- This source file is subject to the MIT license that is bundled
- with this source code in the file LICENSE.
-
+ This template implicitly overrides FOSCommentBundle's same template!
+ This happens due to the fact that MkCommentBundle returns FOSCommentBundle as its parent (check ArmdMkCommentBundle.php class)!
 #}
 
 {% set depth = depth|default(0) %}
 {% set view = view|default('tree') %}
 
-{% if 'blog' in app.request.attributes.get('id') %}
-
-    {% for commentinfo in comments %}
-        {% include "FOSCommentBundle:Thread:comment.html.twig" with { "children": commentinfo.children, "comment": commentinfo.comment, "depth": depth, "view": view } %}
-    {% endfor %}
-
-    {% if fos_comment_can_comment_thread(thread) %}
-        {% render url("fos_comment_new_thread_comments", {"id": thread.id}) %}
-    {% endif %}
-
+{% if 'new' in app.request.attributes.get('id') %}
+    {% include 'ArmdMkCommentBundle:Thread:comments_partNew.html.twig' %}
 {% else %}
-    <section class="comments">
-        {% if depth == 0 %}
-            <div id="comments_header" class="{% if comments|length > 0 %}comments-header{%endif%} clearfix">
-                {% set count = thread.numComments %}
-                <p class="comments-total" style="float:left;">
-                    <span>{{ 'Comments'|trans({}, 'ArmdMkCommentBundle')}}:</span> {{ count }}{#{% if comments|length > 0 %}<a href="#">{{ count }}</a>{% else %}{{ count }}{% endif%}#}
-            </p>
-            {% if fos_comment_can_edit_thread(thread) %}
-            <div class="add-comment fos_comment_thread_commentable" style="float:right;">
-                <a href="javascript:;" data-url="{{ url('fos_comment_edit_thread_commentable', {'id': thread.id, 'value': not thread.commentable}) }}" class="fos_comment_thread_commentable_action comment-complain">
-                    {{ (thread.commentable ? 'fos_comment_thread_close' : 'fos_comment_thread_open') | trans({}, 'FOSCommentBundle') }}
-                </a>
-            </div>
-            {% endif %}
-            {% if fos_comment_can_comment_thread(thread) %}
-                <p class="add-comment" style="float:right;">
-                    <a href="javascript:;" onclick="$('#add_new_comment').show();">Добавить комментарий</a>
-                </p>
-                <div id="add_new_comment" style="display:none;">
-                {% render url("fos_comment_new_thread_comments", {"id": thread.id}) %}
-                </div>
-            {% endif %}
-        </div>
-
-    {% endif %}
-
-    <div{% if depth == 0 and comments|length > 0 %} class="comments-block"{% endif %}>
-        <ul id="comments_list_{{ parentId|default(0) }}" class="comments-list">
-        {% for commentinfo in comments %}
-            <li>
-            {% include "FOSCommentBundle:Thread:comment.html.twig" with { "children": commentinfo.children, "comment": commentinfo.comment, "depth": depth, "view": view } %}
-            </li>
-        {% endfor %}
-        </ul>
-    </div>
-    {# {% if depth == 0 and comments|length > 0 %}
-    <div class="all-link">
-        <a href="#">Все комментарии</a>
-    </div>
-    {% endif %} #}
-</section>
+    {% include 'ArmdMkCommentBundle:Thread:comments_partOld.html.twig' %}
 {% endif %}

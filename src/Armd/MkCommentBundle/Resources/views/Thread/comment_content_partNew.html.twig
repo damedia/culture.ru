@@ -1,0 +1,9 @@
+<div class="comment-item">
+    <div id="fos_comment_comment_body_{{ comment.id }}" class="comment-info">
+        <strong>{{ comment.authorName }}</strong>
+        <span class="date">{{ comment.createdAt|date }}</span>
+    </div>
+    <div class="comment-text">
+        <p>{{ comment.body | nl2br }}</p>
+    </div>
+</div>

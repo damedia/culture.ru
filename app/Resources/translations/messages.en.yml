@@ -1,12 +1,27 @@
 Main:
     SiteName: Culture.ru
 
+Comments:
+    Header: Comments
+    AuthRequire: You must be <a href="%loginUrl%">authorized</a> to post comments.
+    PostComment: post your comment
+    MessageSent:
+        Part1: Message
+        Part2: sent
+        Part3: for moderation.
+        Part4: In the near future it will appear on the site
+    Rules:
+        Lead: Dear friends! Please remember that our moderators will remove:
+        Rule1: Comments with rude words or profanity
+        Rule2: Direct or indirect insults of post hero or other readers
+        Rule3: Short evaluation comments ("awful", "great", "boooo")
+        Rule4: Comments that incite ethnic and social strife
+
 Hub:
     MenuAll: all
 
 Entity:
     SocialShare: Share in social networks
-    Comments: Comments
     AddToFavorites: Add to 'Favorites'
     DateOfEvent: Date of event
     DateOfEventFrom: from

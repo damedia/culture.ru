@@ -8,7 +8,7 @@
     <div class="b-main-wrap b-post">
         <h1 class="b-left-title">{{ 'Media'|trans }}</h1>
 
-        {{ include('ArmdNewsBundle:NewsNew:hub_menu.html.twig', { 'categories': categories, 'paletteColor': paletteColor, 'currentCategory': currentCategory }) }}
+        {{ include('ArmdNewsBundle:NewsNew:hub_menu.html.twig', { 'categories': categories, 'palette_color': palette_color, 'currentCategory': currentCategory }) }}
 
         {% for item in news %}
             <section class="hub-list-item">
