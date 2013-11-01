@@ -107,11 +107,17 @@ class NewsController extends Controller {
         $categories = $categoryRepository->findAll();
 
         $user = $this->container->get('security.context')->getToken()->getUser();
-        $favorite = $entityManager->getRepository('ArmdUserBundle:Favorites')->findBy(array(
-            'user' => $user->getId(),
-            'resourceType' => Favorites::TYPE_MEDIA,
-            'resourceId' => $entity->getId()
-        ));
+        if ($user) { //if you are logged in
+            $favorite = $entityManager->getRepository('ArmdUserBundle:Favorites')->findBy(array(
+                'user' => $user->getId(),
+                'resourceType' => Favorites::TYPE_MEDIA,
+                'resourceId' => $entity->getId()
+            ));
+        }
+        else {
+            $favorite = false;
+        }
+
 
 
         return array(
