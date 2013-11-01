@@ -13,6 +13,7 @@ use Armd\ListBundle\Controller\ListController;
 use Armd\MkCommentBundle\Entity\Thread;
 use DateTime;
 use Armd\UserBundle\Entity\Favorites;
+use Armd\UserBundle\Entity\User;
 
 class NewsController extends Controller {
     private $palette_color = 'palette-color-1';
@@ -107,7 +108,7 @@ class NewsController extends Controller {
         $categories = $categoryRepository->findAll();
 
         $user = $this->container->get('security.context')->getToken()->getUser();
-        if ($user) { //if you are logged in
+        if ($user instanceof User) { //if you are logged in
             $favorite = $entityManager->getRepository('ArmdUserBundle:Favorites')->findBy(array(
                 'user' => $user->getId(),
                 'resourceType' => Favorites::TYPE_MEDIA,
