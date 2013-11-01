@@ -13,3 +13,7 @@
 {% macro macro_date_standart(value) %}
     {{ value|date('j ')}}{{ ('calendar.full.'~value|date('M'))|trans }}{{ value|date(' Y') }}
 {% endmacro %}
+
+{% macro macro_date_full(value) %}
+    {{ value|date('j') }}&nbsp;{{ ('calendar.full.'~value|date('M'))|trans }}&nbsp;{{ value|date('Y') }}, {{ value|date('H:m') }}
+{% endmacro %}

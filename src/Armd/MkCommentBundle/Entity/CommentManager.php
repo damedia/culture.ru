@@ -14,7 +14,7 @@ class CommentManager extends BaseCommentManager
     /**
      * Returns a flat array of comments of a specific thread.
      *
-     * This method is overridden to change literally only one line.
+     * This method is overridden to change literally two lines (visible_state in query).
      *
      * @param  ThreadInterface $thread
      * @param  integer         $depth
@@ -239,7 +239,4 @@ class CommentManager extends BaseCommentManager
             }
         } while($needAnotherPass);
     }
-
-
-
 }

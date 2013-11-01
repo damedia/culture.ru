@@ -3,8 +3,13 @@ Main:
 
 Comments:
     Header: Comments
-    AuthRequire: You must be <a href="%loginUrl%">authorized</a> to post comments.
+    AuthRequire1: You must be
+    AuthRequire2: authorized
+    AuthRequire3: to post comments
     PostComment: post your comment
+    PostReply: post reply
+    PostComment: Post comment
+    LoadingComments: Loading comments
     MessageSent:
         Part1: Message
         Part2: sent
@@ -16,6 +21,15 @@ Comments:
         Rule2: Direct or indirect insults of post hero or other readers
         Rule3: Short evaluation comments ("awful", "great", "boooo")
         Rule4: Comments that incite ethnic and social strife
+    Thread:
+        Open: Open thread
+        Close: Close thread
+    Comment:
+        Reply: Reply
+        Link: Link
+        Edit: Edit
+        Delete: Delete
+        Restore: Restore
 
 Hub:
     MenuAll: all

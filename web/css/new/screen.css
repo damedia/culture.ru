@@ -1703,7 +1703,8 @@ letter-spacing: -1px
 }
 
 .comment-item .comment-text {
-overflow: hidden
+overflow: hidden;
+min-height: 90px;
 }
 
 .comment-item p {
@@ -2933,6 +2934,12 @@ margin: 0 0 5px;
 .displayNone {
     display: none;
 }
+.floatRight {
+    float: right;
+}
+.marginLeft10 {
+    margin-left: 10px;
+}
 
 
 /*========================
@@ -2949,6 +2956,26 @@ margin: 0 0 5px;
 .comment-post-button:hover {
     text-decoration: none;
     background: #313336;
+}
+#comment_loading_message {
+    display: none;
+}
+#add_new_comment {
+    display: none;
+}
+.fos_comment_comment_form_holder {
+    width: 100%;
+    clear: both;
+}
+.fos-comment-link-buttonlike {
+    text-decoration: none !important;
+}
+.fos-comment-link-buttonlike:hover {
+    text-decoration: underline !important;
+}
+textarea[name="fos_comment_comment[body]"] {
+    width: 100%;
+    min-height: 130px !important;
 }
 
 
@@ -3019,6 +3046,27 @@ ul.hub-menu li a {
 }
 ul.hub-menu li a:hover {
     text-decoration: none;
+}
+
+
+/*=======================
+==== User Favorites ===*/
+#comments_header {
+    font-size: 1.1em;
+}
+#fos-comment-total {
+    float: left;
+    color: #878F90;
+}
+ul.comments-list li {
+    list-style: none;
+}
+
+.palette-text {
+    cursor: pointer;
+}
+.palette-text:hover {
+    text-decoration: underline;
 }
 
 

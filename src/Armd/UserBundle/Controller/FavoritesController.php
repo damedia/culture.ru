@@ -194,7 +194,7 @@ class FavoritesController extends Controller
             return new Response('0');
         }
         
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $favorite = $em->getRepository('ArmdUserBundle:Favorites')->findBy(array(
             'user' => $user->getId(),
             'resourceType' => $resourceType,
