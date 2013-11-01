@@ -3,6 +3,8 @@
  This happens due to the fact that MkCommentBundle returns FOSCommentBundle as its parent (check ArmdMkCommentBundle.php class)!
 #}
 
+{% import 'ArmdNewsBundle::date_macro.html.twig' as armd_news %}
+
 {% block fos_comment_comment %}
     {% if 'new' in app.request.attributes.get('id') %}
         {% include 'ArmdMkCommentBundle:Thread:comment_content_partNew.html.twig' %}

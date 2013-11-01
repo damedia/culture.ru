@@ -1,9 +1,15 @@
-<div class="b-comment-form-wrapper m-comment-indent comment-item">
+<div class="b-comment-form-wrapper m-comment-indent fos_comment_comment_form_holder comment-item">
+    {% block fos_comment_form_title %}
+        {% if parent is not null %}
+            <h3>{% trans with {"%name%": parent.authorName } from 'FOSCommentBundle' %}fos_comment_comment_reply_reply_to{% endtrans %}</h3>
+        {% endif %}
+    {% endblock %}
+
     <form class="fos_comment_comment_new_form" action="{{ url('fos_comment_post_thread_comments', url_parameters) }}" data-parent="{{ parent.id|default() }}" method="POST">
         {{ form_widget(form._token) }}
 
         <div class="b-right-col">
-            <button id="commentSubmit" class="comment-post-button" type="button">{{ 'Comments.PostComment'|trans }}</button>
+            <button class="palette-button comment-post-button" type="button">{{ 'Comments.PostComment'|trans }}</button>
             <div class="validation-info displayNone">
                 <p>{{ 'Comments.MessageSent.Part1'|trans }} <b>{{ 'Comments.MessageSent.Part2'|trans }}<br />{{ 'Comments.MessageSent.Part3'|trans }}</b></p>
                 <p>{{ 'Comments.MessageSent.Part4'|trans }}</p>
@@ -11,7 +17,7 @@
         </div>
 
         <div class="b-form-field m-right-corner">
-            <textarea name="fos_comment_comment[body]" id="fos_comment_comment_body" cols="58" rows="10"></textarea>
+            <textarea name="fos_comment_comment[body]"></textarea>
         </div>
 
         <div class="b-form-info">

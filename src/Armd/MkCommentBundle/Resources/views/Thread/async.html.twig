@@ -16,6 +16,7 @@ Parameters currently passed into this template:
 <script type="text/javascript">
     var fos_comment_thread_id = '{{ id }}',
         fos_comment_new_comment_post_button_class = '{{ buttonClass|default('') }}',
+        fos_comment_text_color_class = '{{ textClass|default('') }}',
         fos_comment_thread_api_base_url = '{{ path('fos_comment_get_threads') }}'; // api base url to use for initial requests
 
     // Snippet for asynchronously loading the comments
@@ -26,7 +27,7 @@ Parameters currently passed into this template:
         fos_comment_script.src = '{{ asset_url }}';
         fos_comment_script.type = 'text/javascript';
 
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(fos_comment_script);
+        (document.getElementsByTagName('body')[0]).appendChild(fos_comment_script);
     })();
 </script>
 {% endjavascripts %}

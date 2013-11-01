@@ -44,13 +44,10 @@
             </div>
 
             <div class="entity-image-footer">
-                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                    <span class="favorites {{ palette_color }} {{ palette_favoritesIcon }}">{{ 'Entity.AddToFavorites'|trans }}</span>
-
-                    <!--<a href="#" class="user-favorites-button" title="{{ 'Entity.AddToFavorites'|trans }}" data-type="{{ constant('Armd\\UserBundle\\Entity\\Favorites::TYPE_MEDIA') }}" data-id="{{ entity.id }}">
-                                <img src="{{ asset('img/favorites.png') }}" alt="{{ 'Entity.AddToFavorites'|trans }}" />
-                            </a>-->
+                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") and not isFavored %}
+                    <span class="user-favorites-button favorites {{ palette_color }} {{ palette_favoritesIcon }}" data-type="{{ constant('Armd\\UserBundle\\Entity\\Favorites::TYPE_MEDIA') }}" data-id="{{ entity.id }}">{{ 'Entity.AddToFavorites'|trans }}</span>
                 {% endif %}
+
                 <span class="description">
                     {{ entity.image.description }}
                     {% if entity.source is not empty %}

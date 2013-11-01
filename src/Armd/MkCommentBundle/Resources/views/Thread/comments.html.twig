@@ -6,6 +6,8 @@
 {% set depth = depth|default(0) %}
 {% set view = view|default('tree') %}
 
+<div id="comment_loading_message">{{ 'Comments.LoadingComments'|trans }}</div>
+
 {% if 'new' in app.request.attributes.get('id') %}
     {% include 'ArmdMkCommentBundle:Thread:comments_partNew.html.twig' %}
 {% else %}

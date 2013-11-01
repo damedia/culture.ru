@@ -26,6 +26,7 @@
                 </div>
             {% endblock fos_comment_comment_body %}
         </div>
+
         {% block fos_comment_comment_metas %}
             <div class="comment-list_footer">
                 {% if comment is fos_comment_in_state(constant('FOS\\CommentBundle\\Model\\CommentInterface::STATE_VISIBLE')) %}

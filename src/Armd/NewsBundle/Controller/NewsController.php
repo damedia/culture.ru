@@ -12,6 +12,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Armd\ListBundle\Controller\ListController;
 use Armd\MkCommentBundle\Entity\Thread;
 use DateTime;
+use Armd\UserBundle\Entity\Favorites;
 
 class NewsController extends Controller {
     private $palette_color = 'palette-color-1';
@@ -93,45 +94,34 @@ class NewsController extends Controller {
      * @Template("ArmdNewsBundle:NewsNew:item.html.twig")
      */
     function newsItemAction($id) {
-        /*
-        $menu = $this->get('armd_main.menu.main');
-        $menuFinder = $this->get('armd_main.menu_finder');
-        if(!$menuFinder->findByUri($menu, $this->getRequest()->getRequestUri())) {
-            $menu->setCurrentUri(
-                $this->get('router')->generate('armd_news_list_index_by_category')
-            );
-        }
-        */
-
         $categoryRepository = $this->getDoctrine()->getRepository('ArmdNewsBundle:Category');
+        $entityManager = $this->getDoctrine()->getManager();
 
-        $entity = $this->getDoctrine()->getManager()->getRepository('ArmdNewsBundle:News')->findOneBy(array('id' => $id, 'published' => true));
+        $entity = $entityManager->getRepository('ArmdNewsBundle:News')->findOneBy(array('id' => $id, 'published' => true));
         if (null === $entity) {
             throw $this->createNotFoundException(sprintf('Unable to find record %d', $id));
         }
         $this->getTagManager()->loadTagging($entity);
 
-        $categories = $this->getNewsManager()->getCategories();
-
-        $calendarDate = $entity->getDate();
 
         $categories = $categoryRepository->findAll();
 
-
-
+        $user = $this->container->get('security.context')->getToken()->getUser();
+        $favorite = $entityManager->getRepository('ArmdUserBundle:Favorites')->findBy(array(
+            'user' => $user->getId(),
+            'resourceType' => Favorites::TYPE_MEDIA,
+            'resourceId' => $entity->getId()
+        ));
 
 
         return array(
             'entity'      => $entity,
-            //'category'    => $category,
+            'isFavored'   => $favorite ? true : false,
             'categories'  => $categories,
             'palette_color' => $this->palette_color,
             'palette_favoritesIcon' => $this->palette_favoritesIcon,
             'palette_background' => $this->palette_background,
             'isCommentable' => $this->isCommentable($entity)
-            //'calendarDate'  => $calendarDate,
-            //'comments'    => $this->getComments($entity->getThread()),
-            //'thread'      => $entity->getThread(),
         );
     }
 
