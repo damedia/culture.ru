@@ -31,7 +31,9 @@ class NewsController extends Controller {
 
         $categories = $categoryRepository->findAll();
 
-        //$searchQuery = $request->get('search_query');
+        $searchQuery = $request->get('search_query');
+
+
         //$category = $categorySlug ? $categoryRepository->findOneBySlug($categorySlug) : null;
         //$category = $category ? array($category) : array('news', 'interviews', 'reportages', 'articles'); //TODO: weird!
 

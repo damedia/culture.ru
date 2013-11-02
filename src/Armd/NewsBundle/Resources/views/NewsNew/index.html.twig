@@ -32,4 +32,30 @@
 
 {% block javascripts %}
     {{ parent() }}
+
+    <script type="text/javascript">
+        $(function(){
+            $('input#search-txt').on('click', $(this), function(){
+                var searchInput = $(this),
+                    parentFormSearchCheckbox = searchInput.parent('form').next('div.search-checkboxes');
+
+                if (searchInput.data('opened')) {
+                    parentFormSearchCheckbox.hide();
+                    searchInput.data('opened', false);
+                }
+                else {
+                    parentFormSearchCheckbox.show();
+                    searchInput.data('opened', true);
+                }
+            });
+
+            $('#search-form').bind('submit', function(e){
+                if ($('#search-this-section').is(':checked')) {
+                    e.preventDefault();
+
+                    window.location = Routing.generate('armd_news_list_index_by_category', { 'search_query': $('#search-txt').val() });
+                }
+            });
+        });
+    </script>
 {% endblock %}

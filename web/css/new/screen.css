@@ -3107,6 +3107,31 @@ ul.comments-list li {
     float: right;
 }
 
+.search-checkboxes {
+    display: none;
+    background: #f6f6f6;
+    width: 207px;
+    position: absolute;
+    top: 125px;
+}
+.search-checkboxes label {
+    display: block;
+    position: relative;
+    padding-left: 20px;
+    margin: 0 4px;
+}
+.search-checkboxes input {
+    margin: 0;
+    padding: 0;
+    width: 15px;
+    height: 15px;
+}
+.search-checkboxes span {
+    color: #5b5b5b;
+    text-transform: uppercase;
+    font-size: 10px;
+}
+
 
 /*==================
 ==== Main Wrap ===*/

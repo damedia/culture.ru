@@ -90,6 +90,12 @@
                             <input type="text" name="search_query" class="text-field" id="search-txt" autocomplete="off" value="{% block search_query %}поиск по сайту{% endblock %}"/>
                             <input type="submit" value="{{ "search"|trans }}" class="search-button" />
                         </form>
+                        <div class="search-checkboxes">
+                            <label>
+                                <input type="checkbox" name="search-this-section" id="search-this-section" />
+                                <span>{{ 'Search_current_section'|trans }}</span>
+                            </label>
+                        </div>
                     </div>
 
                     {% block sidebar %}
