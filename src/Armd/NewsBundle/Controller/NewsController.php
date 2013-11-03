@@ -26,12 +26,11 @@ class NewsController extends Controller {
      */
     function newsIndexAction($category = null) { //TODO: should be renamed to '$categorySlug'
         $request = $this->getRequest();
-        $newsManager = $this->get('armd_news.manager.news');
-        $categoryRepository = $this->getDoctrine()->getRepository('ArmdNewsBundle:Category');
+        $searchQuery = $request->get('search_query');
 
+        $categoryRepository = $this->getDoctrine()->getRepository('ArmdNewsBundle:Category');
         $categories = $categoryRepository->findAll();
 
-        $searchQuery = $request->get('search_query');
 
 
         //$category = $categorySlug ? $categoryRepository->findOneBySlug($categorySlug) : null;
@@ -56,20 +55,20 @@ class NewsController extends Controller {
         }
         */
         //else { //the default way
-            $firstLoadedDate = new \DateTime($request->get('first_loaded_date')); //at first get minimal date
+            //$firstLoadedDate = new \DateTime($request->get('first_loaded_date')); //at first get minimal date
 
-            if ($request->query->has('first_loaded_date')) {
-                $firstLoadedDate->sub(new \DateInterval('P1D'))->setTime(0, 0);
-            }
+            //if ($request->query->has('first_loaded_date')) {
+            //    $firstLoadedDate->sub(new \DateInterval('P1D'))->setTime(0, 0);
+            //}
 
             $criteria = array(
                 NewsManager::CRITERIA_CATEGORY_SLUGS_OR => $category,
-                NewsManager::CRITERIA_NEWS_DATE_TILL => $firstLoadedDate,
+                //NewsManager::CRITERIA_NEWS_DATE_TILL => $firstLoadedDate,
                 NewsManager::CRITERIA_LIMIT => 10,
                 NewsManager::CRITERIA_ORDER_BY => array('newsDate' => 'DESC')
             );
 
-            $news = $newsManager->findObjects($criteria);
+            $news = $this->getNewsManager()->findObjects($criteria);
 //print count($news);
             /*
             if (count($news) > 0) {
@@ -88,7 +87,8 @@ class NewsController extends Controller {
             'news' => $news,
             'categories' => $categories,
             'currentCategory' => $category,
-            'palette_color' => $this->palette_color
+            'palette_color' => $this->palette_color,
+            'searchQuery' => $searchQuery
         );
     }
 
@@ -98,16 +98,14 @@ class NewsController extends Controller {
      */
     function newsItemAction($id) {
         $categoryRepository = $this->getDoctrine()->getRepository('ArmdNewsBundle:Category');
-        $entityManager = $this->getDoctrine()->getManager();
+        $categories = $categoryRepository->findAll();
 
+        $entityManager = $this->getDoctrine()->getManager();
         $entity = $entityManager->getRepository('ArmdNewsBundle:News')->findOneBy(array('id' => $id, 'published' => true));
-        if (null === $entity) {
+        if ($entity) {
             throw $this->createNotFoundException(sprintf('Unable to find record %d', $id));
         }
         $this->getTagManager()->loadTagging($entity);
-
-
-        $categories = $categoryRepository->findAll();
 
         $user = $this->container->get('security.context')->getToken()->getUser();
         if ($user instanceof User) { //if you are logged in
@@ -121,12 +119,10 @@ class NewsController extends Controller {
             $favorite = false;
         }
 
-
-
         return array(
-            'entity'      => $entity,
-            'isFavored'   => $favorite ? true : false,
-            'categories'  => $categories,
+            'entity' => $entity,
+            'isFavored' => $favorite ? true : false,
+            'categories' => $categories,
             'palette_color' => $this->palette_color,
             'palette_favoritesIcon' => $this->palette_favoritesIcon,
             'palette_background' => $this->palette_background,
@@ -140,6 +136,31 @@ class NewsController extends Controller {
         $interfaces = class_implements(get_class($entity));
 
         return (isset($interfaces['Armd\MkCommentBundle\Model\CommentableInterface'])) ? true : false;
+    }
+
+    /**
+     * @Route(
+     *  "/text-search-result",
+     *  name="armd_news_text_search_result",
+     *  options={"expose"=true}
+     * )
+     * @Template("ArmdNewsBundle:News:text_search_result.html.twig")
+     */
+    public function textSearchResultAction() {
+        $request = $this->getRequest();
+
+        $criteria = array(
+            NewsManager::CRITERIA_SEARCH_STRING => $request->get('search_query'),
+            NewsManager::CRITERIA_CATEGORY_SLUGS_OR => array($request->get('category_slug')),
+            NewsManager::CRITERIA_LIMIT => 20,
+            NewsManager::CRITERIA_OFFSET => $request->get('offset')
+        );
+
+        $news = $this->getNewsManager()->findObjects($criteria);
+
+        return array(
+            'news' => $news
+        );
     }
 
 
@@ -354,36 +375,6 @@ class NewsController extends Controller {
         catch (\Exception $e) {
             print $e->getMessage();
         }
-    }
-
-    /**
-     * @Route(
-     *  "/text-search-result",
-     *  name="armd_news_text_search_result",
-     *  options={"expose"=true}
-     * )
-     * @Template("ArmdNewsBundle:News:text_search_result.html.twig")
-     */
-    public function textSearchResultAction()
-    {
-        $request = $this->getRequest();
-        $limit = $request->get('limit', 20);
-        if ($limit > 100) {
-            $limit = 100;
-        }
-
-        $news = $this->getNewsManager()->findObjects(
-            array(
-                NewsManager::CRITERIA_SEARCH_STRING => $request->get('search_query'),
-                NewsManager::CRITERIA_CATEGORY_SLUGS_OR => array($request->get('category_slug')),
-                NewsManager::CRITERIA_LIMIT => $limit,
-                NewsManager::CRITERIA_OFFSET => $request->get('offset'),
-            )
-        );
-
-        return array(
-            'news' => $news
-        );
     }
 
     /**

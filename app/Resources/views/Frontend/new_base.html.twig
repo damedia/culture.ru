@@ -85,7 +85,7 @@
                             <a class="aa-link" href="{{ path('armd_main_special_homepage') }}">Aa</a>
                         </li>
                     </ul>
-                    <div class="b-quick-search">
+                    <div id="quick-search-wrapper" class="b-quick-search">
                         <form id="search-form" action="{{ path('armd_search_results') }}">
                             <input type="text" name="search_query" class="text-field" id="search-txt" autocomplete="off" value="{% block search_query %}поиск по сайту{% endblock %}"/>
                             <input type="submit" value="{{ "search"|trans }}" class="search-button" />
@@ -102,7 +102,6 @@
                         {% render 'ActualInfoBundle:Default:mainpageWidget' %} <!-- TODO: this line doing nothing?.. -->
                         {% render 'ArmdNewsBundle:News:lastAnnounce' %}
                     {% endblock %}
-
                 </div>
             </div>
 

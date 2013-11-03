@@ -89,6 +89,27 @@
 
     <script type="text/javascript">
         $(function(){
+            var searchWrapper = $('#quick-search-wrapper'),
+                    searchInput = $('#search-txt', searchWrapper),
+                    searchForm = searchWrapper.find('form'),
+                    checkboxesHoverTab = searchWrapper.find('div.search-checkboxes'),
+                    searchThisSectionCheckbox = $('#search-this-section', searchWrapper);
+
+            searchWrapper.mouseenter(function(){
+                checkboxesHoverTab.show();
+            });
+
+            searchWrapper.mouseleave(function(){
+                checkboxesHoverTab.hide();
+            });
+
+            searchForm.bind('submit', function(e){
+                if (searchThisSectionCheckbox.is(':checked')) {
+                    e.preventDefault();
+                    window.location = Routing.generate('armd_news_list_index_by_category', { 'search_query': searchInput.val() });
+                }
+            });
+
             new Ya.share({
                 element: 'yandex-share',
                 l10n: {% if app.request.locale == 'ru' %}'ru'{% else %}'en'{% endif %},
@@ -100,28 +121,6 @@
                 link: '{{ url('view_blog', { 'id': entity.id }) }}',
                 title: '{{ entity.title }}',
                 description: '{{ entity.announce|replace({"\n":'',"\r":''})|striptags }}'
-            });
-
-            $('input#search-txt').on('click', $(this), function(){
-                var searchInput = $(this),
-                    parentFormSearchCheckbox = searchInput.parent('form').next('div.search-checkboxes');
-
-                if (searchInput.data('opened')) {
-                    parentFormSearchCheckbox.hide();
-                    searchInput.data('opened', false);
-                }
-                else {
-                    parentFormSearchCheckbox.show();
-                    searchInput.data('opened', true);
-                }
-            });
-
-            $('#search-form').bind('submit', function(e){
-                if ($('#search-this-section').is(':checked')) {
-                    e.preventDefault();
-
-                    window.location = Routing.generate('armd_news_list_index_by_category', { 'search_query': $('#search-txt').val() });
-                }
             });
         });
     </script>

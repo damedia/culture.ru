@@ -5,7 +5,7 @@ source mk_news_source_all
 {
     type       = pgsql
 
-    sql_host   = 192.168.56.1
+    sql_host   = 127.0.0.1
     sql_port   = 5432
     sql_db     = mk
     sql_user   = mk
@@ -39,7 +39,7 @@ source mk_lectures_source_all
 {
     type       = pgsql
 
-    sql_host   = 192.168.56.1
+    sql_host   = 127.0.0.1
     sql_port   = 5432
     sql_db     = mk
     sql_user   = mk
@@ -68,7 +68,7 @@ source mk_atlas_source_all
 {
     type       = pgsql
 
-    sql_host   = 192.168.56.1
+    sql_host   = 127.0.0.1
     sql_port   = 5432
     sql_db     = mk
     sql_user   = mk
@@ -97,7 +97,7 @@ source mk_virtual_museums_source_all
 {
     type       = pgsql
 
-    sql_host   = 192.168.56.1
+    sql_host   = 127.0.0.1
     sql_port   = 5432
     sql_db     = mk
     sql_user   = mk
@@ -126,7 +126,7 @@ source mk_lessons_source_all
 {
     type       = pgsql
 
-    sql_host   = 192.168.56.1
+    sql_host   = 127.0.0.1
     sql_port   = 5432
     sql_db     = mk
     sql_user   = mk
@@ -156,7 +156,7 @@ source mk_perfomances_source_all
 {
     type       = pgsql
 
-    sql_host   = 192.168.56.1
+    sql_host   = 127.0.0.1
     sql_port   = 5432
     sql_db     = mk
     sql_user   = mk
@@ -186,7 +186,7 @@ source mk_theaters_source_all
 {
     type       = pgsql
 
-    sql_host   = 192.168.56.1
+    sql_host   = 127.0.0.1
     sql_port   = 5432
     sql_db     = mk
     sql_user   = mk
@@ -217,7 +217,7 @@ source mk_lectures_source
 {
     type       = pgsql
 
-    sql_host   = 192.168.56.1
+    sql_host   = 127.0.0.1
     sql_port   = 5432
     sql_db     = mk
     sql_user   = mk
@@ -250,7 +250,7 @@ source mk_atlas_source
 {
     type       = pgsql
 
-    sql_host   = 192.168.56.1
+    sql_host   = 127.0.0.1
     sql_port   = 5432
     sql_db     = mk
     sql_user   = mk
@@ -289,7 +289,7 @@ source mk_virtual_museums_source
 {
     type       = pgsql
 
-    sql_host   = 192.168.56.1
+    sql_host   = 127.0.0.1
     sql_port   = 5432
     sql_db     = mk
     sql_user   = mk
@@ -319,7 +319,7 @@ source mk_news_source
 {
     type       = pgsql
 
-    sql_host   = 192.168.56.1
+    sql_host   = 127.0.0.1
     sql_port   = 5432
     sql_db     = mk
     sql_user   = mk
@@ -345,7 +345,7 @@ source mk_lessons_source
 {
     type       = pgsql
 
-    sql_host   = 192.168.56.1
+    sql_host   = 127.0.0.1
     sql_port   = 5432
     sql_db     = mk
     sql_user   = mk
@@ -383,7 +383,7 @@ source mk_perfomances_source
 {
     type       = pgsql
 
-    sql_host   = 192.168.56.1
+    sql_host   = 127.0.0.1
     sql_port   = 5432
     sql_db     = mk
     sql_user   = mk
@@ -410,7 +410,7 @@ source mk_theaters_source
 {
     type       = pgsql
 
-    sql_host   = 192.168.56.1
+    sql_host   = 127.0.0.1
     sql_port   = 5432
     sql_db     = mk
     sql_user   = mk
@@ -525,7 +525,7 @@ source mk_news_source_all_en
 {
     type       = pgsql
 
-    sql_host   = 192.168.56.1
+    sql_host   = 127.0.0.1
     sql_port   = 5432
     sql_db     = mk
     sql_user   = mk
@@ -559,7 +559,7 @@ source mk_lectures_source_all_en
 {
     type       = pgsql
 
-    sql_host   = 192.168.56.1
+    sql_host   = 127.0.0.1
     sql_port   = 5432
     sql_db     = mk
     sql_user   = mk
@@ -588,7 +588,7 @@ source mk_atlas_source_all_en
 {
     type       = pgsql
 
-    sql_host   = 192.168.56.1
+    sql_host   = 127.0.0.1
     sql_port   = 5432
     sql_db     = mk
     sql_user   = mk
@@ -617,7 +617,7 @@ source mk_virtual_museums_source_all_en
 {
     type       = pgsql
 
-    sql_host   = 192.168.56.1
+    sql_host   = 127.0.0.1
     sql_port   = 5432
     sql_db     = mk
     sql_user   = mk
@@ -646,7 +646,7 @@ source mk_lessons_source_all_en
 {
     type       = pgsql
 
-    sql_host   = 192.168.56.1
+    sql_host   = 127.0.0.1
     sql_port   = 5432
     sql_db     = mk
     sql_user   = mk
@@ -676,7 +676,7 @@ source mk_perfomances_source_all_en
 {
     type       = pgsql
 
-    sql_host   = 192.168.56.1
+    sql_host   = 127.0.0.1
     sql_port   = 5432
     sql_db     = mk
     sql_user   = mk
@@ -706,7 +706,7 @@ source mk_theaters_source_all_en
 {
     type       = pgsql
 
-    sql_host   = 192.168.56.1
+    sql_host   = 127.0.0.1
     sql_port   = 5432
     sql_db     = mk
     sql_user   = mk
@@ -737,7 +737,7 @@ source mk_lectures_source_en
 {
     type       = pgsql
 
-    sql_host   = 192.168.56.1
+    sql_host   = 127.0.0.1
     sql_port   = 5432
     sql_db     = mk
     sql_user   = mk
@@ -770,7 +770,7 @@ source mk_atlas_source_en
 {
     type       = pgsql
 
-    sql_host   = 192.168.56.1
+    sql_host   = 127.0.0.1
     sql_port   = 5432
     sql_db     = mk
     sql_user   = mk
@@ -809,7 +809,7 @@ source mk_virtual_museums_source_en
 {
     type       = pgsql
 
-    sql_host   = 192.168.56.1
+    sql_host   = 127.0.0.1
     sql_port   = 5432
     sql_db     = mk
     sql_user   = mk
@@ -839,7 +839,7 @@ source mk_news_source_en
 {
     type       = pgsql
 
-    sql_host   = 192.168.56.1
+    sql_host   = 127.0.0.1
     sql_port   = 5432
     sql_db     = mk
     sql_user   = mk
@@ -865,7 +865,7 @@ source mk_lessons_source_en
 {
     type       = pgsql
 
-    sql_host   = 192.168.56.1
+    sql_host   = 127.0.0.1
     sql_port   = 5432
     sql_db     = mk
     sql_user   = mk
@@ -903,7 +903,7 @@ source mk_perfomances_source_en
 {
     type       = pgsql
 
-    sql_host   = 192.168.56.1
+    sql_host   = 127.0.0.1
     sql_port   = 5432
     sql_db     = mk
     sql_user   = mk
@@ -930,7 +930,7 @@ source mk_theaters_source_en
 {
     type       = pgsql
 
-    sql_host   = 192.168.56.1
+    sql_host   = 127.0.0.1
     sql_port   = 5432
     sql_db     = mk
     sql_user   = mk
