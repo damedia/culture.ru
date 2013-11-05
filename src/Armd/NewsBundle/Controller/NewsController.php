@@ -102,7 +102,7 @@ class NewsController extends Controller {
 
         $entityManager = $this->getDoctrine()->getManager();
         $entity = $entityManager->getRepository('ArmdNewsBundle:News')->findOneBy(array('id' => $id, 'published' => true));
-        if ($entity) {
+        if (!$entity) {
             throw $this->createNotFoundException(sprintf('Unable to find record %d', $id));
         }
         $this->getTagManager()->loadTagging($entity);
