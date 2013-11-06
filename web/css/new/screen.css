@@ -3084,6 +3084,7 @@ ul.comments-list li {
 .sidebar-widget {
     background-color: #E1E3E4;
     padding: 5px;
+    margin-bottom: 10px;
 }
 .sidebar-widget a.sidebar-widget-item {
     display: block;
@@ -3092,6 +3093,7 @@ ul.comments-list li {
     text-decoration: none;
     position: relative;
     margin-bottom: 20px;
+    min-height: 130px;
 }
 .sidebar-widget a.sidebar-widget-item div.title-pane {
     position: absolute;

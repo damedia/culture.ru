@@ -14,6 +14,7 @@ use Armd\MkCommentBundle\Entity\Thread;
 use DateTime;
 use Armd\UserBundle\Entity\Favorites;
 use Armd\UserBundle\Entity\User;
+use Armd\NewsBundle\Entity\News;
 
 class NewsController extends Controller {
     private $palette_color = 'palette-color-1';
@@ -33,13 +34,42 @@ class NewsController extends Controller {
 
     /**
      * @param $date
-     * @Template("ArmdNewsBundle:NewsNew:sidebarWidget.html.twig")
+     * @Template("ArmdNewsBundle:NewsNew:sidebarIndexWidget.html.twig")
      * @return array
      */
-    public function sidebarWidgetAction($date = '') {
+    public function sidebarIndexWidgetAction($date = '') {
         $items = $this->getNewsRepository()->findForMainPage($date, 5);
 
         return array('items' => $items);
+    }
+
+    /**
+     * @param $entity
+     * @Template("ArmdNewsBundle:NewsNew:sidebarItemWidget.html.twig")
+     * @return array
+     */
+    public function sidebarItemWidgetAction(News $entity) {
+        $this->getTagManager()->loadTagging($entity);
+
+        $relatedNews = $this->getNewsManager()->findObjects(array(
+            NewsManager::CRITERIA_LIMIT => 5,
+            NewsManager::CRITERIA_TAGS => $entity->getTags(),
+            NewsManager::CRITERIA_RANDOM => true,
+            NewsManager::CRITERIA_NOT_IDS => array($entity->getId())
+        ));
+
+        $tags = $entity->getTags();
+        $tagsString = array();
+        foreach ($tags as $tag) {
+            $tagsString[] = $tag->getName();
+        }
+        $tagsString = implode(', ', $tagsString);
+
+        return array(
+            'tags' => $tagsString,
+            'linkedObjects' => array('none'),
+            'relatedNews' => $relatedNews
+        );
     }
 
     /**
@@ -158,6 +188,20 @@ class NewsController extends Controller {
         $interfaces = class_implements(get_class($entity));
 
         return (isset($interfaces['Armd\MkCommentBundle\Model\CommentableInterface'])) ? true : false;
+    }
+
+    /**
+     * @return \Armd\TagBundle\Entity\TagManager
+     */
+    private function getTagManager() {
+        return $this->get('fpn_tag.tag_manager');
+    }
+
+    /**
+     * @return \Armd\NewsBundle\Entity\NewsManager
+     */
+    protected function getNewsManager() {
+        return $this->get('armd_news.manager.news');
     }
 
     /**
@@ -495,21 +539,7 @@ class NewsController extends Controller {
     }
 
 
-    /**
-     * @return \Armd\NewsBundle\Entity\NewsManager
-     */
-    protected function getNewsManager()
-    {
-        return $this->get('armd_news.manager.news');
-    }
 
-    /**
-     * @return \Armd\TagBundle\Entity\TagManager
-     */
-    public function getTagManager()
-    {
-        return $this->get('fpn_tag.tag_manager');
-    }
 
     /**
      * @param \Armd\MkCommentBundle\Entity\Thread $thread

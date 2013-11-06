@@ -69,17 +69,7 @@
 {% endblock %}
 
 {% block sidebar %}
-    The 'sidebar' block got left empty just for now.
-    <br /><br />
-    Linked Special Projects
-    <br /><br />
-    Related content (by tags)
-
-    <!--
-    <div class="popular-container">
-        {% render 'BlogBundle:Default:popular' %}
-    </div>
-    -->
+    {% render 'ArmdNewsBundle:News:sidebarItemWidget' with {'entity': entity} %}
 {% endblock %}
 
 {% block javascripts %}

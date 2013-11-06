@@ -1,0 +1,26 @@
+<div class="sidebar-widget">
+    <b>Tags</b>: {{ tags }}
+</div>
+
+{% if linkedObjects is not empty %}
+<div class="sidebar-widget">
+    <b>Linked objects</b> (count: {{ linkedObjects|length }})<br />
+    {% for object in linkedObjects %}
+        {{ object }}<br />
+    {% endfor %}
+</div>
+{% endif %}
+
+{% if relatedNews is not empty %}
+<div class="sidebar-widget">
+    <b>Related news</b> (count: {{ relatedNews|length }})<br />
+    {% for item in relatedNews %}
+        <a href="{{ path('armd_news_item_by_category', {id: item.id}) }}" class="sidebar-widget-item">
+            {% thumbnail item.image, 'billboard' with {'width': 230, 'height': 'auto', 'display': 'block'} %}
+            <div class="title-pane">
+                {{ item.title }}
+            </div>
+        </a>
+    {% endfor %}
+</div>
+{% endif %}
