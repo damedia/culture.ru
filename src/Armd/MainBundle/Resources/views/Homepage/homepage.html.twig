@@ -3,24 +3,15 @@
 {% block title %}{{ 'Portal title'|trans }}{% endblock %}
 
 {% block body %}
-
     {% render 'ArmdNewsBundle:News:mainpageWidget' %}
-
     {% render 'ArmdAtlasBundle:Default:mainpageWidget' %}
-
     {% render 'DamediaSpecialProjectBundle:Render:mainpageWidget' %}
 
     <div class="b-main-wrap b-block-main clearfix">
-
         {% render 'ArmdLectureBundle:Default:mainpageWidget' %}
-
         {% render 'ArmdMuseumBundle:Default:mainpageWidget' %}
-
     </div>
 
     {% render 'ArmdPerfomanceBundle:Perfomance:mainpageWidget' %}
-
     {% render 'ArmdLectureBundle:Default:mainpageLectureWidget' %}
-
-
 {% endblock %}
