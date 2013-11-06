@@ -3079,6 +3079,33 @@ ul.comments-list li {
 }
 
 
+/*=======================
+==== User Favorites ===*/
+.sidebar-widget {
+    background-color: #E1E3E4;
+    padding: 5px;
+}
+.sidebar-widget a.sidebar-widget-item {
+    display: block;
+    line-height: 1em;
+    font-size: 0.8em;
+    text-decoration: none;
+    position: relative;
+    margin-bottom: 20px;
+}
+.sidebar-widget a.sidebar-widget-item div.title-pane {
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: rgba(255, 255, 255, 0.9);
+    text-align: center;
+    bottom: 10px;
+    left: 5px;
+    right: 5px;
+    padding: 5px;
+}
+
+
 /*=====================
 ==== Quick search ===*/
 .b-quick-search .text-field {

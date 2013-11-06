@@ -21,6 +21,28 @@ class NewsController extends Controller {
     private $palette_background = 'palette-background-1';
 
     /**
+     * @param $date
+     * @Template("ArmdNewsBundle:News:mainpageWidget.html.twig")
+     * @return array
+     */
+    public function mainpageWidgetAction($date = '') {
+        $items = $this->getNewsRepository()->findForMainPage($date, 5);
+
+        return array('items' => $items);
+    }
+
+    /**
+     * @param $date
+     * @Template("ArmdNewsBundle:NewsNew:sidebarWidget.html.twig")
+     * @return array
+     */
+    public function sidebarWidgetAction($date = '') {
+        $items = $this->getNewsRepository()->findForMainPage($date, 5);
+
+        return array('items' => $items);
+    }
+
+    /**
      * @Route("/{category}", requirements={"category" = "[a-z]+"}, defaults={"category" = null}, name="armd_news_list_index_by_category", options={"expose"=true})
      * @Template("ArmdNewsBundle:NewsNew:index.html.twig")
      */
@@ -556,18 +578,7 @@ class NewsController extends Controller {
         return $items;
     }
 
-    /**
-     * @param $date
-     * @Template()
-     * @return array
-     */
-    public function mainpageWidgetAction($date = '')
-    {
-        $repo = $this->getNewsRepository();
-        $items = $repo->findForMainPage($date, 5);
 
-        return array('items' => $items);
-    }
 
     /**
      * @return \Armd\NewsBundle\Repository\NewsRepository
