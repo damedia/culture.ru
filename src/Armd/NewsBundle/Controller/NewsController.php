@@ -44,12 +44,79 @@ class NewsController extends Controller {
     }
 
     /**
+     * @param $objects
+     * @Template("ArmdNewsBundle:NewsNew:sidebarIndexWidget.html.twig")
+     * @return array
+     */
+    public function sidebarLinkedNewsWidgetAction(array $objects) {
+        return array('items' => $objects);
+    }
+
+    /**
      * @param $entity
      * @Template("ArmdNewsBundle:NewsNew:sidebarItemWidget.html.twig")
      * @return array
      */
     public function sidebarItemWidgetAction(News $entity) {
         $this->getTagManager()->loadTagging($entity);
+        $tags = $entity->getTags();
+
+        $commonTags = array();
+        $techTags = array();
+        foreach ($tags as $tag) {
+            if (preg_match('/^[a-zA-Z]\d+$/', $tag->getName())) { //is technical tag
+                $techTags[] = $tag->getName();
+            }
+            else {
+                $commonTags[] = $tag->getName();
+            }
+        }
+
+        $linkedObjects = array();
+        if (count($techTags) > 0) {
+            foreach ($techTags as $tagName) {
+                $entityType = $tagName[0];
+                $entityId = substr($tagName, 1);
+
+                switch ($entityType) {
+                    case "s": //special project
+                        $linkedObjects['special_projects'][] = $entityId;
+                        break;
+
+                    case "n": //news
+                        if ($entityId != $entity->getId()) { //if it's not the same entity
+                            $linkedObjects['news'][] = $entityId;
+                        }
+                        break;
+
+                    case "o": //atlas object
+                        $linkedObjects['atlas_objects'][] = $entityId;
+                        break;
+
+                    case "l": //lecture
+                        $linkedObjects['lectures'][] = $entityId;
+                        break;
+
+                    default:
+                        //do nothing with unknown technical tag!
+                }
+            }
+
+            //special projects
+            //
+
+            //news
+            if (isset($linkedObjects['news']) AND (count($linkedObjects['news']) > 0)) {
+                $linkedNews = $this->getNewsRepository()->findBy(array('id' => $linkedObjects['news']));
+                $linkedObjects['news'] = $linkedNews;
+            }
+
+            //atlas objects
+            //
+
+            //lectures
+            //
+        }
 
         $relatedNews = $this->getNewsManager()->findObjects(array(
             NewsManager::CRITERIA_LIMIT => 5,
@@ -58,16 +125,13 @@ class NewsController extends Controller {
             NewsManager::CRITERIA_NOT_IDS => array($entity->getId())
         ));
 
-        $tags = $entity->getTags();
-        $tagsString = array();
-        foreach ($tags as $tag) {
-            $tagsString[] = $tag->getName();
-        }
-        $tagsString = implode(', ', $tagsString);
+        $tagsString = implode(', ', $commonTags);
+        $techTagsString = implode(', ', $techTags);
 
         return array(
-            'tags' => $tagsString,
-            'linkedObjects' => array('none'),
+            'tagsString' => $tagsString,
+            'techTagsString' => $techTagsString,
+            'linkedObjects' => $linkedObjects,
             'relatedNews' => $relatedNews
         );
     }

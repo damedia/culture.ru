@@ -177,6 +177,7 @@ class News extends Admin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
+            ->add('id')
             ->add('corrected')
             ->add('title')
             ->add('category')

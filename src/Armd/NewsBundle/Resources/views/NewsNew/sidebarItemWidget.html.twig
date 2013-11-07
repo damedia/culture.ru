@@ -1,15 +1,32 @@
+{% if tagsString %}
 <div class="sidebar-widget">
-    <b>Tags</b>: {{ tags }}
-</div>
-
-{% if linkedObjects is not empty %}
-<div class="sidebar-widget">
-    <b>Linked objects</b> (count: {{ linkedObjects|length }})<br />
-    {% for object in linkedObjects %}
-        {{ object }}<br />
-    {% endfor %}
+    <b>Tags</b>: {{ tagsString }}
 </div>
 {% endif %}
+
+{% if techTagsString %}
+    <div class="sidebar-widget">
+        <b>Tech tags</b>: {{ techTagsString|raw }}
+    </div>
+{% endif %}
+
+{% if linkedObjects %}
+    {% for key, objects in linkedObjects %}
+        {% if key == 'news' %}
+            {% render 'ArmdNewsBundle:News:sidebarLinkedNewsWidget' with {'objects': objects} %}
+        {% else %}
+            <div class="sidebar-widget">
+                <b>{{ key }}</b><br />
+                {% for object in objects %}
+                    {{ object }}<br />
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
+
+
 
 {% if relatedNews is not empty %}
 <div class="sidebar-widget">
