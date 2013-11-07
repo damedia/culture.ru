@@ -61,6 +61,15 @@ class DefaultController extends Controller
     }
 
     /**
+     * @param $objects
+     * @Template("ArmdAtlasBundle:Objects:sidebarIndexWidget.html.twig")
+     * @return array
+     */
+    public function sidebarLinkedObjectsWidgetAction(array $objects) {
+        return array('items' => $objects);
+    }
+
+    /**
      * @Route("/object/{id}", requirements={"id"="\d+"}, name="armd_atlas_default_object_view")
      * @Route("/object/{id}/print", requirements={"id"="\d+"}, defaults={"isPrint"=true}, name="armd_atlas_default_object_view_print")
      */

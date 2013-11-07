@@ -12,8 +12,14 @@
 
 {% if linkedObjects %}
     {% for key, objects in linkedObjects %}
-        {% if key == 'news' %}
+        {% if key == 'special_projects' %}
+            Special projects widget is not implemented yet!
+        {% elseif key == 'news' %}
             {% render 'ArmdNewsBundle:News:sidebarLinkedNewsWidget' with {'objects': objects} %}
+        {% elseif key == 'atlas_objects' %}
+            {% render 'ArmdAtlasBundle:Default:sidebarLinkedObjectsWidget' with {'objects': objects} %}
+        {% elseif key == 'lectures' %}
+            {% render 'ArmdLectureBundle:Default:sidebarLinkedLecturesWidget' with {'objects': objects} %}
         {% else %}
             <div class="sidebar-widget">
                 <b>{{ key }}</b><br />
@@ -24,9 +30,6 @@
         {% endif %}
     {% endfor %}
 {% endif %}
-
-
-
 
 {% if relatedNews is not empty %}
 <div class="sidebar-widget">

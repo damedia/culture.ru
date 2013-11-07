@@ -112,10 +112,16 @@ class NewsController extends Controller {
             }
 
             //atlas objects
-            //
+            if (isset($linkedObjects['atlas_objects']) AND (count($linkedObjects['atlas_objects']) > 0)) {
+                $linkedAtlasObjects = $this->getDoctrine()->getRepository('ArmdAtlasBundle:Object')->findBy(array('id' => $linkedObjects['atlas_objects']));
+                $linkedObjects['atlas_objects'] = $linkedAtlasObjects;
+            }
 
             //lectures
-            //
+            if (isset($linkedObjects['lectures']) AND (count($linkedObjects['lectures']) > 0)) {
+                $linkedLectures = $this->getDoctrine()->getRepository('ArmdLectureBundle:Lecture')->findBy(array('id' => $linkedObjects['lectures']));
+                $linkedObjects['lectures'] = $linkedLectures;
+            }
         }
 
         $relatedNews = $this->getNewsManager()->findObjects(array(
@@ -264,8 +270,15 @@ class NewsController extends Controller {
     /**
      * @return \Armd\NewsBundle\Entity\NewsManager
      */
-    protected function getNewsManager() {
+    private function getNewsManager() {
         return $this->get('armd_news.manager.news');
+    }
+
+    /**
+     * @return \Armd\NewsBundle\Repository\NewsRepository
+     */
+    private function getNewsRepository() {
+        return $this->getDoctrine()->getRepository('ArmdNewsBundle:News');
     }
 
     /**
@@ -670,15 +683,5 @@ class NewsController extends Controller {
         }
 
         return $items;
-    }
-
-
-
-    /**
-     * @return \Armd\NewsBundle\Repository\NewsRepository
-     */
-    private function getNewsRepository()
-    {
-        return $this->getDoctrine()->getRepository('ArmdNewsBundle:News');
     }
 }

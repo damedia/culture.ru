@@ -67,6 +67,15 @@ class DefaultController extends Controller
     }
 
     /**
+     * @param $objects
+     * @Template("ArmdLectureBundle:Lectures:sidebarIndexWidget.html.twig")
+     * @return array
+     */
+    public function sidebarLinkedLecturesWidgetAction(array $objects) {
+        return array('items' => $objects);
+    }
+
+    /**
      * @Route("/lecture/", name="armd_lecture_lecture_index")
      */
     public function lectureIndexAction()

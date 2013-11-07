@@ -1,0 +1,12 @@
+{% if items is not empty %}
+    <div class="sidebar-widget">
+        {% for item in items %}
+            <a href="{{ path('armd_atlas_default_object_view', {id: item.id}) }}" class="sidebar-widget-item">
+                {% thumbnail item.primaryImage, 'sideBanner' with {'width': 230, 'height': 'auto', 'display': 'block'} %}
+                <div class="title-pane">
+                    {{ item.title }}
+                </div>
+            </a>
+        {% endfor %}
+    </div>
+{% endif %}
