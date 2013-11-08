@@ -3093,7 +3093,7 @@ ul.comments-list li {
     text-decoration: none;
     position: relative;
     margin-bottom: 20px;
-    min-height: 130px;
+    min-height: ;
 }
 .sidebar-widget a.sidebar-widget-item div.title-pane {
     position: absolute;
@@ -3266,7 +3266,7 @@ ul.comments-list li {
 .entity-image-wrapper img.entity-image {
     display: block;
     width: 698px;
-    height: 476px;
+    height: auto;
 }
 .entity-image-wrapper .image-description {
     position: absolute;
