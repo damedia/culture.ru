@@ -1,5 +1,15 @@
 Main:
     SiteName: Культура.рф
+    Widget:
+        Media:
+            Header: Медиа
+            Today: сегодня
+            Goto: перейти в раздел
+        ImagesOfRussia:
+            Header: Образы России
+        Announce:
+            Header: Анонс
+            Goto: перейти в Анонсы
 
 Comments:
     Header: Комментарии

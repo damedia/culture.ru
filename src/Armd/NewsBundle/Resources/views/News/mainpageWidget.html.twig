@@ -3,24 +3,34 @@
     {% if items is not empty %}
         <div class="b-main-wrap b-post b-block-main m-main-press-center">
             <header class="b-block-heading">
-                <h3 class="e-block-title">{{ "menu.media"|trans|raw }}</h3>
-                <span class="e-current-date">сегодня {{ armd_news.news_date_short('now'|date()) }}</span>
-                <a href="{{ path('armd_news_list_index_by_category') }}" class="e-section-link">перейти в раздел</a>
+                <h3 class="e-block-title">
+                    <a class="noTextDecoration" href="{{ path('armd_news_list_index_by_category') }}">
+                        {{ "Main.Widget.Media.Header"|trans|raw }}
+                    </a>
+                </h3>
+                <span class="e-current-date">
+                    {{ 'Main.Widget.Media.Today'|trans }} {{ armd_news.news_date_short('now'|date()) }}
+                </span>
+                <a href="{{ path('armd_news_list_index_by_category') }}" class="e-section-link">
+                    {{ 'Main.Widget.Media.Goto'|trans }}
+                </a>
             </header>
+
             <section class="b-block-body m-simple-tabs js-simple-tabs">
-                <div class="b-simple-tabs-content js-tabs-list" style="background-color:#e1e3e4;">
+                <div class="b-simple-tabs-content js-tabs-list">
                     {% for item in items %}
-                    <div id="stp{{ loop.index }}" class="b-simple-tabs-tab">
-                        <a style="width:400px;height:280px;display:block;" href="{{ path('armd_news_item_by_category', {id: item.id}) }}">
-                            {% thumbnail item.image, 'billboard' with {'width': 400, 'height': 280} %}
-                            {#<img src="{% path item.image, 'main' %}" alt="">#}
-                        </a>
-                    </div>
+                        <div id="stp{{ loop.index }}" class="b-simple-tabs-tab">
+                            <a class="displayBlock" href="{{ path('armd_news_item_by_category', {id: item.id}) }}">
+                                {% thumbnail item.image, 'billboard' with {'width': 400, 'height': 280} %}
+                            </a>
+                        </div>
                     {% endfor %}
                 </div>
                 <nav class="b-simple-tabs-nav js-tabs-nav">
                     {% for item in items %}
-                    <a href="#stp{{ loop.index }}" class="e-simple-tabs-link{% if loop.index == 1 %} current{% endif %}"><span>{{ item.title }}</span></a>
+                        <a href="#stp{{ loop.index }}" class="e-simple-tabs-link{% if loop.index == 1 %} current{% endif %}">
+                            <span>{{ item.title }}</span>
+                        </a>
                     {% endfor %}
                 </nav>
             </section>

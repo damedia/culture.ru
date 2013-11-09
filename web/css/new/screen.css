@@ -1937,7 +1937,11 @@ overflow: hidden
 }
 
 .m-simple-tabs .b-simple-tabs-content .b-simple-tabs-tab {
-display: none
+    display: none
+}
+.m-simple-tabs .b-simple-tabs-content .b-simple-tabs-tab a {
+    width: 400px;
+    height: 280px;
 }
 
 .m-simple-tabs .b-simple-tabs-nav {
@@ -2078,7 +2082,7 @@ line-height: 1
 }
 
 .m-main-russia-imagery .m-sights-carousel .e-inline-link {
-margin: 32px 0 0 0;
+margin: 0;
 display: block;
 padding-right: 17px;
 float: left
@@ -2493,7 +2497,8 @@ background-color: #dc9482
 }
 
 .b-lecture .js-tabs-list {
-padding-top: 20px
+    padding-top: 20px;
+    background-color: #E1E3E4;
 }
 
 .b-block-heading.m-align {
@@ -2921,11 +2926,35 @@ margin: 0 0 5px;
 .displayNone {
     display: none;
 }
+.displayBlock {
+    display: block;
+}
+
+.centerHorizontally {
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .floatRight {
     float: right;
 }
+
+.fullWidth {
+    width: 100%;
+}
+
+.noPadding {
+    padding: 0;
+}
+.noTextDecoration {
+    text-decoration: none;
+}
+
 .marginLeft10 {
     margin-left: 10px;
+}
+.marginBottom20 {
+    margin-bottom: 20px;
 }
 
 

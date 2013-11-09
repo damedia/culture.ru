@@ -1,26 +1,40 @@
 {% spaceless %}
-    {% if russianImages is not empty %}
-        <div id="russia_image_block" class="b-main-wrap b-block-main m-main-russia-imagery">
-            <div class="b-post">
-                <header class="b-block-heading">
-                    <h3 class="e-block-title">Образы России</h3>
-                    <nav class="b-heading-nav">
-                    {% if showRecommended  %}
-                        <a class="order current" href="{{ path('armd_atlas_russia_images_mainpage', {type: 'recommend', date: date}) }}">{{ "рекомендуем"|trans }}</a>&nbsp;
+{% if russianImages is not empty %}
+    <div id="russia_image_block" class="b-main-wrap b-block-main m-main-russia-imagery">
+        <div class="b-post">
+            <header class="b-block-heading">
+                <h3 class="e-block-title">
+                    <a class="noTextDecoration" href="{{ path('armd_atlas_russia_images') }}">
+                        {{ 'Main.Widget.ImagesOfRussia.Header'|trans }}
+                    </a>
+                </h3>
+
+                <!--
+                <nav class="b-heading-nav">
+                    {% if showRecommended %}
+                        <a class="order current" href="{{ path('armd_atlas_russia_images_mainpage', {type: 'recommend', date: date}) }}">
+                            {{ "рекомендуем"|trans }}
+                        </a>&nbsp;
                     {% endif %}
                     {% if showNovel %}
-                        <a class="order{% if not showRecommended %} current{% endif %}" href="{{ path('armd_atlas_russia_images_mainpage', {type: 'novel', date: date}) }}">неизведанное</a>
+                        <a class="order{% if not showRecommended %} current{% endif %}" href="{{ path('armd_atlas_russia_images_mainpage', {type: 'novel', date: date}) }}">
+                            неизведанное
+                        </a>
                     {% endif %}
-                    </nav>
-                </header>
-                <section class="b-block-body m-sights-carousel b-simple-slider">
-                    <ul id="russia_image_widget" class="b-main-slides clearfix">
-                        {% include 'ArmdAtlasBundle:Default:mainpageWidgetItem.html.twig' with russianImages %}
-                    </ul>
-                    <a href="{{ path('armd_atlas_russia_images') }}" class="e-inline-link">перейти в Образы России</a>
-                </section>
-            </div>
-            <span class="russia-map"></span>
+                </nav>
+                -->
+            </header>
+
+            <section class="b-block-body m-sights-carousel b-simple-slider">
+                <ul id="russia_image_widget" class="b-main-slides clearfix">
+                    {% include 'ArmdAtlasBundle:Default:mainpageWidgetItem.html.twig' with russianImages %}
+                </ul>
+                <a href="{{ path('armd_atlas_russia_images') }}" class="e-inline-link">
+                    перейти в Образы России
+                </a>
+            </section>
         </div>
-    {% endif %}
+        <span class="russia-map"></span>
+    </div>
+{% endif %}
 {% endspaceless %}

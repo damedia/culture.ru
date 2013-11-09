@@ -1,5 +1,15 @@
 Main:
     SiteName: Culture.ru
+    Widget:
+        Media:
+            Header: Media
+            Today: today,
+            Goto: go to the section
+        ImagesOfRussia:
+            Header: Images of Russia
+        Announce:
+            Header: Announce
+            Goto: go to Announces
 
 Comments:
     Header: Comments
