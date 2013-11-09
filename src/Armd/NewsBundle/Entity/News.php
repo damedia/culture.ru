@@ -382,7 +382,7 @@ class News extends BaseNews implements CommentableInterface, Taggable, ChangeHis
         return $this->title;
     }
 
-    public function setDate(\DateTime $date) {
+    public function setDate(\DateTime $date = null) {
         $this->date = $date;
 
         return $this;
@@ -511,7 +511,7 @@ class News extends BaseNews implements CommentableInterface, Taggable, ChangeHis
         return $this->gallery;
     }
 
-    public function setEndDate(\DateTime $endDate) {
+    public function setEndDate(\DateTime $endDate = null) {
         $this->endDate = $endDate;
 
         return $this;
@@ -520,7 +520,7 @@ class News extends BaseNews implements CommentableInterface, Taggable, ChangeHis
         return $this->endDate;
     }
 
-    public function setPublishToDate(\DateTime $publishToDate) {
+    public function setPublishToDate(\DateTime $publishToDate = null) {
         $this->publishToDate = $publishToDate;
 
         return $this;
@@ -529,7 +529,7 @@ class News extends BaseNews implements CommentableInterface, Taggable, ChangeHis
         return $this->publishToDate;
     }
 
-    public function setPublishFromDate(\DateTime $publishFromDate) {
+    public function setPublishFromDate(\DateTime $publishFromDate = null) {
         $this->publishFromDate = $publishFromDate;
 
         return $this;
