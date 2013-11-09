@@ -75,8 +75,7 @@ text-decoration: underline
 }
 
 .b-comment-form-wrapper .b-form-field.m-right-corner:after, .b-brand-icon, .b-load-more a, .b-main .b-pagination li, .b-main .b-pagination-nav li, .b-main .b-pagination li.m-active, .b-main .b-pagination li.selected, .b-main .b-pagination-nav li.m-active, .b-main .b-pagination-nav li.selected, .views-count, .commetn-count, .e-time, .m-type {
-background-image: url('../../img/new/icons-sb7c6234ca4.png');
-background-repeat: no-repeat
+background: url('../../img/new/icons-sb7c6234ca4.png') no-repeat;
 }
 
 a, input[type='button'], input[type='submit'], button {
@@ -122,17 +121,9 @@ font-style: normal
 }
 
 @font-face {
-font-family: 'dincondensedcregular';
-src: url('../../fonts/ptdin/pt_din_condensed_cyrillic-webfont.eot');
-src: url('../../fonts/ptdin/pt_din_condensed_cyrillic-webfont.eot?#iefix') format("embedded-opentype"), url('../../fonts/ptdin/pt_din_condensed_cyrillic-webfont.woff') format("woff"), url('../../fonts/ptdin/pt_din_condensed_cyrillic-webfont.ttf') format("truetype"), url('../../fonts/ptdin/pt_din_condensed_cyrillic-webfont.svg#dincondensedcregular') format("svg");
-font-weight: normal;
-font-style: normal
-}
-
-@font-face {
 font-family: 'pf_din_text_cond_promedium';
 src: url('../../fonts/ptsans/pfdintextcondpro-medium-webfont.eot');
-src: url('../../fonts/ptsans/pfdintextcondpro-medium-webfont.eot?#iefix') format("embedded-opentype"), url('../../fonts/ptsans/pfdintextcondpro-medium-webfont.woff') format("woff"), url('../../fonts/ptsans/pfdintextcondpro-medium-webfont.ttf') format("truetype"), url('../../fonts/ptsans/pfdintextcondpro-medium-webfont.svg#dincondensedcregular') format("svg");
+src: url('../../fonts/ptsans/pfdintextcondpro-medium-webfont.eot?#iefix') format("embedded-opentype"), url('../../fonts/ptsans/pfdintextcondpro-medium-webfont.woff') format("woff"), url('../../fonts/ptsans/pfdintextcondpro-medium-webfont.ttf') format("truetype"), url('../../fonts/ptsans/pfdintextcondpro-medium-webfont.svg') format("svg");
 font-weight: normal;
 font-style: normal
 }
@@ -168,7 +159,6 @@ position: relative
 
 .b-comment-form-wrapper .b-form-field.m-right-corner:after {
 content: '';
-z-index: 1;
 position: absolute;
 width: 12px;
 height: 12px;
@@ -384,7 +374,7 @@ left: 100%;
 width: 100%;
 top: 100%;
 height: 0;
-bottom: 0px;
+bottom: 0;
 z-index: 2;
 border-bottom: 2px solid #2d3031
 }
@@ -1489,9 +1479,8 @@ float: left;
 list-style: none;
 width: 28px;
 height: 29px;
-padding: 0;
 margin: 0 12px 0 0;
-padding-right: 1px;
+padding: 0 1px 0 0;
 background-position: 0 -54px;
 color: #b3bebf;
 cursor: pointer;
@@ -1532,7 +1521,6 @@ border: 0 none;
 vertical-align: top;
 line-height: 22px;
 letter-spacing: 1px;
-margin: 0 1px 0 -10px;
 cursor: default;
 background: none;
 margin: 0 2px 0 -9px
@@ -1670,7 +1658,7 @@ border-left: 11px solid rgba(255, 255, 255, 0)
 .commtents-header .header-tooltip:after {
 content: '';
 position: absolute;
-top: 0px;
+top: 0;
 right: 100%;
 margin-right: -1px;
 width: 0;
@@ -1779,7 +1767,7 @@ color: #00753d
 }
 
 .m-block-partners {
-margin-bottom: 0px !important
+margin-bottom: 0 !important
 }
 
 .circle-img {
@@ -2001,13 +1989,12 @@ outline: none
 }
 
 .m-simple-tabs .b-simple-tabs-nav .e-simple-tabs-link.current {
-border-color: #fff;
 text-transform: uppercase;
 font-weight: bold
 }
 
 .m-simple-tabs .b-simple-tabs-nav .e-simple-tabs-link.current:after {
-border-color: #0b584f
+
 }
 
 .m-simple-tabs .b-simple-tabs-nav .e-simple-tabs-link.current:before {
@@ -2204,7 +2191,7 @@ content: "";
 display: block;
 left: 92%;
 position: absolute;
-top: 0px;
+top: 0;
 width: 176%;
 height: 100%;
 z-index: -1;
@@ -2233,7 +2220,7 @@ z-index: 2
 position: absolute;
 right: 6px;
 width: 109px;
-bottom: 0px
+bottom: 0;
 }
 
 .b-museums-block .e-inline-link:hover {
@@ -2466,11 +2453,11 @@ padding-right: 5px
 
 .b-theatre-item .e-theatre-cnt {
 overflow: hidden;
-padding: 0 10px 0 0px
+padding: 0 10px 0 0;
 }
 
 .b-theatre-item .e-theatre-name {
-padding: 0 10px 0 0px
+padding: 0 10px 0 0;
 }
 
 .m-specialproject {
@@ -2659,7 +2646,7 @@ clear: both
 
 .menu-wide:after {
 width: 100%;
-height: 0px;
+height: 0;
 visibility: hidden;
 overflow: hidden;
 content: '';
@@ -2738,7 +2725,7 @@ text-align-last: justify
 
 .b-wide-type:after {
 width: 100%;
-height: 0px;
+height: 0;
 visibility: hidden;
 overflow: hidden;
 content: '';
@@ -3093,7 +3080,7 @@ ul.comments-list li {
     text-decoration: none;
     position: relative;
     margin-bottom: 20px;
-    min-height: ;
+    min-height: 129px;
 }
 .sidebar-widget a.sidebar-widget-item div.title-pane {
     position: absolute;
