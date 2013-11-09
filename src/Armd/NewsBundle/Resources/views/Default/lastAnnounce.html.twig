@@ -1,26 +1,32 @@
 {% import 'ArmdNewsBundle::date_macro.html.twig' as armd_news %}
 <div class="b-colored-articles-block b-sidebar-wrap m-sidebar-wrap-last">
     <h3 class="e-block-title">
-        {{ 'Main.Widget.Announce.Header'|trans }}
+        <a href="{{ path('armd_news_list_index_by_category', {'category': entity.category.slug }) }}" class="noTextDecoration">
+            {{ 'Main.Widget.Announce.Header'|trans }}
+        </a>
     </h3>
 
     {% if entity is not empty %}
-        <article class="b-colored-article">
-            {% if entity.image %}
-                <img class="tn-list-image fullWidth marginBottom20" src="{% path entity.image, 'news_adminPreview' %}" alt="{{ entity.title|escape }}">
-            {% else %}
-                <img class="tn-list-image displayBlock centerHorizontally" src="/img/temp_125_125.png" alt="{{ entity.title|escape }}">
-            {% endif %}
+        <article class="b-colored-article palette-colored-box-1">
+            <a href="{{ path('armd_news_item_by_category', {'id': entity.id }) }}">
+                {% if entity.image %}
+                    <img class="tn-list-image fullWidth marginBottom20" src="{% path entity.image, 'news_adminPreview' %}" alt="{{ entity.title|escape }}" />
+                {% else %}
+                    <img class="tn-list-image displayBlock centerHorizontally" src="/img/temp_125_125.png" alt="{{ entity.title|escape }}" />
+                {% endif %}
+            </a>
 
             <h1 class="e-article-title">
-                <a href="{{ path('armd_news_item_by_category', {'id': entity.id }) }}" class="tn-list-title">{{ entity.title }}</a>
+                <a href="{{ path('armd_news_item_by_category', {'id': entity.id }) }}" class="desc-post-link">
+                    {{ entity.title }}
+                </a>
             </h1>
 
             <section class="e-article-description">
                 {{ entity.announce|raw }}
             </section>
 
-            <a href="{{ path('armd_news_list_index_by_category', {'category': entity.category.slug }) }}" class="e-inline-link fullWidth noPadding">
+            <a href="{{ path('armd_news_list_index_by_category', {'category': entity.category.slug }) }}" class="goto-link-button noTextDecoration fullWidth noPadding">
                 {{ 'Main.Widget.Announce.Goto'|trans }}
             </a>
         </article>

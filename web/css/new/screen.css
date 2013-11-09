@@ -74,8 +74,20 @@ text-decoration: none
 text-decoration: underline
 }
 
-.b-comment-form-wrapper .b-form-field.m-right-corner:after, .b-brand-icon, .b-load-more a, .b-main .b-pagination li, .b-main .b-pagination-nav li, .b-main .b-pagination li.m-active, .b-main .b-pagination li.selected, .b-main .b-pagination-nav li.m-active, .b-main .b-pagination-nav li.selected, .views-count, .commetn-count, .e-time, .m-type {
-background: url('../../img/new/icons-sb7c6234ca4.png') no-repeat;
+.b-comment-form-wrapper .b-form-field.m-right-corner:after,
+.b-brand-icon,
+.b-load-more a,
+.b-main .b-pagination li,
+.b-main .b-pagination-nav li,
+.b-main .b-pagination li.m-active,
+.b-main .b-pagination li.selected,
+.b-main .b-pagination-nav li.m-active,
+.b-main .b-pagination-nav li.selected,
+.views-count,
+.commetn-count,
+.e-time,
+.m-type {
+    background: url('../../img/new/icons-sb7c6234ca4.png') no-repeat;
 }
 
 a, input[type='button'], input[type='submit'], button {
@@ -86,22 +98,19 @@ transition: color 0.2s linear, text-decoration 0.2s linear, opacity 0.2s linear,
 }
 
 .e-inline-link {
-display: inline-block;
-color: #fff;
-height: 40px;
-line-height: 40px;
-text-align: center;
-background-color: #b3bebf;
-padding-right: 15px;
-padding-left: 15px
+    display: inline-block;
+    color: #fff;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    background-color: #b3bebf;
+    padding: 0 15px 0 15px;
 }
-
 .e-inline-link:hover, .e-inline-link:focus {
-background-color: #349a8a
+    background-color: #349a8a;
 }
-
 .b-post-list>article header {
-background: url("../../img/new/border-repeat.png") repeat-x bottom left
+    background: url("../../img/new/border-repeat.png") repeat-x bottom left;
 }
 
 @font-face {
@@ -614,9 +623,13 @@ text-decoration: none
 text-decoration: underline
 }
 
-.e-film-title a:hover, .e-museum-title a:hover, .m-main-russia-imagery .m-sights-carousel .e-carousel-image:hover, .desc-post-link:hover {
-text-decoration: none;
-color: #7d8687;
+.e-film-title a:hover,
+.e-museum-title a:hover,
+.m-main-russia-imagery .m-sights-carousel .e-carousel-image:hover,
+.desc-post-link:hover,
+.desc-post-link:focus {
+    text-decoration: none !important;
+    color: #7d8687;
 }
 
 .b-colored-articles-block .e-block-title img, .b-transparent-articles-block .e-block-title img, .b-citate-of-day .e-block-title img, .b-quick-search .text-field, .b-quick-search .search-button {
@@ -1480,7 +1493,7 @@ list-style: none;
 width: 28px;
 height: 29px;
 margin: 0 12px 0 0;
-padding: 0 1px 0 0;
+padding: 0 1px 0 1px;
 background-position: 0 -54px;
 color: #b3bebf;
 cursor: pointer;
@@ -2332,8 +2345,8 @@ margin-bottom: 29px
 }
 
 .b-virtual-theatre .b-service-heading span {
-font-size: 112px;
-display: block
+    font-size: 2.5em;
+    display: block;
 }
 
 .b-virtual-theatre .b-theatre-nav {
@@ -2386,19 +2399,17 @@ background-color: #327ba7
 }
 
 .b-virtual-theatre .b-pagination-nav {
-top: 84%;
-left: 113px;
-margin: 0;
-position: absolute;
-max-width: 195px
+    top: 84%;
+    left: 113px;
+    margin: 0;
+    position: absolute;
+    max-width: 195px;
 }
-
 .b-virtual-theatre .b-pagination-nav li {
-background: none
+    background: none;
 }
-
 .b-virtual-theatre .b-pagination-nav li.selected {
-background: url(../../img/new/round.png) 0 0 no-repeat
+    background: url(../../img/new/round.png) 0 0 no-repeat;
 }
 
 .b-virtual-theatre-inner {
@@ -2943,6 +2954,9 @@ margin: 0 0 5px;
     background-color: #E1E3E4;
 }
 
+.floatLeft {
+    float: left;
+}
 .floatRight {
     float: right;
 }
@@ -2953,6 +2967,9 @@ margin: 0 0 5px;
 
 .noPadding {
     padding: 0;
+}
+.paddingSides25 {
+    padding: 0 25px !important;
 }
 .noTextDecoration {
     text-decoration: none;
@@ -3003,6 +3020,20 @@ textarea[name="fos_comment_comment[body]"] {
 }
 
 
+/*==================
+==== Main page ===*/
+.goto-link-button {
+    display: inline-block;
+    color: #fff;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    background-color: #b3bebf;
+    padding: 0;
+    text-decoration: none !important;
+}
+
+
 /*================
 ==== Palette ===*/
 .palette-color-1 {
@@ -3014,8 +3045,16 @@ textarea[name="fos_comment_comment[body]"] {
 .palette-background-1 {
     background: #95BD59;
 }
+.palette-colored-box-1 .goto-link-button:hover {
+    background: #95BD59;
+    text-decoration: underline !important;
+}
 .palette-color-2 {
     color: #17693D !important;
+}
+.palette-colored-box-2 .goto-link-button:hover {
+    background: #17693D;
+    text-decoration: underline !important;
 }
 .palette-color-3 {
     color: #349A8A !important;

@@ -1,18 +1,25 @@
 Main:
     SiteName: Культура.рф
     Widget:
+        Announce:
+            Header: Анонсы
+            Goto: перейти в Анонсы
         Media:
             Header: Медиа
+            Goto: перейти в Медиа
             Today: сегодня
-            Goto: перейти в раздел
         ImagesOfRussia:
             Header: Образы России
-        Announce:
-            Header: Анонс
-            Goto: перейти в Анонсы
+            Goto: перейти в Образы России
         SpecialProject:
             Header: Спецпроекты
-            Goto: перейти в раздел
+            Goto: перейти в Спецпроекты
+        Performance:
+            Header1: Виртуальный
+            Header2: театр
+            Goto: перейти в Театр
+            Recommended: рекомендуем
+            Popular: популярные
 
 Comments:
     Header: Комментарии

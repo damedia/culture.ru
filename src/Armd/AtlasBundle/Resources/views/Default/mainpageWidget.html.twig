@@ -25,12 +25,12 @@
                 -->
             </header>
 
-            <section class="b-block-body m-sights-carousel b-simple-slider">
+            <section class="b-block-body m-sights-carousel b-simple-slider palette-colored-box-2">
                 <ul id="russia_image_widget" class="b-main-slides clearfix">
                     {% include 'ArmdAtlasBundle:Default:mainpageWidgetItem.html.twig' with russianImages %}
                 </ul>
-                <a href="{{ path('armd_atlas_russia_images') }}" class="e-inline-link">
-                    перейти в Образы России
+                <a href="{{ path('armd_atlas_russia_images') }}" class="goto-link-button floatLeft paddingSides25">
+                    {{ 'Main.Widget.ImagesOfRussia.Goto'|trans }}
                 </a>
             </section>
         </div>

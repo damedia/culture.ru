@@ -1,18 +1,25 @@
 Main:
     SiteName: Culture.ru
     Widget:
+        Announce:
+            Header: Announces
+            Goto: go to Announces
         Media:
             Header: Media
+            Goto: go to Media
             Today: today,
-            Goto: go to the section
         ImagesOfRussia:
             Header: Images of Russia
-        Announce:
-            Header: Announce
-            Goto: go to Announces
+            Goto: go to Images of Russia
         SpecialProject:
             Header: Special Projects
-            Goto: go to the section
+            Goto: go to Special Projects
+        Performance:
+            Header1: Virtual
+            Header2: theater
+            Goto: go to Theater
+            Recommended: recommended
+            Popular: popular
 
 Comments:
     Header: Comments
