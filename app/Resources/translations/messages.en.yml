@@ -10,6 +10,9 @@ Main:
         Announce:
             Header: Announce
             Goto: go to Announces
+        SpecialProject:
+            Header: Special Projects
+            Goto: go to the section
 
 Comments:
     Header: Comments

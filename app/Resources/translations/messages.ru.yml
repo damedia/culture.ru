@@ -10,6 +10,9 @@ Main:
         Announce:
             Header: Анонс
             Goto: перейти в Анонсы
+        SpecialProject:
+            Header: Спецпроекты
+            Goto: перейти в раздел
 
 Comments:
     Header: Комментарии

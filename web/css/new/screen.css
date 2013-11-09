@@ -2849,6 +2849,10 @@ float: right
 .m-float-left {
 float: left
 }
+.b-special-project-mainpage-widget-block {
+    width: 900px;
+    min-height: 246px;
+}
 
 /** from old css */
 /** appstore popup */
@@ -2933,6 +2937,10 @@ margin: 0 0 5px;
 .centerHorizontally {
     margin-left: auto;
     margin-right: auto;
+}
+
+.greyBackground {
+    background-color: #E1E3E4;
 }
 
 .floatRight {
