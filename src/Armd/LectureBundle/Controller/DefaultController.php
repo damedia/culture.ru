@@ -645,9 +645,7 @@ class DefaultController extends Controller
      * @Route("cinema-main/{type}/{date}", defaults={"date"=""}, name="armd_lecture_cinema_mainpage")
      * @return Response
      */
-    public function mainpageWidgetAction($type = 'recommend', $date = '')
-    {
-        /** @var \Armd\LectureBundle\Repository\LectureRepository $repo */
+    public function mainpageWidgetAction($type = 'recommend', $date = '') {
         $repo = $this->getDoctrine()->getRepository('ArmdLectureBundle:Lecture');
 
         $lectures = array();
@@ -662,26 +660,31 @@ class DefaultController extends Controller
             $lectures = $repo->findCinemaForMainPage($date, 1, $type);
         }
 
+        $genres = array();
+        $router = $this->get('router');
+        foreach (current($lectures)->getFiltrableGenres() as $genre) {
+            $routeParams = array('genreSlug' => null, 'genre_id' => $genre->getId());
+            $genres[] = '<a href="'.$router->generate('armd_lecture_cinema_index', $routeParams).'">'.$genre->getTitle().'</a>';
+        }
+        $genreString = implode(', ', $genres);
+
         if ($this->getRequest()->isXmlHttpRequest()) {
-            return $this->render(
-                'ArmdLectureBundle:Default:mainpageCinemaWidgetItem.html.twig',
-                array(
-                    'lectures' => $lectures,
-                    'date' => $date,
-                    'showRecommended' => $showRecommended,
-                    'showForChildren' => $showForChildren,
-                )
-            );
-        } else {
-            return $this->render(
-                'ArmdLectureBundle:Default:mainpageCinemaWidget.html.twig',
-                array(
-                    'lectures' => $lectures,
-                    'date' => $date,
-                    'showRecommended' => $showRecommended,
-                    'showForChildren' => $showForChildren,
-                )
-            );
+            return $this->render('ArmdLectureBundle:Default:mainpageCinemaWidgetItem.html.twig', array(
+                'lectures' => $lectures,
+                'date' => $date,
+                'showRecommended' => $showRecommended,
+                'showForChildren' => $showForChildren,
+                'genresString' => $genreString
+            ));
+        }
+        else {
+            return $this->render('ArmdLectureBundle:Default:mainpageCinemaWidget.html.twig', array(
+                'lectures' => $lectures,
+                'date' => $date,
+                'showRecommended' => $showRecommended,
+                'showForChildren' => $showForChildren,
+                'genresString' => $genreString
+            ));
         }
     }
 

@@ -1,7 +1,8 @@
 {% import 'ArmdLectureBundle::lecture_macro.html.twig' as lectureMacro %}
+
 {% for item in lectures %}
     <section class="b-block-body">
-        <div class="e-film-image js-process-video" style="min-height:270px;background-color:#eeeff0;">
+        <div class="e-film-image js-process-video">
             {% if item.mediaTrailerVideo is not empty %}
                 {% if item.mediaTrailerVideo.providerName == 'sonata.media.provider.image' %}
                     <a href="{{ path('armd_lecture_view', {id: item.id }) }}">
@@ -19,37 +20,49 @@
                     {% media item.mediaLectureVideo, 'reference' with { 'width': 418, 'height': 262 } %}
                 {% endif %}
             {% endif %}
+
             {#<a href="{{ path('armd_lecture_view', {id: item.id }) }}">#}
                 {#{{ lectureMacro.lectureThumbnail(item, 'lecture_for_main', {'alt': item.title, 'height': 'auto'}) }}#}
             {#</a>#}
         </div>
+
         <div class="e-film-info">
             <h4 class="e-film-title">
                 <a href="{{ path('armd_lecture_view', {id: item.id }) }}">
                     {{ item.title }}{% if item.productionYear is not empty %} / {{ item.productionYear }}{% endif %}
                 </a>
             </h4>
+
             <ul class="e-film-attributes">
                 <li>
-                    <span class="e-attr-title">Жанр: </span>
-                    {% for genre in item.filtrableGenres %}
-                    <a href="#" data-genre-id="{{ genre.id }}">{{ genre.title }}</a>{% if not loop.last %},{% endif %}
-                    {% endfor %}
+                    <span class="e-attr-title">
+                        {{ 'Main.Widget.Movie.Genre'|trans }}:&nbsp;
+                    </span>
+                    {{ genresString|raw }}
                 </li>
+
                 {% if item.director is not empty %}
-                <li>
-                    <span class="e-attr-title">Режиссер: </span>
-                    {{ item.director|replace({'<p>': '', '</p>': ''})|raw }}
-                </li>
+                    <li>
+                        <span class="e-attr-title">
+                            {{ 'Main.Widget.Movie.Director'|trans }}:&nbsp;
+                        </span>
+                        {{ item.director|replace({'<p>': '', '</p>': ''})|raw }}
+                    </li>
                 {% endif %}
+
                 {% if item.stars is not empty %}
-                <li>
-                    <span class="e-attr-title">В ролях: </span>
-                    {{ item.stars|replace({'<p>': '', '</p>': ''})|raw }}
-                </li>
+                    <li>
+                        <span class="e-attr-title">
+                            {{ 'Main.Widget.Movie.Cast'|trans }}:&nbsp;
+                        </span>
+                        {{ item.stars|replace({'<p>': '', '</p>': ''})|raw }}
+                    </li>
                 {% endif %}
             </ul>
-            <a href="{{ path('armd_lecture_cinema_index', {'genreSlug': 'feature-film'}) }}" class="e-inline-link">перейти в Кино</a>
         </div>
     </section>
+
+    <a href="{{ path('armd_lecture_cinema_index', {'genreSlug': 'feature-film'}) }}" class="goto-link-button marginLeft40 paddingSides15 positionAbsoluteBottomLeft">
+        {{ 'Main.Widget.Movie.Goto'|trans }}
+    </a>
 {% endfor %}

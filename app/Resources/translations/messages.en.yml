@@ -14,6 +14,14 @@ Main:
         SpecialProject:
             Header: Special Projects
             Goto: go to Special Projects
+        Movie:
+            Header: Movies
+            Goto:  go to Movies
+            Recommended: recommended
+            ForChildren: for children
+            Genre: Genre
+            Director: Director
+            Cast: Cast
         Performance:
             Header1: Virtual
             Header2: theater

@@ -14,6 +14,14 @@ Main:
         SpecialProject:
             Header: Спецпроекты
             Goto: перейти в Спецпроекты
+        Movie:
+            Header: Кино
+            Goto: перейти в Кино
+            Recommended: рекомендуем
+            ForChildren: для детей
+            Genre: Жанр
+            Director: Режиссер
+            Cast: В ролях
         Performance:
             Header1: Виртуальный
             Header2: театр

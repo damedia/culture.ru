@@ -32,7 +32,7 @@ font-family: "PTSansRegular", sans-serif
 font-family: "PT Serif", serif
 }
 
-.e-project-link {
+.e-project-goto {
 font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif
 }
 
@@ -66,11 +66,11 @@ background: url("../../img/new/main-border-bg.png") left bottom repeat-x
 background: url("../../img/new/vertical-separator.png") right center repeat-x
 }
 
-.e-project-link, .author-link, .desc-post-link, .commetn-count a {
+.e-project-goto, .author-link, .desc-post-link, .commetn-count a {
 text-decoration: none
 }
 
-.e-project-link:hover, .author-link:hover, .commetn-count a:hover {
+.e-project-goto:hover, .author-link:hover, .commetn-count a:hover {
 text-decoration: underline
 }
 
@@ -314,7 +314,7 @@ margin-bottom: 25px
 margin-bottom: 0
 }
 
-.e-project-link {
+.e-project-goto {
 position: absolute;
 bottom: 0;
 right: 10px;
@@ -2113,11 +2113,25 @@ background: url(../../img/new/russia.png) 0 0 no-repeat
 }
 
 .b-movies-block {
-float: left;
-width: 497px;
-padding-top: 21px;
-position: relative;
-margin-left: -45px
+    float: left;
+    width: 498px;
+    padding-top: 20px;
+    position: relative;
+    margin-left: -45px;
+    min-height: 468px;
+}
+
+.b-movies-block .movies-container-div {
+    background: url('../../img/new/mainpage_movies_back.png') repeat-y;
+    min-height: 405px;
+    position: relative;
+}
+
+.b-movies-block .content-wrapper {
+    display: inline-block;
+    background-color: #EEEFF0;
+    min-height: 405px;
+    width: 418px;
 }
 
 .b-movies-block:after {
@@ -2150,10 +2164,12 @@ margin-top: 4px
 }
 
 .b-movies-block .e-film-image {
-display: block;
-margin-bottom: 16px;
-overflow: hidden;
-position: relative
+    display: block;
+    margin-bottom: 16px;
+    overflow: hidden;
+    position: relative;
+    min-height: 270px;
+    background-color: #EEEFF0;
 }
 
 .b-movies-block .e-film-image img {
@@ -2222,7 +2238,6 @@ padding-left: 10px
 .b-museums-block .b-block-body {
 padding: 0 0 0 10px;
 position: relative;
-margin-top: 4px
 }
 
 .b-museums-block .b-pagination-nav {
@@ -2938,6 +2953,15 @@ margin: 0 0 5px;
 
 /*================
 ==== Commons ===*/
+.positionRelative {
+    position: relative;
+}
+.positionAbsoluteBottomLeft {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
 .displayNone {
     display: none;
 }
@@ -2968,6 +2992,9 @@ margin: 0 0 5px;
 .noPadding {
     padding: 0;
 }
+.paddingSides15 {
+    padding: 0 15px !important;
+}
 .paddingSides25 {
     padding: 0 25px !important;
 }
@@ -2977,6 +3004,9 @@ margin: 0 0 5px;
 
 .marginLeft10 {
     margin-left: 10px;
+}
+.marginLeft40 {
+    margin-left: 40px;
 }
 .marginBottom20 {
     margin-bottom: 20px;
@@ -2996,7 +3026,7 @@ margin: 0 0 5px;
 }
 .comment-post-button:hover {
     text-decoration: none;
-    background: #313336;
+    background-color: #313336;
 }
 #comment_loading_message {
     display: none;
@@ -3024,13 +3054,29 @@ textarea[name="fos_comment_comment[body]"] {
 ==== Main page ===*/
 .goto-link-button {
     display: inline-block;
-    color: #fff;
+    color: #FFFFFF;
     height: 40px;
     line-height: 40px;
     text-align: center;
-    background-color: #b3bebf;
+    background-color: #B3BEBF;
     padding: 0;
     text-decoration: none !important;
+}
+.special-projects-header-expander {
+    width: 220px;
+    height: 29px;
+}
+.special-projects-header-title-holder {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    top: -13px;
+    font-family: "pf_din_text_cond_promedium", serif;
+    font-size: 29px;
+    font-weight: normal;
+    letter-spacing: 1px;
+    line-height: 25px;
+    text-transform: uppercase;
 }
 
 
@@ -3043,17 +3089,17 @@ textarea[name="fos_comment_comment[body]"] {
     background: url(../../img/new/icons/palette-favorites-icon-1.png) no-repeat;
 }
 .palette-background-1 {
-    background: #95BD59;
+    background-color: #95BD59;
 }
 .palette-colored-box-1 .goto-link-button:hover {
-    background: #95BD59;
+    background-color: #95BD59;
     text-decoration: underline !important;
 }
 .palette-color-2 {
     color: #17693D !important;
 }
 .palette-colored-box-2 .goto-link-button:hover {
-    background: #17693D;
+    background-color: #17693D;
     text-decoration: underline !important;
 }
 .palette-color-3 {
@@ -3061,6 +3107,10 @@ textarea[name="fos_comment_comment[body]"] {
 }
 .palette-color-4 {
     color: #327BA7 !important;
+}
+.palette-colored-box-4 .goto-link-button:hover {
+    background-color: #327BA7;
+    text-decoration: underline !important;
 }
 .palette-color-5 {
     color: #5E3878 !important;
