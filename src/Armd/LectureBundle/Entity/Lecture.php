@@ -1215,4 +1215,15 @@ class Lecture implements Taggable, ChangeHistorySavableInterface
     {
         return get_class($this);
     }
+
+    /**
+     * @return string
+     */
+    public function getTimeLengthInHours()
+    {
+        if ($this->timeLength > 0) {
+            return str_pad(floor($this->timeLength / 60), 2, '0', STR_PAD_LEFT) . ':' . str_pad(($this->timeLength % 60), 2, '0', STR_PAD_LEFT);
+        }
+        return '';
+    }
 }

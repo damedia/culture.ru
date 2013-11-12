@@ -1,4 +1,5 @@
 {% import 'ArmdPerfomanceBundle::perfomance_macro.html.twig' as perfomanceMacro %}
+
 {% for item in objects %}
     <li class="b-theatre-item">
         <div class="b-virtual-video js-process-video">
@@ -22,7 +23,7 @@
             </header>
 
             <div class="e-theatre-name">
-                <a href="{{ path('armd_perfomance_list', {'theaterId': item.theater.id }) }}">
+                <a href="{{ path('armd_theater_item', {'id': item.theater.id }) }}">
                     {{ item.theater.title }}
                 </a>
             </div>

@@ -34,6 +34,11 @@ Main:
             Recommended: recommended
             Popular: popular
             Cast: Cast
+        Lecture:
+            Header: Lectures
+            Goto: go to Lectures
+            Recommended: recommended
+            Popular: popular
 
 Comments:
     Header: Comments

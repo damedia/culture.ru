@@ -2436,12 +2436,12 @@ position: relative
 }
 
 .b-theatre-item .b-virtual-theatre-item-content {
-position: absolute;
-bottom: 0;
-left: 0;
-right: 0;
-padding-left: 40px;
-background: url("../../img/new/gray-20.png") 0 0 repeat
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding-left: 30px;
+    background: url("../../img/new/gray-20.png") 0 0 repeat
 }
 
 .b-theatre-item .b-virtual-video {
@@ -2456,11 +2456,10 @@ cursor: pointer
 }
 
 .b-theatre-item header h1 {
-font-size: 30px;
-font-family: "PT Serif", serif;
-font-weight: normal;
-line-height: 1.5;
-text-indent: -10px
+    font-size: 30px;
+    font-family: "PT Serif", serif;
+    font-weight: normal;
+    line-height: 1.5;
 }
 
 .b-theatre-item a {
@@ -2949,6 +2948,12 @@ line-height: 1.1em;
 margin: 0 0 5px;
 }
 
+.mainpage-lecture-image-div {
+    width: 213px;
+    height: 131px;
+    background-color: #e1e3e4;
+}
+
 .play {
     background: url("../../img/play.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
     display: block;
@@ -3085,7 +3090,11 @@ textarea[name="fos_comment_comment[body]"] {
     width: 220px;
     height: 29px;
 }
-.special-projects-header-title-holder {
+.lectures-header-expander {
+    width: 130px;
+    height: 29px;
+}
+.mainpage-header-title-holder {
     position: absolute;
     width: 100%;
     text-align: center;
@@ -3147,6 +3156,10 @@ textarea[name="fos_comment_comment[body]"] {
 }
 .palette-color-7 {
     color: #D5763F !important;
+}
+.palette-colored-box-8 .goto-link-button:hover {
+    background-color: #CF5539;
+    text-decoration: underline !important;
 }
 .palette-color-8 {
     color: #CF5539 !important;

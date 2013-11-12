@@ -34,6 +34,11 @@ Main:
             Recommended: рекомендуем
             Popular: популярные
             Cast: В ролях
+        Lecture:
+            Header: Лекции
+            Goto: перейти в Лекции
+            Recommended: рекомендуем
+            Popular: популярные
 
 Comments:
     Header: Комментарии
