@@ -1,19 +1,27 @@
 {% spaceless %}
-    {% if museums is not empty %}
-<div id="museum_block" class="b-block-main b-museums-block">
-    <header class="b-block-heading">
-        <h3 class="e-block-title">Виртуальные музеи</h3>
-        <!--<nav class="b-heading-nav">
-            <a href="" class="current">популярные</a>
-            <a href="">новые</a>
-        </nav>-->
-    </header>
-    <section class="b-block-body m-sights-carousel b-simple-slider">
-        <ul id="museum_widget" class="b-main-slides clearfix">
-            {% include 'ArmdMuseumBundle:Default:mainpageWidgetItem.html.twig' with museums %}
-        </ul>
-        <a href="{{ path('armd_museum_virtual') }}" class="e-inline-link">перейти в Музеи</a>
-    </section>
-</div>
-    {% endif %}
+{% if museums is not empty %}
+    <div id="museum_block" class="b-block-main b-museums-block">
+        <header class="b-block-heading">
+            <h3 class="e-block-title">
+                <a href="{{ path('armd_museum_virtual') }}" class="noTextDecoration">
+                    {{ 'Main.Widget.Museum.Header'|trans }}
+                </a>
+            </h3>
+
+            <!--<nav class="b-heading-nav">
+                <a href="" class="current">популярные</a>
+                <a href="">новые</a>
+            </nav>-->
+        </header>
+
+        <section class="b-block-body m-sights-carousel b-simple-slider palette-colored-box-3">
+            <ul id="museum_widget" class="b-main-slides clearfix">
+                {% include 'ArmdMuseumBundle:Default:mainpageWidgetItem.html.twig' with museums %}
+            </ul>
+            <a href="{{ path('armd_museum_virtual') }}" class="goto-link-button paddingSides15 marginRight8 floatRight positionAbsoluteBottomRight">
+                {{ 'Main.Widget.Museum.Goto'|trans }}
+            </a>
+        </section>
+    </div>
+{% endif %}
 {% endspaceless %}

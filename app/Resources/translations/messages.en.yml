@@ -22,12 +22,18 @@ Main:
             Genre: Genre
             Director: Director
             Cast: Cast
+        Museum:
+            Header: Virtual museums
+            Goto: go to Museums
+            VirtualTour: virtual tour
+            AboutMuseum: about museum
         Performance:
             Header1: Virtual
             Header2: theater
             Goto: go to Theater
             Recommended: recommended
             Popular: popular
+            Cast: Cast
 
 Comments:
     Header: Comments

@@ -22,12 +22,18 @@ Main:
             Genre: Жанр
             Director: Режиссер
             Cast: В ролях
+        Museum:
+            Header: Виртуальные музеи
+            Goto: перейти в Музеи
+            VirtualTour: виртуальный тур
+            AboutMuseum: о музее
         Performance:
             Header1: Виртуальный
             Header2: театр
             Goto: перейти в Театр
             Recommended: рекомендуем
             Popular: популярные
+            Cast: В ролях
 
 Comments:
     Header: Комментарии

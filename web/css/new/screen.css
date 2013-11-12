@@ -2156,11 +2156,10 @@ margin-left: 15px
 }
 
 .b-movies-block .b-block-body {
-padding: 10px 40px 12px;
-background: url(../../img/new/tape.png) 0 0 repeat-y;
-color: #2d3031;
-position: relative;
-margin-top: 4px
+    padding: 10px 40px 12px;
+    background: url(../../img/new/tape.png) 0 0 repeat-y;
+    color: #2d3031;
+    position: relative;
 }
 
 .b-movies-block .e-film-image {
@@ -2418,7 +2417,7 @@ background-color: #327ba7
     left: 113px;
     margin: 0;
     position: absolute;
-    max-width: 195px;
+    max-width: 200px;
 }
 .b-virtual-theatre .b-pagination-nav li {
     background: none;
@@ -2474,11 +2473,11 @@ padding-bottom: 18px
 }
 
 .b-theatre-item .e-virtual-time {
-float: right;
-background: url('../../img/new/icons-sb7c6234ca4.png') 0 -496px no-repeat;
-padding-left: 26px;
-font-style: italic;
-padding-right: 5px
+    float: right;
+    background: url('../../img/new/icons-sb7c6234ca4.png') 0 -496px no-repeat;
+    padding-left: 26px;
+    font-style: italic;
+    padding-right: 5px;
 }
 
 .b-theatre-item .e-theatre-cnt {
@@ -2950,6 +2949,18 @@ line-height: 1.1em;
 margin: 0 0 5px;
 }
 
+.play {
+    background: url("../../img/play.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    display: block;
+    height: 88px;
+    left: 50%;
+    margin: -44px 0 0 -42px;
+    opacity: 0.6;
+    position: absolute;
+    top: 50%;
+    width: 84px;
+}
+
 
 /*================
 ==== Commons ===*/
@@ -2960,6 +2971,11 @@ margin: 0 0 5px;
     position: absolute;
     bottom: 0;
     left: 0;
+}
+.positionAbsoluteBottomRight {
+    position: absolute;
+    bottom: 0;
+    right: 0;
 }
 
 .displayNone {
@@ -3004,6 +3020,9 @@ margin: 0 0 5px;
 
 .marginLeft10 {
     margin-left: 10px;
+}
+.marginRight8 {
+    margin-right: 8px;
 }
 .marginLeft40 {
     margin-left: 40px;
@@ -3105,11 +3124,19 @@ textarea[name="fos_comment_comment[body]"] {
 .palette-color-3 {
     color: #349A8A !important;
 }
+.palette-colored-box-3 .goto-link-button:hover {
+    background-color: #349A8A;
+    text-decoration: underline !important;
+}
 .palette-color-4 {
     color: #327BA7 !important;
 }
 .palette-colored-box-4 .goto-link-button:hover {
     background-color: #327BA7;
+    text-decoration: underline !important;
+}
+.palette-colored-box-5 .goto-link-button:hover {
+    background-color: #5E3878;
     text-decoration: underline !important;
 }
 .palette-color-5 {

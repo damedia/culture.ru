@@ -4,8 +4,10 @@
         <div class="b-virtual-theatre-inner clearfix b-simple-slider">
             <div class="b-virtual-head m-float-left">
                 <div class="b-service-heading">
-                    <div>{{ 'Main.Widget.Performance.Header1'|trans }}</div>
-                    <span>{{ 'Main.Widget.Performance.Header2'|trans }}</span>
+                    <a href="{{ path('armd_perfomance_list') }}" class="noTextDecoration">
+                        <div>{{ 'Main.Widget.Performance.Header1'|trans }}</div>
+                        <span>{{ 'Main.Widget.Performance.Header2'|trans }}</span>
+                    </a>
                 </div>
 
                 <nav class="b-theatre-nav">
@@ -26,8 +28,8 @@
                 </div>
             </article>
 
-            <div class="b-button-wrapper m-right-btn">
-                <a href="{{ path('armd_perfomance_list') }}" class="e-inline-link">
+            <div class="b-button-wrapper m-right-btn palette-colored-box-5">
+                <a href="{{ path('armd_perfomance_list') }}" class="goto-link-button paddingSides15">
                     {{ 'Main.Widget.Performance.Goto'|trans }}
                 </a>
             </div>
@@ -35,7 +37,3 @@
     </div>
 {% endif %}
 {% endspaceless %}
-
-<!--
-    <span class="play"></span>
--->
