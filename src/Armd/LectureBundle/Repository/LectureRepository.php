@@ -321,10 +321,10 @@ class LectureRepository extends EntityRepository
         return (int)$qb->getQuery()->getSingleScalarResult();
     }
 
-    public function findForMainPage($date = '', $limit = 5, $type = 'recommend')
-    {
+    public function findForMainPage($date = '', $limit = 5, $type = 'recommend') {
         $dt = new \DateTime();
         $dt->setTime(0, 0, 0);
+
         if ($date != '') {
             $tmp = explode('-', $date);
             $dt->setDate($tmp[0], $tmp[1], $tmp[2]);
@@ -335,25 +335,14 @@ class LectureRepository extends EntityRepository
             ->setParameter('category', 'LECTURE_SUPER_TYPE_LECTURE')
             ->setMaxResults($limit);
 
-        switch($type){
+        switch ($type) {
             case 'popular':
-                /** @var \Armd\UserBundle\Repository\ViewedContentRepository $repo */
                 $repo = $this->_em->getRepository('\Armd\UserBundle\Entity\ViewedContent');
                 $ids = $repo->getTopLectures($limit);
-                $qb->andWhere($qb->expr()->in('a.id', $ids));
-                // @todo: order by in postgres
-                $objectsTmp = $qb->getQuery()->getResult();
-                $objects = array();
-                foreach ($ids as $id) {
-                    foreach ($objectsTmp as $obj) {
-                        if($obj->getId() == $id) {
-                            $objects[] = $obj;
-                            break;
-                        }
-                    }
-                }
-                unset($objectsTmp);
+
+                return $this->findBy(array('id' => $ids));
                 break;
+
             case 'recommend':
             default:
                 $qb->where('a.showOnMainAsRecommended = :show')
@@ -377,8 +366,8 @@ class LectureRepository extends EntityRepository
                     )
                     ->setParameter('dt', $dt)
                     ->orderBy('a.showOnMainAsRecommendedOrd');
-
         }
+
         return $qb->getQuery()->getResult();
     }
 }

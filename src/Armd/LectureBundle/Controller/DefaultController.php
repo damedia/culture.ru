@@ -694,22 +694,15 @@ class DefaultController extends Controller
      * @Route("lecture-main/{type}/{date}", name="armd_lecture_mainpage", defaults={"date"=""})
      * @return Response
      */
-    public function mainpageLectureWidgetAction($type = 'recommend', $date = '')
-    {
-        /** @var \Armd\LectureBundle\Repository\LectureRepository $repo */
+    public function mainpageLectureWidgetAction($type = 'recommend', $date = '') {
         $repo = $this->getDoctrine()->getRepository('ArmdLectureBundle:Lecture');
         $lectures = $repo->findForMainPage($date, 4, $type);
 
-        if($this->getRequest()->isXmlHttpRequest()) {
-            return $this->render(
-                'ArmdLectureBundle:Default:mainpageWidgetItem.html.twig',
-                array('lectures' => $lectures, 'date' => $date)
-            );
-        } else {
-            return $this->render(
-                'ArmdLectureBundle:Default:mainpageWidget.html.twig',
-                array('lectures' => $lectures, 'date' => $date)
-            );
+        if ($this->getRequest()->isXmlHttpRequest()) {
+            return $this->render('ArmdLectureBundle:Default:mainpageWidgetItem.html.twig', array('lectures' => $lectures, 'date' => $date));
+        }
+        else {
+            return $this->render('ArmdLectureBundle:Default:mainpageWidget.html.twig', array('lectures' => $lectures, 'date' => $date));
         }
     }
 }
