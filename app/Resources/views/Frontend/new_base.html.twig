@@ -109,7 +109,7 @@
                 {% block body %}{% endblock %}
                 {% block special_projects %}
                 <div class="b-main-wrap clear-both m-bordered-3 m-block-partners">
-                    <h3 class="indented-header">Партнеры</h3>
+                    <h3 class="indented-header">{{ 'Main.Section.Partners.Header'|trans }}</h3>
                     <ul class="b-partner-list">
                         <li>
                             <a href="http://100.histrf.ru/about/" target="_blank" title="100 Великих полководцев. Герой дня">
@@ -198,10 +198,8 @@
                             <a href="{{ path('armd_main_banners') }}">{{ "banners"|trans }}</a>
                         </li>
                     </ul>
-                    <p>
-                        При цитировании и копировании материалов
-                        с портала активная гиперссылка обязательна
-                    </p>
+
+                    <p>{{ 'Main.Section.Copyright'|trans }}</p>
                 </div>
             </div>
         </div>
@@ -221,8 +219,11 @@
                         <li class="m-ytb-icon"><a target="_blank" href="https://www.youtube.com/cultureru"></a></li>
                     </ul>
                     <div class="b-store-link">
-                        <a id="appstore-link" href="#appstore-popup">Приложения для iPad</a>
-                        <div id="appstore-popup" style="display:none;">
+                        <a id="appstore-link" href="#appstore-popup">
+                            {{ 'Main.Section.Footer.iPad'|trans }}
+                        </a>
+
+                        <div id="appstore-popup" class="displayNone">
                             <ul class="appstore-list">
                                 <li class="app_store-link-1"><a href="https://itunes.apple.com/ru/app/museums-of-russia/id587766991?mt=8" target="_blank"><img src="{{ asset('img/app_store_1.jpg') }}" alt="" />Museums of Russia</a></li>
                                 {% if app.request.locale == 'ru' %}

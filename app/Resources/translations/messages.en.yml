@@ -1,5 +1,11 @@
 Main:
     SiteName: Culture.ru
+    Section:
+        Partners:
+            Header: Partners
+        Copyright: If you quote or copy materials from this portal active reference to us is obligatory
+        Footer:
+            iPad: Apps for iPad
     Widget:
         Announce:
             Header: Announces

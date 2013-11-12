@@ -1,5 +1,11 @@
 Main:
     SiteName: Культура.рф
+    Section:
+        Partners:
+            Header: Партнеры
+        Copyright: При цитировании и копировании материалов с портала активная гиперссылка обязательна
+        Footer:
+            iPad: Приложения для iPad
     Widget:
         Announce:
             Header: Анонсы
