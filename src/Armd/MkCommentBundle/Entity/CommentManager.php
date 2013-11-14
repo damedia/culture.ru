@@ -8,8 +8,7 @@ use FOS\CommentBundle\Events;
 use FOS\CommentBundle\Model\ThreadInterface;
 use Armd\MkCommentBundle\Model\CommentInterface;
 
-class CommentManager extends BaseCommentManager
-{
+class CommentManager extends BaseCommentManager {
 
     /**
      * Returns a flat array of comments of a specific thread.
@@ -18,10 +17,10 @@ class CommentManager extends BaseCommentManager
      *
      * @param  ThreadInterface $thread
      * @param  integer         $depth
+     * @param  string          $sorterAlias
      * @return array           of ThreadInterface
      */
-    public function findCommentsByThread(ThreadInterface $thread, $depth = null, $sorterAlias = null)
-    {
+    public function findCommentsByThread(ThreadInterface $thread, $depth = null, $sorterAlias = null) {
         $qb = $this->repository
             ->createQueryBuilder('c')
             ->join('c.thread', 't')
@@ -29,25 +28,18 @@ class CommentManager extends BaseCommentManager
             ->andWhere('c.state = :visible_state')
             ->orderBy('c.ancestors', 'ASC')
             ->setParameter('thread', $thread->getId())
-            ->setParameter('visible_state', CommentInterface::STATE_VISIBLE)
-        ;
-
+            ->setParameter('visible_state', CommentInterface::STATE_VISIBLE);
 
         if (null !== $depth && $depth >= 0) {
             // Queries for an additional level so templates can determine
             // if the final 'depth' layer has children.
-
-            $qb->andWhere('c.depth < :depth')
-                ->setParameter('depth', $depth + 1);
+            $qb->andWhere('c.depth < :depth')->setParameter('depth', $depth + 1);
         }
 
-        $comments = $qb
-            ->getQuery()
-            ->execute();
-
+        $comments = $qb->getQuery()->execute();
         $this->removeOrphanComments($comments);
 
-        if (null !== $sorterAlias) {
+        if ($sorterAlias !== null) {
             $sorter = $this->sortingFactory->getSorter($sorterAlias);
             $comments = $sorter->sortFlat($comments);
         }
@@ -63,16 +55,15 @@ class CommentManager extends BaseCommentManager
      * @param  string  $sorter
      * @return array   See findCommentTreeByThread
      */
-    public function findCommentTreeByCommentId($commentId, $sorter = null)
-    {
-        $qb = $this->repository->createQueryBuilder('c');
-        $qb->join('c.thread', 't')
+    public function findCommentTreeByCommentId($commentId, $sorter = null) {
+        $qb = $this->repository
+            ->createQueryBuilder('c')
+            ->join('c.thread', 't')
             ->where('LOCATE(:path, CONCAT(\'/\', CONCAT(c.ancestors, \'/\'))) > 0')
             ->andWhere('c.state = :visible_state')
             ->orderBy('c.ancestors', 'ASC')
             ->setParameter('path', "/{$commentId}/")
-            ->setParameter('visible_state', CommentInterface::STATE_VISIBLE)
-        ;
+            ->setParameter('visible_state', CommentInterface::STATE_VISIBLE);
 
         $comments = $qb->getQuery()->execute();
 
@@ -81,7 +72,6 @@ class CommentManager extends BaseCommentManager
         }
 
         $sorter = $this->sortingFactory->getSorter($sorter);
-
         $trimParents = current($comments)->getAncestors();
 
         return $this->organiseComments($comments, $sorter, $trimParents);

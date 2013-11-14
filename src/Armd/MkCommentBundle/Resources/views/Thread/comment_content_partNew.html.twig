@@ -1,5 +1,5 @@
 {% block fos_comment_comment %}
-<div id="comment{{ comment.id }}" class="fos_comment_comment_show fos_comment_comment_depth_{{ depth }} comment-item" {% if parentId is defined %}data-parent="{{ parentId }}"{% endif %}>
+<div id="comment{{ comment.id }}" style="margin-left: {{ depth * 30 }}px" class="fos_comment_comment_show fos_comment_comment_depth_{{ depth }} comment-item" {% if parentId is defined %}data-parent="{{ parentId }}"{% endif %}>
     <div class="comment-list_text">
         {# author #}
         {% block fos_comment_comment_metas_authorline %}
@@ -42,7 +42,9 @@
                     {% endif %}
 
                     {# comment link #}
-                    <a href="#comment{{comment.id}}" class="palette-text fos-comment-link-buttonlike">{{ 'Comments.Comment.Link'|trans }}</a>
+                    <a href="#comment{{comment.id}}" class="palette-text fos-comment-link-buttonlike displayNone" role="comment-link">
+                        {{ 'Comments.Comment.Link'|trans }}
+                    </a>
 
                     {# begin: voting block - we are not using this for now #}
                     {% block fos_comment_comment_metas_voting %}
@@ -85,6 +87,7 @@
         {% block fos_comment_comment_reply %}
             <div class="fos_comment_comment_reply"></div>
         {% endblock fos_comment_comment_reply %}
+
         {% if view is not sameas('flat') %}
             <div class="fos_comment_comment_replies">
                 {% if children is defined %}

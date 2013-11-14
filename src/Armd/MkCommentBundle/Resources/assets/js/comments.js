@@ -78,12 +78,18 @@
          * @param string identifier Unique identifier url for the thread comments.
          * @param string url Optional url for the thread. Defaults to current location.
          */
-        getThreadComments: function(identifier, permalink){
-            if('undefined' == typeof permalink) {
+        //Additional parameters for this function signature to pass  are:
+        //      sorter: date_asc || date_desc   (implemented)
+        //      view: tree || flat              (not implemented here)
+        getThreadComments: function(identifier, permalink, sorter){
+            if ('undefined' == typeof permalink) {
                 permalink = window.location.href;
             }
+            if (!sorter) {
+                sorter = 'date_asc';
+            }
 
-            FOS_COMMENT.get(FOS_COMMENT.base_url + '/' + encodeURIComponent(identifier) + '/comments', { permalink: encodeURIComponent(permalink) }, function(data){
+            FOS_COMMENT.get(FOS_COMMENT.base_url + '/' + encodeURIComponent(identifier) + '/comments', { permalink: encodeURIComponent(permalink), sorter: sorter }, function(data){
                 FOS_COMMENT.thread_container.html(data);
                 FOS_COMMENT.thread_container.attr('data-thread', identifier);
                 FOS_COMMENT.thread_container.trigger('comments_loaded');
@@ -129,12 +135,15 @@
                 }
             });
 
+            //process form submission for "NEW COMMENT" right after "comment-post-button" has been clicked
             FOS_COMMENT.thread_container.on('submit', 'form.fos_comment_comment_new_form', function(e){
                 var that = $(this);
 
                 FOS_COMMENT.post(this.action, FOS_COMMENT.serializeObject(this),
                     function(data){ //success
                         FOS_COMMENT.appendComment(data, that);
+                        //Imitate click on "commentLink" right after appending?
+                        //      var commentLink = $(data).find('a[role="comment-link"]');
                     },
                     function(data){ //error
                         var parent = that.parent();
@@ -147,6 +156,7 @@
                 e.preventDefault();
             });
 
+            //process form submission for "EDIT COMMENT" right after "comment-post-button" has been clicked
             FOS_COMMENT.thread_container.on('submit', 'form.fos_comment_comment_edit_form', function(e){
                 var that = $(this);
 
@@ -181,7 +191,7 @@
 
             FOS_COMMENT.thread_container.on('click', '.fos_comment_comment_reply_show_form', function(e){
                 var form_data = $(this).data(),
-                    that = $('#comment'+form_data.parentId).find('.fos_comment_comment_reply');
+                    that = $('#comment'+form_data.parentId).find('.fos_comment_comment_reply:first');
 
                 e.preventDefault();
 
@@ -259,54 +269,20 @@
                         var form = $(data).children('form')[0],
                             threadId = $(form).data().fosCommentThreadId;
 
-                        FOS_COMMENT.getThreadComments(threadId); //reload the intire thread
+                        FOS_COMMENT.getThreadComments(threadId); //reload the entire thread
                     });
                 });
             });
         },
 
-        appendComment: function(commentHtml, form){
-            var form_data = form.data(),
-                newComment = $('<li>' + commentHtml + '</li>');
-
-            $('.palette-text', newComment).addClass(fos_comment_text_color_class);
-
-            if (form_data.parent != '') {
-                var form_parent = form.parent(),
-                    reply_button_holder = form_parent.parent();
-
-                reply_button_holder.removeClass('fos_comment_replying');
-                $('#comments_list_' + form_data.parent).prepend(newComment);
-                form_parent.remove();
-            }
-            else {
-                var post_comments_holder = $('#post-comments'),
-                    comments_list_holder = $('#comments_list_0');
-
-                if ($('#fos_comment_thread').data('thread').indexOf('blog') > -1) {
-                    post_comments_holder.find('.validation-info').show();
-                    post_comments_holder.find('.comment-item:first').before(commentHtml);
-                }
-                else {
-                    comments_list_holder.prepend(newComment);
-                    comments_list_holder.parent().addClass('comments-block');
-                    $('#comments_header').addClass('comments-header');
-                    $('#add_new_comment').hide();
-                }
-
-                //"reset" the form
-                form = $(form[0]);
-                form.find('textarea').val('');
-                form.children('.fos_comment_form_errors').remove();
-            }
-
+        //I didn't bother myself to do the actual "append" or "edit" (and therefore manage changes in 2 places),
+        //so I just perform the reload of the entire Thread on these actions.
+        appendComment: function(commentHtml, form) {
             FOS_COMMENT.thread_container.trigger('comment_appended');
+            FOS_COMMENT.getThreadComments(window.fos_comment_thread_id);
         },
-        editComment: function(commentHtml){
-            var commentHtml = $(commentHtml),
-                originalCommentBody = $('#' + commentHtml.attr('id')).children('.comment-list_text').children('.fos_comment_comment_body');
-
-            originalCommentBody.html(commentHtml.children('.comment-list_text').children('.fos_comment_comment_body').html());
+        editComment: function(commentHtml) {
+            FOS_COMMENT.getThreadComments(window.fos_comment_thread_id);
         },
         cancelEditComment: function(commentBody) {
             commentBody.html(commentBody.data('original'));
