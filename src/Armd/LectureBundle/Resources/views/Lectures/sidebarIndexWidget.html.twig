@@ -1,14 +1,21 @@
 {% if items is not empty %}
     {% import 'ArmdLectureBundle::lecture_macro.html.twig' as lectureMacro %}
 
-    <div class="sidebar-widget">
-        {% for item in items %}
+    {% for item in items %}
+        <div class="sidebar-itme-wrapper">
             <a href="{{ path('armd_lecture_view', {id: item.id}) }}" class="sidebar-widget-item">
-                {{ lectureMacro.lectureThumbnail(item, 'big', {'width': 230, 'height': 'auto', 'display': 'block'}) }}
-                <div class="title-pane">
-                    {{ item.title }}
-                </div>
+                {{ lectureMacro.lectureThumbnail(item, 'big', {'width': 240, 'height': 'auto', 'display': 'block'}) }}
+                <span class="play"></span>
             </a>
-        {% endfor %}
-    </div>
+
+            <div class="sidebar-item-description">
+                <a class="type palette-color-1" href="{{ path('armd_lecture_lecture_index') }}">
+                    {{ 'Sidebar.LinkedContent.Type.Lectures'|trans }}
+                </a>
+                <a class="sidebar-item-title" href="{{ path('armd_lecture_view', {id: item.id}) }}">
+                    {{ item.title }}
+                </a>
+            </div>
+        </div>
+    {% endfor %}
 {% endif %}

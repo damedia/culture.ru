@@ -46,6 +46,15 @@ Main:
             Recommended: recommended
             Popular: popular
 
+Sidebar:
+    LinkedContent:
+        Header: По теме
+        Type:
+            ImagesOfRussia: Images of Russia
+            Lectures: Lectures
+    RelatedContent:
+        Header: Interesting
+
 Comments:
     Header: Comments
     AuthRequire1: You must be

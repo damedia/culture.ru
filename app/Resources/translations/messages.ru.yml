@@ -46,6 +46,15 @@ Main:
             Recommended: рекомендуем
             Popular: популярные
 
+Sidebar:
+    LinkedContent:
+        Header: По теме
+        Type:
+            ImagesOfRussia: Образы России
+            Lectures: Лекции
+    RelatedContent:
+        Header: Интересно
+
 Comments:
     Header: Комментарии
     AuthRequire1: Чтобы оставлять комментарии необходимо

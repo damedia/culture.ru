@@ -1,12 +1,23 @@
 {% if items is not empty %}
-<div class="sidebar-widget">
+    {% import 'ArmdNewsBundle::date_macro.html.twig' as armd_news %}
+
     {% for item in items %}
-        <a href="{{ path('armd_news_item_by_category', {id: item.id}) }}" class="sidebar-widget-item">
-            {% thumbnail item.image, 'billboard' with {'width': 230, 'height': 'auto', 'display': 'block'} %}
-            <div class="title-pane">
-                {{ item.title }}
+        <div class="sidebar-itme-wrapper">
+            <a href="{{ path('armd_news_item_by_category', {id: item.id}) }}" class="sidebar-widget-item">
+                {% thumbnail item.image, 'billboard' with {'width': 240, 'height': 'auto', 'display': 'block'} %}
+            </a>
+
+            <div class="sidebar-item-description">
+                <span class="date">
+                    {{ armd_news.macro_date_standart(item.newsDate) }}
+                </span>
+                <a class="type palette-color-1" href="{{ path('armd_news_list_index_by_category', { 'category': item.category.slug }) }}">
+                    {{ item.category.title }}
+                </a>
+                <a class="sidebar-item-title" href="{{ path('armd_news_item_by_category', {id: item.id}) }}">
+                    {{ item.title }}
+                </a>
             </div>
-        </a>
+        </div>
     {% endfor %}
-</div>
 {% endif %}

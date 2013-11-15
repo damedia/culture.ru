@@ -1,43 +1,46 @@
 {% if tagsString %}
-<div class="sidebar-widget">
-    <b>Tags</b>: {{ tagsString }}
-</div>
+    <div class="displayNone">Tags: {{ tagsString }}</div>
 {% endif %}
 
 {% if techTagsString %}
-    <div class="sidebar-widget">
-        <b>Tech tags</b>: {{ techTagsString|raw }}
-    </div>
+    <div class="displayNone">Tech tags: {{ techTagsString|raw }}</div>
 {% endif %}
 
 {% if linkedObjects %}
-    {% for key, objects in linkedObjects %}
-        {% if key == 'special_projects' %}
-            Special projects widget is not implemented yet!
-        {% elseif key == 'news' %}
-            {% render 'ArmdNewsBundle:News:sidebarLinkedNewsWidget' with {'objects': objects} %}
-        {% elseif key == 'atlas_objects' %}
-            {% render 'ArmdAtlasBundle:Default:sidebarLinkedObjectsWidget' with {'objects': objects} %}
-        {% elseif key == 'lectures' %}
-            {% render 'ArmdLectureBundle:Default:sidebarLinkedLecturesWidget' with {'objects': objects} %}
-        {% else %}
-            <div class="sidebar-widget">
-                <b>{{ key }}</b><br />
+    <div class="sidebar-widget">
+        <div class="sidebar-header-like">
+            {{ 'Sidebar.LinkedContent.Header'|trans }}
+        </div>
+
+        {% for key, objects in linkedObjects %}
+            {% if key == 'special_projects' %}
+                Special projects widget is not implemented yet!
+            {% elseif key == 'news' %}
+                {% render 'ArmdNewsBundle:News:sidebarLinkedNewsWidget' with {'objects': objects} %}
+            {% elseif key == 'atlas_objects' %}
+                {% render 'ArmdAtlasBundle:Default:sidebarLinkedObjectsWidget' with {'objects': objects} %}
+            {% elseif key == 'lectures' %}
+                {% render 'ArmdLectureBundle:Default:sidebarLinkedLecturesWidget' with {'objects': objects} %}
+            {% else %}
+                <hr /><b>{{ key }}</b><br />
                 {% for object in objects %}
                     {{ object }}<br />
                 {% endfor %}
-            </div>
-        {% endif %}
-    {% endfor %}
+            {% endif %}
+        {% endfor %}
+    </div>
 {% endif %}
 
 {% if relatedNews is not empty %}
-<div class="sidebar-widget">
-    <b>Related news</b> (count: {{ relatedNews|length }})<br />
+<div class="sidebar-related-widget">
+    <div class="sidebar-header-like bordered-header">
+        {{ 'Sidebar.RelatedContent.Header'|trans }}
+    </div>
+
     {% for item in relatedNews %}
         <a href="{{ path('armd_news_item_by_category', {id: item.id}) }}" class="sidebar-widget-item">
-            {% thumbnail item.image, 'billboard' with {'width': 230, 'height': 'auto', 'display': 'block'} %}
-            <div class="title-pane">
+            {% thumbnail item.image, 'billboard' with {'width': 240, 'height': 'auto', 'style': 'display: block; margin-bottom: 20px'} %}
+            <div class="title-pane sidebar-item-title">
                 {{ item.title }}
             </div>
         </a>
