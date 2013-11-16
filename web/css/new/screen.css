@@ -3077,7 +3077,7 @@ textarea[name="fos_comment_comment[body]"] {
     text-align: right;
 }
 .fos_comment_comment_body {
-    min-height: 100px;
+    min-height: 100px !important;
 }
 
 
