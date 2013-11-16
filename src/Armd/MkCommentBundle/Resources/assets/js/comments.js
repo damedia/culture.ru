@@ -101,6 +101,9 @@
                 $('.palette-button', threadContainer).addClass(fos_comment_new_comment_post_button_class);
 
                 commentsCount = threadContainer.find('div.comment-item').length - 1;
+                if (commentsCount < 0) {
+                    commentsCount = 0;
+                }
                 $('span', '#fos-comment-total').text(commentsCount);
 
                 if (/comment\d+/.test(location.hash)) {
