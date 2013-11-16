@@ -1,13 +1,13 @@
 {% block fos_comment_comment %}
-<div id="comment{{ comment.id }}" style="margin-left: {{ depth * 30 }}px" class="fos_comment_comment_show fos_comment_comment_depth_{{ depth }} comment-item" {% if parentId is defined %}data-parent="{{ parentId }}"{% endif %}>
+<div id="comment{{ comment.id }}" style="margin-left: {{ depth * 20 }}px" class="fos_comment_comment_show fos_comment_comment_depth_{{ depth }} comment-item" {% if parentId is defined %}data-parent="{{ parentId }}"{% endif %}>
     <div class="comment-list_text">
         {# author #}
         {% block fos_comment_comment_metas_authorline %}
             <div class="comment-info">
                 {% if comment is fos_comment_in_state(constant('FOS\\CommentBundle\\Model\\CommentInterface::STATE_VISIBLE')) %}
-                    <strong>{{ comment.authorName }}</strong>
+                    <b>{{ comment.authorName }}</b>
                 {% endif %}
-                <span class="date">{{ armd_news.macro_date_full(comment.createdAt) }}</span>
+                <span class="date-style">{{ armd_news.macro_date_full(comment.createdAt) }}</span>
             </div>
         {% endblock fos_comment_comment_metas_authorline %}
 

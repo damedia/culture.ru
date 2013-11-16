@@ -82,6 +82,8 @@
         //      sorter: date_asc || date_desc   (implemented)
         //      view: tree || flat              (not implemented here)
         getThreadComments: function(identifier, permalink, sorter){
+            var ajaxUrl = FOS_COMMENT.base_url + '/' + encodeURIComponent(identifier) + '/comments';
+
             if ('undefined' == typeof permalink) {
                 permalink = window.location.href;
             }
@@ -89,16 +91,20 @@
                 sorter = 'date_asc';
             }
 
-            FOS_COMMENT.get(FOS_COMMENT.base_url + '/' + encodeURIComponent(identifier) + '/comments', { permalink: encodeURIComponent(permalink), sorter: sorter }, function(data){
-                FOS_COMMENT.thread_container.html(data);
-                FOS_COMMENT.thread_container.attr('data-thread', identifier);
-                FOS_COMMENT.thread_container.trigger('comments_loaded');
+            FOS_COMMENT.get(ajaxUrl, { permalink: encodeURIComponent(permalink), sorter: sorter }, function(data){
+                var commentsCount,
+                    threadContainer = FOS_COMMENT.thread_container;
 
-                $('.palette-text', FOS_COMMENT.thread_container).addClass(fos_comment_text_color_class);
-                $('.palette-button', FOS_COMMENT.thread_container).addClass(fos_comment_new_comment_post_button_class);
+                threadContainer.html(data).attr('data-thread', identifier).trigger('comments_loaded');
+
+                $('.palette-text', threadContainer).addClass(fos_comment_text_color_class);
+                $('.palette-button', threadContainer).addClass(fos_comment_new_comment_post_button_class);
+
+                commentsCount = threadContainer.find('div.comment-item').length - 1;
+                $('span', '#fos-comment-total').text(commentsCount);
 
                 if (/comment\d+/.test(location.hash)) {
-                    var hashtag_comment_div = $('div'+location.hash, FOS_COMMENT.thread_container);
+                    var hashtag_comment_div = $('div'+location.hash, threadContainer);
 
                     $('html').scrollTop(hashtag_comment_div.offset().top);
                 }

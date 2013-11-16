@@ -3226,6 +3226,11 @@ ul.comments-list li {
     text-decoration: underline;
 }
 
+.date-style {
+    color: #7D8687;
+    font-family: "PTSansRegular",sans-serif;
+}
+
 
 /*=======================
 ==== User Favorites ===*/

@@ -1,7 +1,7 @@
 {% if depth == 0 %}
     <div id="comments_header" class="clearfix{% if comments|length > 0 %} comments-header{% endif %}">
         <p id="fos-comment-total">
-            {{ 'Comments.Header'|trans }}: {{ comments|length }}
+            {{ 'Comments.Header'|trans }}: <span></span>
         </p>
 
         {% if fos_comment_can_edit_thread(thread) %}
