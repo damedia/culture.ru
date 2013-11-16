@@ -1,5 +1,5 @@
 {% block fos_comment_comment %}
-<div id="comment{{ comment.id }}" style="margin-left: {{ depth * 20 }}px" class="fos_comment_comment_show fos_comment_comment_depth_{{ depth }} comment-item" {% if parentId is defined %}data-parent="{{ parentId }}"{% endif %}>
+<div id="comment{{ comment.id }}" class="fos_comment_comment_show fos_comment_comment_depth_{{ depth }} comment-item {% if depth == 0 %}first{% endif %}" {% if parentId is defined %}data-parent="{{ parentId }}"{% endif %}>
     <div class="comment-list_text">
         {# author #}
         {% block fos_comment_comment_metas_authorline %}

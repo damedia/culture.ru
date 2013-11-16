@@ -3079,6 +3079,12 @@ textarea[name="fos_comment_comment[body]"] {
 .fos_comment_comment_body {
     min-height: 100px !important;
 }
+.fos_comment_comment_show {
+    margin-left: 40px;
+}
+.fos_comment_comment_show.first {
+    margin-left: 0;
+}
 
 
 /*==================
