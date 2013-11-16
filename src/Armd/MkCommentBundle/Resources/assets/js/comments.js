@@ -100,7 +100,7 @@
                 $('.palette-text', threadContainer).addClass(fos_comment_text_color_class);
                 $('.palette-button', threadContainer).addClass(fos_comment_new_comment_post_button_class);
 
-                commentsCount = threadContainer.find('div.comment-item').length;
+                commentsCount = threadContainer.find('div.fos_comment_comment_body').length;
                 $('span', '#fos-comment-total').text(commentsCount);
 
                 if (/comment\d+/.test(location.hash)) {
