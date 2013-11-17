@@ -2,6 +2,16 @@
 
 {% import 'ArmdNewsBundle::date_macro.html.twig' as armd_news %}
 
+{% block stylesheets %}
+    {{ parent() }}
+
+    <style type="text/css">
+        ul.hub-menu li a:hover {
+            color: {{ palette_color_hex }};
+        }
+    </style>
+{% endblock %}
+
 {% block title %}{{ 'Media'|trans }}{% endblock %}
 
 {% block body %}

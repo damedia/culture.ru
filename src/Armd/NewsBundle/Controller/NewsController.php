@@ -17,6 +17,9 @@ use Armd\UserBundle\Entity\User;
 use Armd\NewsBundle\Entity\News;
 
 class NewsController extends Controller {
+    const DEFAULT_RELATED_LIMIT = 5;
+    const PALETTE_COLOR_HEX = '#95BD59';
+
     private $palette_color = 'palette-color-1';
     private $palette_favoritesIcon = 'palette-favoritesIcon-1';
     private $palette_background = 'palette-background-1';
@@ -73,6 +76,7 @@ class NewsController extends Controller {
         }
 
         $linkedObjects = array();
+        $linkedObjectsQuantity = 0;
         if (count($techTags) > 0) {
             foreach ($techTags as $tagName) {
                 $entityType = $tagName[0];
@@ -108,28 +112,44 @@ class NewsController extends Controller {
             //news
             if (isset($linkedObjects['news']) AND (count($linkedObjects['news']) > 0)) {
                 $linkedNews = $this->getNewsRepository()->findBy(array('id' => $linkedObjects['news']));
-                $linkedObjects['news'] = $linkedNews;
+                $newsCount = count($linkedNews);
+                if ($newsCount > 0) {
+                    $linkedObjects['news'] = $linkedNews;
+                    $linkedObjectsQuantity += $newsCount;
+                }
             }
 
             //atlas objects
             if (isset($linkedObjects['atlas_objects']) AND (count($linkedObjects['atlas_objects']) > 0)) {
                 $linkedAtlasObjects = $this->getDoctrine()->getRepository('ArmdAtlasBundle:Object')->findBy(array('id' => $linkedObjects['atlas_objects']));
-                $linkedObjects['atlas_objects'] = $linkedAtlasObjects;
+                $atlasObjectsCount = count($linkedAtlasObjects);
+                if ($atlasObjectsCount > 0) {
+                    $linkedObjects['atlas_objects'] = $linkedAtlasObjects;
+                    $linkedObjectsQuantity += $atlasObjectsCount;
+                }
             }
 
             //lectures
             if (isset($linkedObjects['lectures']) AND (count($linkedObjects['lectures']) > 0)) {
                 $linkedLectures = $this->getDoctrine()->getRepository('ArmdLectureBundle:Lecture')->findBy(array('id' => $linkedObjects['lectures']));
-                $linkedObjects['lectures'] = $linkedLectures;
+                $lecturesCount = count($linkedLectures);
+                if ($lecturesCount > 0) {
+                    $linkedObjects['lectures'] = $linkedLectures;
+                    $linkedObjectsQuantity += $lecturesCount;
+                }
             }
         }
 
-        $relatedNews = $this->getNewsManager()->findObjects(array(
-            NewsManager::CRITERIA_LIMIT => 5,
-            NewsManager::CRITERIA_TAGS => $entity->getTags(),
-            NewsManager::CRITERIA_RANDOM => true,
-            NewsManager::CRITERIA_NOT_IDS => array($entity->getId())
-        ));
+        $relatedNews = array();
+        $relatedObjectsLimit = NewsController::DEFAULT_RELATED_LIMIT - $linkedObjectsQuantity;
+        if ($relatedObjectsLimit > 0) {
+            $relatedNews = $this->getNewsManager()->findObjects(array(
+                NewsManager::CRITERIA_LIMIT => $relatedObjectsLimit,
+                NewsManager::CRITERIA_TAGS => $entity->getTags(),
+                NewsManager::CRITERIA_RANDOM => true,
+                NewsManager::CRITERIA_NOT_IDS => array($entity->getId())
+            ));
+        }
 
         $tagsString = implode(', ', $commonTags);
         $techTagsString = implode(', ', $techTags);
@@ -210,6 +230,7 @@ class NewsController extends Controller {
             'categories' => $categories,
             'currentCategory' => $category,
             'palette_color' => $this->palette_color,
+            'palette_color_hex' => NewsController::PALETTE_COLOR_HEX,
             'searchQuery' => $searchQuery
         );
     }
@@ -245,6 +266,7 @@ class NewsController extends Controller {
             'entity' => $entity,
             'isFavored' => $favorite ? true : false,
             'categories' => $categories,
+            'palette_color_hex' => NewsController::PALETTE_COLOR_HEX,
             'palette_color' => $this->palette_color,
             'palette_favoritesIcon' => $this->palette_favoritesIcon,
             'palette_background' => $this->palette_background,

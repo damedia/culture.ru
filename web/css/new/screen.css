@@ -2965,6 +2965,18 @@ margin: 0 0 5px;
     top: 50%;
     width: 84px;
 }
+.darkLayer {
+    background-color: rgba(25, 22, 22, 0.7);
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 240px;
+    height: 100%;
+}
+a.sidebar-widget-item:hover > .darkLayer {
+    background-color: rgba(25, 22, 22, 0.6);
+}
 
 
 /*================
@@ -3286,6 +3298,7 @@ ul.comments-list li {
 .sidebar-related-widget .bordered-header {
     border: 5px solid #EEEFF0;
     margin-bottom: 15px;
+    background-color: #FFFFFF;
 }
 .sidebar-item-title {
     display: block;

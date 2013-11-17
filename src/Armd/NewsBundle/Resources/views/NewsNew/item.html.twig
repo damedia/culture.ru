@@ -16,6 +16,19 @@
     {% endif %}
 {% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+
+    <style type="text/css">
+        ul.hub-menu li a:hover {
+            color: {{ palette_color_hex }};
+        }
+        .b-post p a {
+            color: {{ palette_color_hex }};
+        }
+    </style>
+{% endblock %}
+
 {% block body %}
     <div class="b-main-wrap b-post b-post-taxonomy">
         <h1 class="b-left-title">{{ 'Media'|trans }}</h1>

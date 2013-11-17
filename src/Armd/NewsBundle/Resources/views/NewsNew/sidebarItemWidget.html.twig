@@ -38,8 +38,9 @@
     </div>
 
     {% for item in relatedNews %}
-        <a href="{{ path('armd_news_item_by_category', {id: item.id}) }}" class="sidebar-widget-item">
+        <a href="{{ path('armd_news_item_by_category', {id: item.id}) }}" class="sidebar-widget-item displayBlock positionRelative">
             {% thumbnail item.image, 'billboard' with {'width': 240, 'height': 'auto', 'style': 'display: block; margin-bottom: 20px'} %}
+            <span class="darkLayer"></span>
             <div class="title-pane sidebar-item-title">
                 {{ item.title }}
             </div>
