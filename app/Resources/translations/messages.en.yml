@@ -49,9 +49,11 @@ Main:
 Sidebar:
     LinkedContent:
         Header: Related
+        Next: next
         Type:
             ImagesOfRussia: Images of Russia
             Lectures: Lectures
+            Movies: Movies
     RelatedContent:
         Header: Interesting
 

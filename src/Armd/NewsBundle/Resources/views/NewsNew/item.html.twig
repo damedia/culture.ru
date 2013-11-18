@@ -89,7 +89,6 @@
     {{ parent() }}
 
     <script type="text/javascript" src="http://yandex.st/share/share.js" charset="utf-8"></script>
-
     <script type="text/javascript">
         $(function(){
             var searchWrapper = $('#quick-search-wrapper'),
@@ -116,9 +115,9 @@
             new Ya.share({
                 element: 'yandex-share',
                 l10n: {% if app.request.locale == 'ru' %}'ru'{% else %}'en'{% endif %},
+                theme: 'default',
                 elementStyle: {
                     type: 'none',
-                    border: false,
                     quickServices: ['vkontakte', 'lj', 'twitter', 'facebook', 'odnoklassniki']
                 },
                 link: '{{ url('view_blog', { 'id': entity.id }) }}',

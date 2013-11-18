@@ -923,8 +923,7 @@ class DefaultController extends Controller
      * @Route("/related-objects/", name="armd_atlas_related_objects")
      * @Template("ArmdAtlasBundle:Default:related_objects.html.twig")
      */
-    public function relatedObjectsAction()
-    {
+    public function relatedObjectsAction() {
         $request = $this->getRequest();
         $tags = $request->get('tags', array());
         $limit = $request->get('limit');
@@ -938,10 +937,30 @@ class DefaultController extends Controller
 
         $objects = $this->getObjectManager()->findObjects($criteria);
 
-        return array(
-            'objects' => $objects
-        );
+        return array('objects' => $objects);
     }
+
+    /**
+     * @Route("/sidebar-related-objects/", name="armd_sidebar_atlas_related_objects")
+     * @Template("ArmdAtlasBundle:Objects:sidebar_related_objects.html.twig")
+     */
+    public function sidebarRelatedObjectsAction() {
+        $request = $this->getRequest();
+        $tags = $request->get('tags', array());
+        $limit = $request->get('limit');
+
+        $criteria = array(
+            ObjectManager::CRITERIA_LIMIT => $limit,
+            ObjectManager::CRITERIA_HAS_SIDE_BANNER_IMAGE => true,
+            ObjectManager::CRITERIA_RANDOM => true,
+            ObjectManager::CRITERIA_TAGS => $tags,
+        );
+
+        $objects = $this->getObjectManager()->findObjects($criteria);
+
+        return array('objects' => $objects);
+    }
+
 
     /**
      * @return \Armd\AtlasBundle\Entity\ObjectManager

@@ -38,6 +38,46 @@
     {{ parent() }}
 
     <script type="text/javascript">
+        var NewsIndexSlider = (function(){
+            var slider = {};
+
+            slider.init = function(wrapper, options){
+                var items,
+                    itemsCount,
+                    visibleItemNum = 0,
+                    nextItemButton,
+                    buttonTitle = '{{ 'Sidebar.LinkedContent.Next'|trans }}';
+
+                if (wrapper.length > 0) {
+                    items = $('.sidebar-item-wrapper', wrapper);
+                    itemsCount = items.length;
+
+                    if (itemsCount > 1) {
+                        nextItemButton = $('<div class="goto-link-button hoverSensitive fullWidth">' + buttonTitle + '</div>');
+                        nextItemButton.on('click', function(){
+                            $(items[visibleItemNum]).toggle('slide');
+                            if (visibleItemNum !== 3) {
+                                visibleItemNum++;
+                            }
+                            else {
+                                visibleItemNum = 0;
+                            }
+                            $(items[visibleItemNum]).toggle('slide');
+                        });
+                        wrapper.append(nextItemButton);
+                    }
+
+                    $.each(items, function(i, item){
+                        if (i !== visibleItemNum) {
+                            $(item).hide();
+                        }
+                    });
+                }
+            };
+
+            return slider;
+        }());
+
         $(function(){
             var searchWrapper = $('#quick-search-wrapper'),
                 searchInput = $('#search-txt', searchWrapper),
@@ -58,6 +98,10 @@
                     e.preventDefault();
                     window.location = Routing.generate('armd_news_list_index_by_category', { 'search_query': searchInput.val() });
                 }
+            });
+
+            $.each($('div.sidebar-movies-widget-switcher'), function(){
+                NewsIndexSlider.init($(this));
             });
         });
     </script>

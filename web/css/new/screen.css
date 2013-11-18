@@ -712,8 +712,8 @@ margin-bottom: 61px
 margin: 0 0 14px 0
 }
 
-.b-sidebar .b-login-links a {
-margin: 0 6px 0 0
+.b-login-links a {
+    margin: 0 6px 0 0;
 }
 
 .b-sidebar .b-social-icon-list {
@@ -977,8 +977,7 @@ padding-top: 3px
 }
 
 .b-login-links a {
-display: inline-block;
-margin-left: 18px
+    display: inline-block;
 }
 
 .b-login-links a:first-child {
@@ -1488,16 +1487,15 @@ display: inline-block
 }
 
 .b-main .b-pagination li, .b-main .b-pagination-nav li {
-float: left;
-list-style: none;
-width: 28px;
-height: 29px;
-margin: 0 12px 0 0;
-padding: 0 1px 0 1px;
-background-position: 0 -54px;
-color: #b3bebf;
-cursor: pointer;
-line-height: 1
+    float: left;
+    list-style: none;
+    width: 30px;
+    height: 29px;
+    margin: 0 12px 0 0;
+    background-position: 0 -54px;
+    color: #b3bebf;
+    cursor: pointer;
+    line-height: 1;
 }
 
 .b-main .b-pagination li:last-child, .b-main .b-pagination-nav li:last-child {
@@ -2984,6 +2982,9 @@ a.sidebar-widget-item:hover > .darkLayer {
 .positionRelative {
     position: relative;
 }
+.positionAbsolute {
+    position: absolute;
+}
 .positionAbsoluteBottomLeft {
     position: absolute;
     bottom: 0;
@@ -3023,7 +3024,7 @@ a.sidebar-widget-item:hover > .darkLayer {
 }
 
 .noPadding {
-    padding: 0;
+    padding: 0 !important;
 }
 .paddingSides15 {
     padding: 0 15px !important;
@@ -3046,6 +3047,10 @@ a.sidebar-widget-item:hover > .darkLayer {
 }
 .marginBottom20 {
     margin-bottom: 20px;
+}
+.hoverSensitive:hover {
+    cursor: pointer;
+    background-color: #939E9F;
 }
 
 
@@ -3325,6 +3330,22 @@ ul.comments-list li {
     text-transform: lowercase;
     font-size: 1em;
     float: right;
+}
+.sidebar-image-description {
+    bottom: 35px;
+    padding: 7px;
+    background-color: rgba(255, 255, 255, 0.9);
+    width: 190px;
+}
+.sidebar-item-type {
+    bottom: 0;
+    color: #FFFFFF;
+    padding: 7px;
+}
+.sidebar-object-item-wrapper {
+    min-height: 320px;
+    background: #E1E3E4;
+    margin-bottom: 15px;
 }
 
 

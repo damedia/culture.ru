@@ -356,8 +356,7 @@ class DefaultController extends Controller
      * @Route("/lecture/related", name="armd_lecture_related_lectures")
      * @Template("ArmdLectureBundle:Default:related_lectures.html.twig")
      */
-    public function relatedLecturesAction()
-    {
+    public function relatedLecturesAction() {
         $request = $this->getRequest();
         $tags = $request->get('tags', array());
         $limit = $request->get('limit');
@@ -375,6 +374,31 @@ class DefaultController extends Controller
         );
 
         return array('lectures' => $lectures);
+    }
+
+    /**
+     * @Route("/lecture/sidebar-related", name="armd_sidebar_lecture_related_lectures")
+     * @Template("ArmdLectureBundle:Lectures:sidebar_related_lectures.html.twig")
+     */
+    public function sidebarRelatedLecturesAction() {
+        $request = $this->getRequest();
+        $tags = $request->get('tags', array());
+        $limit = $request->get('limit');
+        $superTypeCode = $request->get('superTypeCode');
+        $id = $request->get('id');
+        $headerText = $request->get('headerText');
+
+        $criteria = array(
+            LectureManager::CRITERIA_LIMIT => $limit,
+            LectureManager::CRITERIA_TAGS => $tags,
+            LectureManager::CRITERIA_SUPER_TYPE_CODES_OR => array($superTypeCode),
+            LectureManager::CRITERIA_NOT_IDS => array($id),
+            LectureManager::CRITERIA_RANDOM => true,
+        );
+
+        $lectures = $this->getLectureManager()->findObjects($criteria);
+
+        return array('lectures' => $lectures, 'headerText' => $headerText);
     }
 
     /**

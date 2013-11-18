@@ -63,19 +63,7 @@
         <div class="b-main">
             <div class="b-sidebar">
                 <div class="b-sidebar-inner">
-                    <div class="b-login-links">
-                    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                        <a href="{{ path('sonata_user_profile_edit') }}">{{ app.user.username }}</a> /
-                        <a href="{{ path('fos_user_security_logout') }}">{{ "auth_logout"|trans }}</a>
-                    {% else %}
-                        <a href="#login-popup">{{ "auth_login"|trans }}</a>
-                        <div id="login-popup" style="display: none;">
-                            {% render url('fos_user_security_login', {'popup': true}) %}
-                        </div>
-                        <a href="{{ path('fos_user_registration_register') }}">{{ "auth_register"|trans }}</a>
-                    {% endif %}
-                    </div>
-
+                    {{ include(':Frontend:auth.html.twig') }}
                     <ul class="b-social-icon-list">
                         <li class="m-vk-icon"><a target="_blank" href="http://vk.com/kulturarf"></a></li>
                         <li class="m-fb-icon"><a target="_blank" href="http://www.facebook.com/culture.ru"></a></li>
@@ -206,12 +194,7 @@
         <div class="b-footer-content m-secondary">
             <div class="footer-inner">
                 <div class="left-direction">
-                    {% if not is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                    <div class="b-login-links">
-                        <a href="#login-popup">{{ "auth_login"|trans }}</a>
-                        {#<a href="#">Регистрация</a>#}
-                    </div>
-                    {% endif %}
+                    {{ include(':Frontend:auth.html.twig') }}
                     <ul class="b-social-icon-list">
                         <li class="m-vk-icon"><a target="_blank" href="http://vk.com/kulturarf"></a></li>
                         <li class="m-fb-icon"><a target="_blank" href="http://www.facebook.com/culture.ru"></a></li>

@@ -1,0 +1,23 @@
+{% import 'ArmdLectureBundle::lecture_macro.html.twig' as lectureMacro %}
+
+<div class="sidebar-widget noPadding sidebar-movies-widget-switcher">
+    <div class="sidebar-header-like">
+        <a class="noTextDecoration" href="{{ path('armd_lecture_cinema_index') }}">
+            {{ headerText }}
+        </a>
+    </div>
+    {% for lecture in lectures%}
+        <div class="sidebar-item-wrapper">
+            <a href="{{ path('armd_lecture_view', {id: lecture.id}) }}" class="sidebar-widget-item displayBlock positionRelative">
+                {{ lectureMacro.lectureThumbnail(lecture, 'big', {'width': 240, 'height': 'auto', 'display': 'block'}) }}
+                <span class="play"></span>
+            </a>
+
+            <div class="sidebar-item-description">
+                <a class="sidebar-item-title" href="{{ path('armd_lecture_view', {id: lecture.id}) }}">
+                    {{ lecture.title }}
+                </a>
+            </div>
+        </div>
+    {% endfor %}
+</div>
