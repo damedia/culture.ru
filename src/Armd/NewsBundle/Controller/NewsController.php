@@ -36,19 +36,16 @@ class NewsController extends Controller {
     }
 
     /**
-     * @param $date
      * @Template("ArmdNewsBundle:NewsNew:sidebarIndexWidget.html.twig")
      * @return array
      */
-    public function sidebarIndexWidgetAction($date = '') {
-        $items = $this->getNewsRepository()->findForMainPage($date, 5);
-
-        return array('items' => $items);
+    public function sidebarIndexWidgetAction() {
+        return array();
     }
 
     /**
      * @param $objects
-     * @Template("ArmdNewsBundle:NewsNew:sidebarIndexWidget.html.twig")
+     * @Template("ArmdNewsBundle:NewsNew:sidebarLinkedNewsWidget.html.twig")
      * @return array
      */
     public function sidebarLinkedNewsWidgetAction(array $objects) {

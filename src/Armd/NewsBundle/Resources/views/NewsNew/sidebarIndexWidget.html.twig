@@ -1,7 +1,3 @@
-{% if items is not empty %}
-    {% import 'ArmdNewsBundle::date_macro.html.twig' as armd_news %}
-
-    {% render url('armd_sidebar_atlas_related_objects', {'tags': {}, 'limit': 1}) %}
-    {% render url('armd_sidebar_lecture_related_lectures', {'tags': {}, 'limit': 4, 'superTypeCode': 'LECTURE_SUPER_TYPE_CINEMA', 'headerText': 'Sidebar.LinkedContent.Type.Movies'|trans}) %}
-    {% render url('armd_sidebar_lecture_related_lectures', {'tags': {}, 'limit': 4, 'superTypeCode': 'LECTURE_SUPER_TYPE_LECTURE', 'headerText': 'Sidebar.LinkedContent.Type.Lectures'|trans}) %}
-{% endif %}
+{% render url('armd_sidebar_atlas_related_objects', {'tags': {}, 'limit': 1}) %}
+{% render url('armd_sidebar_lecture_related_lectures', {'tags': {}, 'limit': 4, 'superTypeCode': 'LECTURE_SUPER_TYPE_CINEMA' }) %}
+{% render url('armd_sidebar_lecture_related_lectures', {'tags': {}, 'limit': 4, 'superTypeCode': 'LECTURE_SUPER_TYPE_LECTURE' }) %}
