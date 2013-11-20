@@ -87,8 +87,12 @@ Comments:
         Delete: Удалить
         Restore: Восстановить
 
+SearchDefault: поиск по сайту
+
 Hub:
     MenuAll: все
+    CulturalObjects: объекты культуры
+    TourismClusters: туристические кластеры
 
 Entity:
     SocialShare: Опубликовать в социальных сетях

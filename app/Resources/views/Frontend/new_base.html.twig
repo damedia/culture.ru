@@ -75,7 +75,7 @@
                     </ul>
                     <div id="quick-search-wrapper" class="b-quick-search">
                         <form id="search-form" action="{{ path('armd_search_results') }}">
-                            <input type="text" name="search_query" class="text-field" id="search-txt" autocomplete="off" value="{% block search_query %}поиск по сайту{% endblock %}"/>
+                            <input type="text" name="search_query" class="text-field" id="search-txt" autocomplete="off" value="{% block search_query %}{{ 'SearchDefault'|trans }}{% endblock %}"/>
                             <input type="submit" value="{{ "search"|trans }}" class="search-button" />
                         </form>
                         <div class="search-checkboxes">

@@ -87,8 +87,12 @@ Comments:
         Delete: Delete
         Restore: Restore
 
+SearchDefault: site search
+
 Hub:
     MenuAll: all
+    CulturalObjects: cultural objects
+    TourismClusters: tourism clusters
 
 Entity:
     SocialShare: Share in social networks
