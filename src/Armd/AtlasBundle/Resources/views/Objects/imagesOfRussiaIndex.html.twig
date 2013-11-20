@@ -1,0 +1,53 @@
+{% extends ':Frontend:new_base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    <style type="text/css">
+        ul.hub-menu li a:hover {
+            color: {{ palette_color_hex }};
+        }
+    </style>
+{% endblock %}
+
+{% block title %}{{ 'ImagesOfRussia'|trans }}{% endblock %}
+
+{% block body %}
+    <div class="b-main-wrap b-post fullWidth overflowVisible">
+        <h1 class="b-left-title">{{ 'ImagesOfRussia'|trans }}</h1>
+
+        <div id="hub-menu">
+            <ul class="hub-menu" style="overflow: hidden; width: 400px;">
+                <li>
+                    <a class="{{ palette_color }}" href="/app_dev.php/press-centre">{{ 'Hub.MenuAll'|trans }}</a>
+                </li>
+                <li>
+                    <a href="/app_dev.php/press-centre/news">{{ 'Hub.CulturalObjects'|trans }}</a>
+                </li>
+                <li>
+                    <a href="/app_dev.php/press-centre/news">{{ 'Hub.TourismClusters'|trans }}</a>
+                </li>
+            </ul>
+        </div>
+
+        {% render url('armd_atlas_images_of_russia_indexWidget') %}
+
+        <div style="border: 1px solid #EEEEEE; width: 958px; height: 30px; margin: 25px 0 20px 0;">
+            selectors
+        </div>
+
+        {% render url('armd_atlas_images_of_russia_list', { 'limit': 30, 'region_id': regionId, 'search_text': searchQuery }) %}
+    </div>
+{% endblock %}
+
+{% block sidebar %}{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript">
+        $(window).load(function(){
+            $('div.b-pagination-nav').css('margin-top', '10px');
+        });
+    </script>
+{% endblock %}

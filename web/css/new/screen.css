@@ -90,11 +90,15 @@ text-decoration: underline
     background: url('../../img/new/icons-sb7c6234ca4.png') no-repeat;
 }
 
-a, input[type='button'], input[type='submit'], button {
--webkit-transition: color 0.2s linear, text-decoration 0.2s linear, opacity 0.2s linear, background-color 0.2s linear;
--moz-transition: color 0.2s linear, text-decoration 0.2s linear, opacity 0.2s linear, background-color 0.2s linear;
--o-transition: color 0.2s linear, text-decoration 0.2s linear, opacity 0.2s linear, background-color 0.2s linear;
-transition: color 0.2s linear, text-decoration 0.2s linear, opacity 0.2s linear, background-color 0.2s linear
+a,
+a > span,
+input[type='button'],
+input[type='submit'],
+button {
+    -webkit-transition: color 0.2s linear, text-decoration 0.2s linear, opacity 0.2s linear, background-color 0.2s linear;
+    -moz-transition: color 0.2s linear, text-decoration 0.2s linear, opacity 0.2s linear, background-color 0.2s linear;
+    -o-transition: color 0.2s linear, text-decoration 0.2s linear, opacity 0.2s linear, background-color 0.2s linear;
+    transition: color 0.2s linear, text-decoration 0.2s linear, opacity 0.2s linear, background-color 0.2s linear
 }
 
 .e-inline-link {
@@ -1245,14 +1249,13 @@ border: 0 none
 }
 
 .b-left-title {
-float: left;
-max-width: 30%;
-font-size: 48px;
-text-transform: uppercase;
-line-height: 1em;
-margin: 0 10px 0 0;
-padding: 24px 0 0;
-font-weight: normal
+    float: left;
+    font-size: 48px;
+    text-transform: uppercase;
+    line-height: 1em;
+    margin: 0 20px 0 0;
+    padding: 24px 0 0;
+    font-weight: normal;
 }
 
 .b-post-quotes {
@@ -1489,7 +1492,7 @@ display: inline-block
 .b-main .b-pagination li, .b-main .b-pagination-nav li {
     float: left;
     list-style: none;
-    width: 30px;
+    width: 28px;
     height: 29px;
     margin: 0 12px 0 0;
     background-position: 0 -54px;
@@ -3032,6 +3035,10 @@ a.sidebar-widget-item:hover > .darkLayer {
 .paddingSides25 {
     padding: 0 25px !important;
 }
+.paddingTop5Bottom25 {
+    padding: 5px 0 25px 0 !important;
+}
+
 .noTextDecoration {
     text-decoration: none;
 }
@@ -3051,6 +3058,55 @@ a.sidebar-widget-item:hover > .darkLayer {
 .hoverSensitive:hover {
     cursor: pointer;
     background-color: #939E9F;
+}
+
+.overflowVisible {
+    overflow: visible !important;
+}
+
+
+/*=========================
+==== Images of Russia ===*/
+.imageOfRussia-list-item {
+    display: inline-block;
+    width: 220px;
+    vertical-align: top;
+    margin: 0 10px;
+}
+.imageOfRussia-list-item > .overlay {
+    width: 238px;
+    height: 98%;
+    border: 1px solid #EEEEEE;
+    top: -10px;
+    left: -10px;
+    box-shadow: 0 0 10px 2px rgba(150, 150, 150, 0.75);
+}
+.imageOfRussia-list-item:hover > .overlay {
+    display: block;
+}
+
+.imageOfRussia-list-item-big {
+    display: inline-block;
+    width: 460px;
+    vertical-align: top;
+    margin: 0 10px;
+}
+.imageOfRussia-list-item-big > .overlay {
+    width: 478px;
+    height: 100%;
+    border: 1px solid #EEEEEE;
+    top: -10px;
+    left: -10px;
+    box-shadow: 0 0 10px 2px rgba(150, 150, 150, 0.75);
+}
+.imageOfRussia-list-item-big:hover > .overlay {
+    display: block;
+}
+
+.imageOfRussia-list-item-4pack {
+    display: inline-block;
+    width: 480px;
+    vertical-align: top;
 }
 
 

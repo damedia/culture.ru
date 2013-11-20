@@ -23,9 +23,12 @@ use Application\Sonata\MediaBundle\Entity\Media;
 use Symfony\Component\HttpFoundation\Request;
 
 
-class DefaultController extends Controller
-{
+class DefaultController extends Controller {
     const MAX_USER_OBJECTS = 10;
+    const PALETTE_COLOR_HEX = '#17693D';
+
+    private $palette_color = 'palette-color-2';
+
     /**
      * @Route("/objects", defaults={"_format"="json"})
      */
@@ -129,27 +132,28 @@ class DefaultController extends Controller
         );
     }
 
-
     /**
      * @Route("russia-images/", name="armd_atlas_russia_images", options={"expose"=true})
-     * @Template("ArmdAtlasBundle:Default:russia_images.html.twig")
+     * @Template("ArmdAtlasBundle:Objects:imagesOfRussiaIndex.html.twig")
      */
-    public function russiaImagesAction()
-    {
-        $this->get('armd_main.menu.main')->setCurrentUri(
-            $this->get('router')->generate('armd_atlas_russia_images')
-        );
+    public function russiaImagesAction() {
+        $uri = $this->get('router')->generate('armd_atlas_russia_images'); //TODO: remove?
+        $this->get('armd_main.menu.main')->setCurrentUri($uri); //TODO: remove?
 
         $em = $this->getDoctrine()->getManager();
 
-        $thematicsRoot = $em->getRepository('ArmdAtlasBundle:Category')->findOneBySlug('thematic');
-        if (empty($thematicsRoot)) {
-            throw new \LogicException('Cant find atlas object category slug "thematic"');
+        $thematicCategorySlug = 'thematic';
+        $thematicsRoot = $em->getRepository('ArmdAtlasBundle:Category')->findOneBySlug($thematicCategorySlug);
+
+        if (!$thematicsRoot) {
+            throw new \LogicException('Cant find atlas object category slug "'.$thematicCategorySlug.'"');
         }
 
-        $typesRoot = $em->getRepository('ArmdAtlasBundle:Category')->findOneBySlug('type');
-        if (empty($typesRoot)) {
-            throw new \LogicException('Cant find atlas object category slug "type"');
+        $rootCategorySlug = 'type';
+        $typesRoot = $em->getRepository('ArmdAtlasBundle:Category')->findOneBySlug($rootCategorySlug);
+
+        if (!$typesRoot) {
+            throw new \LogicException('Cant find atlas object category slug "'.$rootCategorySlug.'"');
         }
 
         $regions = $this->getObjectManager()->getRussiaImagesDistinctRegions();
@@ -160,11 +164,12 @@ class DefaultController extends Controller
             'regions' => $regions,
             'regionId' => $this->getRequest()->get('region_id'),
             'searchQuery' => $this->getRequest()->get('search_query'),
+            'palette_color' => $this->palette_color,
+            'palette_color_hex' => DefaultController::PALETTE_COLOR_HEX
 //            'totalCount' => $this->getRussiaImagesCount(array(
-//                'region_id' => $this->getRequest()->get('region_id'),
-//                'category_ids' => $this->getRequest()->get('category_ids'),
-//                'search_text' => $this->getRequest()->get('search_query')
-//            ))
+//            'region_id' => $this->getRequest()->get('region_id'),
+//            'category_ids' => $this->getRequest()->get('category_ids'),
+//            'search_text' => $this->getRequest()->get('search_query')
         );
     }
 
@@ -175,8 +180,7 @@ class DefaultController extends Controller
      *      defaults={"offset"="0", "limit"="10"}
      * )
      */
-    public function  russiaImagesListAction($templateName, $offset = 0, $limit = 10)
-    {
+    public function russiaImagesListAction($templateName, $offset = 0, $limit = 10) {
         $templates = array(
             'tile' => 'ArmdAtlasBundle:Default:russia_images_list_tile.html.twig',
             'full-list' => 'ArmdAtlasBundle:Default:russia_images_list_full.html.twig',
@@ -184,25 +188,25 @@ class DefaultController extends Controller
             'special-list' => 'ArmdAtlasBundle:Default:russia_images_list_special.html.twig'
         );
 
-        if (in_array($templateName, $templates)) {
-            throw new \InvalidArgumentException('Unknow template name ' . $templateName);
+        if (!isset($templates[$templateName])) {
+            throw new \InvalidArgumentException('Unknown template name '.$templateName);
         }
 
         $request = $this->getRequest();
         $criteria = array();
 
         $categoryIds = $request->get('category_ids');
-        if (!empty($categoryIds)) {
+        if (isset($categoryIds)) {
             $criteria[ObjectManager::CRITERIA_CATEGORY_IDS_AND] = $categoryIds;
         }
 
         $regionId = $request->get('region_id');
-        if (!empty($regionId)) {
+        if (isset($regionId)) {
             $criteria[ObjectManager::CRITERIA_REGION_IDS_AND] = array($regionId);
         }
 
         $searchText = $request->get('search_text');
-        if (!empty($searchText)) {
+        if (isset($searchText)) {
             $criteria[ObjectManager::CRITERIA_SEARCH_STRING] = $searchText;
         }
 
@@ -212,17 +216,65 @@ class DefaultController extends Controller
 
         $objects = $this->getObjectManager()->findObjects($criteria);
 
-        return $this->render(
-            $templates[$templateName],
-            array(
-                'objects' => $objects,
-                'count' => count($objects),
-                'totalCount' => $this->getObjectManager()->findObjectsCount($criteria)
-            )
-        );
-
+        return $this->render($templates[$templateName], array(
+            'objects' => $objects,
+            'count' => count($objects),
+            'totalCount' => $this->getObjectManager()->findObjectsCount($criteria)
+        ));
     }
 
+    /**
+     * @Route("/images-of-russia-indexWidget", name="armd_atlas_images_of_russia_indexWidget", options={"expose"=true})
+     * @Template("ArmdAtlasBundle:Objects:imagesOfRussia_indexWidget.html.twig")
+     */
+    public function imagesOfRussiaIndexWidgetAction() {
+        $repo = $this->getObjectRepository();
+
+        $russianImages = array();
+        $showRecommended = $repo->countRussiaImagesForMainPage('', 'recommend');
+        $showNovel = $repo->countRussiaImagesForMainPage('', 'novel');
+
+        if ($showRecommended || $showNovel) {
+            $russianImages = $repo->findRussiaImagesForMainPage('', 5, 'recommend');
+        }
+
+        return array('russianImages' => $russianImages,
+                     'date' => '',
+                     'showRecommended' => $showRecommended,
+                     'showNovel' => $showNovel);
+    }
+
+    /**
+     * @Route("/images-of-russia-list/{offset}", name="armd_atlas_images_of_russia_list", options={"expose"=true}, defaults={"offset"="0"})
+     * @Template("ArmdAtlasBundle:Objects:imagesOfRussiaList.html.twig")
+     */
+    public function imagesOfRussiaListAction($offset = 0) {
+        $request = $this->getRequest();
+        $criteria = array();
+
+        $categoryIds = $request->get('category_ids');
+        if (isset($categoryIds)) {
+            $criteria[ObjectManager::CRITERIA_CATEGORY_IDS_AND] = $categoryIds;
+        }
+
+        $regionId = $request->get('region_id');
+        if (isset($regionId)) {
+            $criteria[ObjectManager::CRITERIA_REGION_IDS_AND] = array($regionId);
+        }
+
+        $searchText = $request->get('search_text');
+        if (isset($searchText)) {
+            $criteria[ObjectManager::CRITERIA_SEARCH_STRING] = $searchText;
+        }
+
+        $criteria[ObjectManager::CRITERIA_RUSSIA_IMAGES] = true;
+        $criteria[ObjectManager::CRITERIA_LIMIT] = 18;
+        $criteria[ObjectManager::CRITERIA_OFFSET] = $offset;
+
+        $objects = $this->getObjectManager()->findObjects($criteria);
+
+        return array('objects' => $objects);
+    }
 
     /**
      * @Route("/object/balloon", name="armd_atlas_default_objectballoon", options={"expose"=true})

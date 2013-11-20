@@ -1,0 +1,9 @@
+<a href="{{ path('armd_atlas_default_object_view', {id: item.id}) }}" class="imageOfRussia-list-item noTextDecoration positionRelative">
+    {% thumbnail item.primaryImage, 'sideBanner' with {'width': 220, 'height': 'auto', 'display': 'block'} %}
+    <span class="sidebar-item-title paddingTop5Bottom25">
+        {{ item.title }}
+    </span>
+    <div class="positionAbsolute overlay displayNone">
+
+    </div>
+</a>

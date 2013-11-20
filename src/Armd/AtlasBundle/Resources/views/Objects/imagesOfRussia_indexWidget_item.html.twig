@@ -1,0 +1,12 @@
+{% for item in russianImages %}
+    <li class="js-carousel-item positionRelative floatLeft">
+        <a href="{{ path('armd_atlas_default_object_view', {id: item.id}) }}" class="e-carousel-image displayBlock entity-image-wrapper">
+            {% for h in item.images|slice(0, 1) %}
+                {% thumbnail h, 'atlasW613H408' with {'width': 700, 'height': 466, 'class': 'displayBlock'} %}
+            {% endfor %}
+            <span class="image-description sidebar-item-title displayBlock">
+                {{ item.title }}
+            </span>
+        </a>
+    </li>
+{% endfor %}
