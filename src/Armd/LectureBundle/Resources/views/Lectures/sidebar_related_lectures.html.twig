@@ -1,8 +1,16 @@
 {% import 'ArmdLectureBundle::lecture_macro.html.twig' as lectureMacro %}
 
+{% if superTypeCode == 'LECTURE_SUPER_TYPE_CINEMA' %}
+    {% set url = path('armd_lecture_cinema_index') %}
+{% elseif superTypeCode == 'LECTURE_SUPER_TYPE_LECTURE' %}
+    {% set url = path('armd_lecture_lecture_index') %}
+{% else %}
+    {% set url = '/' %}
+{% endif %}
+
 <div class="sidebar-widget noPadding sidebar-movies-widget-switcher">
     <div class="sidebar-header-like">
-        <a class="noTextDecoration" href="{{ path('armd_lecture_cinema_index') }}">
+        <a class="noTextDecoration" href="{{ url }}">
             {{ headerText }}
         </a>
     </div>

@@ -3339,6 +3339,7 @@ ul.comments-list li {
     text-decoration: none;
     position: relative;
     min-height: 129px;
+    margin-bottom: 20px;
 }
 .sidebar-related-widget a.sidebar-widget-item div.title-pane {
     position: absolute;

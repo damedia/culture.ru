@@ -398,7 +398,9 @@ class DefaultController extends Controller
 
         $lectures = $this->getLectureManager()->findObjects($criteria);
 
-        return array('lectures' => $lectures, 'headerText' => $headerText);
+        return array('lectures' => $lectures,
+                     'headerText' => $headerText,
+                     'superTypeCode' => $superTypeCode);
     }
 
     /**
