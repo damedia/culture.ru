@@ -137,9 +137,6 @@ class DefaultController extends Controller {
      * @Template("ArmdAtlasBundle:Objects:imagesOfRussiaIndex.html.twig")
      */
     public function russiaImagesAction() {
-        $uri = $this->get('router')->generate('armd_atlas_russia_images'); //TODO: remove?
-        $this->get('armd_main.menu.main')->setCurrentUri($uri); //TODO: remove?
-
         $em = $this->getDoctrine()->getManager();
 
         $thematicCategorySlug = 'thematic';

@@ -1,11 +1,18 @@
 {% for item in russianImages %}
     <li class="js-carousel-item positionRelative floatLeft">
-        <a href="{{ path('armd_atlas_default_object_view', {id: item.id}) }}" class="e-carousel-image displayBlock entity-image-wrapper">
+        <a href="{{ path('armd_atlas_default_object_view', {id: item.id}) }}" class="e-carousel-image displayBlock entity-imageOfRussia-wrapper">
             {% for h in item.images|slice(0, 1) %}
-                {% thumbnail h, 'atlasW613H408' with {'width': 700, 'height': 466, 'class': 'displayBlock'} %}
+                {% thumbnail h, 'big' with {'alt': item.title, 'class': 'greyBackground displayBlock', 'width': 700, 'height': 466} %}
             {% endfor %}
             <span class="image-description sidebar-item-title displayBlock">
                 {{ item.title }}
+                <div class="types-icons" style="position:absolute;top:0;right:0;">
+                    <span title="{{ "types_icons.video"|trans }}" class="ti-video {% if item.mediaVideos is not empty %}active{% endif %}"></span>
+                    <span title="{{ "types_icons.virtual_tour"|trans }}" class="ti-360 {% if item.virtualTours is not empty %}active{% endif %}"></span>
+                    <span title="{{ "types_icons.infographics"|trans }}" class="ti-info {% if item.image3d is not empty %}active{% endif %}"></span>
+                    <span title="{{ "types_icons.photo_gallery"|trans }}" class="ti-photo  {% if item.images is not empty %}active{% endif %}"></span>
+                    <span title="{{ "types_icons.archives"|trans }}" class="ti-list {% if item.archiveImages is not empty %}active{% endif %}"></span>
+                </div>
             </span>
         </a>
     </li>

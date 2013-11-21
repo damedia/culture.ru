@@ -3005,6 +3005,9 @@ a.sidebar-widget-item:hover > .darkLayer {
 .displayBlock {
     display: block;
 }
+.displayInlineBlock {
+    display: inline-block;
+}
 
 .centerHorizontally {
     margin-left: auto;
@@ -3024,6 +3027,12 @@ a.sidebar-widget-item:hover > .darkLayer {
 
 .fullWidth {
     width: 100%;
+}
+.width400 {
+    width: 400px;
+}
+.width700 {
+    width: 700px;
 }
 
 .noPadding {
@@ -3063,10 +3072,72 @@ a.sidebar-widget-item:hover > .darkLayer {
 .overflowVisible {
     overflow: visible !important;
 }
+.overflowHidden {
+    overflow: hidden !important;
+}
 
 
 /*=========================
 ==== Images of Russia ===*/
+.search-category {
+    display: inline-block;
+    vertical-align: top;
+    padding: 0 4px 0 9px;
+    text-align: left;
+}
+.search-category-selects {
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 6px;
+    border: 1px solid #ddd;
+    background: #fff;
+}
+.ui-selectgroup-list {
+    max-height: 400px;
+    overflow: auto;
+}
+.search-category-submit {
+    text-transform: lowercase;
+    height: 19px;
+    line-height: 21px;
+    position: relative;
+    text-decoration: none;
+    width: 104px;
+    margin-top: 6px;
+    border: 1px solid #DDDDDD;
+    background-color: #FFFFFF;
+    text-align: center;
+    cursor: pointer;
+}
+
+.imagesOfRussia-hub-backgroundMap {
+    display: block;
+    position: absolute;
+    bottom: -36px;
+    top: 270px;
+    left: 300px;
+    width: 654px;
+    height: 389px;
+    z-index: -1;
+    background: url(../../img/new/russia.png) 0 0 no-repeat;
+}
+
+
+imagesOfRussia-images-widget-placeholder {
+    height: 500px;
+}
+#imagesOfRussia-images-widget-placeholder .description {
+    top: 0;
+    right: 10px;
+    width: 230px;
+}
+#imagesOfRussia-images-widget-placeholder .description .header {
+    text-transform: uppercase;
+    font-weight: bolder;
+    font-size: 1.2em;
+    margin-bottom: 20px;
+}
+
 .imageOfRussia-list-item {
     display: inline-block;
     width: 220px;
@@ -3107,6 +3178,69 @@ a.sidebar-widget-item:hover > .darkLayer {
     display: inline-block;
     width: 480px;
     vertical-align: top;
+}
+
+.types-icons {
+    margin-top:6px;
+}
+
+.types-icons a {
+    text-decoration: none;
+    border:none;
+}
+
+.image-link {
+    display: block;
+    cursor: pointer;
+}
+
+.entity-imageOfRussia-wrapper .image-description {
+    position: absolute;
+    left: 17px;
+    right: 17px;
+    bottom: 17px;
+    padding: 20px 25px;
+    background-color: rgba(255, 255, 255, 0.9);
+    min-height: 30px;
+}
+
+.types-icons span {
+    display: inline-block;
+    vertical-align: top;
+    width: 22px;
+    height: 22px;
+    margin-right: 4px;
+    background-repeat:no-repeat;
+}
+.ti-video {
+    background-image:url(../../img/russia_images_icons/video_.png);
+}
+.ti-video.active {
+    background-image:url(../../img/russia_images_icons/video_1.png);
+}
+.ti-360 {
+    background-image:url(../../img/russia_images_icons/360_.png);
+}
+.ti-360.active {
+    background-image:url(../../img/russia_images_icons/360_1.png);
+}
+.ti-info {
+    background-image:url(../../img/russia_images_icons/i_.png);
+}
+.ti-info.active {
+    background-image:url(../../img/russia_images_icons/i_1.png);
+}
+.ti-photo {
+    background-image:url(../../img/russia_images_icons/foto_.png);
+}
+.ti-photo.active {
+    background-image:url(../../img/russia_images_icons/foto_1.png);
+}
+.ti-list {
+    background-image:url(../../img/russia_images_icons/arch_.png);
+}
+.ti-list.active {
+    background-image:url(../../img/russia_images_icons/arch_1.png);
 }
 
 
@@ -3211,6 +3345,9 @@ textarea[name="fos_comment_comment[body]"] {
 }
 .palette-color-2 {
     color: #17693D !important;
+}
+.palette-background-2 {
+    background-color: #17693D;
 }
 .palette-colored-box-2 .goto-link-button:hover {
     background-color: #17693D;

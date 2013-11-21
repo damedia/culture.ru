@@ -2,7 +2,7 @@
     <li class="js-carousel-item" style="height:556px;">
         <a href="{{ path('armd_atlas_default_object_view', {id: item.id}) }}" class="e-carousel-image">
             {% for h in item.images|slice(0, 1) %}
-            {% thumbnail h, 'atlasW613H408' with {'alt': item.title, 'style': 'background-color:#e1e3e4;', 'width': 700, 'height': 466} %}
+                {% thumbnail h, 'big' with {'alt': item.title, 'class': 'greyBackground', 'width': 700, 'height': 466} %}
             {% endfor %}
             <span class="e-carousel-title">{{ item.title }}</span>
         </a>
