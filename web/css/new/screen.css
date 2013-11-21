@@ -3079,11 +3079,23 @@ a.sidebar-widget-item:hover > .darkLayer {
 
 /*=========================
 ==== Images of Russia ===*/
+.imagesOfRussia-title {
+    font-size: 48px;
+    text-transform: uppercase;
+    line-height: 1em;
+    margin-bottom: 30px;
+    padding: 24px 0 0;
+    font-weight: normal;
+    font-family: "pf_din_text_cond_promedium", serif
+}
 .search-category {
-    display: inline-block;
-    vertical-align: top;
-    padding: 0 4px 0 9px;
-    text-align: left;
+    position: absolute;
+    top: 630px;
+    left: -20px;
+    width: 996px;
+    height: 56px;
+    background: url(../../img/russia_images_icons/filters-pane.png) 0 0 no-repeat;
+    padding: 6px 0 0 25px;
 }
 .search-category-selects {
     display: inline-block;
@@ -3114,7 +3126,7 @@ a.sidebar-widget-item:hover > .darkLayer {
     display: block;
     position: absolute;
     bottom: -36px;
-    top: 270px;
+    top: 280px;
     left: 300px;
     width: 654px;
     height: 389px;
@@ -3122,12 +3134,13 @@ a.sidebar-widget-item:hover > .darkLayer {
     background: url(../../img/new/russia.png) 0 0 no-repeat;
 }
 
-
-imagesOfRussia-images-widget-placeholder {
-    height: 500px;
+#imagesOfRussia-images-list-placeholder {
+    overflow: visible;
+    margin-top: 55px;
 }
+
 #imagesOfRussia-images-widget-placeholder .description {
-    top: 0;
+    top: -5px;
     right: 10px;
     width: 230px;
 }
@@ -3147,10 +3160,9 @@ imagesOfRussia-images-widget-placeholder {
 .imageOfRussia-list-item > .overlay {
     width: 238px;
     height: 98%;
-    border: 1px solid #EEEEEE;
+    border: 2px solid #EEEFF0;
     top: -10px;
     left: -10px;
-    box-shadow: 0 0 10px 2px rgba(150, 150, 150, 0.75);
 }
 .imageOfRussia-list-item:hover > .overlay {
     display: block;
@@ -3180,15 +3192,6 @@ imagesOfRussia-images-widget-placeholder {
     vertical-align: top;
 }
 
-.types-icons {
-    margin-top:6px;
-}
-
-.types-icons a {
-    text-decoration: none;
-    border:none;
-}
-
 .image-link {
     display: block;
     cursor: pointer;
@@ -3199,18 +3202,34 @@ imagesOfRussia-images-widget-placeholder {
     left: 17px;
     right: 17px;
     bottom: 17px;
-    padding: 20px 25px;
     background-color: rgba(255, 255, 255, 0.9);
-    min-height: 30px;
+    min-height: 90px;
 }
 
-.types-icons span {
+.item-title-pane {
+    position: absolute;
+    left: 25px;
+    top: 15px;
+    font-size: 1.2em;
+    max-width: 475px;
+}
+
+.item-materials-icons {
+    position: absolute;
+    top: 15px;
+    right: 10px;
+}
+.item-materials-icons a {
+    text-decoration: none;
+    border: none;
+}
+.item-materials-icons span {
     display: inline-block;
     vertical-align: top;
     width: 22px;
     height: 22px;
     margin-right: 4px;
-    background-repeat:no-repeat;
+    background-repeat: no-repeat;
 }
 .ti-video {
     background-image:url(../../img/russia_images_icons/video_.png);

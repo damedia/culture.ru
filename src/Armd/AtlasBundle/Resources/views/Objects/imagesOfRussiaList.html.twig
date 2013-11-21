@@ -1,7 +1,7 @@
 {% set counter = 1 %}
 
 {% spaceless %}
-<div id="imagesOfRussia-images-list-placeholder" style="overflow:visible">
+<div id="imagesOfRussia-images-list-placeholder">
     {% for object in objects %}
         {% if counter <= 4 %}
             {% include 'ArmdAtlasBundle:Objects:imagesOfRussia_list_item.html.twig' with {'item': object} %}

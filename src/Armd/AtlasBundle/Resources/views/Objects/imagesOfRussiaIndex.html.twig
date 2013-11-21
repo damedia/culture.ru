@@ -14,66 +14,52 @@
 {% block title %}{{ 'ImagesOfRussia'|trans }}{% endblock %}
 
 {% block body %}
-    <div class="b-main-wrap b-post fullWidth overflowVisible">
-        <h1 class="b-left-title">{{ 'ImagesOfRussia'|trans }}</h1>
-
-        <div id="hub-menu">
-            <ul class="hub-menu overflowHidden width400">
-                <li>
-                    <a class="{{ palette_color }}" href="{{ path('armd_atlas_russia_images') }}">{{ 'Hub.MenuAll'|trans }}</a>
-                </li>
-                <li>
-                    <a href="/app_dev.php/press-centre/news">{{ 'Hub.CulturalObjects'|trans }}</a>
-                </li>
-                <li>
-                    <a href="/app_dev.php/press-centre/news">{{ 'Hub.TourismClusters'|trans }}</a>
-                </li>
-            </ul>
-        </div>
+    <div class="b-post fullWidth overflowVisible positionRelative">
+        <h1 class="imagesOfRussia-title">
+            {{ 'ImagesOfRussia'|trans }}
+        </h1>
 
         {% render url('armd_atlas_images_of_russia_indexWidget') %}
 
-        <div style="border: 1px solid #EEEEEE; width: 958px; height: 50px; margin-bottom: 35px; background-color: #F1F6F5;">
-            <div class="search-category">
-                <div class="search-category-selects">
-                    <select name="object-region" id="object-region" class="uni">
-                        <option value="">{{ "search_category.region"|trans }}</option>
-                        {% for region in regions %}
-                            {% if regionId == region.id %}
-                                {% set selected = 'selected' %}
-                            {% else %}
-                                {% set selected = '' %}
-                            {% endif %}
-                            <option value="{{ region.id }}" {{ selected }}>{{ region.title }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-                <div class="search-category-selects">
-                    <select name="object-type" id="object-type" class="uni">
-                        <option value="">{{ "search_category.type"|trans }}</option>
-                        {% for type in types %}
-                            <option value="{{ type.id }}">{{ type.title }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-                <div class="search-category-selects">
-                    <select name="object-thematic" id="object-thematic" class="uni">
-                        <option value="">{{ "search_category.theme"|trans }}</option>
-                        {% for thematic in thematics %}
-                            <option value="{{ thematic.id }}">{{ thematic.title }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-                <div id="search-russia-images-button" class="search-category-submit displayInlineBlock palette-color-2">
-                    {{ "search_category.show"|trans }}
-                </div>
+        <div class="search-category">
+            <div class="search-category-selects">
+                <select name="object-region" id="object-region" class="uni">
+                    <option value="">{{ "search_category.region"|trans }}</option>
+                    {% for region in regions %}
+                        {% if regionId == region.id %}
+                            {% set selected = 'selected' %}
+                        {% else %}
+                            {% set selected = '' %}
+                        {% endif %}
+                        <option value="{{ region.id }}" {{ selected }}>{{ region.title }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="search-category-selects">
+                <select name="object-type" id="object-type" class="uni">
+                    <option value="">{{ "search_category.type"|trans }}</option>
+                    {% for type in types %}
+                        <option value="{{ type.id }}">{{ type.title }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="search-category-selects">
+                <select name="object-thematic" id="object-thematic" class="uni">
+                    <option value="">{{ "search_category.theme"|trans }}</option>
+                    {% for thematic in thematics %}
+                        <option value="{{ thematic.id }}">{{ thematic.title }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div id="search-russia-images-button" class="search-category-submit displayInlineBlock palette-color-2">
+                {{ "search_category.show"|trans }}
+            </div>
 
 
 
                 <!--
                     <a href="#" id="search-russia-images-button" class="button search-dates-button"></a>
                 -->
-            </div>
         </div>
 
         {% render url('armd_atlas_images_of_russia_list', { 'limit': 30, 'region_id': regionId, 'search_text': searchQuery }) %}
