@@ -6,6 +6,14 @@
         {{ item.title }}
     </span>
     <div class="positionAbsolute overlay displayNone">
-
+        <div class="insetShadow width460 height307"></div>
+        <div class="item-materials-icons-vertical height307">
+            <span title="{{ "types_icons.video"|trans }}" class="ti-video {% if item.mediaVideos is not empty %}active{% endif %}"></span>
+            <span title="{{ "types_icons.virtual_tour"|trans }}" class="ti-360 {% if item.virtualTours is not empty %}active{% endif %}"></span>
+            <span title="{{ "types_icons.infographics"|trans }}" class="ti-info {% if item.image3d is not empty %}active{% endif %}"></span>
+            <span title="{{ "types_icons.photo_gallery"|trans }}" class="ti-photo  {% if item.images is not empty %}active{% endif %}"></span>
+            <span title="{{ "types_icons.archives"|trans }}" class="ti-list {% if item.archiveImages is not empty %}active{% endif %}"></span>
+        </div>
+        <div class="triangle positionAbsolute"></div>
     </div>
 </a>

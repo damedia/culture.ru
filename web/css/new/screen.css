@@ -94,6 +94,7 @@ a,
 a > span,
 input[type='button'],
 input[type='submit'],
+div[data-role='button'],
 button {
     -webkit-transition: color 0.2s linear, text-decoration 0.2s linear, opacity 0.2s linear, background-color 0.2s linear;
     -moz-transition: color 0.2s linear, text-decoration 0.2s linear, opacity 0.2s linear, background-color 0.2s linear;
@@ -438,15 +439,15 @@ background-color: #95bd59
 }
 
 .b-header-inner .m-color-2 a {
-border-top-color: #17693d
+border-top-color: #167667
 }
 
 .b-header-inner .m-color-2 a:hover, .b-header-inner .m-color-2 a .m-color-2.m-active a {
-background-color: #17693d
+background-color: #167667
 }
 
 .b-header-inner .m-color-2.m-active a {
-background-color: #17693d
+background-color: #167667
 }
 
 .b-header-inner .m-color-3 a {
@@ -3028,11 +3029,24 @@ a.sidebar-widget-item:hover > .darkLayer {
 .fullWidth {
     width: 100%;
 }
+.width220 {
+    width: 220px;
+}
 .width400 {
     width: 400px;
 }
+.width460 {
+    width: 460px;
+}
 .width700 {
     width: 700px;
+}
+
+.height170 {
+    height: 170px;
+}
+.height307 {
+    height: 307px;
 }
 
 .noPadding {
@@ -3058,6 +3072,9 @@ a.sidebar-widget-item:hover > .darkLayer {
 .marginRight8 {
     margin-right: 8px;
 }
+.marginRight50 {
+    margin-right: 50px;
+}
 .marginLeft40 {
     margin-left: 40px;
 }
@@ -3079,6 +3096,28 @@ a.sidebar-widget-item:hover > .darkLayer {
 
 /*=========================
 ==== Images of Russia ===*/
+.imagesOfRussia-counter {
+    width: 59px;
+    height: 59px;
+    background: url(../../img/russia_images_icons/counter-back.png) 0 0 no-repeat;
+    position: absolute;
+    top: 20px;
+    left: -100px;
+    color: #ffffff;
+    text-align: center;
+}
+.imagesOfRussia-counter .count {
+    font-weight: bolder;
+    font-size: 1.5em;
+    margin-top: 13px;
+    display: block;
+}
+.imagesOfRussia-counter .text {
+    font-size: 0.8em;
+    margin-top: -7px;
+    display: block;
+}
+
 .imagesOfRussia-title {
     font-size: 48px;
     text-transform: uppercase;
@@ -3134,6 +3173,14 @@ a.sidebar-widget-item:hover > .darkLayer {
     background: url(../../img/new/russia.png) 0 0 no-repeat;
 }
 
+#imagesOfRussia-showMore {
+    background: url(../../img/russia_images_icons/show-more.png) 0 0 no-repeat;
+    width: 172px;
+    height: 43px;
+    margin: 0 auto 20px auto;
+    cursor: pointer;
+}
+
 #imagesOfRussia-images-list-placeholder {
     overflow: visible;
     margin-top: 55px;
@@ -3167,6 +3214,19 @@ a.sidebar-widget-item:hover > .darkLayer {
 .imageOfRussia-list-item:hover > .overlay {
     display: block;
 }
+.imageOfRussia-list-item > .overlay > .insetShadow,
+.imageOfRussia-list-item-big > .overlay > .insetShadow {
+    margin: 8px 0 0 8px;
+    box-shadow: inset 0 0 10px 5px rgba(20,20,20,0.75);
+}
+.imageOfRussia-list-item > .overlay > .triangle,
+.imageOfRussia-list-item-big > .overlay > .triangle {
+    width: 10px;
+    height: 11px;
+    background: url(../../img/russia_images_icons/triangle.png) 0 0 no-repeat;
+    bottom: 0;
+    right: 0;
+}
 
 .imageOfRussia-list-item-big {
     display: inline-block;
@@ -3177,10 +3237,9 @@ a.sidebar-widget-item:hover > .darkLayer {
 .imageOfRussia-list-item-big > .overlay {
     width: 478px;
     height: 100%;
-    border: 1px solid #EEEEEE;
+    border: 2px solid #EEEFF0;
     top: -10px;
     left: -10px;
-    box-shadow: 0 0 10px 2px rgba(150, 150, 150, 0.75);
 }
 .imageOfRussia-list-item-big:hover > .overlay {
     display: block;
@@ -3219,11 +3278,21 @@ a.sidebar-widget-item:hover > .darkLayer {
     top: 15px;
     right: 10px;
 }
-.item-materials-icons a {
+.item-materials-icons-vertical {
+    width: 22px;
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 3px 5px 0 5px;
+}
+.item-materials-icons a,
+.item-materials-icons-vertical a{
     text-decoration: none;
     border: none;
 }
-.item-materials-icons span {
+.item-materials-icons span,
+.item-materials-icons-vertical span{
     display: inline-block;
     vertical-align: top;
     width: 22px;
@@ -3363,13 +3432,13 @@ textarea[name="fos_comment_comment[body]"] {
     text-decoration: underline !important;
 }
 .palette-color-2 {
-    color: #17693D !important;
+    color: #167667 !important;
 }
 .palette-background-2 {
-    background-color: #17693D;
+    background-color: #167667;
 }
 .palette-colored-box-2 .goto-link-button:hover {
-    background-color: #17693D;
+    background-color: #167667;
     text-decoration: underline !important;
 }
 .palette-color-3 {

@@ -25,15 +25,14 @@ use Symfony\Component\HttpFoundation\Request;
 
 class DefaultController extends Controller {
     const MAX_USER_OBJECTS = 10;
-    const PALETTE_COLOR_HEX = '#17693D';
+    const PALETTE_COLOR_HEX = '#167667';
 
     private $palette_color = 'palette-color-2';
 
     /**
      * @Route("/objects", defaults={"_format"="json"})
      */
-    public function objectsAction()
-    {
+    public function objectsAction() {
         $request = $this->getRequest();
         $categoryIds = array_keys($request->get('category'));
         $searchTerm = $request->get('q');
@@ -41,12 +40,7 @@ class DefaultController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $repo = $em->getRepository('ArmdAtlasBundle:Object');
 
-        $res = $repo->search(
-            array(
-                'term' => $searchTerm,
-                'category' => $categoryIds,
-            )
-        );
+        $res = $repo->search(array('term' => $searchTerm, 'category' => $categoryIds));
 
         $entities = array();
         foreach ($res as $entity) {
@@ -76,13 +70,8 @@ class DefaultController extends Controller {
      * @Route("/object/{id}", requirements={"id"="\d+"}, name="armd_atlas_default_object_view")
      * @Route("/object/{id}/print", requirements={"id"="\d+"}, defaults={"isPrint"=true}, name="armd_atlas_default_object_view_print")
      */
-    public function objectViewAction($id, $template = null, $isPrint = false)
-    {
-        // fix menu
-        $this->get('armd_main.menu.main')->setCurrentUri(
-            $this->get('router')->generate('armd_atlas_russia_images')
-        );
-
+    public function objectViewAction($id, $template = null, $isPrint = false) {
+        $request = $this->getRequest();
         $om = $this->getObjectManager();
         $entity = $om->getObject($id);
 
@@ -92,26 +81,20 @@ class DefaultController extends Controller {
 
         $this->getTagManager()->loadTagging($entity);
 
-        $relatedObjects = $this->get('armd_atlas.manager.object')->findObjects
-        (
-            array(
-                ObjectManager::CRITERIA_LIMIT => 5,
-                ObjectManager::CRITERIA_RUSSIA_IMAGES => true,
-                ObjectManager::CRITERIA_TAGS => $entity->getTags(),
-                ObjectManager::CRITERIA_RANDOM => true,
-                ObjectManager::CRITERIA_NOT_IDS => array($entity->getId()),
-            )
+        $criteria = array(
+            ObjectManager::CRITERIA_LIMIT => 5,
+            ObjectManager::CRITERIA_RUSSIA_IMAGES => true,
+            ObjectManager::CRITERIA_TAGS => $entity->getTags(),
+            ObjectManager::CRITERIA_RANDOM => true,
+            ObjectManager::CRITERIA_NOT_IDS => array($entity->getId()),
         );
-
-        /** @var Request $request  */
-//        $request = $this->get('request');
-//        $request->get;
+        $relatedObjects = $this->get('armd_atlas.manager.object')->findObjects($criteria);
 
         $template = $template ? $template : 'ArmdAtlasBundle:Default:object_view.html.twig';
         $template = $isPrint ? 'ArmdAtlasBundle:Default:object_view_print.html.twig' : $template;
 
         return $this->render($template, array(
-            'referer' => $this->getRequest()->headers->get('referer'),
+            'referer' => $request->headers->get('referer'),
             'entity' => $entity,
             'relatedObjects' => $relatedObjects
         ));
@@ -121,8 +104,7 @@ class DefaultController extends Controller {
      * @Route("/user-objects", name="armd_atlas_user_objects")
      * @Template()
      */
-    public function userObjectsAction()
-    {
+    public function userObjectsAction() {
         $user = $this->get('security.context')->getToken()->getUser();
         $userObjects = $this->getObjectManager()->getUserObjects($user);
 
@@ -133,10 +115,11 @@ class DefaultController extends Controller {
     }
 
     /**
-     * @Route("russia-images/", name="armd_atlas_russia_images", options={"expose"=true})
+     * @Route("russia-images", name="armd_atlas_russia_images", options={"expose"=true})
      * @Template("ArmdAtlasBundle:Objects:imagesOfRussiaIndex.html.twig")
      */
     public function russiaImagesAction() {
+        $request = $this->getRequest();
         $em = $this->getDoctrine()->getManager();
 
         $thematicCategorySlug = 'thematic';
@@ -155,18 +138,23 @@ class DefaultController extends Controller {
 
         $regions = $this->getObjectManager()->getRussiaImagesDistinctRegions();
 
+        $criteria = array();
+        $criteria[ObjectManager::CRITERIA_RUSSIA_IMAGES] = true;
+        $countTotal = count($this->getObjectManager()->findObjects($criteria));
+
         return array(
+            'countTotal' => $countTotal,
+
             'thematics' => $thematicsRoot->getChildren(),
             'types' => $typesRoot->getChildren(),
             'regions' => $regions,
-            'regionId' => $this->getRequest()->get('region_id'),
-            'searchQuery' => $this->getRequest()->get('search_query'),
+
             'palette_color' => $this->palette_color,
-            'palette_color_hex' => DefaultController::PALETTE_COLOR_HEX
-//            'totalCount' => $this->getRussiaImagesCount(array(
-//            'region_id' => $this->getRequest()->get('region_id'),
-//            'category_ids' => $this->getRequest()->get('category_ids'),
-//            'search_text' => $this->getRequest()->get('search_query')
+            'palette_color_hex' => DefaultController::PALETTE_COLOR_HEX,
+
+            'regionId' => $request->get('region_id'),
+            'searchQuery' => $request->get('search_query'),
+            'page' => $request->get('page', 1)
         );
     }
 
@@ -242,10 +230,10 @@ class DefaultController extends Controller {
     }
 
     /**
-     * @Route("/images-of-russia-list/{offset}", name="armd_atlas_images_of_russia_list", options={"expose"=true}, defaults={"offset"="0"})
+     * @Route("/images-of-russia-list", name="armd_atlas_images_of_russia_list", options={"expose"=true})
      * @Template("ArmdAtlasBundle:Objects:imagesOfRussiaList.html.twig")
      */
-    public function imagesOfRussiaListAction($offset = 0) {
+    public function imagesOfRussiaListAction() {
         $request = $this->getRequest();
         $criteria = array();
 
@@ -264,9 +252,14 @@ class DefaultController extends Controller {
             $criteria[ObjectManager::CRITERIA_SEARCH_STRING] = $searchText;
         }
 
+        $loadedIds = $request->get('loadedIds');
+        if ($loadedIds) {
+            $criteria[ObjectManager::CRITERIA_NOT_IDS] = array_unique($loadedIds);
+        }
+
         $criteria[ObjectManager::CRITERIA_RUSSIA_IMAGES] = true;
         $criteria[ObjectManager::CRITERIA_LIMIT] = 18;
-        $criteria[ObjectManager::CRITERIA_OFFSET] = $offset;
+        $criteria[ObjectManager::CRITERIA_RANDOM] = true;
 
         $objects = $this->getObjectManager()->findObjects($criteria);
 

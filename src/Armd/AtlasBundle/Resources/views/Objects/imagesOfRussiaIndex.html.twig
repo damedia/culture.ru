@@ -3,10 +3,15 @@
 {% block stylesheets %}
     {{ parent() }}
 
-    <link rel="stylesheet" href="{{ asset('vendor/selectgroup/jquery.ui.selectgroup.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/selectgroup/jquery.ui.selectgroup.css') }}" />
+
     <style type="text/css">
         ul.hub-menu li a:hover {
             color: {{ palette_color_hex }};
+        }
+        .search-category-submit:hover {
+            color: #ffffff !important;
+            background-color: {{ palette_color_hex }};
         }
     </style>
 {% endblock %}
@@ -15,6 +20,11 @@
 
 {% block body %}
     <div class="b-post fullWidth overflowVisible positionRelative">
+        <div class="imagesOfRussia-counter">
+            <span class="count">{{ countTotal }}</span>
+            <span class="text">{{ 'IndexTotalCount'|trans }}</span>
+        </div>
+
         <h1 class="imagesOfRussia-title">
             {{ 'ImagesOfRussia'|trans }}
         </h1>
@@ -22,47 +32,45 @@
         {% render url('armd_atlas_images_of_russia_indexWidget') %}
 
         <div class="search-category">
-            <div class="search-category-selects">
-                <select name="object-region" id="object-region" class="uni">
-                    <option value="">{{ "search_category.region"|trans }}</option>
-                    {% for region in regions %}
-                        {% if regionId == region.id %}
-                            {% set selected = 'selected' %}
-                        {% else %}
-                            {% set selected = '' %}
-                        {% endif %}
-                        <option value="{{ region.id }}" {{ selected }}>{{ region.title }}</option>
-                    {% endfor %}
-                </select>
+            <div class="floatRight marginRight50">
+                <span class="marginRight8">
+                    {{ 'Filter'|trans }}:
+                </span>
+                <div class="search-category-selects">
+                    <select name="object-region" id="object-region" class="uni">
+                        <option value="">{{ "search_category.region"|trans }}</option>
+                        {% for region in regions %}
+                            <option value="{{ region.id }}" {% if regionId == region.id %}selected{% endif %}>{{ region.title }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="search-category-selects">
+                    <select name="object-type" id="object-type" class="uni">
+                        <option value="">{{ "search_category.type"|trans }}</option>
+                        {% for type in types %}
+                            <option value="{{ type.id }}">{{ type.title }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="search-category-selects">
+                    <select name="object-thematic" id="object-thematic" class="uni">
+                        <option value="">{{ "search_category.theme"|trans }}</option>
+                        {% for thematic in thematics %}
+                            <option value="{{ thematic.id }}">{{ thematic.title }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div id="imagesOfRussia-searchButton" data-role="button" class="search-category-submit displayInlineBlock {{ palette_color }}">
+                    {{ "search_category.show"|trans }}
+                </div>
             </div>
-            <div class="search-category-selects">
-                <select name="object-type" id="object-type" class="uni">
-                    <option value="">{{ "search_category.type"|trans }}</option>
-                    {% for type in types %}
-                        <option value="{{ type.id }}">{{ type.title }}</option>
-                    {% endfor %}
-                </select>
-            </div>
-            <div class="search-category-selects">
-                <select name="object-thematic" id="object-thematic" class="uni">
-                    <option value="">{{ "search_category.theme"|trans }}</option>
-                    {% for thematic in thematics %}
-                        <option value="{{ thematic.id }}">{{ thematic.title }}</option>
-                    {% endfor %}
-                </select>
-            </div>
-            <div id="search-russia-images-button" class="search-category-submit displayInlineBlock palette-color-2">
-                {{ "search_category.show"|trans }}
-            </div>
-
-
-
-                <!--
-                    <a href="#" id="search-russia-images-button" class="button search-dates-button"></a>
-                -->
         </div>
 
-        {% render url('armd_atlas_images_of_russia_list', { 'limit': 30, 'region_id': regionId, 'search_text': searchQuery }) %}
+        <div id="imagesOfRussia-images-list-placeholder">
+            {% render url('armd_atlas_images_of_russia_list', {'region_id': regionId, 'search_text': searchQuery}) %}
+        </div>
+
+        <div id="imagesOfRussia-showMore" title="{{ 'ShowMore'|trans }}"></div>
     </div>
 {% endblock %}
 
@@ -75,14 +83,32 @@
     <script type="text/javascript" src="{{ asset('vendor/selectgroup/jquery.ui.selectgroup.js') }}"></script>
     <script type="text/javascript">
         $(window).load(function(){
+            /* This CSS change is for slider widget "paginator".
+            Pagination is now added by javascript on page load for both main page and this page. I have to change CSS
+            here so the main page left untouched. */
             $('div.b-pagination-nav').css('margin-top', '10px');
 
+            /* Activate jQuery widgets for filter selects. */
             $('select.uni').each(function(){
                 $(this).selectgroup();
             });
-
-            $('#search-russia-images-button').on('click', function(){
+            $('#imagesOfRussia-searchButton').on('click', function(){
                 alert('send ajax request');
+            });
+
+            /* Show more button */
+            $('#imagesOfRussia-showMore').on('click', function(){
+                var itemsPlaceholder = $('#imagesOfRussia-images-list-placeholder'),
+                    loadedItems = $('.imageOfRussia-list-item', itemsPlaceholder),
+                    loadedIds = [];
+
+                $.each(loadedItems, function(){
+                    loadedIds.push($(this).attr('data-id'));
+                });
+
+                $.post(Routing.generate('armd_atlas_images_of_russia_list'), { loadedIds: loadedIds }, function(html){
+                    itemsPlaceholder.append(html);
+                });
             });
         });
     </script>
