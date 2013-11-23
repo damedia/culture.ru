@@ -292,9 +292,13 @@ background-position: right top
 background-position: right -41px
 }
 
+.b-main-slides {
+list-style: none;
+}
+
 .b-main-slides>div {
 float: left;
-position: relative
+position: relative;
 }
 
 .b-main-slides>div img {
@@ -3217,7 +3221,7 @@ a.sidebar-widget-item:hover > .darkLayer {
 .imageOfRussia-list-item > .overlay > .insetShadow,
 .imageOfRussia-list-item-big > .overlay > .insetShadow {
     margin: 8px 0 0 8px;
-    box-shadow: inset 0 0 10px 5px rgba(20,20,20,0.75);
+    box-shadow: inset 0 0 10px 5px rgba(80,80,80,0.7);
 }
 .imageOfRussia-list-item > .overlay > .triangle,
 .imageOfRussia-list-item-big > .overlay > .triangle {

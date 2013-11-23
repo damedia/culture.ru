@@ -83,6 +83,20 @@
     <script type="text/javascript" src="{{ asset('vendor/selectgroup/jquery.ui.selectgroup.js') }}"></script>
     <script type="text/javascript">
         $(window).load(function(){
+            var itemsPlaceholder = $('#imagesOfRussia-images-list-placeholder'),
+                getCurrentFilters = function(){
+                    var filtersWrapper = $('div.search-category'),
+                        region = $('select[name="object-region"]', filtersWrapper).val(),
+                        type = $('select[name="object-type"]', filtersWrapper).val(),
+                        thematic = $('select[name="object-thematic"]', filtersWrapper).val();
+
+                    return {
+                        region: region === "" ? undefined : region,
+                        type: type === "" ? undefined : type,
+                        thematic: thematic === "" ? undefined : thematic
+                    }
+                };
+
             /* This CSS change is for slider widget "paginator".
             Pagination is now added by javascript on page load for both main page and this page. I have to change CSS
             here so the main page left untouched. */
@@ -93,20 +107,41 @@
                 $(this).selectgroup();
             });
             $('#imagesOfRussia-searchButton').on('click', function(){
-                alert('send ajax request');
+                var filters = getCurrentFilters(),
+                    data = {
+                        region: filters.region,
+                        type: filters.type,
+                        thematic: filters.thematic
+                    };
+
+                $.post(Routing.generate('armd_atlas_images_of_russia_list'), data, function(html){
+                    if (html.trim() === '') {
+                        itemsPlaceholder.html('{{ 'EmptyResult'|trans }}');
+                    }
+                    else {
+                        itemsPlaceholder.html(html);
+                    }
+                });
             });
 
             /* Show more button */
             $('#imagesOfRussia-showMore').on('click', function(){
-                var itemsPlaceholder = $('#imagesOfRussia-images-list-placeholder'),
-                    loadedItems = $('.imageOfRussia-list-item', itemsPlaceholder),
-                    loadedIds = [];
+                var loadedItems = $('.imageOfRussia-list-item', itemsPlaceholder),
+                    loadedIds = [],
+                    filters = getCurrentFilters(),
+                    data = {
+                        region: filters.region,
+                        type: filters.type,
+                        thematic: filters.thematic
+                    };
 
                 $.each(loadedItems, function(){
                     loadedIds.push($(this).attr('data-id'));
                 });
 
-                $.post(Routing.generate('armd_atlas_images_of_russia_list'), { loadedIds: loadedIds }, function(html){
+                data.loadedIds = loadedIds;
+
+                $.post(Routing.generate('armd_atlas_images_of_russia_list'), data, function(html){
                     itemsPlaceholder.append(html);
                 });
             });

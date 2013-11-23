@@ -237,19 +237,24 @@ class DefaultController extends Controller {
         $request = $this->getRequest();
         $criteria = array();
 
-        $categoryIds = $request->get('category_ids');
-        if (isset($categoryIds)) {
-            $criteria[ObjectManager::CRITERIA_CATEGORY_IDS_AND] = $categoryIds;
+        //$searchText = $request->get('search_text');
+        //if (isset($searchText)) {
+        //    $criteria[ObjectManager::CRITERIA_SEARCH_STRING] = $searchText;
+        //}
+
+        $filter_region = $request->get('region');
+        if (isset($filter_region)) {
+            $criteria[ObjectManager::CRITERIA_REGION_IDS_AND] = array($filter_region);
         }
 
-        $regionId = $request->get('region_id');
-        if (isset($regionId)) {
-            $criteria[ObjectManager::CRITERIA_REGION_IDS_AND] = array($regionId);
+        $filter_type = $request->get('type');
+        if (isset($filter_type)) {
+            $criteria[ObjectManager::CRITERIA_CATEGORY_IDS_AND] = array($filter_type);
         }
 
-        $searchText = $request->get('search_text');
-        if (isset($searchText)) {
-            $criteria[ObjectManager::CRITERIA_SEARCH_STRING] = $searchText;
+        $filter_thematic = $request->get('thematic');
+        if (isset($filter_thematic)) {
+            $criteria[ObjectManager::CRITERIA_CATEGORY_IDS_AND] = array($filter_thematic);
         }
 
         $loadedIds = $request->get('loadedIds');
