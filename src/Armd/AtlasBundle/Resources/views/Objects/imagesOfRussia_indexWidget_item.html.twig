@@ -1,6 +1,6 @@
 {% for item in russianImages %}
     <li class="js-carousel-item positionRelative floatLeft">
-        <a href="{{ path('armd_atlas_default_object_view', {id: item.id}) }}" class="e-carousel-image displayBlock entity-imageOfRussia-wrapper">
+        <a href="{{ path('armd_atlas_default_object_view', {id: item.id}) }}" class="e-carousel-image displayBlock hubWidget-image-wrapper">
             {% for h in item.images|slice(0, 1) %}
                 {% thumbnail h, 'big' with {'alt': item.title, 'class': 'greyBackground displayBlock', 'width': 700, 'height': 466} %}
             {% endfor %}

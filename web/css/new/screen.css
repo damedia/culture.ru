@@ -3122,7 +3122,7 @@ a.sidebar-widget-item:hover > .darkLayer {
     display: block;
 }
 
-.imagesOfRussia-title {
+.hub-header-title {
     font-size: 48px;
     text-transform: uppercase;
     line-height: 1em;
@@ -3165,7 +3165,7 @@ a.sidebar-widget-item:hover > .darkLayer {
     cursor: pointer;
 }
 
-.imagesOfRussia-hub-backgroundMap {
+.imagesOfRussia-hub-background {
     display: block;
     position: absolute;
     bottom: -36px;
@@ -3175,6 +3175,27 @@ a.sidebar-widget-item:hover > .darkLayer {
     height: 389px;
     z-index: -1;
     background: url(../../img/new/russia.png) 0 0 no-repeat;
+}
+
+.museums-hub-background-left {
+    display: block;
+    position: absolute;
+    top: -100px;
+    left: -135px;
+    width: 380px;
+    height: 470px;
+    z-index: -1;
+    background: url(../../img/new/column.png) repeat-x scroll 0 0 rgba(0, 0, 0, 0);
+}
+.museums-hub-background-right {
+    display: block;
+    position: absolute;
+    top: -100px;
+    left: 705px;
+    width: 407px;
+    height: 470px;
+    z-index: -1;
+    background: url(../../img/new/column.png) repeat-x scroll 0 0 rgba(0, 0, 0, 0);
 }
 
 #imagesOfRussia-showMore {
@@ -3200,6 +3221,20 @@ a.sidebar-widget-item:hover > .darkLayer {
     font-weight: bolder;
     font-size: 1.2em;
     margin-bottom: 20px;
+}
+
+#slider-museum-item-info-placeholder {
+    background-color: #d3d3d3;
+    margin-top: 137px;
+}
+#slider-museum-item-info-placeholder .circle {
+    background: #f00;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    border: 3px solid black;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .imageOfRussia-list-item {
@@ -3260,7 +3295,7 @@ a.sidebar-widget-item:hover > .darkLayer {
     cursor: pointer;
 }
 
-.entity-imageOfRussia-wrapper .image-description {
+.hubWidget-image-wrapper .image-description {
     position: absolute;
     left: 17px;
     right: 17px;
@@ -3273,10 +3308,27 @@ a.sidebar-widget-item:hover > .darkLayer {
     position: absolute;
     left: 25px;
     top: 15px;
+    line-height: 20px;
     font-size: 1.2em;
     max-width: 475px;
 }
+.item-title-links {
+    position: absolute;
+    left: 43px;
+    top: 415px;
+}
+.item-title-links a {
+    margin-right: 15px;
+}
+.item-title-side {
+    display: none;
+}
 
+.item-links {
+    position: absolute;
+    top: 15px;
+    right: 10px;
+}
 .item-materials-icons {
     position: absolute;
     top: 15px;
@@ -3291,12 +3343,12 @@ a.sidebar-widget-item:hover > .darkLayer {
     padding: 3px 5px 0 5px;
 }
 .item-materials-icons a,
-.item-materials-icons-vertical a{
+.item-materials-icons-vertical a {
     text-decoration: none;
     border: none;
 }
 .item-materials-icons span,
-.item-materials-icons-vertical span{
+.item-materials-icons-vertical span {
     display: inline-block;
     vertical-align: top;
     width: 22px;

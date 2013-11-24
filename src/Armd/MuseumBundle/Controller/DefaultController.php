@@ -8,29 +8,48 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Armd\MuseumBundle\Entity\MuseumManager;
 
-class DefaultController extends Controller
-{
+class DefaultController extends Controller {
+    const PALETTE_COLOR_HEX = '#349A8A';
+
+    private $palette_color = 'palette-color-3';
 
     /**
      * @Route("/virtual/", name="armd_museum_virtual")
-     * @Template("ArmdMuseumBundle:Default:virtual.html.twig")
+     * @Template("ArmdMuseumBundle:Museums:museumsIndex.html.twig")
      */
-    public function virtualAction()
-    {
-        // fix menu
-        $this->get('armd_main.menu.main')->setCurrentUri(
-            $this->get('router')->generate('armd_museum_virtual')
-        );
-
-        $regionId = (int) $this->getRequest()->get('region', 0);
+    public function virtualAction() {
+        $regionId = (int)$this->getRequest()->get('region', 0);
         $regions = $this->getMuseumManager()->getDistinctRegions();
         $categories = $this->getMuseumManager()->getCategories();
 
         return array(
+            'palette_color_hex' => DefaultController::PALETTE_COLOR_HEX,
             'regionId' => $regionId,
             'regions' => $regions,
             'categories' => $categories,
         );
+    }
+
+    /**
+     * @Route("/museums-indexWidget", name="armd_museum_indexWidget", options={"expose"=true})
+     * @Template("ArmdMuseumBundle:Museums:museums_indexWidget.html.twig")
+     */
+    public function museumsIndexWidgetAction($date = '') {
+        $repo = $this->getDoctrine()->getRepository('ArmdMuseumBundle:Museum');
+        $museums = $repo->findForMain($date, 5);
+
+        return array(
+            'museums' => $museums,
+            'palette_color' => $this->palette_color
+        );
+    }
+
+    /**
+     * @Route("/museums-indexSidebar", name="armd_museum_indexSidebar", options={"expose"=true})
+     * @Template("ArmdMuseumBundle:Museums:museums_indexSidebar.html.twig")
+     */
+    public function sidebarIndexWidget() {
+        return array();
     }
 
     /**
@@ -41,8 +60,7 @@ class DefaultController extends Controller
         )
      *
      */
-    public function listAction($templateName, $offset = 0, $limit = 10)
-    {
+    public function listAction($templateName, $offset = 0, $limit = 10) {
 
         $templates = array(
             'virtual_list' => 'ArmdMuseumBundle:Default:virtual_list.html.twig',

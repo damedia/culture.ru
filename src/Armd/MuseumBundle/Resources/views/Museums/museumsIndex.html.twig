@@ -1,0 +1,70 @@
+{% extends ':Frontend:new_base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    <link rel="stylesheet" href="{{ asset('vendor/selectgroup/jquery.ui.selectgroup.css') }}" />
+
+    <style type="text/css">
+        ul.hub-menu li a:hover {
+            color: {{ palette_color_hex }};
+        }
+        .search-category-submit:hover {
+            color: #ffffff !important;
+            background-color: {{ palette_color_hex }};
+        }
+    </style>
+{% endblock %}
+
+{% block title %}{{ 'Museums'|trans }}{% endblock %}
+
+{% block body %}
+    <div class="b-post fullWidth overflowVisible positionRelative">
+        <h1 class="hub-header-title">
+            {{ 'Museums'|trans }}
+        </h1>
+
+        {% render url('armd_museum_indexWidget') %}
+
+        sup, son?
+    </div>
+{% endblock %}
+
+{% block sidebar %}
+    {% render url('armd_museum_indexSidebar') %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript" src="{{ asset('vendor/jquery.form.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('vendor/jquery-ui/jquery-ui-1.8.24.custom.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('vendor/chosen/chosen.jquery.min.js') }}"></script>
+    <script type="text/javascript" charset="utf-8" src="http://js.tmcrussia.com/?{{ progorod_api_key }}&version=0.1.8"></script>
+    <script type="text/javascript" src="{{ asset('bundles/armdatlas/js/atlas_new.js') }}"></script>
+    <script type="text/javascript">
+        $(window).load(function(){
+            var slider = $('#museums-images-widget-placeholder'),
+                sliderUL = slider.find('ul#museum_widget'),
+                currentSlide = sliderUL.find('li.visible'),
+                sidebar = currentSlide.find('div.item-title-side'),
+                mapPlaceholderId = sidebar.find('div.circle').attr('id'),
+                mapPlaceholderLat = sidebar.find('div.circle').attr('data-lat'),
+                mapPlaceholderLon = sidebar.find('div.circle').attr('data-lon'),
+                objectId = 1632,
+                sidebarPlaceholder = $('#slider-museum-item-info-placeholder');
+
+            sidebarPlaceholder.html(sidebar.html());
+
+            AT.initShort({
+                map: mapPlaceholderId,
+                center: [mapPlaceholderLon, mapPlaceholderLat],
+                zoom: 4,
+                leftLon: 10,
+                rightLon: -190,
+                locale:                '{{ app.request.locale }}',
+                spotlight: objectId
+            });
+        });
+    </script>
+{% endblock %}
