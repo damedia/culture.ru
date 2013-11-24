@@ -10,14 +10,33 @@ atlas:
     object:
         add: Add object
         edit: Edit object
+
         title: Title
-        address: Address
-        latitude: Latitude
-        longitude: Longitude
-        description: Description
-        category: Category
-        additional_tags: Tags
+        announce: Announce
+        lat: Latitude
+        lon: Longitude
+
+        classification: Classification
+
+        primaryCategory: Category
+        secondaryCategories: Additional categories
         choose_category: Choose category...
+
+        contacts: Contacts
+
+        siteUrl: Site URL
+        email: E-mail
+        phone: Phone
+        regions: Regions
+        choose_region: Choose region...
+        address: Address
+        workTime: Work time
+        weekends: Weekends
+        choose_weekends: Choose weekends...
+
+        media: Media
+        upload_button: Upload...
+
     address: Address
     all: All
     atlas: Atlas
