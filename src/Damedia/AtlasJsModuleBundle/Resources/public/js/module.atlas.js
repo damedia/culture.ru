@@ -238,9 +238,8 @@ var ATLAS_MODULE = (function(){
         });
     }
 
-    function showSpotlightObject(objectId) {
+    function showSpotlightObject(objectId, imageUrl) {
         showLoadingGif();
-        clearMap();
 
         $.post(spotlightObjectUrl, { objectId: objectId })
             .done(function(json, textStatus, jqXHR){
@@ -249,7 +248,7 @@ var ATLAS_MODULE = (function(){
                     return;
                 }
 
-                placeSpotlightPoint(json.result);
+                placeSpotlightPoint(json.result, imageUrl);
             })
             .fail(function(jqXHR, textStatus, errorThrown) {
                 console.warn('AJAX request failed with response: ' + textStatus + ' ' + jqXHR.status + ' (' + errorThrown + ')');
@@ -461,37 +460,28 @@ var ATLAS_MODULE = (function(){
         }
     }
 
-    function placeSpotlightPoint(object) {
+    function placeSpotlightPoint(object, imageUrl) {
         var point;
 
         if (!(object.lon || object.lat)) {
             return false;
         }
 
-        if (object.obraz) {
-            point = new PGmap.Point({
-                coord: new PGmap.Coord(object.lon, object.lat, true),
-                width: 42,
-                height: 39,
-                backpos: '0 0',
-                innerImage: { src: object.imageUrl, width: 17 }
-            });
+        clearMap();
 
-            $(point.container).data('uid',object.id).css({ 'margin-left': '-4px', 'margin-top': '-12px' });
-        }
-        else {
-            point = new PGmap.Point({
-                coord: new PGmap.Coord(object.lon, object.lat, true),
-                width: 42,
-                height: 39,
-                backpos: '0 0',
-                url: object.icon
-            });
+        point = new PGmap.Point({
+            coord: new PGmap.Coord(object.lon, object.lat, true),
+            width: 42,
+            height: 39,
+            backpos: '0 0',
+            innerImage: { src: imageUrl, width: 42 }
+        });
 
-            $(point.container).data('uid',object.id).css({ 'margin-left': '-12px', 'margin-top': '-40px' });
-        }
+        $(point.container)
+            .data('uid', object.id)
+            .css({ 'margin-left': '5px', 'margin-top': '-40px' })
+            .attr('title', object.title);
 
-        $(point.container).data('uid', object.id).attr('title', object.title);
         pgMap.geometry.add(point);
 
         PGmap.EventFactory.eventsType.mouseover = 'mouseover';
@@ -499,26 +489,20 @@ var ATLAS_MODULE = (function(){
 
         //point mouseover
         PGmap.Events.addHandler(point.container, PGmap.EventFactory.eventsType.mouseover, function(e){
-            /*
             var img = $('img', point.container);
 
             if (img.length) {
-                img.css({ 'width': '50px' });
-                $(point.container).css({ 'margin-left': '-18px', 'margin-top': '-24px' });
+                img.css({ 'opacity': '0.8', 'filter': 'alpha(opacity=80)' });
             }
-            */
         });
 
         //point mouseout
         PGmap.Events.addHandler(point.container, PGmap.EventFactory.eventsType.mouseout, function(e){
-            /*
             var img = $('img', point.container);
 
             if (img.length) {
-                img.css({ 'width': '17px' });
-                $(point.container).css({ 'margin-left': '-4px', 'margin-top': '-12px' });
+                img.css({ 'opacity': '1', 'filter': 'alpha(opacity=100)' });
             }
-            */
         });
 
         //point click
@@ -1270,7 +1254,7 @@ var ATLAS_MODULE = (function(){
         initProGorodMap(options.pgMap);
         initLocationFinderAc(options.locationFinderAc);
         if (options.spotlightId) {
-            showSpotlightObject(options.spotlightId);
+            showSpotlightObject(options.spotlightId, options.spotlightImageUrl);
         }
         else {
             initFilters(options.filterTabs);

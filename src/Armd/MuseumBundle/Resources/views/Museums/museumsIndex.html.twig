@@ -8,6 +8,9 @@
         div.PGmap-copyright {
             display: none;
         }
+        div.PGmap-bottomcenter-container > div {
+            display: none;
+        }
         div.PGmap-controls-container {
             display: none;
         }
@@ -77,6 +80,7 @@
 
                     ATLAS_MODULE.init({
                         spotlightId: objectId,
+                        spotlightImageUrl: '/img/museums_icons/point.png',
                         pgMap: {
                             placeholderId: mapHolderId,
                             locale: '{{ app.request.locale }}',
@@ -87,7 +91,7 @@
                     });
 
                     info_address.html(objectAddress);
-                    info_siteUrl.html('<a href="'+objectSiteUrl+'" class="palette-color-3">'+objectSiteUrl+'</a>');
+                    info_siteUrl.html('<a href="'+objectSiteUrl+'" class="palette-color-3 fontBold">'+objectSiteUrl+'</a>');
                     info_phone.html(objectPhone);
                     info_workTime.html(objectWorkTime);
                 };
