@@ -23,18 +23,12 @@ use Armd\AtlasBundle\Form\ObjectType;
 use Application\Sonata\MediaBundle\Entity\Media;
 use Symfony\Component\HttpFoundation\Request;
 
-
-<<<<<<< HEAD
 class DefaultController extends Controller {
     const MAX_USER_OBJECTS = 10;
     const PALETTE_COLOR_HEX = '#167667';
 
     private $palette_color = 'palette-color-2';
 
-=======
-class DefaultController extends Controller
-{
->>>>>>> atlasjsmodule
     /**
      * @Route("/objects", defaults={"_format"="json"})
      */
@@ -171,12 +165,8 @@ class DefaultController extends Controller
      *      defaults={"offset"="0", "limit"="10"}
      * )
      */
-<<<<<<< HEAD
+
     public function russiaImagesListAction($templateName, $offset = 0, $limit = 10) {
-=======
-    public function russiaImagesListAction($templateName, $offset = 0, $limit = 10)
-    {
->>>>>>> atlasjsmodule
         $templates = array(
             'tile' => 'ArmdAtlasBundle:Default:russia_images_list_tile.html.twig',
             'full-list' => 'ArmdAtlasBundle:Default:russia_images_list_full.html.twig',
@@ -778,7 +768,7 @@ class DefaultController extends Controller
      * Мои объекты. Список моих объектов
      * Если указан id, возвращаем одну запись
      *
-     * @Route("/objects/my", defaults={"_format"="json"}, name="armd_atlas_default_objectsmy")
+     * @Route("/objects/my", defaults={"_format"="json"}, name="armd_atlas_default_objectsmy", options={"expose"=true})
      */
     public function objectsMyAction() {
         try {
@@ -910,7 +900,7 @@ class DefaultController extends Controller
     /**
      * Мои объекты. Удаление объекта
      *
-     * @Route("/objects/my/delete", defaults={"_format"="json"})
+     * @Route("/objects/my/delete", defaults={"_format"="json"}, name="armd_atlas_default_objectsmydelete", options={"expose"=true})
      */
     public function objectsMyDeleteAction()
     {
@@ -952,7 +942,7 @@ class DefaultController extends Controller
     /**
      * Мои объекты. Загрузка изображений для объекта
      *
-     * @Route("/objects/my/upload", defaults={"_format"="json"})
+     * @Route("/objects/my/upload", defaults={"_format"="json"}, name="armd_atlas_default_objectsmyupload", options={"expose"=true})
      */
     public function objectsMyUploadAction()
     {

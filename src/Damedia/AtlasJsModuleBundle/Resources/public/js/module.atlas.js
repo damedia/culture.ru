@@ -13,13 +13,13 @@ var ATLAS_MODULE = (function(){
         pgMap,
         pgMap_locale,
         filterType,
-        sendFiltersUrl,
+        sendFiltersUrl = Routing.generate('armd_atlas_send_filters'),
         clusterPoints,
         mapClusterImagesUrl,
-        fetchPointDetailsUrl,
-        fetchMyObjectsUrl,
-        imageUploadUrl,
-        deleteMyObjectsUrl,
+        fetchPointDetailsUrl = Routing.generate('armd_atlas_fetch_point_details'),
+        fetchMyObjectsUrl = Routing.generate('armd_atlas_default_objectsmy'),
+        imageUploadUrl = Routing.generate('armd_atlas_default_objectsmyupload'),
+        deleteMyObjectsUrl = Routing.generate('armd_atlas_default_objectsmydelete'),
         givenObjectId,
         localeTiles = {
             'en': [
@@ -1147,41 +1147,12 @@ var ATLAS_MODULE = (function(){
     atlas.init = function(options){
         var regionsSelector = $('#regions-selector select');
 
-        sendFiltersUrl = options && options.sendFiltersUrl ? options.sendFiltersUrl.toString() : '';
         givenObjectId = options && options.objectId ? options.objectId : undefined;
-
-        if (sendFiltersUrl === '') {
-            console.warn(warn_unableToInitAtlasModule + 'Couldn\'t find send filters URL!\nParameter \'sendFiltersUrl\' is incorrect or undefined!');
-            return;
-        }
-
-        fetchPointDetailsUrl = options && options.fetchPointDetailsUrl ? options.fetchPointDetailsUrl.toString() : '';
-
-        if (fetchPointDetailsUrl === '') {
-            console.warn(warn_unableToInitAtlasModule + 'Couldn\'t find fetch point details URL!\nParameter \'fetchPointDetailsUrl\' is incorrect or undefined!');
-            return;
-        }
-
-        fetchMyObjectsUrl = options && options.fetchMyObjectsUrl ? options.fetchMyObjectsUrl.toString() : '';
-
-        if (fetchMyObjectsUrl === '') {
-            console.warn(warn_unableToInitAtlasModule + 'Couldn\'t find fetch my objects URL!\nParameter \'fetchMyObjectsUrl\' is incorrect or undefined!');
-            return;
-        }
-
-        imageUploadUrl = options && options.imageUploadUrl ? options.imageUploadUrl.toString() : '';
-
-        if (imageUploadUrl === '') {
-            console.warn(warn_unableToInitAtlasModule + 'Couldn\'t find image upload URL!\nParameter \'imageUploadUrl\' is incorrect or undefined!');
-            return;
-        }
-
-        deleteMyObjectsUrl = options && options.deleteMyObjectsUrl ? options.deleteMyObjectsUrl.toString() : '';
-
-        if (deleteMyObjectsUrl === '') {
-            console.warn(warn_unableToInitAtlasModule + 'Couldn\'t find delete my objects URL!\nParameter \'deleteMyObjectsUrl\' is incorrect or undefined!');
-            return;
-        }
+        sendFiltersUrl = options && options.sendFiltersUrl ? options.sendFiltersUrl.toString() : sendFiltersUrl;
+        fetchPointDetailsUrl = options && options.fetchPointDetailsUrl ? options.fetchPointDetailsUrl.toString() : fetchPointDetailsUrl;
+        fetchMyObjectsUrl = options && options.fetchMyObjectsUrl ? options.fetchMyObjectsUrl.toString() : fetchMyObjectsUrl;
+        imageUploadUrl = options && options.imageUploadUrl ? options.imageUploadUrl.toString() : imageUploadUrl;
+        deleteMyObjectsUrl = options && options.deleteMyObjectsUrl ? options.deleteMyObjectsUrl.toString() : deleteMyObjectsUrl;
 
         regionsSelector.chosen({ no_results_text:"Не найдено" }).change(function(){
             pgMap.search({ q: $(this).find('option:selected').text(), type: 'search' }, function(r){
@@ -1205,7 +1176,12 @@ var ATLAS_MODULE = (function(){
 
         initProGorodMap(options.pgMap);
         initLocationFinderAc(options.locationFinderAc);
-        initFilters(options.filterTabs);
+        if (options.spotlightId) {
+            console.log('show particular object');
+        }
+        else {
+            initFilters(options.filterTabs);
+        }
         initHacks();
     };
 

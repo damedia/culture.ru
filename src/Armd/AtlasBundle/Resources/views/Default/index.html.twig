@@ -372,11 +372,6 @@
     <script type="text/javascript">
         $(document).ready(function(){
             ATLAS_MODULE.init({
-                sendFiltersUrl: '{{ path('armd_atlas_send_filters') }}',
-                fetchPointDetailsUrl:  '{{ path('armd_atlas_fetch_point_details') }}',
-                fetchMyObjectsUrl: '{{ path('armd_atlas_default_objectsmy') }}',
-                imageUploadUrl: '{{ path('armd_atlas_default_objectsmyupload') }}',
-                deleteMyObjectsUrl: '{{ path('armd_atlas_default_objectsmydelete') }}',
                 objectId: '{{ objectId }}',
                 pgMap: {
                     placeholderId: 'map',
@@ -392,27 +387,5 @@
                 }
             });
         });
-
-        /*
-        $(function(){
-            AT.init({
-                map: 'map',
-                center: [55,56],
-                zoom: 4,
-                leftLon: 10,
-                rightLon: -190,
-                fetchMarkersUri:       '{{ path('armd_atlas_send_filters') }}',
-                fetchMarkerDetailUri:  '{{ path('armd_atlas_fetch_point_details') }}',
-                fetchClusterDetailUri: '{{ path('armd_atlas_default_clusterballoon') }}',
-                fetchMyObjectsUri:     '{{ path('armd_atlas_default_objectsmy') }}',
-                deleteMyObjectsUri:    '{{ path('armd_atlas_default_objectsmydelete') }}',
-                imageUploadUri:        '{{ path('armd_atlas_default_objectsmyupload') }}',
-                bundleImagesUri:       '{{ asset('bundles/armdatlas/images') }}',
-                locale:                '{{ app.request.locale }}',
-                initialFilterType:     '{{ filterType }}',
-                objectId:              '{{ objectId }}'
-            });
-        });
-        */
     </script>
 {% endblock %}
