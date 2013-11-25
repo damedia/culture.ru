@@ -1,0 +1,19 @@
+<ul class="hub-menu">
+{% spaceless %}
+    <li>
+        <a class="{{ palette_color }}" href="{{ path('armd_museum_virtual') }}">
+            {{- 'Hub.MenuAll'|trans -}}
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('armd_lesson_list') }}">
+            {{- 'Hub.MenuMuseumEducation'|trans -}}
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('armd_war_gallery') }}">
+            {{- 'Hub.MenuWarGallery'|trans -}}
+        </a>
+    </li>
+{% endspaceless %}
+</ul>

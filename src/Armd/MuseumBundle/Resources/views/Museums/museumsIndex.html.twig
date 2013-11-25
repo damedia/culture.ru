@@ -24,13 +24,15 @@
     </style>
 {% endblock %}
 
-{% block title %}{{ 'Museums'|trans }}{% endblock %}
+{% block title %}{{ 'MuseumsOfRussia'|trans }}{% endblock %}
 
 {% block body %}
     <div class="b-post fullWidth overflowVisible positionRelative">
-        <h1 class="hub-header-title">
-            {{ 'Museums'|trans }}
+        <h1 class="b-left-title">
+            {{ 'MuseumsOfRussia'|trans }}
         </h1>
+
+        {{ include('ArmdMuseumBundle:Museums:hub_menu.html.twig', {'palette_color': palette_color}) }}
 
         {% render url('armd_museum_indexWidget') %}
 

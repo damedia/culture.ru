@@ -14,7 +14,7 @@ class DefaultController extends Controller {
     private $palette_color = 'palette-color-3';
 
     /**
-     * @Route("/virtual/", name="armd_museum_virtual")
+     * @Route("/virtual", name="armd_museum_virtual")
      * @Template("ArmdMuseumBundle:Museums:museumsIndex.html.twig")
      */
     public function virtualAction() {
@@ -23,6 +23,7 @@ class DefaultController extends Controller {
         $categories = $this->getMuseumManager()->getCategories();
 
         return array(
+            'palette_color' => $this->palette_color,
             'palette_color_hex' => DefaultController::PALETTE_COLOR_HEX,
             'regionId' => $regionId,
             'regions' => $regions,
@@ -56,7 +57,7 @@ class DefaultController extends Controller {
      * @Route("/list/{templateName}/{offset}/{limit}",
             name="armd_museum_list",
             options={"expose"=true},
-            defaults={"offset"="0", "limit"="10"}
+            defaults={"templateName"="virtual_list", "offset"="0", "limit"="10"}
         )
      *
      */

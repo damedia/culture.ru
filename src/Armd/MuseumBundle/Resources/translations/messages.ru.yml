@@ -1,8 +1,17 @@
+MuseumsOfRussia: Музеи России
 VirtualTour: виртуальный тур
 AboutMuseum: о музее
 LookAtTheAtlas: посмотреть на атласе
+ContactInformation: контактная информация
+Info:
+    Address: Адрес
+    Website: Сайт
+    Phone: Телефон
+    OpeningHours: Часы работы
+Hub:
+    MenuMuseumEducation: музейное образование
+    MenuWarGallery: военная галерея
 
-Museums: Музеи
 Virtual museums: Виртуальные музеи
 Museums Categories: Категории музеев
 Museum Guide: Музейный гид

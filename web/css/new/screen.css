@@ -3187,7 +3187,7 @@ a.sidebar-widget-item:hover > .darkLayer {
 .museums-hub-background-left {
     display: block;
     position: absolute;
-    top: -100px;
+    top: -96px;
     left: -255px;
     width: 480px;
     height: 470px;
@@ -3197,7 +3197,7 @@ a.sidebar-widget-item:hover > .darkLayer {
 .museums-hub-background-right {
     display: block;
     position: absolute;
-    top: -100px;
+    top: -96px;
     left: 705px;
     width: 480px;
     height: 470px;
@@ -3230,6 +3230,10 @@ a.sidebar-widget-item:hover > .darkLayer {
     margin-bottom: 20px;
 }
 
+.slider-item-sidebar {
+    height: 466px;
+}
+
 .map-circle-border {
     width: 180px;
     height: 180px;
@@ -3248,6 +3252,21 @@ a.sidebar-widget-item:hover > .darkLayer {
 #slider-museum-item-map-placeholder .circle {
     height: 158px;
     width: 158px;
+}
+
+#slider-museum-item-info-placeholder {
+    font-size: 0.8em;
+    bottom: 0;
+    width: 210px;
+    padding: 10px;
+    z-index: 10;
+}
+#slider-museum-item-info-placeholder .header {
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 1.2em;
+    font-weight: bolder;
+    margin-bottom: 20px;
 }
 
 .slider-museum-item-path {

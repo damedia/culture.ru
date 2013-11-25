@@ -1,17 +1,16 @@
-<div style="height: 466px;" class="positionRelative">
+<div class="slider-item-sidebar positionRelative">
     <div class="map-circle-border"></div>
     <div id="slider-museum-item-map-placeholder"></div>
-    <div id="slider-museum-item-info-placeholder" class="sidebar-bordered-block positionAbsolute" style="font-size: 0.8em; bottom: 0; width: 210px; padding: 10px; z-index: 10">
-        <div style="text-align: center; text-transform: uppercase; font-size: 1.2em; font-weight: bolder; margin-bottom: 20px;">
-            Контактная информация
+    <div id="slider-museum-item-info-placeholder" class="sidebar-bordered-block positionAbsolute">
+        <div class="header">
+            {{ 'ContactInformation'|trans }}
         </div>
-
-        Адрес: <span data-info="address"></span>
+        {{ 'Info.Address'|trans }}: <span data-info="address"></span>
         <br />
-        Сайт: <span data-info="siteUrl"></span>
+        {{ 'Info.Website'|trans }}: <span data-info="siteUrl"></span>
         <br />
-        Телефон: <span data-info="phone"></span>
+        {{ 'Info.Phone'|trans }}: <span data-info="phone"></span>
         <br />
-        Часы работы: <span data-info="workTime"></span>
+        {{ 'Info.OpeningHours'|trans }}: <span data-info="workTime"></span>
     </div>
 </div>
