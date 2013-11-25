@@ -8,6 +8,9 @@
         div.PGmap-copyright {
             display: none;
         }
+        div.PGmap-controls-container {
+            display: none;
+        }
         ul.hub-menu li a:hover {
             color: {{ palette_color_hex }};
         }
@@ -47,26 +50,53 @@
     <script type="text/javascript">
         $(window).load(function(){
             var slider = $('#museums-images-widget-placeholder'),
-                sliderUL = slider.find('ul#museum_widget'),
-                currentSlide = sliderUL.find('li.visible'),
-                sidebar = currentSlide.find('div.item-title-side'),
-                mapPlaceholderId = sidebar.find('div.circle').attr('id'),
-                mapPlaceholderLat = sidebar.find('div.circle').attr('data-lat'),
-                mapPlaceholderLon = sidebar.find('div.circle').attr('data-lon'),
-                spotlightId = 1632,
-                sidebarPlaceholder = $('#slider-museum-item-info-placeholder');
+                sliderNav = slider.find('div.b-pagination-nav'),
+                sliderItems = slider.find('ul#museum_widget > li'),
+                sidebarMapPlaceholder = $('#slider-museum-item-map-placeholder'),
+                sidebarInfoPlaceholder = $('#slider-museum-item-info-placeholder'),
+                info_address = sidebarInfoPlaceholder.find('span[data-info="address"]'),
+                info_siteUrl = sidebarInfoPlaceholder.find('span[data-info="siteUrl"]'),
+                info_phone = sidebarInfoPlaceholder.find('span[data-info="phone"]'),
+                info_workTime = sidebarInfoPlaceholder.find('span[data-info="workTime"]'),
+                setupMapForCurrentItem = function(){
+                    var currentItemNavHref = sliderNav.find('ul > li.selected > a').attr('href'),
+                        currentItemNumber = parseInt(currentItemNavHref.substring(1), 10) - 1,
+                        currentItem = $(sliderItems[currentItemNumber]),
+                        sidebar = currentItem.find('div.item-title-side'),
+                        mapHolder = sidebar.find('div.circle'),
+                        mapHolderId = mapHolder.attr('id'),
+                        objectId = mapHolder.attr('data-id'),
+                        objectLon = mapHolder.attr('data-lon'),
+                        objectLat = mapHolder.attr('data-lat'),
+                        objectAddress = sidebar.find('span[data-info="address"]').html(),
+                        objectSiteUrl = sidebar.find('span[data-info="siteUrl"]').html(),
+                        objectPhone = sidebar.find('span[data-info="phone"]').html(),
+                        objectWorkTime = sidebar.find('span[data-info="workTime"]').html();
 
-            sidebarPlaceholder.html(sidebar.html());
+                    sidebarMapPlaceholder.html(sidebar.html());
 
-            ATLAS_MODULE.init({
-                spotlightId: spotlightId,
-                pgMap: {
-                    placeholderId: mapPlaceholderId,
-                    locale: '{{ app.request.locale }}',
-                    mapClusterImagesUrl: '{{ asset('bundles/armdatlas/images') }}',
-                    focusX: mapPlaceholderLon,
-                    focusY: mapPlaceholderLat
-                }
+                    ATLAS_MODULE.init({
+                        spotlightId: objectId,
+                        pgMap: {
+                            placeholderId: mapHolderId,
+                            locale: '{{ app.request.locale }}',
+                            mapClusterImagesUrl: '{{ asset('bundles/armdatlas/images') }}',
+                            focusX: objectLon,
+                            focusY: objectLat
+                        }
+                    });
+
+                    info_address.html(objectAddress);
+                    info_siteUrl.html('<a href="'+objectSiteUrl+'" class="palette-color-3">'+objectSiteUrl+'</a>');
+                    info_phone.html(objectPhone);
+                    info_workTime.html(objectWorkTime);
+                };
+
+            setupMapForCurrentItem();
+
+            sliderNav.find('ul > li').on('click', function(){
+                sidebarMapPlaceholder.find('div.PGmap').remove();
+                setupMapForCurrentItem();
             });
         });
     </script>

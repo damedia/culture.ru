@@ -595,6 +595,68 @@ class DefaultController extends Controller {
     }
 
     /**
+     * @Route("/objects/spotlight", defaults={"_format"="json"}, name="armd_atlas_spotlight_object", options={"expose"=true})
+     */
+    public function objectSpotlightAction() {
+        $request = $this->getRequest();
+        $objectId = intval($request->get('objectId'));
+
+        if (!$objectId) {
+            return array(
+                'success' => false,
+                'message' => 'Undefined or incorrect objectId = '.$objectId.'!',
+            );
+        }
+
+        $objectRepository = $this->getDoctrine()->getRepository('ArmdAtlasBundle:Object');
+        $object = $objectRepository->find($objectId);
+
+        if (!$object) {
+            return array(
+                'success' => false,
+                'message' => 'Object with Id = '.$objectId.' was not found!',
+            );
+        }
+
+        $iconUrl = '';
+        $twigExtension = $this->get('sonata.media.twig.extension');
+
+        if ($object->getIcon()) {
+            $iconUrl = $twigExtension->path($object->getIcon(), 'reference');
+        }
+
+        $obraz = false;
+        $imageUrl = '';
+        $sideDetails = '';
+
+        if ($object->getPrimaryCategory()) {
+            if ($object->getPrimaryCategory()->getId() == 74) {
+                $obraz = true;
+                $image = $object->getPrimaryCategory()->getIconMedia();
+                $imageUrl = $twigExtension->path($image, 'reference');
+                $sideDetails = $this->renderView('ArmdAtlasBundle:Default:object_side.html.twig', array('entity' => $object));
+            }
+        }
+
+        $jsonObject = array(
+            'id' => $object->getId(),
+            'title' => $object->getTitle(),
+            'announce' => $object->getAnnounce(),
+            'lon' => $object->getLon(),
+            'lat' => $object->getLat(),
+            'icon' => $iconUrl,
+            'obraz' => $obraz,
+            'imageUrl' => $imageUrl,
+            'sideDetails' => $sideDetails
+        );
+
+        return array(
+            'success' => true,
+            'result' => $jsonObject
+        );
+    }
+
+    /**
      * Мои объекты. Добавить/изменить объект
      *
      * @Route("/objects/add", defaults={"_format"="json"})

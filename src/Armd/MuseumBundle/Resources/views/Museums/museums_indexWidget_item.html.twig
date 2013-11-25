@@ -14,7 +14,11 @@
                     <a href="/" class="{{ palette_color }}">{{ 'LookAtTheAtlas'|trans }}</a>
                 </div>
                 <div class="item-title-side">
-                    <div id="object-round-window-{{ museum.atlasObject.id }}" data-lat="{{ museum.atlasObject.lat }}" data-lon="{{ museum.atlasObject.lon }}" class="circle"></div>
+                    <div id="object-round-window-{{ museum.atlasObject.id }}" class="circle" data-id="{{ museum.atlasObject.id }}" data-lon="{{ museum.atlasObject.lon }}" data-lat="{{ museum.atlasObject.lat }}"></div>
+                    <span data-info="address">{{ museum.atlasObject.address|raw }}</span>
+                    <span data-info="siteUrl">{{ museum.atlasObject.siteUrl|raw }}</span>
+                    <span data-info="phone">{{ museum.atlasObject.phone|raw }}</span>
+                    <span data-info="workTime">{{ museum.atlasObject.workTime|raw }}</span>
                 </div>
             </span>
         </a>

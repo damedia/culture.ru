@@ -3082,6 +3082,9 @@ a.sidebar-widget-item:hover > .darkLayer {
 .marginLeft40 {
     margin-left: 40px;
 }
+.marginBottom15 {
+    margin-bottom: 15px;
+}
 .marginBottom20 {
     margin-bottom: 20px;
 }
@@ -3223,18 +3226,18 @@ a.sidebar-widget-item:hover > .darkLayer {
     margin-bottom: 20px;
 }
 
-#slider-museum-item-info-placeholder {
-    background-color: #d3d3d3;
+#slider-museum-item-map-placeholder {
     margin-top: 137px;
-}
-#slider-museum-item-info-placeholder .circle {
-    background: #f00;
     width: 200px;
     height: 200px;
     border-radius: 50%;
-    border: 3px solid black;
+    overflow: hidden;
     margin-left: auto;
     margin-right: auto;
+}
+#slider-museum-item-map-placeholder .circle {
+    width: 200px;
+    height: 200px;
 }
 
 .imageOfRussia-list-item {
@@ -3638,9 +3641,8 @@ ul.comments-list li {
     padding: 20px 0 20px 0;
     letter-spacing: -1px;
 }
-.sidebar-related-widget .bordered-header {
+.sidebar-bordered-block {
     border: 5px solid #EEEFF0;
-    margin-bottom: 15px;
     background-color: #FFFFFF;
 }
 .sidebar-item-title {
