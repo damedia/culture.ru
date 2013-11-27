@@ -58,13 +58,10 @@ class DefaultController extends Controller {
      * the Museum entity (and therefore we can't really have a legitimate way to get just these
      * kind of museums). I was in a hurry and instead of modifying the database I just created
      * this method to replace even more terrible thing - hardcoded HTML UL...
-     *
-     * N.B.: Museum with id = 44 ("Петергоф") has no info about its region and has no AtlasObject
-     * related to it... Therefore it is not showing up on the list.
      */
     private function getReserveMuseums() {
         $criteria = array();
-        $reserveMuseums = array(15, 22, 27, 10, 18, 16, 21, 5, 24, 44);
+        $reserveMuseums = array(27, 16, 15, 21, 18, 10, 26, 5, 24, 22);
 
         $criteria[MuseumManager::CRITERIA_IDS_OR] = $reserveMuseums;
         $museums = $this->getMuseumManager()->findObjects($criteria);

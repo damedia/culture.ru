@@ -170,29 +170,26 @@ class NewsController extends Controller {
         $categoryRepository = $this->getDoctrine()->getRepository('ArmdNewsBundle:Category');
         $categories = $categoryRepository->findAll();
 
-
-
         //$category = $categorySlug ? $categoryRepository->findOneBySlug($categorySlug) : null;
         //$category = $category ? array($category) : array('news', 'interviews', 'reportages', 'articles'); //TODO: weird!
 
         //$newsByDate = array();
-/*
-        if ($request->query->has('to_date') || $request->query->has('from_date')) {
-            $criteria = array(
-                NewsManager::CRITERIA_LIMIT => 100
-            );
 
-            if ($request->query->has('from_date')) {
-                $criteria[NewsManager::CRITERIA_NEWS_DATE_SINCE] = new \DateTime($request->get('from_date'));
-            }
-            if ($request->query->has('to_date')) {
-                $criteria[NewsManager::CRITERIA_NEWS_DATE_TILL] = new \DateTime($request->get('to_date'));
-            }
+        //if ($request->query->has('to_date') || $request->query->has('from_date')) {
+        //    $criteria = array(
+        //        NewsManager::CRITERIA_LIMIT => 100
+        //    );
 
-            $news = $newsManager->findObjects($criteria);
-            $newsByDate = $this->getDateGroupedNews($category, $news);
-        }
-        */
+        //    if ($request->query->has('from_date')) {
+        //        $criteria[NewsManager::CRITERIA_NEWS_DATE_SINCE] = new \DateTime($request->get('from_date'));
+        //    }
+        //    if ($request->query->has('to_date')) {
+        //        $criteria[NewsManager::CRITERIA_NEWS_DATE_TILL] = new \DateTime($request->get('to_date'));
+        //    }
+
+        //    $news = $newsManager->findObjects($criteria);
+        //    $newsByDate = $this->getDateGroupedNews($category, $news);
+        //}
         //else { //the default way
             //$firstLoadedDate = new \DateTime($request->get('first_loaded_date')); //at first get minimal date
 
@@ -208,18 +205,16 @@ class NewsController extends Controller {
             );
 
             $news = $this->getNewsManager()->findObjects($criteria);
-//print count($news);
-            /*
-            if (count($news) > 0) {
+
+            //if (count($news) > 0) {
                 // this is low date
-                $criteria[NewsManager::CRITERIA_NEWS_DATE_SINCE] = $news[count($news) - 1]->getNewsDate();
+            //    $criteria[NewsManager::CRITERIA_NEWS_DATE_SINCE] = $news[count($news) - 1]->getNewsDate();
 
                 // now get news
-                unset($criteria[NewsManager::CRITERIA_LIMIT]);
-                $news = $newsManager->findObjects($criteria);
-                $newsByDate = $this->getDateGroupedNews($category, $news);
-            }
-            */
+            //    unset($criteria[NewsManager::CRITERIA_LIMIT]);
+            //    $news = $newsManager->findObjects($criteria);
+            //    $newsByDate = $this->getDateGroupedNews($category, $news);
+            //}
         //}
 
         return array(
@@ -270,8 +265,6 @@ class NewsController extends Controller {
             'isCommentable' => $this->isCommentable($entity)
         );
     }
-
-
 
     private function isCommentable($entity) { //TODO: this method should be elsewhere!
         $interfaces = class_implements(get_class($entity));
@@ -325,32 +318,12 @@ class NewsController extends Controller {
         );
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
     /**
      * @Route("/two-column-news-list/{category}", name="armd_news_two_column_list", defaults={"category"=null}, options={"expose"=true})
      */
     function twoColumnNewsListAction($category = null, $limit = null) { //TODO: this thing is used by name alias and is now BROKEN!
         //
     }
-
-
-
-
-
-
-
-
 
     public function lastAnnounceAction() {
         $entity = $this->getDoctrine()->getManager()->getRepository('ArmdNewsBundle:News')->getLastAnnounce();
@@ -368,8 +341,7 @@ class NewsController extends Controller {
      *
      * @return array
      */
-    private function getNewsFeed($count = 30)
-    {
+    private function getNewsFeed($count = 30) {
         return $this->getNewsManager()->findObjects(
             array(
                 NewsManager::CRITERIA_CATEGORY_SLUGS_OR => array('news', 'interviews', 'reportages', 'articles'),
@@ -381,8 +353,7 @@ class NewsController extends Controller {
     /**
      * @Route("/widget/", defaults={"_format"="js"}, name="armd_news_widget")
      */
-    function widgetAction()
-    {
+    function widgetAction() {
         $count = $this->getRequest()->get('count', 3);
 
         // Validate...
@@ -400,16 +371,14 @@ class NewsController extends Controller {
     /**
      * @Route("/get-widget/", name="armd_news_get_widget")
      */
-    function getWidgetAction()
-    {
+    function getWidgetAction() {
         return $this->render('ArmdNewsBundle:News:get_widget.html.twig');
     }
 
     /**
      * @Route("/rss/", defaults={"_format"="xml"}, name="armd_news_rss")
      */
-    function rssAction()
-    {
+    function rssAction() {
         $news = $this->getNewsFeed();
 
         return $this->render('ArmdNewsBundle:News:rss.xml.twig', array(
@@ -421,8 +390,7 @@ class NewsController extends Controller {
      * @Route("/map/", name="armd_news_map")
      * @Template()
      */
-    public function mapAction()
-    {
+    public function mapAction() {
         $em = $this->getDoctrine()->getManager();
         $regionsRepo = $em->getRepository('ArmdAtlasBundle:Region');
         $regions = $regionsRepo->findBy(array(), array('title'=>'ASC'));
@@ -459,8 +427,7 @@ class NewsController extends Controller {
     /**
      * @Route("/map/filter", name="armd_news_filter", defaults={"_format"="json"})
      */
-    public function filterAction()
-    {
+    public function filterAction() {
         try {
             $filter = $this->getRequest()->get('f');
 
@@ -473,7 +440,8 @@ class NewsController extends Controller {
 
             if (!empty($filter['category'])) {
                 $criteria[NewsManager::CRITERIA_CATEGORY_IDS_OR] = $filter['category'];
-            } else {
+            }
+            else {
                 throw new \Exception('Выберите хотя бы один тип события.');
             }
 
@@ -488,7 +456,8 @@ class NewsController extends Controller {
                 $imageUrl = $this->get('sonata.media.twig.extension')->path($article->getImage(), 'thumbnail');
                 if ($article->getTheme()) {
                     $iconUrl = $this->get('sonata.media.twig.extension')->path($article->getTheme()->getIconMedia(), 'reference');
-                } else {
+                }
+                else {
                     $iconUrl = '';
                 }
                 $data[] = array(
@@ -527,8 +496,7 @@ class NewsController extends Controller {
      * @Route("/map/balloon", name="armd_news_map_balloon")
      * @Template()
      */
-    public function balloonAction()
-    {
+    public function balloonAction() {
         try {
             $id = (int) $this->getRequest()->get('id');
             $entity = $this->getDoctrine()->getManager()->getRepository('ArmdNewsBundle:News')->find($id);
@@ -543,8 +511,7 @@ class NewsController extends Controller {
      * @Route("/billboard-slider/", name="armd_news_billboard_slider")
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    function billboardAction()
-    {
+    function billboardAction() {
         $newsManager = $this->getNewsManager();
         $entities = array();
         foreach ($newsManager->getCategories() as $category) {
@@ -574,8 +541,7 @@ class NewsController extends Controller {
      * @Route("/read-also-news/", name="armd_news_read_also_news")
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function readAlsoNewsAction()
-    {
+    public function readAlsoNewsAction() {
         $request = $this->getRequest();
         $entityId = $request->get('id');
         $limit = $request->get('limit', 10);
@@ -619,8 +585,7 @@ class NewsController extends Controller {
     /**
      * @Route("/memorial-events/", name="armd_news_memorial_events")
      */
-    function memorialEventsAction()
-    {
+    function memorialEventsAction() {
         $news = $this->getNewsManager()->findObjects(
             array(
                 NewsManager::CRITERIA_CATEGORY_SLUGS_OR => array('memorials'),
@@ -634,15 +599,11 @@ class NewsController extends Controller {
         ));
     }
 
-
-
-
     /**
      * @param \Armd\MkCommentBundle\Entity\Thread $thread
      * @return \Armd\MkCommentBundle\Entity\Comment
      */
-    protected function getComments(Thread $thread = null)
-    {
+    protected function getComments(Thread $thread = null) {
         if (empty($thread)) {
             return null;
         } else {
@@ -650,8 +611,7 @@ class NewsController extends Controller {
         }
     }
 
-    protected function getControllerName()
-    {
+    protected function getControllerName() {
         return 'ArmdNewsBundle:News';
     }
 
@@ -672,8 +632,7 @@ class NewsController extends Controller {
      * @param array $params
      * @return array
      */
-    public function getItemsSitemap($action = null, $params = array())
-    {
+    public function getItemsSitemap($action = null, $params = array()) {
         $items = array();
 
         switch ($action) {
