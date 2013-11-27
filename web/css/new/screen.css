@@ -3022,6 +3022,9 @@ a.sidebar-widget-item:hover > .darkLayer {
 .fontBold {
     font-weight: bolder;
 }
+.textAlignCenter {
+    text-align: center;
+}
 
 .greyBackground {
     background-color: #E1E3E4;
@@ -3069,11 +3072,20 @@ a.sidebar-widget-item:hover > .darkLayer {
 .paddingTop5Bottom25 {
     padding: 5px 0 25px 0 !important;
 }
-
-.noTextDecoration {
-    text-decoration: none;
+.paddingTopBottom20 {
+    padding: 20px 0;
 }
 
+.noTextDecoration {
+    text-decoration: none !important;
+}
+
+.marginTop10 {
+    margin-top: 10px;
+}
+.marginTop123 {
+    margin-top: 123px;
+}
 .marginLeft10 {
     margin-left: 10px;
 }
@@ -3104,9 +3116,34 @@ a.sidebar-widget-item:hover > .darkLayer {
     overflow: hidden !important;
 }
 
+.header-text-medium {
+    font-family: "pf_din_text_cond_promedium", serif;
+    font-size: 1.8em;
+    font-weight: normal;
+    line-height: 25px;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+}
 
-/*=========================
-==== Images of Russia ===*/
+.museums-virtual-tours-icon {
+    width: 74px;
+    height: 70px;
+    background: url(../../img/museums_icons/360.png) 0 0 no-repeat;
+    position: absolute;
+    top: 720px;
+    left: -100px;
+}
+
+
+/*=================
+==== Entities ===*/
+.museums-sidebar-header {
+    padding: 19px 40px 20px;
+}
+.museums-sidebar-item-title {
+    margin: 10px 15px 25px 15px;
+}
+
 .imagesOfRussia-counter {
     width: 59px;
     height: 59px;
@@ -3205,6 +3242,48 @@ a.sidebar-widget-item:hover > .darkLayer {
     background: url(../../img/new/column.png) repeat-x scroll 0 0 rgba(0, 0, 0, 0);
 }
 
+.dottedLine-left {
+    width: 1500px;
+    height: 1px;
+    background: url(../../img/new/main-border-bg.png) left top repeat-x;
+    margin: 40px 0 0 -800px;
+}
+.museums-hub-list-header {
+    background-color: #ffffff;
+    margin: -12px 0 0 -20px;
+    width: 210px;
+    padding-left: 20px;
+}
+.virt-museum-instr {
+    font-size: 1.3em;
+    margin-top: 10px;
+}
+
+#museums-items-list {
+    margin-top: 40px;
+    width: 700px;
+}
+#museums-items-list .museums-list-item {
+    width: 340px;
+    height: 330px;
+    display: inline-block;
+    vertical-align: top;
+}
+#museums-items-list .spacer {
+    width: 12px;
+    height: 330px;
+    display: inline-block;
+    vertical-align: top;
+}
+
+#museums-showMore {
+    background: url(../../img/museums_icons/show-more.png) 0 0 no-repeat;
+    width: 172px;
+    height: 43px;
+    margin: 0 auto 20px auto;
+    cursor: pointer;
+}
+
 #imagesOfRussia-showMore {
     background: url(../../img/russia_images_icons/show-more.png) 0 0 no-repeat;
     width: 172px;
@@ -3248,6 +3327,7 @@ a.sidebar-widget-item:hover > .darkLayer {
     border-radius: 50%;
     overflow: hidden;
     margin: 137px auto 0;
+    background-color: #E1E3E4;
 }
 #slider-museum-item-map-placeholder .circle {
     height: 158px;
@@ -3500,6 +3580,14 @@ textarea[name="fos_comment_comment[body]"] {
     width: 130px;
     height: 29px;
 }
+.virtualTours-header-expander {
+    width: 300px;
+    height: 29px;
+    float: left;
+    margin-left: -20px;
+    padding-left: 20px;
+    left: -10px;
+}
 .mainpage-header-title-holder {
     position: absolute;
     width: 100%;
@@ -3587,7 +3675,7 @@ textarea[name="fos_comment_comment[body]"] {
 /*=================
 ==== Hub menu ===*/
 ul.hub-menu {
-    margin: 0 0 50px 160px;
+    margin: 0 0 25px 160px;
     padding: 23px 30px 0 0;
 }
 ul.hub-menu li {
@@ -3670,16 +3758,6 @@ ul.comments-list li {
     left: 5px;
     color: #FFFFFF;
 }
-.sidebar-header-like {
-    text-align: center;
-    font-family: "pf_din_text_cond_promedium", serif;
-    font-size: 1.8em;
-    font-weight: normal;
-    line-height: 25px;
-    text-transform: uppercase;
-    padding: 20px 0 20px 0;
-    letter-spacing: -1px;
-}
 .sidebar-bordered-block {
     border: 5px solid #EEEFF0;
     background-color: #FFFFFF;
@@ -3688,8 +3766,6 @@ ul.comments-list li {
     display: block;
     text-transform: uppercase;
     font: bold 1.1em "PTSansRegular", sans-serif;
-    margin: 0;
-    padding: 0;
     letter-spacing: -1px;
     text-decoration: none;
 }

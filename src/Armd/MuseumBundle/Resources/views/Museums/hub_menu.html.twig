@@ -2,9 +2,15 @@
 {% spaceless %}
     <li>
         <a class="{{ palette_color }}" href="{{ path('armd_museum_virtual') }}">
-            {{- 'Hub.MenuAll'|trans -}}
+            {{- 'Hub.MenuVirtualTours'|trans -}}
         </a>
     </li>
+    <li>
+        <a href="{{ path('armd_main_museum_reserve') }}">
+            {{- 'Hub.MenuMuseumReserved'|trans -}}
+        </a>
+    </li>
+    <br />
     <li>
         <a href="{{ path('armd_lesson_list') }}">
             {{- 'Hub.MenuMuseumEducation'|trans -}}

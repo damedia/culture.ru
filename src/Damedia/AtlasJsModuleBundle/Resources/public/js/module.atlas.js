@@ -238,17 +238,17 @@ var ATLAS_MODULE = (function(){
         });
     }
 
-    function showSpotlightObject(objectId, imageUrl) {
+    function showSpotlightObject(parameters) {
         showLoadingGif();
 
-        $.post(spotlightObjectUrl, { objectId: objectId })
+        $.post(spotlightObjectUrl, { objectId: parameters.id })
             .done(function(json, textStatus, jqXHR){
                 if (json.success === false) {
                     console.warn('Getting spotlight object failed with response: ' + json.message);
                     return;
                 }
 
-                placeSpotlightPoint(json.result, imageUrl);
+                placeSpotlightPoint(json.result, parameters.url, parameters.imgUrl);
             })
             .fail(function(jqXHR, textStatus, errorThrown) {
                 console.warn('AJAX request failed with response: ' + textStatus + ' ' + jqXHR.status + ' (' + errorThrown + ')');
@@ -460,7 +460,7 @@ var ATLAS_MODULE = (function(){
         }
     }
 
-    function placeSpotlightPoint(object, imageUrl) {
+    function placeSpotlightPoint(object, url, imgUrl) {
         var point;
 
         if (!(object.lon || object.lat)) {
@@ -474,7 +474,7 @@ var ATLAS_MODULE = (function(){
             width: 42,
             height: 39,
             backpos: '0 0',
-            innerImage: { src: imageUrl, width: 42 }
+            innerImage: { src: imgUrl, width: 42 }
         });
 
         $(point.container)
@@ -507,8 +507,7 @@ var ATLAS_MODULE = (function(){
 
         //point click
         PGmap.Events.addHandler(point.container, PGmap.EventFactory.eventsType.click, function(){
-            alert('hello!');
-            //triggerPointClick(point);
+            window.location = url;
         });
 
         return point;
@@ -1254,7 +1253,7 @@ var ATLAS_MODULE = (function(){
         initProGorodMap(options.pgMap);
         initLocationFinderAc(options.locationFinderAc);
         if (options.spotlightId) {
-            showSpotlightObject(options.spotlightId, options.spotlightImageUrl);
+            showSpotlightObject({ id: options.spotlightId, url: options.spotlightUrl, imgUrl: options.spotlightImageUrl });
         }
         else {
             initFilters(options.filterTabs);

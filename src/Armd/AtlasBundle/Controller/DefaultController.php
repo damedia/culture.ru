@@ -67,8 +67,8 @@ class DefaultController extends Controller {
     }
 
     /**
-     * @Route("/object/{id}", requirements={"id"="\d+"}, name="armd_atlas_default_object_view")
-     * @Route("/object/{id}/print", requirements={"id"="\d+"}, defaults={"isPrint"=true}, name="armd_atlas_default_object_view_print")
+     * @Route("/object/{id}", requirements={"id"="\d+"}, name="armd_atlas_default_object_view", options={"expose"=true})
+     * @Route("/object/{id}/print", requirements={"id"="\d+"}, defaults={"isPrint"=true}, name="armd_atlas_default_object_view_print", options={"expose"=true})
      */
     public function objectViewAction($id, $template = null, $isPrint = false) {
         $request = $this->getRequest();

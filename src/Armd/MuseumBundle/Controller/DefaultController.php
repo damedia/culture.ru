@@ -27,7 +27,7 @@ class DefaultController extends Controller {
             'palette_color_hex' => DefaultController::PALETTE_COLOR_HEX,
             'regionId' => $regionId,
             'regions' => $regions,
-            'categories' => $categories,
+            'categories' => $categories
         );
     }
 
@@ -54,78 +54,98 @@ class DefaultController extends Controller {
     }
 
     /**
-     * @Route("/list/{templateName}/{offset}/{limit}",
-            name="armd_museum_list",
-            options={"expose"=true},
-            defaults={"templateName"="virtual_list", "offset"="0", "limit"="10"}
-        )
+     * This is a terrible temporary stub for not having an attribute flag "museum_reserved" in
+     * the Museum entity (and therefore we can't really have a legitimate way to get just these
+     * kind of museums). I was in a hurry and instead of modifying the database I just created
+     * this method to replace even more terrible thing - hardcoded HTML UL...
      *
+     * N.B.: Museum with id = 44 ("Петергоф") has no info about its region and has no AtlasObject
+     * related to it... Therefore it is not showing up on the list.
      */
-    public function listAction($templateName, $offset = 0, $limit = 10) {
+    private function getReserveMuseums() {
+        $criteria = array();
+        $reserveMuseums = array(15, 22, 27, 10, 18, 16, 21, 5, 24, 44);
 
-        $templates = array(
-            'virtual_list' => 'ArmdMuseumBundle:Default:virtual_list.html.twig',
-            'virtual_list_text' => 'ArmdMuseumBundle:Default:virtual_list_text.html.twig'
-        );
+        $criteria[MuseumManager::CRITERIA_IDS_OR] = $reserveMuseums;
+        $museums = $this->getMuseumManager()->findObjects($criteria);
 
-        if (in_array($templateName, $templates)) {
-            throw new \InvalidArgumentException('Unknow template name ' . $templateName);
+        return $museums;
+    }
+
+    /**
+     * @Route("/museum_reserve", name="armd_main_museum_reserve", options={"expose"=true})
+     * @Template("ArmdMuseumBundle:Museums:museum_reserve.html.twig")
+     */
+    public function museumReserveAction() {
+        return array('museum_reserve' => $this->getReserveMuseums());
+    }
+
+    /**
+     * @Route("/museum_reserve_sidebar_list", name="armd_main_museum_reserve_sidebar_list", options={"expose"=true})
+     * @Template("ArmdMuseumBundle:Museums:museum_reserve_sidebar_list.html.twig")
+     */
+    public function museumReserveListAction() {
+        return array('museum_reserve' => $this->getReserveMuseums());
+    }
+
+    /**
+     * @Route("/list/{limit}", name="armd_museum_list", options={"expose"=true}, defaults={"limit"="8"})
+     * @Template("ArmdMuseumBundle:Museums:museums_virtualList.html.twig")
+     */
+    public function listAction($limit = 8) {
+        $criteria = array();
+        $request = $this->getRequest();
+
+        $loadedIds = $request->get('loadedIds');
+        if ($loadedIds) {
+            $criteria[MuseumManager::CRITERIA_NOT_IDS] = array_unique($loadedIds);
         }
 
-        $regionId = $this->getRequest()->get('region');
-        $categoryId = $this->getRequest()->get('category');
-        $searchText = $this->getRequest()->get('search_query');
-
-        $criteria = array();
-
-        if (!empty($categoryId)) {
+        $categoryId = $request->get('category');
+        if ($categoryId) {
             $criteria[MuseumManager::CRITERIA_CATEGORY_IDS_OR] = array($categoryId);
         }
 
-        if (!empty($regionId)) {
+        $regionId = $request->get('region');
+        if ($regionId) {
             $criteria[MuseumManager::CRITERIA_REGION_IDS_OR] = array($regionId);
         }
 
-        if (!empty($searchText)) {
+        $searchText = $request->get('search_query');
+        if ($searchText) {
             $criteria[MuseumManager::CRITERIA_SEARCH_STRING] = $searchText;
         }
 
-        $criteria[MuseumManager::CRITERIA_ORDER_BY] = array('sort' => 'DESC', 'title' => 'ASC');
+        //$criteria[MuseumManager::CRITERIA_ORDER_BY] = array('sort' => 'DESC', 'title' => 'ASC');
         $criteria[MuseumManager::CRITERIA_LIMIT] = $limit;
-        $criteria[MuseumManager::CRITERIA_OFFSET] = $offset;
+        $criteria[MuseumManager::CRITERIA_RANDOM] = true;
 
         $museums = $this->getMuseumManager()->findObjects($criteria);
 
+        /*
         if (count($museums)) {
             $by_region = array();
             $regions = $this->getMuseumManager()->getDistinctRegions();
 
             foreach ($regions as $region) {
-                $by_region[$region['id']] = array(
-                    'region' => $region,
-                    'list' => array()
-                );
+                $by_region[$region['id']] = array('region' => $region, 'list' => array());
             }
 
             foreach ($museums as $museum) {
-                if ($museum->getRegion())
+                if ($museum->getRegion()){
                     array_push($by_region[$museum->getRegion()->getId()]['list'], $museum);
+                }
             }
 
             foreach ($by_region as $key => $region) {
-                if (!count($region['list']))
+                if (!count($region['list'])) {
                     unset($by_region[$key]);
+                }
             }
         }
+        */
 
-        return $this->render(
-            $templates[$templateName],
-            array(
-                'museums' => $museums,
-                'by_region' => $by_region
-            )
-        );
-
+        return array('museums' => $museums, /*'by_region' => $by_region*/);
     }
 
 

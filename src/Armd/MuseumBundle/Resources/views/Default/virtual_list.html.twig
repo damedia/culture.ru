@@ -1,17 +1,5 @@
 {% if museums|length > 0 %}
     {% for m in museums %}
-        <h2><span>{{ m.title|raw }}</span></h2>
-
-        Banner:<br/>
-        {% thumbnail m.bannerImage, 'banner' with {'width': 922, 'height': 'auto', 'display': 'block'} %}
-        <div style="height: 30px"></div>
-
-        Image:<br />
-        {% thumbnail m.image, 'bannerW1232' with {'width': 213, 'height': 'auto', 'display': 'block'} %}
-        <div style="height: 30px"></div>
-
-
-        <!--
         <div class="virt-museum-new-list-one">
             <a class="vob iframe" href="{{ m.url }}" data-fancybox-type="iframe"><img src="{% path m.bannerImage, 'banner' %}" alt="" /></a>
             <div class="virt-museum-circle">
@@ -26,7 +14,6 @@
                 <div class="museum-image-image"></div>
             </div>
         </div>
-        -->
     {% endfor %}
 {% else %}
     <strong>{{ "museums_not_found"|trans }}</strong>

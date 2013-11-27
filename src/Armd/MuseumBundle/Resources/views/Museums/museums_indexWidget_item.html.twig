@@ -11,7 +11,7 @@
                 <div class="item-title-links">
                     <a href="{{ museum.url }}" class="{{ palette_color }}">{{ 'VirtualTour'|trans }}</a>
                     <a href="{{ path('armd_atlas_default_object_view', {id: museum.atlasObject.id}) }}" class="{{ palette_color }}">{{ 'AboutMuseum'|trans }}</a>
-                    <a href="/" class="{{ palette_color }}">{{ 'LookAtTheAtlas'|trans }}</a>
+                    <a href="{{ path('armd_atlas_default_object_view', {id: museum.atlasObject.id}) }}" class="{{ palette_color }}">{{ 'LookAtTheAtlas'|trans }}</a>
                 </div>
                 <div class="item-title-side">
                     <div id="object-round-window-{{ museum.atlasObject.id }}" class="circle" data-id="{{ museum.atlasObject.id }}" data-lon="{{ museum.atlasObject.lon }}" data-lat="{{ museum.atlasObject.lat }}"></div>
