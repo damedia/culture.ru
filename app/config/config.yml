@@ -109,7 +109,7 @@ sonata_user:
     class:
         user:   Armd\UserBundle\Entity\User
         group:  Armd\UserBundle\Entity\Group
-    impersonating_route:    armd_news_list_index_by_category
+    impersonating_route:    armd_news_index_by_category
     profile:
         form:
             type: armd_user_profile

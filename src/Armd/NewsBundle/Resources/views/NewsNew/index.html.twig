@@ -1,7 +1,5 @@
 {% extends ':Frontend:new_base.html.twig' %}
 
-{% import 'ArmdNewsBundle::date_macro.html.twig' as armd_news %}
-
 {% block stylesheets %}
     {{ parent() }}
 
@@ -22,18 +20,16 @@
 
         {{ include('ArmdNewsBundle:NewsNew:hub_menu.html.twig', { 'categories': categories, 'palette_color': palette_color, 'currentCategory': currentCategory }) }}
 
-        {% for item in news %}
-            <section class="hub-list-item">
-                {{ include('ArmdNewsBundle:NewsNew:list_item.html.twig', { 'item': item }) }}
-            </section>
-        {% else %}
-            {{ 'Empty_list'|trans }}
-        {% endfor %}
+        <div id="news-items-list">
+            {% render url('armd_news_index_list', {'category': category, 'searchQuery': searchQuery }) %}
+        </div>
+
+        <div id="news-showMore" title="{{ 'ShowMore'|trans }}"></div>
     </div>
 {% endblock %}
 
 {% block sidebar %}
-    {% render 'ArmdNewsBundle:News:sidebarIndexWidget' %}
+    {% render url('armd_news_sidebar_index_widget') %}
 {% endblock %}
 
 {% block javascripts %}
@@ -55,7 +51,7 @@
                     itemsCount = items.length;
 
                     if (itemsCount > 1) {
-                        nextItemButton = $('<div class="goto-link-button hoverSensitive fullWidth">' + buttonTitle + '</div>');
+                        nextItemButton = $('<div class="goto-link-button hoverSensitive fullWidth" data-role="button">' + buttonTitle + '</div>');
                         nextItemButton.on('click', function(){
                             $(items[visibleItemNum]).toggle('slide');
                             if (visibleItemNum !== 3) {
@@ -98,12 +94,27 @@
             searchForm.bind('submit', function(e){
                 if (searchThisSectionCheckbox.is(':checked')) {
                     e.preventDefault();
-                    window.location = Routing.generate('armd_news_list_index_by_category', { 'search_query': searchInput.val() });
+                    window.location = Routing.generate('armd_news_index_by_category', { 'search_query': searchInput.val() });
                 }
             });
 
             $.each($('div.sidebar-movies-widget-switcher'), function(){
                 NewsIndexSlider.init($(this));
+            });
+
+            /* Show more button */
+            var itemsPlaceholder = $('#news-items-list');
+
+            $('#news-showMore').on('click', function(){
+                var offset = itemsPlaceholder.find('section').length,
+                    data = {
+                        offset: offset,
+                        searchQuery: '{{ searchQuery }}'
+                    };
+
+                $.post(Routing.generate('armd_news_index_list', { category: '{{ category }}' }), data, function(html){
+                    itemsPlaceholder.append(html);
+                });
             });
         });
     </script>

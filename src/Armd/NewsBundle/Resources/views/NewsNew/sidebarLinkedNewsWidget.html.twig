@@ -11,7 +11,7 @@
                 <span class="date">
                     {{ armd_news.macro_date_standart(item.newsDate) }}
                 </span>
-                <a class="type palette-color-1" href="{{ path('armd_news_list_index_by_category', { 'category': item.category.slug }) }}">
+                <a class="type palette-color-1" href="{{ path('armd_news_index_by_category', { 'category': item.category.slug }) }}">
                     {{ item.category.title }}
                 </a>
                 <a class="sidebar-item-title" href="{{ path('armd_news_item_by_category', {id: item.id}) }}">

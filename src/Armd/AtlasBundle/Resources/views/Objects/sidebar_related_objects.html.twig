@@ -4,7 +4,7 @@
             <div class="sidebar-object-item-wrapper positionRelative">
                 <a class="displayBlock" href="{{ path('armd_atlas_default_object_view', {'id': object.id}) }}">
                     {% thumbnail object.sideBannerImage, 'sideBanner' with {'width': 240, 'height': 'auto', 'class': 'displayBlock'} %}
-                    <div class="sidebar-image-description positionAbsolute sidebar-item-title">
+                    <div class="sidebar-image-description positionAbsolute sidebar-item-title" data-role="button">
                         {{ object.title }}
                     </div>
                 </a>

@@ -218,15 +218,17 @@ class FavoritesController extends Controller
     public function delAction()
     {
         $user = $this->container->get('security.context')->getToken()->getUser();
-        $resourceType = $this->getRequest()->get('type', false);
-        $resourceId = $this->getRequest()->get('id', false);
+        $request = $this->getRequest();
+        $resourceType = $request->get('type', false);
+        $resourceId = $request->get('id', false);
+        $doRedirect = $request->get('redirect', 'true');
         $entity = $this->getEntity($resourceType);
-        
+
         if (!is_object($user) || !$user instanceof UserInterface || !$resourceType || !$resourceId || !$entity) {
             return new Response('0');
         }
         
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $favorites = $em->getRepository('ArmdUserBundle:Favorites')->findBy(array(
             'user' => $user->getId(),
             'resourceType' => $resourceType,
@@ -240,7 +242,12 @@ class FavoritesController extends Controller
             
             $em->flush();                          
         }
-        
-        return $this->redirect($this->generateUrl('armd_user_favorites'));
+
+        if ($doRedirect == 'true') {
+            return $this->redirect($this->generateUrl('armd_user_favorites'));
+        }
+        else {
+            return new Response('1');
+        }
     }
 }

@@ -4,14 +4,14 @@
         <div class="b-main-wrap b-post b-block-main m-main-press-center">
             <header class="b-block-heading">
                 <h3 class="e-block-title">
-                    <a class="noTextDecoration" href="{{ path('armd_news_list_index_by_category') }}">
+                    <a class="noTextDecoration" href="{{ path('armd_news_index_by_category') }}">
                         {{ "Main.Widget.Media.Header"|trans|raw }}
                     </a>
                 </h3>
                 <span class="e-current-date">
                     {{ 'Main.Widget.Media.Today'|trans }} {{ armd_news.news_date_short('now'|date()) }}
                 </span>
-                <a href="{{ path('armd_news_list_index_by_category') }}" class="e-section-link">
+                <a href="{{ path('armd_news_index_by_category') }}" class="e-section-link">
                     {{ 'Main.Widget.Media.Goto'|trans }}
                 </a>
             </header>

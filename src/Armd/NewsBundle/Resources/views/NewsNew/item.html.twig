@@ -57,8 +57,22 @@
             </div>
 
             <div class="entity-image-footer">
-                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") and not isFavored %}
-                    <span class="user-favorites-button favorites {{ palette_color }} {{ palette_favoritesIcon }}" data-type="{{ constant('Armd\\UserBundle\\Entity\\Favorites::TYPE_MEDIA') }}" data-id="{{ entity.id }}">{{ 'Entity.AddToFavorites'|trans }}</span>
+                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                    {% if isFavored %}
+                        {{ include('ArmdMainBundle:Generics:favoriteIcon.html.twig', {
+                            'palette_color': palette_color,
+                            'palette_icon': palette_favoritesIconAdded,
+                            'action': 'remove',
+                            'text': 'Entity.RemoveFromFavorites'|trans
+                        }) }}
+                    {% else %}
+                        {{ include('ArmdMainBundle:Generics:favoriteIcon.html.twig', {
+                            'palette_color': palette_color,
+                            'palette_icon': palette_favoritesIcon,
+                            'action': 'add',
+                            'text': 'Entity.AddToFavorites'|trans
+                        }) }}
+                    {% endif %}
                 {% endif %}
 
                 <span class="description">
@@ -108,7 +122,7 @@
             searchForm.bind('submit', function(e){
                 if (searchThisSectionCheckbox.is(':checked')) {
                     e.preventDefault();
-                    window.location = Routing.generate('armd_news_list_index_by_category', { 'search_query': searchInput.val() });
+                    window.location = Routing.generate('armd_news_index_by_category', { 'search_query': searchInput.val() });
                 }
             });
 
@@ -123,6 +137,48 @@
                 link: '{{ url('view_blog', { 'id': entity.id }) }}',
                 title: '{{ entity.title }}',
                 description: '{{ entity.announce|replace({"\n":'',"\r":''})|striptags }}'
+            });
+
+            /* Adding to Favorites */
+            $('.entity-image-footer').on('click', '.user-favorites-button', function(e){
+                var $this = $(this),
+                    action = $this.attr('data-action'),
+                    htmlReplacement,
+                    ajaxUrl,
+                    ajaxData = {
+                        type: '{{ constant('Armd\\UserBundle\\Entity\\Favorites::TYPE_MEDIA') }}',
+                        id: '{{ entity.id }}',
+                        redirect: false
+                    };
+
+                e.preventDefault();
+
+                if (action === 'add') {
+                    ajaxUrl = Routing.generate('armd_user_favorites_add');
+                    htmlReplacement = '{{ include('ArmdMainBundle:Generics:favoriteIcon.html.twig', {
+                        'palette_color': palette_color,
+                        'palette_icon': palette_favoritesIconAdded,
+                        'action': 'remove',
+                        'text': 'Entity.RemoveFromFavorites'|trans
+                    }) }}';
+                }
+                else {
+                    ajaxUrl = Routing.generate('armd_user_favorites_del');
+                    htmlReplacement = '{{ include('ArmdMainBundle:Generics:favoriteIcon.html.twig', {
+                        'palette_color': palette_color,
+                        'palette_icon': palette_favoritesIcon,
+                        'action': 'add',
+                        'text': 'Entity.AddToFavorites'|trans
+                    }) }}';
+                }
+
+                $.ajax({ url: ajaxUrl, type: 'get', data: ajaxData, dataType: 'html' }).done(function(data){
+                    if (data == '1') {
+                        $this.fadeOut(200, function(){
+                            $this.replaceWith(htmlReplacement);
+                        });
+                    }
+                });
             });
         });
     </script>

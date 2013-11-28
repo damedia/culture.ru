@@ -21,8 +21,9 @@ class NewsController extends Controller {
     const PALETTE_COLOR_HEX = '#95BD59';
 
     private $palette_color = 'palette-color-1';
-    private $palette_favoritesIcon = 'palette-favoritesIcon-1';
     private $palette_background = 'palette-background-1';
+    private $palette_favoritesIcon = 'palette-favoritesIcon-1';
+    private $palette_favoritesIconAdded = 'palette-favoritesIconAdded-1';
 
     /**
      * @param $date
@@ -36,8 +37,8 @@ class NewsController extends Controller {
     }
 
     /**
+     * @Route("/news-sidebar-widget", name="armd_news_sidebar_index_widget", options={"expose"=true})
      * @Template("ArmdNewsBundle:NewsNew:sidebarIndexWidget.html.twig")
-     * @return array
      */
     public function sidebarIndexWidgetAction() {
         return array();
@@ -160,7 +161,7 @@ class NewsController extends Controller {
     }
 
     /**
-     * @Route("/{category}", requirements={"category" = "[a-z]+"}, defaults={"category" = null}, name="armd_news_list_index_by_category", options={"expose"=true})
+     * @Route("/{category}", name="armd_news_index_by_category", options={"expose"=true}, requirements={"category" = "[a-z]+"}, defaults={"category" = null})
      * @Template("ArmdNewsBundle:NewsNew:index.html.twig")
      */
     function newsIndexAction($category = null) { //TODO: should be renamed to '$categorySlug'
@@ -169,6 +170,26 @@ class NewsController extends Controller {
 
         $categoryRepository = $this->getDoctrine()->getRepository('ArmdNewsBundle:Category');
         $categories = $categoryRepository->findAll();
+
+        return array(
+            'category' => $category,
+            'categories' => $categories,
+            'currentCategory' => $category,
+            'palette_color' => $this->palette_color,
+            'palette_color_hex' => NewsController::PALETTE_COLOR_HEX,
+            'searchQuery' => $searchQuery
+        );
+    }
+
+    /**
+     * @Route("/index-list/{category}", name="armd_news_index_list", options={"expose"=true}, requirements={"category" = "[a-z]+"}, defaults={"category" = null})
+     * @Template("ArmdNewsBundle:NewsNew:indexList.html.twig")
+     */
+    function newsIndexListAction($category = null) {
+        $request = $this->getRequest();
+
+        $offset = $request->get('offset');
+        $searchQuery = $request->get('searchQuery');
 
         //$category = $categorySlug ? $categoryRepository->findOneBySlug($categorySlug) : null;
         //$category = $category ? array($category) : array('news', 'interviews', 'reportages', 'articles'); //TODO: weird!
@@ -191,40 +212,38 @@ class NewsController extends Controller {
         //    $newsByDate = $this->getDateGroupedNews($category, $news);
         //}
         //else { //the default way
-            //$firstLoadedDate = new \DateTime($request->get('first_loaded_date')); //at first get minimal date
+        //$firstLoadedDate = new \DateTime($request->get('first_loaded_date')); //at first get minimal date
 
-            //if ($request->query->has('first_loaded_date')) {
-            //    $firstLoadedDate->sub(new \DateInterval('P1D'))->setTime(0, 0);
-            //}
-
-            $criteria = array(
-                NewsManager::CRITERIA_CATEGORY_SLUGS_OR => $category,
-                //NewsManager::CRITERIA_NEWS_DATE_TILL => $firstLoadedDate,
-                NewsManager::CRITERIA_LIMIT => 10,
-                NewsManager::CRITERIA_ORDER_BY => array('newsDate' => 'DESC')
-            );
-
-            $news = $this->getNewsManager()->findObjects($criteria);
-
-            //if (count($news) > 0) {
-                // this is low date
-            //    $criteria[NewsManager::CRITERIA_NEWS_DATE_SINCE] = $news[count($news) - 1]->getNewsDate();
-
-                // now get news
-            //    unset($criteria[NewsManager::CRITERIA_LIMIT]);
-            //    $news = $newsManager->findObjects($criteria);
-            //    $newsByDate = $this->getDateGroupedNews($category, $news);
-            //}
+        //if ($request->query->has('first_loaded_date')) {
+        //    $firstLoadedDate->sub(new \DateInterval('P1D'))->setTime(0, 0);
         //}
 
-        return array(
-            'news' => $news,
-            'categories' => $categories,
-            'currentCategory' => $category,
-            'palette_color' => $this->palette_color,
-            'palette_color_hex' => NewsController::PALETTE_COLOR_HEX,
-            'searchQuery' => $searchQuery
+        $criteria = array(
+            NewsManager::CRITERIA_CATEGORY_SLUGS_OR => $category,
+            //NewsManager::CRITERIA_NEWS_DATE_TILL => $firstLoadedDate,
+            NewsManager::CRITERIA_LIMIT => 5,
+            NewsManager::CRITERIA_OFFSET => $offset,
+            NewsManager::CRITERIA_ORDER_BY => array('newsDate' => 'DESC')
         );
+
+        if ($searchQuery) {
+            $criteria[NewsManager::CRITERIA_SEARCH_STRING] = $searchQuery;
+        }
+
+        //if (count($news) > 0) {
+        // this is low date
+        //    $criteria[NewsManager::CRITERIA_NEWS_DATE_SINCE] = $news[count($news) - 1]->getNewsDate();
+
+        // now get news
+        //    unset($criteria[NewsManager::CRITERIA_LIMIT]);
+        //    $news = $newsManager->findObjects($criteria);
+        //    $newsByDate = $this->getDateGroupedNews($category, $news);
+        //}
+        //}
+
+        $news = $this->getNewsManager()->findObjects($criteria);
+
+        return array('news' => $news);
     }
 
     /**
@@ -261,6 +280,7 @@ class NewsController extends Controller {
             'palette_color_hex' => NewsController::PALETTE_COLOR_HEX,
             'palette_color' => $this->palette_color,
             'palette_favoritesIcon' => $this->palette_favoritesIcon,
+            'palette_favoritesIconAdded' => $this->palette_favoritesIconAdded,
             'palette_background' => $this->palette_background,
             'isCommentable' => $this->isCommentable($entity)
         );

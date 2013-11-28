@@ -3276,6 +3276,13 @@ a.sidebar-widget-item:hover > .darkLayer {
     vertical-align: top;
 }
 
+#news-showMore {
+    background: url(../../img/news_icons/show-more.png) 0 0 no-repeat;
+    width: 172px;
+    height: 43px;
+    margin: 0 auto 20px auto;
+    cursor: pointer;
+}
 #museums-showMore {
     background: url(../../img/museums_icons/show-more.png) 0 0 no-repeat;
     width: 172px;
@@ -3283,7 +3290,6 @@ a.sidebar-widget-item:hover > .darkLayer {
     margin: 0 auto 20px auto;
     cursor: pointer;
 }
-
 #imagesOfRussia-showMore {
     background: url(../../img/russia_images_icons/show-more.png) 0 0 no-repeat;
     width: 172px;
@@ -3609,6 +3615,9 @@ textarea[name="fos_comment_comment[body]"] {
 }
 .palette-favoritesIcon-1 {
     background: url(../../img/new/icons/palette-favorites-icon-1.png) no-repeat;
+}
+.palette-favoritesIconAdded-1 {
+    background: url(../../img/new/icons/palette-favorites-icon-added-1.png) no-repeat;
 }
 .palette-background-1 {
     background-color: #95BD59;

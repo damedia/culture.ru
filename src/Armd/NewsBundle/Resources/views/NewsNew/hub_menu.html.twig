@@ -1,13 +1,13 @@
 <ul class="hub-menu">
 {% spaceless %}
     <li>
-        <a{% if currentCategory is empty %} class="{{ palette_color }}"{% endif %} href="{{ path('armd_news_list_index_by_category') }}">
+        <a{% if currentCategory is empty %} class="{{ palette_color }}"{% endif %} href="{{ path('armd_news_index_by_category') }}">
             {{- "Hub.MenuAll"|trans -}}
         </a>
     </li>
     {% for category in categories if category.filtrable %}
         <li>
-            <a{% if category.slug == currentCategory %} class="{{ palette_color }}"{% endif %} href="{{ path('armd_news_list_index_by_category', { 'category': category.slug }) }}">
+            <a{% if category.slug == currentCategory %} class="{{ palette_color }}"{% endif %} href="{{ path('armd_news_index_by_category', { 'category': category.slug }) }}">
                 {{- category.title -}}
             </a>
         </li>
@@ -15,7 +15,7 @@
     <br />
     {% for category in categories if not category.filtrable %}
         <li>
-            <a{% if category.slug == currentCategory %} class="{{ palette_color }}"{% endif %} href="{{ path('armd_news_list_index_by_category', { 'category': category.slug }) }}">
+            <a{% if category.slug == currentCategory %} class="{{ palette_color }}"{% endif %} href="{{ path('armd_news_index_by_category', { 'category': category.slug }) }}">
                 {{- category.title -}}
             </a>
         </li>

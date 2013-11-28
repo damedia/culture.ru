@@ -97,6 +97,7 @@ Hub:
 Entity:
     SocialShare: Share in social networks
     AddToFavorites: Add to 'Favorites'
+    RemoveFromFavorites: Remove from 'Favorites'
     DateOfEvent: Date of event
     DateOfEventFrom: from
     DateOfEventTo: to

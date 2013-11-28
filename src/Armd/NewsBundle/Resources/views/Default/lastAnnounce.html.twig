@@ -1,7 +1,7 @@
 {% import 'ArmdNewsBundle::date_macro.html.twig' as armd_news %}
 <div class="b-colored-articles-block b-sidebar-wrap m-sidebar-wrap-last">
     <h3 class="e-block-title">
-        <a href="{{ path('armd_news_list_index_by_category', {'category': entity.category.slug }) }}" class="noTextDecoration">
+        <a href="{{ path('armd_news_index_by_category', {'category': entity.category.slug }) }}" class="noTextDecoration">
             {{ 'Main.Widget.Announce.Header'|trans }}
         </a>
     </h3>
@@ -26,7 +26,7 @@
                 {{ entity.announce|raw }}
             </section>
 
-            <a href="{{ path('armd_news_list_index_by_category', {'category': entity.category.slug }) }}" class="goto-link-button noTextDecoration fullWidth noPadding">
+            <a href="{{ path('armd_news_index_by_category', {'category': entity.category.slug }) }}" class="goto-link-button noTextDecoration fullWidth noPadding">
                 {{ 'Main.Widget.Announce.Goto'|trans }}
             </a>
         </article>

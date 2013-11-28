@@ -80,26 +80,6 @@ $(window).load(function(){
         });
     }
 
-    $('.user-favorites-button').on('click', function(e){
-        var $this = $(this),
-            type = $this.data('type'),
-            id = $this.data('id');
-
-        e.preventDefault();
-
-        $.ajax({
-            url: Routing.generate('armd_user_favorites_add'),
-            type: 'get',
-            data: { 'type': type, 'id': id },
-            dataType: 'html'
-        }).done(function(data){
-            if (data == '1') {
-                $this.remove();
-                alert('Объект добавлен в «Избранное» Вашего профиля.');
-            }
-        });
-    });
-
     // ikotelov 14.08.2013 iframe video-processing function
 //    $('.js-process-video').each(function(){
 //        var iframe = $(this).find('iframe'),

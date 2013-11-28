@@ -97,6 +97,7 @@ Hub:
 Entity:
     SocialShare: Опубликовать в социальных сетях
     AddToFavorites: Добавить в «Избранное»
+    RemoveFromFavorites: Убрать из «Избранного»
     DateOfEvent: Дата проведения
     DateOfEventFrom: с
     DateOfEventTo: по

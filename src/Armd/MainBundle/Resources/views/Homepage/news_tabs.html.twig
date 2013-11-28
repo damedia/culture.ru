@@ -14,7 +14,7 @@
                 {% set prevDate = null %}
                 {% for n in news %}
                     {% set articleHref = path('armd_news_item_by_category', {'id': n.id, 'category': n.category.slug }) %}
-                    {% set articleCategoryHref = path('armd_news_list_index_by_category', {'category': n.category.slug}) %}
+                    {% set articleCategoryHref = path('armd_news_index_by_category', {'category': n.category.slug}) %}
                     {% if loop.first %}
                         <li class="event-tab-news-one first-news">
                             {% if n.image %}
@@ -67,7 +67,7 @@
             </ul>
         {% endif %}
         <p class="all">
-            <a href="{{ path('armd_news_list_index_by_category') }}">{{ 'mainpage.read_more'|trans }}</a>
+            <a href="{{ path('armd_news_index_by_category') }}">{{ 'mainpage.read_more'|trans }}</a>
         </p>
     </div>
 </div>

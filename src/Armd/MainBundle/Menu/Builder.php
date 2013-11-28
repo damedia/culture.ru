@@ -28,19 +28,19 @@ class Builder extends ContainerAware {
         $menu = $this->factory->createItem('root');
 
         //News
-        $newsMenu = $menu->addChild('menu.news', array('route' => 'armd_news_list_index_by_category',
+        $newsMenu = $menu->addChild('menu.news', array('route' => 'armd_news_index_by_category',
                                                        'routeParameters' => array('category' => 'news')));
 
         //Media
-        $mediaMenu = $menu->addChild('menu.media', array('route' => 'armd_news_list_index_by_category',
+        $mediaMenu = $menu->addChild('menu.media', array('route' => 'armd_news_index_by_category',
                                                          'routeParameters' => array('category' => 'reportages')));
-        $mediaMenu->addChild('menu.reportage', array('route' => 'armd_news_list_index_by_category',
+        $mediaMenu->addChild('menu.reportage', array('route' => 'armd_news_index_by_category',
                                                      'routeParameters' => array('category' => 'reportages')));
-        $mediaMenu->addChild('menu.interview', array('route' => 'armd_news_list_index_by_category',
+        $mediaMenu->addChild('menu.interview', array('route' => 'armd_news_index_by_category',
                                                      'routeParameters' => array('category' => 'interviews')));
-        $mediaMenu->addChild('menu.article', array('route' => 'armd_news_list_index_by_category',
+        $mediaMenu->addChild('menu.article', array('route' => 'armd_news_index_by_category',
                                                    'routeParameters' => array('category' => 'articles')));
-        $mediaMenu->addChild('menu.events', array('route' => 'armd_news_list_index_by_category',
+        $mediaMenu->addChild('menu.events', array('route' => 'armd_news_index_by_category',
                                                   'routeParameters' => array('category' => 'events')));
         $mediaMenu->addChild('menu.lectures_news', array('route' => 'armd_lecture_news_index'));
 
@@ -126,7 +126,7 @@ class Builder extends ContainerAware {
         $menu->setChildrenAttributes(array('class' => 'b-menu'));
 
         //Media
-        $mediaMenu = $menu->addChild('menu.media', array('route' => 'armd_news_list_index_by_category'));
+        $mediaMenu = $menu->addChild('menu.media', array('route' => 'armd_news_index_by_category'));
         $mediaMenu->setAttribute('class', 'm-color-1');
 
         //Blog
@@ -180,7 +180,7 @@ class Builder extends ContainerAware {
         $menu->setChildrenAttributes(array('class' => 'footer-menu'));
 
         //Media
-        $menu->addChild('menu.news', array('route' => 'armd_news_list_index_by_category'));
+        $menu->addChild('menu.news', array('route' => 'armd_news_index_by_category'));
 
         //Blog
         //$blogMenu = $menu->addChild('menu.blog', array('route' => 'blog_list'));
