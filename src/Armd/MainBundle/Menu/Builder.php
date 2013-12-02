@@ -142,8 +142,7 @@ class Builder extends ContainerAware {
         $museumsMenu->setAttribute('class', 'm-color-3');
 
         //Movies
-        $moviesMenu = $menu->addChild('menu.cinema', array('route' => 'armd_lecture_cinema_index',
-                                                           'routeParameters' => array('genreSlug' => 'feature-film')));
+        $moviesMenu = $menu->addChild('menu.cinema', array('route' => 'armd_lecture_cinema_index'));
         $moviesMenu->setAttribute('class', 'm-color-4');
 
         //Theaters

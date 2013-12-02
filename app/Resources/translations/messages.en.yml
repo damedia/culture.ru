@@ -102,6 +102,7 @@ Entity:
     DateOfEventFrom: from
     DateOfEventTo: to
     Source: Source
+    GotoSection: go to section
 
 
 

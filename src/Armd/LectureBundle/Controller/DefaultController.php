@@ -13,31 +13,95 @@ use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
-class DefaultController extends Controller
-{
+class DefaultController extends Controller {
+    const PALETTE_COLOR_HEX = '#327BA7';
+
+    private $palette_color = 'palette-color-4';
+    private $palette_colored_box = 'palette-colored-box-4';
+
+    private function getMoviesRootGenres() {
+        $em = $this->getDoctrine()->getManager();
+        $genres = $em->getRepository('ArmdLectureBundle:LectureGenre')
+            ->createQueryBuilder('g')
+            ->innerJoin('g.lectureSuperType', 'st')
+            ->where('st.code = :super_type_code')
+            ->andWhere('g.level = :level')
+            ->orderBy('g.sortIndex',  'ASC')
+            ->addOrderBy('g.id',  'ASC')
+            ->setParameters(array('super_type_code' => 'LECTURE_SUPER_TYPE_CINEMA', 'level' => 1))
+            ->getQuery()->getResult();
+
+        return $genres;
+    }
 
     /**
-     * @Route(
-     *  "/cinema/{genreSlug}",
-     *  name="armd_lecture_cinema_index",
-     *  defaults={"genreSlug"=null}
-     * )
+     * Movies -> Hub page
      *
+     * @Route("/cinema/{genreSlug}", name="armd_lecture_cinema_index", defaults={"genreSlug"=null}, options={"expose"=true})
+     * @Template("ArmdLectureBundle:Movies:index.html.twig")
      */
-    public function cinemaIndexAction($genreSlug = null)
-    {
+    public function cinemaIndexAction($genreSlug = null) {
+        $request = $this->getRequest();
+        $em = $this->getDoctrine()->getManager();
+        $superTypeRepository = $em->getRepository('ArmdLectureBundle:LectureSuperType');
+
+        $selectedGenreId = $request->get('selectedGenreId');
+
+        $moviesRootGenres = $this->getMoviesRootGenres();
+
+        if ($genreSlug) {
+            $genreRepository = $em->getRepository('ArmdLectureBundle:LectureGenre');
+            $genresForSections = $genreRepository->findBySlug($genreSlug);
+        }
+        else {
+            $genresForSections = $moviesRootGenres;
+        }
+
+        $lectureSuperType = $superTypeRepository->findOneByCode('LECTURE_SUPER_TYPE_CINEMA');
+        $genresForFilter = $this->getGenres($lectureSuperType);
+
+        $filter = $this->getFilter();
+
+        /* TODO: Use GROUP BY and extract this to a method! */
+        $totals = array();
+        $lectureRepository = $em->getRepository('ArmdLectureBundle:Lecture');
+        foreach ($genresForSections as $genre) {
+            $qb = $lectureRepository->createQueryBuilder('g');
+            $count = $qb
+                ->select('COUNT(g)')
+                ->innerJoin('g.lectureSuperType', 'st')
+                ->innerJoin('g.genres', 'gen')
+                ->where('st.code = :super_type_code')
+                ->andWhere('gen.id = :genre')
+                ->setParameters(array('super_type_code' => 'LECTURE_SUPER_TYPE_CINEMA', 'genre' => $genre->getId()))
+                ->getQuery()->getSingleScalarResult();
+            $totals[$genre->getSlug()] = $count;
+        }
+
+        return array(
+            'palette_color' => $this->palette_color,
+            'palette_color_hex' => DefaultController::PALETTE_COLOR_HEX,
+            'current_genre' => $genreSlug,
+            'moviesRootGenres' => $moviesRootGenres,
+            'genresForSections' => $genresForSections,
+            'genres' => $genresForFilter,
+            'selectedGenreId' => $selectedGenreId,
+            'filter' => $filter,
+            'totals' => $totals
+        );
+
+        /*
         $em = $this->getDoctrine()->getManager();
         $request = $this->getRequest();
         $genreIds = array();
 
         // first level genre
         if ($genreSlug) {
-            $genre1 = $em->getRepository('ArmdLectureBundle:LectureGenre')
-                ->findOneBySlug($genreSlug);
+            $genre1 = $em->getRepository('ArmdLectureBundle:LectureGenre')->findOneBySlug($genreSlug);
         }
+
         if (empty($genre1)) {
-            $genre1 = $em->getRepository('ArmdLectureBundle:LectureGenre')
-                ->findOneBySlug('feature-film');
+            $genre1 = $em->getRepository('ArmdLectureBundle:LectureGenre')->findOneBySlug('feature-film');
         }
 
         if ($genre1) {
@@ -52,9 +116,7 @@ class DefaultController extends Controller
 
         return $this->forward(
             'ArmdLectureBundle:Default:index',
-            array(
-                'lectureSuperTypeCode' => 'LECTURE_SUPER_TYPE_CINEMA',
-            ),
+            array('lectureSuperTypeCode' => 'LECTURE_SUPER_TYPE_CINEMA'),
             array(
                 'genre1_id' => is_object($genre1) ? $genre1->getId() : 0, // for breadcrumbs
                 'genre_ids' => $genreIds,
@@ -64,6 +126,77 @@ class DefaultController extends Controller
                 'search_query' => $request->get('search_query')
             )
         );
+        */
+    }
+
+    /**
+     * Movies -> Hub page -> Genre section list
+     *
+     * @Route("/cinema/genre-section-list/{genreId}", name="armd_movies_genre_section_list", options={"expose"=true})
+     * @Template("ArmdLectureBundle:Movies:genreSectionList.html.twig")
+     */
+    public function moviesGenreSectionListAction($genreId) {
+        $request = $this->getRequest();
+        $genreSlug = $request->get('genreSlug');
+        $firstLetter = $request->get('firstLetter');
+        $limit = $request->get('limit');
+        $loadedIds = $request->get('loadedIds');
+        $extra = $request->get('extra');
+        $selectedGenreId = $request->get('selectedGenreId');
+
+        $genreIds = array($genreId);
+
+        if ($extra) {
+            $limit++;
+        }
+
+        if ($selectedGenreId) {
+            $genreIds[] = $selectedGenreId;
+        }
+
+        $criteria = $this->getListCriteria('LECTURE_SUPER_TYPE_CINEMA');
+        $criteria[LectureManager::CRITERIA_GENRE_IDS_AND] = array_unique($genreIds);
+        $criteria[LectureManager::CRITERIA_LIMIT] = $limit;
+        $criteria[LectureManager::CRITERIA_RANDOM] = true;
+
+        if ($firstLetter) {
+            $criteria[LectureManager::CRITERIA_FIRST_LETTER] = $firstLetter;
+        }
+
+        if ($loadedIds) {
+            $criteria[LectureManager::CRITERIA_NOT_IDS] = array_unique($loadedIds);
+        }
+
+        $movies = $this->getLectureManager()->findObjects($criteria);
+
+        return array(
+            'genreSlug' => $genreSlug,
+            'palette_colored_box' => $this->palette_colored_box,
+            'movies' => $movies,
+            'extra' => $extra
+        );
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /**
+     * @Route("/movies-index-sidebar", name="armd_movies_index_sidebar", options={"expose"=true})
+     * @Template("ArmdLectureBundle:Movies:indexSidebar.html.twig")
+     */
+    public function moviesIndexSidebarAction() {
+        return array();
     }
 
     /**

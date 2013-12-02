@@ -102,6 +102,7 @@ Entity:
     DateOfEventFrom: с
     DateOfEventTo: по
     Source: Источник
+    GotoSection: перейти в раздел
 
 
 

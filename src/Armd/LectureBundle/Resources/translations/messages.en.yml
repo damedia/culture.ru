@@ -1,3 +1,7 @@
+Movies: Movies
+searchCategoryGenre: Genre
+CounterText: movies
+
 LECTURE_SUPER_TYPE_LECTURE: Lectures
 LECTURE_SUPER_TYPE_VIDEO_TRANSLATION: Translations
 LECTURE_SUPER_TYPE_CINEMA: Cinema Hall

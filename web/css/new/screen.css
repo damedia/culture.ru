@@ -94,6 +94,7 @@ a,
 a > span,
 input[type='button'],
 input[type='submit'],
+span[data-role='button'],
 div[data-role='button'],
 button {
     -webkit-transition: color 0.2s linear, text-decoration 0.2s linear, opacity 0.2s linear, background-color 0.2s linear;
@@ -3040,6 +3041,12 @@ a.sidebar-widget-item:hover > .darkLayer {
 .fullWidth {
     width: 100%;
 }
+.width171 {
+    width: 171px;
+}
+.width200 {
+    width: 200px;
+}
 .width220 {
     width: 220px;
 }
@@ -3166,6 +3173,27 @@ a.sidebar-widget-item:hover > .darkLayer {
     display: block;
 }
 
+.movies-counter {
+    width: 59px;
+    height: 59px;
+    background: url(../../img/movies_icons/circle.png) 0 0 no-repeat;
+    position: absolute;
+    left: -100px;
+    color: #ffffff;
+    text-align: center;
+}
+.movies-counter .count {
+    font-weight: bolder;
+    font-size: 1.5em;
+    margin-top: 13px;
+    display: block;
+}
+.movies-counter .text {
+    font-size: 0.8em;
+    margin-top: -7px;
+    display: block;
+}
+
 .hub-header-title {
     font-size: 48px;
     text-transform: uppercase;
@@ -3175,7 +3203,7 @@ a.sidebar-widget-item:hover > .darkLayer {
     font-weight: normal;
     font-family: "pf_din_text_cond_promedium", serif
 }
-.search-category {
+.imagesOfRussia-search-category {
     position: absolute;
     top: 630px;
     left: -20px;
@@ -3184,7 +3212,7 @@ a.sidebar-widget-item:hover > .darkLayer {
     background: url(../../img/russia_images_icons/filters-pane.png) 0 0 no-repeat;
     padding: 6px 0 0 25px;
 }
-.search-category-selects {
+.imagesOfRussia-search-category-selects {
     display: inline-block;
     vertical-align: top;
     margin-top: 6px;
@@ -3195,7 +3223,7 @@ a.sidebar-widget-item:hover > .darkLayer {
     max-height: 400px;
     overflow: auto;
 }
-.search-category-submit {
+.imagesOfRussia-search-category-submit {
     text-transform: lowercase;
     height: 19px;
     line-height: 21px;
@@ -3207,6 +3235,78 @@ a.sidebar-widget-item:hover > .darkLayer {
     background-color: #FFFFFF;
     text-align: center;
     cursor: pointer;
+}
+.movies-search-category {
+    position: absolute;
+    top: 130px;
+    left: -20px;
+    width: 729px;
+    height: 54px;
+    background: url(../../img/movies_icons/filters-pane.png) 0 0 no-repeat;
+    padding: 6px 0 0 25px;
+}
+.movies-search-category-selects {
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 6px;
+    border: 1px solid #ddd;
+    background: #fff;
+}
+.movies-search-category-submit {
+    text-transform: lowercase;
+    height: 19px;
+    line-height: 21px;
+    position: relative;
+    text-decoration: none;
+    width: 104px;
+    margin-top: 6px;
+    border: 1px solid #DDDDDD;
+    background-color: #FFFFFF;
+    text-align: center;
+    cursor: pointer;
+}
+
+.movies-genre-section {
+    margin-bottom: 30px;
+}
+.movies-genre-section-item {
+    display: inline-block;
+    width: 171px;
+    min-height: 280px;
+    margin-bottom: 10px;
+    vertical-align: top;
+    overflow: hidden;
+}
+.movies-genre-section-imageStub {
+    width: 171px;
+    height: 228px;
+    background-color: #E1E3E4;
+}
+.movies-genre-section-spacer {
+    display: inline-block;
+    width: 5px;
+}
+
+.movies-alphabet-filter {
+    float: right;
+    font-size: 11px;
+    text-align: right;
+    display: inline-block;
+    width: 490px;
+    margin-right: 1px;
+}
+.movies-alphabet-filter span {
+    cursor: pointer;
+    text-transform: uppercase;
+    color: #7D8687;
+    outline: none;
+    font-weight: bold;
+}
+.movies-alphabet-filter span.active {
+    cursor: default;
+}
+.movies-alphabet-filter span.all-let {
+    margin-right: 8px;
 }
 
 .imagesOfRussia-hub-background {
@@ -3295,6 +3395,13 @@ a.sidebar-widget-item:hover > .darkLayer {
     width: 172px;
     height: 43px;
     margin: 0 auto 20px auto;
+    cursor: pointer;
+}
+.movies-showMore {
+    background: url(../../img/movies_icons/show-more.png) 0 0 no-repeat;
+    width: 172px;
+    height: 43px;
+    margin: -20px auto 50px auto;
     cursor: pointer;
 }
 

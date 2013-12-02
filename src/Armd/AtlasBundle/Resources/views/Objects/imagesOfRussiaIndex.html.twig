@@ -36,7 +36,7 @@
                 <span class="marginRight8">
                     {{ 'Filter'|trans }}:
                 </span>
-                <div class="search-category-selects">
+                <div class="imagesOfRussia-search-category-selects">
                     <select name="object-region" id="object-region" class="uni">
                         <option value="">{{ "search_category.region"|trans }}</option>
                         {% for region in regions %}
@@ -44,7 +44,7 @@
                         {% endfor %}
                     </select>
                 </div>
-                <div class="search-category-selects">
+                <div class="imagesOfRussia-search-category-selects">
                     <select name="object-type" id="object-type" class="uni">
                         <option value="">{{ "search_category.type"|trans }}</option>
                         {% for type in types %}
@@ -52,7 +52,7 @@
                         {% endfor %}
                     </select>
                 </div>
-                <div class="search-category-selects">
+                <div class="imagesOfRussia-search-category-selects">
                     <select name="object-thematic" id="object-thematic" class="uni">
                         <option value="">{{ "search_category.theme"|trans }}</option>
                         {% for thematic in thematics %}
@@ -60,7 +60,7 @@
                         {% endfor %}
                     </select>
                 </div>
-                <div id="imagesOfRussia-searchButton" data-role="button" class="search-category-submit displayInlineBlock {{ palette_color }}">
+                <div id="imagesOfRussia-searchButton" data-role="button" class="imagesOfRussia-search-category-submit displayInlineBlock {{ palette_color }}">
                     {{ "search_category.show"|trans }}
                 </div>
             </div>
@@ -85,7 +85,7 @@
         $(window).load(function(){
             var itemsPlaceholder = $('#imagesOfRussia-images-list-placeholder'),
                 getCurrentFilters = function(){
-                    var filtersWrapper = $('div.search-category'),
+                    var filtersWrapper = $('div.imagesOfRussia-search-category'),
                         region = $('select[name="object-region"]', filtersWrapper).val(),
                         type = $('select[name="object-type"]', filtersWrapper).val(),
                         thematic = $('select[name="object-thematic"]', filtersWrapper).val();
