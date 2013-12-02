@@ -102,18 +102,25 @@
 
     <script type="text/javascript" src="{{ asset('vendor/jquery-ui/jquery-ui-1.8.24.custom.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('vendor/selectgroup/jquery.ui.selectgroup.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/DamediaSimpleSlider.js') }}"></script>
     <script type="text/javascript">
         $(window).load(function(){
+            /* Sidebar slider widget */
+            $.each($('div.sidebar-movies-widget-switcher'), function(){
+                DamediaSimpleSlider.init($(this),{
+                    next: '{{ 'Sidebar.LinkedContent.Next'|trans }}'
+                });
+            });
+
             /* Activate jQuery widgets for filter selects. */
             $('select.uni').each(function(){
                 $(this).selectgroup();
             });
             $('#movies-searchButton').on('click', function(){
                 var filtersWrapper = $('.movies-search-category-selects'),
-                    selectedGenreId = filtersWrapper.find('select[name="movies-genre"]').val(),
-                    ajaxUrl = Routing.generate('armd_lecture_cinema_index', {genreSlug: '{{ current_genre }}', selectedGenreId: selectedGenreId});
+                    selectedGenreId = filtersWrapper.find('select[name="movies-genre"]').val();
 
-                window.location = ajaxUrl;
+                window.location = Routing.generate('armd_lecture_cinema_index', {genreSlug: '{{ current_genre }}', selectedGenreId: selectedGenreId});
             });
 
             /* Show more button */

@@ -1,6 +1,7 @@
 Movies: Movies
 searchCategoryGenre: Genre
 CounterText: movies
+SidebarRecommended: recommended
 
 LECTURE_SUPER_TYPE_LECTURE: Lectures
 LECTURE_SUPER_TYPE_VIDEO_TRANSLATION: Translations

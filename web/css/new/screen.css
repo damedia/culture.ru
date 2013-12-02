@@ -3070,6 +3070,9 @@ a.sidebar-widget-item:hover > .darkLayer {
 .noPadding {
     padding: 0 !important;
 }
+.paddingSides10 {
+    padding: 0 10px !important;
+}
 .paddingSides15 {
     padding: 0 15px !important;
 }
@@ -3104,6 +3107,9 @@ a.sidebar-widget-item:hover > .darkLayer {
 }
 .marginLeft40 {
     margin-left: 40px;
+}
+.marginBottom10 {
+    margin-bottom: 10px;
 }
 .marginBottom15 {
     margin-bottom: 15px;
@@ -3171,6 +3177,12 @@ a.sidebar-widget-item:hover > .darkLayer {
     font-size: 0.8em;
     margin-top: -7px;
     display: block;
+}
+
+.movies-sidebar-featured {
+    background: url(../../img/movies_icons/movies-sidebar-back.png) 0 0 repeat-y;
+    min-height: 319px;
+    margin-bottom: 15px !important;
 }
 
 .movies-counter {
@@ -3855,7 +3867,6 @@ ul.comments-list li {
 .sidebar-widget {
     background-color: #E1E3E4;
     margin-bottom: 40px;
-    padding-bottom: 10px;
 }
 .sidebar-related-widget {
     /*background-color: #44FF55;*/

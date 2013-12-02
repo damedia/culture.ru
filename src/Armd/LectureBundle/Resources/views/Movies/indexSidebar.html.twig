@@ -1,3 +1,24 @@
-<div style="background-color: dodgerblue; height: 400px;">
-    Мигалкофф и другие
+<div class="sidebar-widget movies-sidebar-featured sidebar-movies-widget-switcher">
+    <div class="header-text-medium textAlignCenter paddingTopBottom20">
+        {{ 'SidebarRecommended'|trans }}
+    </div>
+
+    {% for movie in featured %}
+        <div class="sidebar-item-wrapper">
+            <a href="{{ path('armd_lecture_view', {'id': movie.id}) }}">
+                <img src="{% path movie.verticalBanner, 'xbig' %}" class="displayBlock" width="240" height="auto" />
+            </a>
+
+            <div class="sidebar-item-description paddingSides10">
+                <a class="sidebar-item-title marginBottom10" href="{{ path('armd_lecture_view', {'id': movie.id}) }}">
+                    {{ movie.title }} / {{ movie.productionYear }}
+                </a>
+
+                {{ movie.description|raw }}
+            </div>
+        </div>
+    {% endfor %}
 </div>
+
+{% render url('armd_sidebar_atlas_related_objects', {'tags': {}, 'limit': 1}) %}
+{% render url('armd_sidebar_lecture_related_lectures', {'tags': {}, 'limit': 4, 'superTypeCode': 'LECTURE_SUPER_TYPE_LECTURE', 'headerText': 'Sidebar.LinkedContent.Type.Lectures'|trans}) %}

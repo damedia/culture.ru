@@ -177,27 +177,30 @@ class DefaultController extends Controller {
         );
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     /**
      * @Route("/movies-index-sidebar", name="armd_movies_index_sidebar", options={"expose"=true})
      * @Template("ArmdLectureBundle:Movies:indexSidebar.html.twig")
      */
     public function moviesIndexSidebarAction() {
-        return array();
+        $repo = $this->getDoctrine()->getRepository('ArmdLectureBundle:Lecture');
+        $featuredMovies = $repo->findCinemaForMainPage('', 5, 'recommend');
+
+        return array('featured' => $featuredMovies);
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     /**
      * @param $objects
