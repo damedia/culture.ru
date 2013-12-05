@@ -32,8 +32,3 @@ services:
         class: Armd\TvigleVideoBundle\EventListener\MediaListener
         tags:
             - { name: doctrine.event_listener, event: preRemove }
-
-    armd_tvigle_video.twig.tvigle_video_extension:
-        class: Armd\TvigleVideoBundle\Extension\TvigleVideoTwigExtension
-        tags:
-            - { name: twig.extension }
