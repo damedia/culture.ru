@@ -1,0 +1,290 @@
+{% extends ':Frontend:new_base.html.twig' %}
+
+{% block title %}{{ entity.title|default(entity.title) }} &mdash; {{ parent() }}{% endblock %}
+{% block meta_keywords %}{{ entity.seoKeywords|default('') }}{% endblock %}
+{% block meta_description %}{{ entity.seoDescription|default('') }}{% endblock %}
+
+{% block opengraph %}
+    <meta property="og:title" content="{{ entity.title }}" />
+    <meta property="og:description" content="{{ entity.russiaImageAnnounce|striptags }}" />
+    <meta property="og:site_name" content="{{ 'Portal title'|trans }}" />
+    <meta property="og:url" content="{{ app.request.uri }}" />
+    {% if entity.primaryImage is not empty %}
+        <meta property="og:image" content="{% path entity.primaryImage, 'reference' %}" />
+    {% elseif entity.images|length > 0 %}
+        <meta property="og:image" content="{% path entity.images[0], 'imagesOfRussia' %}" />
+    {% endif %}
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    <link rel="stylesheet" href="{{ asset('vendor/flexslider/flexslider.css') }}" />
+    <link rel="stylesheet" href="{{ asset('vendor/fancybox/jquery.fancybox.css') }}" />
+    <style type="text/css">
+        .fancybox-video-wrapper iframe {
+            display: block;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="b-post">
+        <h1 class="b-left-title">{{ 'ImagesOfRussia'|trans }}</h1>
+
+        <div id="imagesOfRussia-item-header">
+            <span>{{ entity.title }}</span>
+        </div>
+
+        {% if entity.images|length > 0 %}
+            <div id="imageOfRussia-gallery">
+                <div class="theSlides-controls-wrapper">
+                    <div class="theSlides-controls">
+                        <span></span>
+                    </div>
+                </div>
+                <div id="image-slider">
+                    <ul class="theSlides image-slider">
+                        {% for h in entity.images %}
+                            <li>
+                                <a class="fancybox" rel="slider" href="{% path h, 'reference' %}">
+                                    <img src="{% path h, 'big' %}" alt="{{ entity.title }}" width="700" height="auto" />
+                                </a>
+                                <div class="imageCounter displayNone">
+                                    {{ loop.index }} {{ 'search_of'|trans }} {{ entity.images|length }}
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <div class="entity-image-footer">
+                    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                        {% if isInFavorites %}
+                            {{ include('ArmdMainBundle:Generics:favoriteIcon.html.twig', {
+                            'palette_color': palette_color,
+                            'palette_icon': palette_favoritesIconAdded,
+                            'action': 'remove',
+                            'text': 'Entity.RemoveFromFavorites'|trans
+                            }) }}
+                        {% else %}
+                            {{ include('ArmdMainBundle:Generics:favoriteIcon.html.twig', {
+                            'palette_color': palette_color,
+                            'palette_icon': palette_favoritesIcon,
+                            'action': 'add',
+                            'text': 'Entity.AddToFavorites'|trans
+                            }) }}
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+        {% endif %}
+
+        <div class="content-anons marginBottom70">
+            {% if entity.mediaVideos|length > 0 %}
+                {% if entity.mediaVideos|length > 1 %}
+                    {% set showName = true %}
+                {% endif %}
+
+                <div id="imagesOfRussia-item-video">
+                    <div class="videoHeader header-text-medium textAlignCenter paddingTopBottom20">
+                        {{ 'video'|trans }}
+                    </div>
+
+                    {% for video in entity.mediaVideos %}
+                        <a class="fancybox displayBlock positionRelative" href="#data-{{ loop.index }}">
+                            <img src="{{ video.providerMetadata.thumbnail_url }}" width="240" height="auto" />
+                            <span class="play"></span>
+                        </a>
+                        {% if showName is defined %}
+                            <div class="fontBold">
+                                {{ video.name }}
+                            </div>
+                        {% endif %}
+                        <div id="data-{{ loop.index }}" class="displayNone">
+                            <div class="fancybox-video-wrapper">
+                                {% media video, 'reference' with { 'width': 640, 'height': 360} %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            {{ entity.content|raw }}
+
+            <div class="b-share-buttons">
+                <span class="small-title m-first">{{ 'Entity.SocialShare'|trans }}:</span>
+                <span id="yandex-share"></span>
+            </div>
+        </div>
+    </div>
+
+    <div id="imagesOfRussia-images-list-placeholder">
+        <div class="commtents-header">
+            {{ 'recommended'|trans }}
+        </div>
+
+        {% render url('armd_atlas_images_of_russia_list', { 'limit': 9, 'relatedTo': entity.id }) %}
+    </div>
+{% endblock %}
+
+{% block sidebar %}
+    {{ include('ArmdAtlasBundle:Objects:imagesOfRussiaItem_sidebar.html.twig', {  }) }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript" src="http://yandex.st/share/share.js" charset="utf-8"></script>
+    <script type="text/javascript" src="{{ asset('vendor/fancybox/jquery.fancybox.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/damedia/addToFavorites.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/damedia/share.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('vendor/flexslider/jquery.flexslider-min.js') }}"></script>
+
+    <script type="text/javascript">
+        var sample = 1,
+            smPos = 153,
+            spPos = 153,
+            sW,
+            sH;
+    </script>
+    <script type="text/javascript" src="{{ asset('vendor/zp/zp.js') }}"></script>
+
+    <script type="text/javascript">
+        $(window).load(function(){
+            var mainGallery = $('#imageOfRussia-gallery'),
+                mainGallery_numeratorPlaceholder = mainGallery.find('div.theSlides-controls > span'),
+                archiveGallery = $('#imageOfRussia-archiveGallery'),
+                archiveGallery_numeratorPlaceholder = archiveGallery.find('div.archiveSlides-controls > span');
+
+            $('#image-slider').flexslider({
+                selector: '.theSlides > li',
+                animation: 'slide',
+                slideshow: false,
+                start: function(flexsliderWrapper){
+                    var controlsPlaceholder = mainGallery.find('.theSlides-controls'),
+                        navControls = flexsliderWrapper.find('ul.flex-direction-nav'),
+                        counter = flexsliderWrapper.find('li.flex-active-slide .imageCounter').text(),
+                        slideLeft = navControls.find('li:first'),
+                        slideRight = navControls.find('li:last');
+
+                    navControls.addClass('itemMainGallery');
+                    slideLeft.addClass('slideLeft');
+                    slideRight.addClass('slideRight');
+
+                    mainGallery_numeratorPlaceholder.text(counter);
+                    navControls.detach().appendTo(controlsPlaceholder);
+                },
+                after: function(flexsliderWrapper){
+                    var counter = flexsliderWrapper.find('li.flex-active-slide .imageCounter').text();
+
+                    mainGallery_numeratorPlaceholder.text(counter);
+                }
+            });
+
+            $('#archive-slider').flexslider({
+                selector: '.archiveSlides > li',
+                animation: 'slide',
+                slideshow: false,
+                start: function(flexsliderWrapper){
+                    var controlsPlaceholder = archiveGallery.find('.archiveSlides-controls'),
+                            navControls = flexsliderWrapper.find('ul.flex-direction-nav'),
+                            counter = flexsliderWrapper.find('li.flex-active-slide .imageCounter').text(),
+                            slideLeft = navControls.find('li:first'),
+                            slideRight = navControls.find('li:last');
+
+                    navControls.addClass('itemMainGallery');
+                    slideLeft.addClass('slideLeft');
+                    slideRight.addClass('slideRight');
+
+                    archiveGallery_numeratorPlaceholder.text(counter);
+                    navControls.detach().appendTo(controlsPlaceholder);
+                },
+                after: function(flexsliderWrapper){
+                    var counter = flexsliderWrapper.find('li.flex-active-slide .imageCounter').text();
+
+                    archiveGallery_numeratorPlaceholder.text(counter);
+                }
+            });
+
+            $('.fancybox').fancybox({
+                prevEffect: 'none',
+                nextEffect: 'none'
+            });
+
+            $('.iframe').fancybox({
+                'width': '100%',
+                'height': '100%',
+                'autoScale': true,
+                'transitionIn': 'none',
+                'transitionOut': 'none',
+                'type': 'iframe'
+            });
+
+            $('.zoom-fancybox').on('click', function(){
+                var sourceSelector = $(this).attr("href"),
+                    $img = $('img', sourceSelector).clone(),
+                    $title = $('div', sourceSelector);
+
+                $title.find('a').css('color', '#ffffff');
+                $img.css('visibility', 'hidden');
+
+                $.fancybox.open({
+                    autoSize: false,
+                    scrolling: 'no',
+                    type: 'html',
+                    title: $title.html(),
+                    content: $img,
+                    helpers: {title: {type: 'outside'}},
+                    afterShow: function(){
+                        $img.css('visibility', 'visible');
+                        $img.z({
+                            width: $.fancybox.inner.width(),
+                            height: $.fancybox.inner.height(),
+                            initial_POSITION: '0, 0',
+                            initial_ZOOM: $.fancybox.inner.width() / $img.width() * 100,
+                            button_ICON_IMAGE: '{{ asset('vendor/zp/zoom_assets/icons.png') }}',
+                            border_SIZE: 0
+                        });
+                    },
+                    onUpdate: function(){
+                        var $fbInner = $($.fancybox.inner),
+                            fbInnerWidth  = $fbInner.width(),
+                            fbInnerHeight = $fbInner.height();
+
+                        zoomer_.sW = fbInnerWidth;
+                        zoomer_.sH = fbInnerHeight;
+                        zoomer_.zoom = $.fancybox.inner.width() / $img.width() * 100;
+                        zoomer_.$holder.width(fbInnerWidth);
+                        zoomer_.$holder.height(fbInnerHeight);
+                        zoomer_.Reset();
+                    }
+                });
+            });
+
+            DamediaShare.init({
+                locale: '{{ app.request.locale }}',
+                link: '{{ url('view_blog', { 'id': entity.id }) }}',
+                title: '{{ entity.title }}',
+                description: '{{ entity.announce|replace({"\n":'',"\r":''})|striptags }}'
+            });
+
+            DamediaAddToFavorites.init({
+                entityType: '{{ constant('Armd\\UserBundle\\Entity\\Favorites::TYPE_ATLAS') }}',
+                entityId: '{{ entity.id }}',
+                htmlReplacementForAdd: '{{ include('ArmdMainBundle:Generics:favoriteIcon.html.twig', {
+                    'palette_color': palette_color,
+                    'palette_icon': palette_favoritesIconAdded,
+                    'action': 'remove',
+                    'text': 'Entity.RemoveFromFavorites'|trans
+                }) }}',
+                htmlReplacementForRemove : '{{ include('ArmdMainBundle:Generics:favoriteIcon.html.twig', {
+                    'palette_color': palette_color,
+                    'palette_icon': palette_favoritesIcon,
+                    'action': 'add',
+                    'text': 'Entity.AddToFavorites'|trans
+                }) }}'
+            });
+        });
+    </script>
+{% endblock %}

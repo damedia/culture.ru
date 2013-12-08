@@ -81,3 +81,7 @@ services:
                     confirmation:         %fos_user.registration.confirmation.from_email%
                     profile_confirmation: %armd_user.profile.confirmation.from_email%
                     resetting:            %fos_user.resetting.email.from_email%
+
+    armd_favorites_manager:
+        class: Armd\UserBundle\Model\FavoritesManager
+        arguments: [@security.context, @doctrine.orm.entity_manager]

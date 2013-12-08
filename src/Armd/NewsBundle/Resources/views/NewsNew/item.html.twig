@@ -3,8 +3,8 @@
 {% import 'ArmdNewsBundle::date_macro.html.twig' as armd_news %}
 
 {% block title %}{{ entity.seoTitle|default(entity.title) }} &mdash; {{ parent() }}{% endblock %}
-{% block meta_keywords %}{{ entity.seoKeywords }}{% endblock %}
-{% block meta_description %}{{ entity.seoDescription }}{% endblock %}
+{% block meta_keywords %}{{ entity.seoKeywords|default('') }}{% endblock %}
+{% block meta_description %}{{ entity.seoDescription|default('') }}{% endblock %}
 
 {% block opengraph %}
     <meta property="og:title" content="{{ entity.title }}" />
@@ -30,7 +30,7 @@
 {% endblock %}
 
 {% block body %}
-    <div class="b-main-wrap b-post b-post-taxonomy">
+    <div class="b-post b-post-taxonomy marginBottom70">
         <h1 class="b-left-title">{{ 'Media'|trans }}</h1>
 
         {{ include('ArmdNewsBundle:NewsNew:hub_menu.html.twig', { 'categories': categories, 'palette_color': palette_color, 'currentCategory': entity.category.slug }) }}
@@ -58,7 +58,7 @@
 
             <div class="entity-image-footer">
                 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                    {% if isFavored %}
+                    {% if isInFavorites %}
                         {{ include('ArmdMainBundle:Generics:favoriteIcon.html.twig', {
                             'palette_color': palette_color,
                             'palette_icon': palette_favoritesIconAdded,
@@ -103,6 +103,8 @@
     {{ parent() }}
 
     <script type="text/javascript" src="http://yandex.st/share/share.js" charset="utf-8"></script>
+    <script type="text/javascript" src="{{ asset('js/damedia/addToFavorites.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/damedia/share.js') }}"></script>
     <script type="text/javascript">
         $(function(){
             var searchWrapper = $('#quick-search-wrapper'),
@@ -126,59 +128,28 @@
                 }
             });
 
-            new Ya.share({
-                element: 'yandex-share',
-                l10n: {% if app.request.locale == 'ru' %}'ru'{% else %}'en'{% endif %},
-                theme: 'default',
-                elementStyle: {
-                    type: 'none',
-                    quickServices: ['vkontakte', 'lj', 'twitter', 'facebook', 'odnoklassniki']
-                },
+            DamediaShare.init({
+                locale: '{{ app.request.locale }}',
                 link: '{{ url('view_blog', { 'id': entity.id }) }}',
                 title: '{{ entity.title }}',
                 description: '{{ entity.announce|replace({"\n":'',"\r":''})|striptags }}'
             });
 
-            /* Adding to Favorites */
-            $('.entity-image-footer').on('click', '.user-favorites-button', function(e){
-                var $this = $(this),
-                    action = $this.attr('data-action'),
-                    htmlReplacement,
-                    ajaxUrl,
-                    ajaxData = {
-                        type: '{{ constant('Armd\\UserBundle\\Entity\\Favorites::TYPE_MEDIA') }}',
-                        id: '{{ entity.id }}',
-                        redirect: false
-                    };
-
-                e.preventDefault();
-
-                if (action === 'add') {
-                    ajaxUrl = Routing.generate('armd_user_favorites_add');
-                    htmlReplacement = '{{ include('ArmdMainBundle:Generics:favoriteIcon.html.twig', {
-                        'palette_color': palette_color,
-                        'palette_icon': palette_favoritesIconAdded,
-                        'action': 'remove',
-                        'text': 'Entity.RemoveFromFavorites'|trans
-                    }) }}';
-                }
-                else {
-                    ajaxUrl = Routing.generate('armd_user_favorites_del');
-                    htmlReplacement = '{{ include('ArmdMainBundle:Generics:favoriteIcon.html.twig', {
-                        'palette_color': palette_color,
-                        'palette_icon': palette_favoritesIcon,
-                        'action': 'add',
-                        'text': 'Entity.AddToFavorites'|trans
-                    }) }}';
-                }
-
-                $.ajax({ url: ajaxUrl, type: 'get', data: ajaxData, dataType: 'html' }).done(function(data){
-                    if (data == '1') {
-                        $this.fadeOut(200, function(){
-                            $this.replaceWith(htmlReplacement);
-                        });
-                    }
-                });
+            DamediaAddToFavorites.init({
+                entityType: '{{ constant('Armd\\UserBundle\\Entity\\Favorites::TYPE_MEDIA') }}',
+                entityId: '{{ entity.id }}',
+                htmlReplacementForAdd: '{{ include('ArmdMainBundle:Generics:favoriteIcon.html.twig', {
+                    'palette_color': palette_color,
+                    'palette_icon': palette_favoritesIconAdded,
+                    'action': 'remove',
+                    'text': 'Entity.RemoveFromFavorites'|trans
+                }) }}',
+                htmlReplacementForRemove : '{{ include('ArmdMainBundle:Generics:favoriteIcon.html.twig', {
+                    'palette_color': palette_color,
+                    'palette_icon': palette_favoritesIcon,
+                    'action': 'add',
+                    'text': 'Entity.AddToFavorites'|trans
+                }) }}'
             });
         });
     </script>

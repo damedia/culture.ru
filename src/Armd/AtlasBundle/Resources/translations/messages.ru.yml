@@ -98,7 +98,7 @@ infographics_open_original: Открыть оригинал
 mobile_app: Мобильное приложение
 available_appstore: Доступно в AppStore
 video: Видео
-archives: Архивы
+archives: Фотоархивы
 archive_document: Архивный документ
 contact_info: Контактная информация
 website: Веб-сайт
@@ -136,7 +136,7 @@ types_icons:
     photo_gallery: Фотогалерея
     archives: Архивы
 
-save_original_photo: Сохранить
+save_original_photo: Сохранить изображение
 read_more: Читать дальше
 read_more_2: Читать дальше
 recommended: Рекомендуем

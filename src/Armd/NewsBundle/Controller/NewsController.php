@@ -261,21 +261,12 @@ class NewsController extends Controller {
         }
         $this->getTagManager()->loadTagging($entity);
 
-        $user = $this->container->get('security.context')->getToken()->getUser();
-        if ($user instanceof User) { //if you are logged in
-            $favorite = $entityManager->getRepository('ArmdUserBundle:Favorites')->findBy(array(
-                'user' => $user->getId(),
-                'resourceType' => Favorites::TYPE_MEDIA,
-                'resourceId' => $entity->getId()
-            ));
-        }
-        else {
-            $favorite = false;
-        }
+        $favoritesManager = $this->get('armd_favorites_manager');
+        $isInFavorites = $favoritesManager->entityIsInFavorites(Favorites::TYPE_MEDIA, $entity->getId());
 
         return array(
             'entity' => $entity,
-            'isFavored' => $favorite ? true : false,
+            'isInFavorites' => $isInFavorites,
             'categories' => $categories,
             'palette_color_hex' => NewsController::PALETTE_COLOR_HEX,
             'palette_color' => $this->palette_color,

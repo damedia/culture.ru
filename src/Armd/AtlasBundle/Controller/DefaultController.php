@@ -22,12 +22,15 @@ use Armd\AtlasBundle\Entity\Object;
 use Armd\AtlasBundle\Form\ObjectType;
 use Application\Sonata\MediaBundle\Entity\Media;
 use Symfony\Component\HttpFoundation\Request;
+use Armd\UserBundle\Entity\Favorites;
 
 class DefaultController extends Controller {
     const MAX_USER_OBJECTS = 10;
     const PALETTE_COLOR_HEX = '#167667';
 
     private $palette_color = 'palette-color-2';
+    private $palette_favoritesIcon = 'palette-favoritesIcon-2';
+    private $palette_favoritesIconAdded = 'palette-favoritesIconAdded-2';
 
     /**
      * @Route("/objects", defaults={"_format"="json"})
@@ -68,10 +71,9 @@ class DefaultController extends Controller {
 
     /**
      * @Route("/object/{id}", requirements={"id"="\d+"}, name="armd_atlas_default_object_view", options={"expose"=true})
-     * @Route("/object/{id}/print", requirements={"id"="\d+"}, defaults={"isPrint"=true}, name="armd_atlas_default_object_view_print", options={"expose"=true})
+     * @Template("ArmdAtlasBundle:Objects:imagesOfRussiaItem.html.twig")
      */
-    public function objectViewAction($id, $template = null, $isPrint = false) {
-        $request = $this->getRequest();
+    public function objectViewAction($id) {
         $om = $this->getObjectManager();
         $entity = $om->getObject($id);
 
@@ -79,25 +81,16 @@ class DefaultController extends Controller {
             throw new NotFoundHttpException("Page not found");
         }
 
-        $this->getTagManager()->loadTagging($entity);
+        $favoritesManager = $this->get('armd_favorites_manager');
+        $isInFavorites = $favoritesManager->entityIsInFavorites(Favorites::TYPE_ATLAS, $entity->getId());
 
-        $criteria = array(
-            ObjectManager::CRITERIA_LIMIT => 5,
-            ObjectManager::CRITERIA_RUSSIA_IMAGES => true,
-            ObjectManager::CRITERIA_TAGS => $entity->getTags(),
-            ObjectManager::CRITERIA_RANDOM => true,
-            ObjectManager::CRITERIA_NOT_IDS => array($entity->getId()),
+        return array(
+            'isInFavorites' => $isInFavorites,
+            'palette_favoritesIcon' => $this->palette_favoritesIcon,
+            'palette_favoritesIconAdded' => $this->palette_favoritesIconAdded,
+            'palette_color' => $this->palette_color,
+            'entity' => $entity
         );
-        $relatedObjects = $this->get('armd_atlas.manager.object')->findObjects($criteria);
-
-        $template = $template ? $template : 'ArmdAtlasBundle:Default:object_view.html.twig';
-        $template = $isPrint ? 'ArmdAtlasBundle:Default:object_view_print.html.twig' : $template;
-
-        return $this->render($template, array(
-            'referer' => $request->headers->get('referer'),
-            'entity' => $entity,
-            'relatedObjects' => $relatedObjects
-        ));
     }
 
     /**
@@ -238,10 +231,10 @@ class DefaultController extends Controller {
         $request = $this->getRequest();
         $criteria = array();
 
-        //$searchText = $request->get('search_text');
-        //if (isset($searchText)) {
-        //    $criteria[ObjectManager::CRITERIA_SEARCH_STRING] = $searchText;
-        //}
+        $searchText = $request->get('search_text');
+        if (isset($searchText)) {
+            $criteria[ObjectManager::CRITERIA_SEARCH_STRING] = $searchText;
+        }
 
         $filter_region = $request->get('region');
         if (isset($filter_region)) {
@@ -263,8 +256,29 @@ class DefaultController extends Controller {
             $criteria[ObjectManager::CRITERIA_NOT_IDS] = array_unique($loadedIds);
         }
 
+        $limit = $request->get('limit');
+        if ($limit) {
+            $criteria[ObjectManager::CRITERIA_LIMIT] = $limit;
+        }
+        else {
+            $criteria[ObjectManager::CRITERIA_LIMIT] = 18;
+        }
+
+        $relatedTo = $request->get('relatedTo');
+        if ($relatedTo) {
+            $om = $this->getObjectManager();
+            $entity = $om->getObject($relatedTo);
+
+            if (!$entity) {
+                throw new NotFoundHttpException("Page not found");
+            }
+
+            $this->getTagManager()->loadTagging($entity);
+            $criteria[ObjectManager::CRITERIA_TAGS] = $entity->getTags();
+            $criteria[ObjectManager::CRITERIA_NOT_IDS] = array($entity->getId());
+        }
+
         $criteria[ObjectManager::CRITERIA_RUSSIA_IMAGES] = true;
-        $criteria[ObjectManager::CRITERIA_LIMIT] = 18;
         $criteria[ObjectManager::CRITERIA_RANDOM] = true;
 
         $objects = $this->getObjectManager()->findObjects($criteria);

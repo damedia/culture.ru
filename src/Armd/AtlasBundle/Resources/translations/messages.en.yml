@@ -101,7 +101,7 @@ infographics_open_original: Open original
 mobile_app: Mobile app
 available_appstore: Available in AppStore
 video: Video
-archives: Archives
+archives: Photo archives
 archive_document: Archive document
 contact_info: Contact info
 website: Website
@@ -140,7 +140,7 @@ types_icons:
     photo_gallery: Photo gallery
     archives: Archives
 
-save_original_photo: Save original photo
+save_original_photo: Save this image
 read_more: Read more
 read_more_2: Read more
 recommended: Recommended

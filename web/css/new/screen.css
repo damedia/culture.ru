@@ -1080,10 +1080,9 @@ font-style: normal
 }
 
 .b-post p {
-font-size: 16px;
-line-height: 24px;
-margin: 0 0 1.64em;
-padding: 0 40px
+    font-size: 16px;
+    margin: 0 0 1.5em;
+    padding: 0 30px;
 }
 
 .b-post>h2 {
@@ -2962,7 +2961,7 @@ margin: 0 0 5px;
 }
 
 .play {
-    background: url("../../img/play.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url(../../img/play.png) no-repeat scroll 0 0 rgba(0, 0, 0, 0);
     display: block;
     height: 88px;
     left: 50%;
@@ -2971,6 +2970,17 @@ margin: 0 0 5px;
     position: absolute;
     top: 50%;
     width: 84px;
+}
+.orange360 {
+    background: url(../../img/russia_images_icons/360-orange.png) no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    display: block;
+    height: 70px;
+    left: 50%;
+    margin: -38px 0 0 -42px;
+    opacity: 0.6;
+    position: absolute;
+    top: 50%;
+    width: 74px;
 }
 .darkLayer {
     background-color: rgba(25, 22, 22, 0.7);
@@ -3007,6 +3017,9 @@ a.sidebar-widget-item:hover > .darkLayer {
 
 .displayNone {
     display: none;
+}
+.displayNoneImportant {
+    display: none !important;
 }
 .displayBlock {
     display: block;
@@ -3060,11 +3073,17 @@ a.sidebar-widget-item:hover > .darkLayer {
     width: 700px;
 }
 
+.height60 {
+    height: 60px;
+}
 .height170 {
     height: 170px;
 }
 .height307 {
     height: 307px;
+}
+.height96Percent {
+    height: 96% !important;
 }
 
 .noPadding {
@@ -3090,11 +3109,18 @@ a.sidebar-widget-item:hover > .darkLayer {
     text-decoration: none !important;
 }
 
+.verticalAlignTop {
+    vertical-align: top;
+}
+
 .marginTop10 {
     margin-top: 10px;
 }
 .marginTop123 {
     margin-top: 123px;
+}
+.marginLeft2 {
+    margin-left: 2px;
 }
 .marginLeft10 {
     margin-left: 10px;
@@ -3116,6 +3142,9 @@ a.sidebar-widget-item:hover > .darkLayer {
 }
 .marginBottom20 {
     margin-bottom: 20px;
+}
+.marginBottom70 {
+    margin-bottom: 70px;
 }
 .hoverSensitive:hover {
     cursor: pointer;
@@ -3435,6 +3464,13 @@ a.sidebar-widget-item:hover > .darkLayer {
     margin-bottom: 20px;
 }
 
+#infographics .linkToSourceHolder {
+    margin-top: 5px;
+    font-size: 13px;
+    height: 20px;
+    overflow: hidden;
+}
+
 .slider-item-sidebar {
     height: 466px;
 }
@@ -3461,18 +3497,32 @@ a.sidebar-widget-item:hover > .darkLayer {
 }
 
 #slider-museum-item-info-placeholder {
+    padding: 17px;
     font-size: 0.8em;
-    bottom: 0;
-    width: 210px;
-    padding: 10px;
-    z-index: 10;
+    margin-bottom: 40px;
+    margin-top: 102px;
 }
 #slider-museum-item-info-placeholder .header {
-    text-align: center;
+    font: bold 1.4em "PTSansRegular",sans-serif;
+    letter-spacing: -1px;
+    text-decoration: none;
     text-transform: uppercase;
-    font-size: 1.2em;
-    font-weight: bolder;
-    margin-bottom: 20px;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+#imagesOfRussia-item-info-placeholder {
+    padding: 17px;
+    font-size: 0.8em;
+    margin-bottom: 40px;
+}
+#imagesOfRussia-item-info-placeholder .header {
+    font: bold 1.4em "PTSansRegular",sans-serif;
+    letter-spacing: -1px;
+    text-decoration: none;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 15px;
 }
 
 .slider-museum-item-path {
@@ -3749,6 +3799,12 @@ textarea[name="fos_comment_comment[body]"] {
 .palette-color-2 {
     color: #167667 !important;
 }
+.palette-favoritesIcon-2 {
+    background: url(../../img/new/icons/palette-favorites-icon-2.png) no-repeat;
+}
+.palette-favoritesIconAdded-2 {
+    background: url(../../img/new/icons/palette-favorites-icon-added-2.png) no-repeat;
+}
 .palette-background-2 {
     background-color: #167667;
 }
@@ -3889,6 +3945,22 @@ ul.comments-list li {
 .sidebar-bordered-block {
     border: 5px solid #EEEFF0;
     background-color: #FFFFFF;
+}
+.sidebar-bordered-block-noBottom {
+    border-top: 5px solid #EEEFF0;
+    border-right: 5px solid #EEEFF0;
+    border-left: 5px solid #EEEFF0;
+    background-color: #FFFFFF;
+}
+.sidebar-bordered-block-noTop {
+    border-bottom: 5px solid #EEEFF0;
+    border-right: 5px solid #EEEFF0;
+    border-left: 5px solid #EEEFF0;
+    background-color: #FFFFFF;
+}
+.archive-slider-bottom-fix {
+    margin-top: -120px;
+    height: 150px;
 }
 .sidebar-item-title {
     display: block;
@@ -4128,4 +4200,151 @@ ul.comments-list li {
 .entity-image-footer span.source {
     color: #7D8687;
     display: block;
+}
+
+#imagesOfRussia-item-header {
+    margin-top: 110px;
+    height: 111px;
+    border: 5px solid #EEEFF0;
+    background: url(../../img/new/russia.png) no-repeat scroll 50px -100px rgba(0, 0, 0, 0);
+}
+#imagesOfRussia-item-header span {
+    font-size: 1.7em;
+    font-weight: bolder;
+    text-transform: uppercase;
+    display: block;
+    margin: 35px auto 0;
+    width: 500px;
+    text-align: center;
+}
+
+#imagesOfRussia-item-video {
+    float: left;
+    width: 240px;
+    margin: 7px 32px 0 0;
+}
+#imagesOfRussia-item-video .videoHeader {
+    margin-bottom: 7px;
+    background-color: #167667;
+    color: #FFFFFF;
+}
+
+.imagesOfRussia-item-sidebar-infographics {
+    position: relative;
+    margin-bottom: 50px;
+}
+.imagesOfRussia-item-sidebar-infographics .header {
+    text-align: center;
+    margin: 70px 0 32px;
+}
+.imagesOfRussia-item-sidebar-infographics .circleBorder {
+    background: url("../../img/museums_icons/circle.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    height: 180px;
+    left: 30px;
+    position: absolute;
+    top: 49px;
+    width: 180px;
+}
+.imagesOfRussia-item-sidebar-infographics .imageHolder {
+    background-color: #E1E3E4;
+    border-radius: 50%;
+    height: 158px;
+    margin: 0 auto;
+    overflow: hidden;
+    width: 158px;
+}
+
+.imagesOfRussia-item-sidebar-virtualTours {
+    margin-bottom: 35px;
+}
+
+#imageOfRussia-gallery {
+    margin: 0 auto 50px;
+    width: 700px;
+}
+.theSlides {
+    list-style: none outside none;
+    margin: 0;
+    padding: 0;
+}
+.theSlides-controls-wrapper {
+    background: url(../../img/new/main-border-bg.png) 0 50% repeat-x;
+    height: 70px;
+}
+.theSlides-controls {
+    margin-left: auto;
+    margin-right: auto;
+    width: 200px;
+    height: 100%;
+    background-color: #FFFFFF;
+    text-align: center;
+    position: relative;
+}
+.theSlides-controls span {
+    position: absolute;
+    left: 40px;
+    top: 22px;
+    display: block;
+    width: 120px;
+    font-weight: bolder;
+}
+.archiveSlides {
+    list-style: none outside none;
+    margin: 0;
+    padding: 0;
+}
+.archiveSlides-controls-wrapper {
+    height: 70px;
+    top: 45px;
+    left: 50px;
+}
+.archiveSlides-controls {
+    margin-left: auto;
+    margin-right: auto;
+    width: 140px;
+    height: 100%;
+    text-align: center;
+    position: relative;
+}
+.archiveSlides-controls span {
+    position: absolute;
+    left: 40px;
+    top: 22px;
+    display: block;
+    width: 60px;
+    font-weight: bolder;
+}
+ul.flex-direction-nav.itemMainGallery {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: none;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+ul.flex-direction-nav.itemMainGallery li {
+    position: absolute;
+    float: none;
+    width: 28px;
+    height: 29px;
+    top: 20px;
+    transition: opacity .25s ease-in-out;
+    -moz-transition: opacity .25s ease-in-out;
+    -webkit-transition: opacity .25s ease-in-out;
+}
+ul.flex-direction-nav.itemMainGallery li:hover {
+    opacity: 0.7;
+}
+ul.flex-direction-nav.itemMainGallery li.slideLeft {
+    left: 10px;
+    background: url(../../img/imagesOfRussia_icons/slide-left.png);
+}
+ul.flex-direction-nav.itemMainGallery li.slideRight {
+    right: 10px;
+    background: url(../../img/imagesOfRussia_icons/slide-right.png);
 }

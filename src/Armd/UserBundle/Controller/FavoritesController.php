@@ -2,41 +2,15 @@
 
 namespace Armd\UserBundle\Controller;
 
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Response;
 use FOS\UserBundle\Model\UserInterface;
-use FOS\UserBundle\Event\FormEvent;
-use FOS\UserBundle\Event\FilterUserResponseEvent;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use FOS\UserBundle\FOSUserEvents;
 use Armd\UserBundle\Entity\Favorites;
+use Application\Sonata\MediaBundle\Entity\Media;
 
-class FavoritesController extends Controller
-{
-    protected function getEntity($resourceType)
-    {
-        if ($resourceType == Favorites::TYPE_ATLAS) {
-            return 'Armd\AtlasBundle\Entity\Object';
-        } elseif ($resourceType == Favorites::TYPE_MEDIA) {
-            return 'Armd\NewsBundle\Entity\News';
-        } elseif ($resourceType == Favorites::TYPE_LECTURE) {
-            return 'Armd\LectureBundle\Entity\Lecture';
-        } elseif ($resourceType == Favorites::TYPE_MUSEUM_LESSON) {
-            return 'Armd\MuseumBundle\Entity\Lesson';
-        } elseif ($resourceType == Favorites::TYPE_PERFORMANCE) {
-            return 'Armd\PerfomanceBundle\Entity\Perfomance';
-        } elseif ($resourceType == Favorites::TYPE_THEATER) {
-            return 'Armd\TheaterBundle\Entity\Theater';
-        } elseif ($resourceType == Favorites::TYPE_TOURIST_ROUTE) {
-            return 'Armd\TouristRouteBundle\Entity\Route';
-        } else {
-            return false;
-        }
-    }
-    
-    protected function getImageSrc(\Application\Sonata\MediaBundle\Entity\Media $image = null, $format = 'reference')
-    {
+class FavoritesController extends Controller {
+    protected function getImageSrc(Media $image = null, $format = 'reference') {
         if (!$image) {
             return '';
         }
@@ -51,18 +25,24 @@ class FavoritesController extends Controller
         return $provider->generatePublicUrl($image, $format);
     }
     
-    public function indexAction()
-    {
+    public function indexAction() {
         $favorites = array();
-        
         $user = $this->container->get('security.context')->getToken()->getUser();
+        $router = $this->get('router');
         
         if (!is_object($user) || !$user instanceof UserInterface) {
             throw new AccessDeniedException('This user does not have access to this section.');
         }
         
-        $em = $this->getDoctrine()->getEntityManager();
-        $result = $em->createQuery('SELECT DISTINCT t.resourceType, t.resourceId FROM ArmdUserBundle:Favorites t WHERE t.user = :user ORDER BY t.resourceType')
+        $em = $this->getDoctrine()->getManager();
+
+        //TODO: ugly query!
+        $result = $em
+            ->createQuery('
+                SELECT DISTINCT t.resourceType, t.resourceId
+                FROM ArmdUserBundle:Favorites t
+                WHERE t.user = :user
+                ORDER BY t.resourceType')
             ->setParameter('user', $user->getId())
             ->getScalarResult();
         
@@ -71,17 +51,45 @@ class FavoritesController extends Controller
         }
 
         if (!empty($favoritesIds)) {
-
             foreach ($favoritesIds as $type => $ids) {
-                $entityName = $this->getEntity($type);
+                switch ($type) {
+                    case Favorites::TYPE_ATLAS:
+                        $entityName = 'Armd\AtlasBundle\Entity\Object';
+                        break;
+                    case Favorites::TYPE_MEDIA:
+                        $entityName = 'Armd\NewsBundle\Entity\News';
+                        break;
+                    case Favorites::TYPE_LECTURE:
+                        $entityName = 'Armd\LectureBundle\Entity\Lecture';
+                        break;
+                    case Favorites::TYPE_MUSEUM_LESSON:
+                        $entityName = 'Armd\MuseumBundle\Entity\Lesson';
+                        break;
+                    case Favorites::TYPE_PERFORMANCE:
+                        $entityName = 'Armd\PerfomanceBundle\Entity\Perfomance';
+                        break;
+                    case Favorites::TYPE_THEATER:
+                        $entityName = 'Armd\TheaterBundle\Entity\Theater';
+                        break;
+                    case Favorites::TYPE_TOURIST_ROUTE:
+                        $entityName = 'Armd\TouristRouteBundle\Entity\Route';
+                        break;
+                    default:
+                        $entityName = false;
+                }
 
                 if (!$entityName) {
                     continue;
                 }
 
-                $entities = $em->createQuery('SELECT t FROM ' . $entityName . ' t WHERE t.id IN (:ids)')
-                            ->setParameter('ids', $ids)
-                            ->getResult();
+                //TODO: ugly query!
+                $entities = $em
+                    ->createQuery('
+                        SELECT t
+                        FROM '.$entityName.' t
+                        WHERE t.id IN (:ids)')
+                    ->setParameter('ids', $ids)
+                    ->getResult();
 
                 if ($type == Favorites::TYPE_ATLAS) {
                     $favorites[Favorites::TYPE_ATLAS]['title'] = 'Образы России';
@@ -90,12 +98,13 @@ class FavoritesController extends Controller
                         $favorites[Favorites::TYPE_ATLAS]['list'][] = array(
                             'image' => $this->getImageSrc($e->getPrimaryImage()),
                             'title' => $e->getTitle(),
-                            'url' => $this->get('router')->generate('armd_atlas_default_object_view', array('id' => $e->getId())),
+                            'url' => $router->generate('armd_atlas_default_object_view', array('id' => $e->getId())),
                             'type' => $type,
                             'id' => $e->getId()
                         );
                     }
-                } elseif ($type == Favorites::TYPE_MEDIA) {
+                }
+                elseif ($type == Favorites::TYPE_MEDIA) {
                     foreach ($entities as $e) {
                         if ($e->getCategory()->getSlug()) {
                             $fId = Favorites::TYPE_MEDIA . '-' . $e->getCategory()->getId();
@@ -103,25 +112,27 @@ class FavoritesController extends Controller
                             $favorites[$fId]['list'][] = array(
                                 'image' => $this->getImageSrc($e->getImage()),
                                 'title' => $e->getTitle(),
-                                'url' => $this->get('router')->generate('armd_news_item_by_category', array('category' => $e->getCategory()->getSlug(), 'id' => $e->getId())),
+                                'url' => $router->generate('armd_news_item_by_category', array('category' => $e->getCategory()->getSlug(), 'id' => $e->getId())),
                                 'type' => $type,
                                 'id' => $e->getId()
                             );
                         }
                     }
-                } elseif ($type == Favorites::TYPE_MUSEUM_LESSON) {
+                }
+                elseif ($type == Favorites::TYPE_MUSEUM_LESSON) {
                     $favorites[Favorites::TYPE_MUSEUM_LESSON]['title'] = 'Музейное образование';
 
                     foreach ($entities as $e) {
                         $favorites[Favorites::TYPE_MUSEUM_LESSON]['list'][] = array(
                             'image' => $this->getImageSrc($e->getImage()),
                             'title' => $e->getTitle(),
-                            'url' => $this->get('router')->generate('armd_lesson_item', array('id' => $e->getId())),
+                            'url' => $router->generate('armd_lesson_item', array('id' => $e->getId())),
                             'type' => $type,
                             'id' => $e->getId()
                         );
                     }
-                } elseif ($type == Favorites::TYPE_LECTURE) {
+                }
+                elseif ($type == Favorites::TYPE_LECTURE) {
                     foreach ($entities as $e) {
                         if ($e->getLectureSuperType()) {
                             $category = $e->getLectureSuperType();
@@ -130,124 +141,95 @@ class FavoritesController extends Controller
                             $favorites[$fId]['list'][] = array(
                                 'image' => $this->getImageSrc($e->getMediaLectureVideo()),
                                 'title' => $e->getTitle(),
-                                'url' => $this->get('router')->generate('armd_lecture_view', array('id' => $e->getId())),
+                                'url' => $router->generate('armd_lecture_view', array('id' => $e->getId())),
                                 'type' => $type,
                                 'id' => $e->getId()
                             );
                         }
                     }
-                } elseif ($type == Favorites::TYPE_THEATER) {
+                }
+                elseif ($type == Favorites::TYPE_THEATER) {
                     $favorites[Favorites::TYPE_THEATER]['title'] = 'Театры';
 
                     foreach ($entities as $e) {
                         $favorites[Favorites::TYPE_THEATER]['list'][] = array(
                             'image' => $this->getImageSrc($e->getImage()),
                             'title' => $e->getTitle(),
-                            'url' => $this->get('router')->generate('armd_theater_item', array('id' => $e->getId())),
+                            'url' => $router->generate('armd_theater_item', array('id' => $e->getId())),
                             'type' => $type,
                             'id' => $e->getId()
                         );
                     }
-                } elseif ($type == Favorites::TYPE_PERFORMANCE) {
+                }
+                elseif ($type == Favorites::TYPE_PERFORMANCE) {
                     $favorites[Favorites::TYPE_PERFORMANCE]['title'] = 'Спектакли';
 
                     foreach ($entities as $e) {
                         $favorites[Favorites::TYPE_PERFORMANCE]['list'][] = array(
                             'image' => $this->getImageSrc($e->getImage()),
                             'title' => $e->getTitle(),
-                            'url' => $this->get('router')->generate('armd_perfomance_item', array('id' => $e->getId())),
+                            'url' => $router->generate('armd_perfomance_item', array('id' => $e->getId())),
                             'type' => $type,
                             'id' => $e->getId()
                         );
                     }
-                } elseif ($type == Favorites::TYPE_TOURIST_ROUTE) {
+                }
+                elseif ($type == Favorites::TYPE_TOURIST_ROUTE) {
                     $favorites[Favorites::TYPE_TOURIST_ROUTE]['title'] = 'Туристические маршруты';
 
                     foreach ($entities as $e) {
                         $favorites[Favorites::TYPE_TOURIST_ROUTE]['list'][] = array(
                             'image' => $this->getImageSrc($e->getPrimaryImage()),
                             'title' => $e->getTitle(),
-                            'url' => $this->get('router')->generate('armd_tourist_route_item', array('id' => $e->getId())),
+                            'url' => $router->generate('armd_tourist_route_item', array('id' => $e->getId())),
                             'type' => $type,
                             'id' => $e->getId()
                         );
                     }
                 }
             }
-        } else {
+        }
+        else {
             $favorites = array();
         }
 
-        return $this->render('ArmdUserBundle:Favorites:favorites.html.twig', array(
-            'favorites' => $favorites
-        ));
+        return $this->render('ArmdUserBundle:Favorites:favorites.html.twig', array('favorites' => $favorites));
     }
     
-    public function addAction()
-    {
-        $user = $this->container->get('security.context')->getToken()->getUser();
-        $resourceType = $this->getRequest()->get('type', false);
-        $resourceId = $this->getRequest()->get('id', false);
-        $entity = $this->getEntity($resourceType);
-        
-        if (!is_object($user) || !$user instanceof UserInterface || !$resourceType || !$resourceId || !$entity) {
+    public function addAction() {
+        $request = $this->getRequest();
+
+        $entityType = $request->get('type', false);
+        $entityId = $request->get('id', false);
+
+        if (!$entityType || !$entityId) {
             return new Response('0');
         }
-        
-        $em = $this->getDoctrine()->getManager();
-        $favorite = $em->getRepository('ArmdUserBundle:Favorites')->findBy(array(
-            'user' => $user->getId(),
-            'resourceType' => $resourceType,
-            'resourceId' => $resourceId
-        ));
-        
-        if ($favorite) {
-            return new Response('1');
-        }
-        
-        $favorite = new Favorites();
-        $favorite->setUser($user);
-        $favorite->setResourceType($resourceType);
-        $favorite->setResourceId($resourceId);
-        $em->persist($favorite);
-        $em->flush();
-        
-        return new Response('1');
+
+        $favoritesManager = $this->get('armd_favorites_manager');
+        $result = $favoritesManager->addToFavorites($entityType, $entityId);
+
+        return $result ? new Response('1') : new Response('0');
     }
 
-    public function delAction()
-    {
-        $user = $this->container->get('security.context')->getToken()->getUser();
+    public function delAction() {
         $request = $this->getRequest();
-        $resourceType = $request->get('type', false);
-        $resourceId = $request->get('id', false);
-        $doRedirect = $request->get('redirect', 'true');
-        $entity = $this->getEntity($resourceType);
 
-        if (!is_object($user) || !$user instanceof UserInterface || !$resourceType || !$resourceId || !$entity) {
+        $entityType = $request->get('type', false);
+        $entityId = $request->get('id', false);
+        $doRedirect = $request->get('redirect', 'true');
+
+        if (!$entityType || !$entityId) {
             return new Response('0');
         }
-        
-        $em = $this->getDoctrine()->getManager();
-        $favorites = $em->getRepository('ArmdUserBundle:Favorites')->findBy(array(
-            'user' => $user->getId(),
-            'resourceType' => $resourceType,
-            'resourceId' => $resourceId
-        ));
-        
-        if ($favorites) {
-            foreach ($favorites as $f) {
-                $em->remove($f);
-            }
-            
-            $em->flush();                          
+
+        $favoritesManager = $this->get('armd_favorites_manager');
+        $result = $favoritesManager->removeFromFavorites($entityType, $entityId);
+
+        if (!$result) {
+            return new Response('0');
         }
 
-        if ($doRedirect == 'true') {
-            return $this->redirect($this->generateUrl('armd_user_favorites'));
-        }
-        else {
-            return new Response('1');
-        }
+        return ($doRedirect == 'true') ? $this->redirect($this->generateUrl('armd_user_favorites')) : new Response('1');
     }
 }
