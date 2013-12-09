@@ -1,34 +1,8 @@
 {% extends ':Frontend:layout_two_column.html.twig' %}
 {% import 'ArmdLectureBundle::lecture_macro.html.twig' as lectureMacro %}
 
-{% block page_header_title %}
-    {{ lectureSuperType.code|trans }}
-{% endblock %}
-
 {% block page_header_search %}
-
-    <div class="search-category">
-{#
-        <form id="lectures-filter" method="post">
-            <span class="search-dates-label">Категория</span>
-            <div class="search-category-selects">
-                <select id="lecture_genre" name="lecture_genre" class="uni">
-                    <option value="0">{{ "All"|trans }}</option>
-                    {% set selectedCategoryFound = false %}
-                    {% for genre in genres %}
-                        <option value="{{ genre.id }}" {% if genre.id in selectedGenreIds %} selected="selected" {% endif %} >
-                            {{ genre.title }}
-                        </option>
-                    {% endfor %}
-                </select>
-            </div>
-
-            {% if genre1 is not empty %}
-                <input type="hidden" id="genre1_id" name="genre1_id" value="{{ genre1.id }}" />
-            {% endif %}
-        </form>
-#}
-    </div>
+    <div class="search-category"></div>
 {% endblock %}
 
 {% block page_header_search_scope %}
@@ -39,7 +13,6 @@
 
 {% block search_query %}{{ searchQuery }}{% endblock %}
 
-{#--------------------------------------------------------------------------------------------------------------------#}
 {% block left_column %}
     <ul class="breadcrumbs">
         <li><a href="{{ path('armd_main_homepage') }}">{{ 'menu.mainpage'|trans }}</a></li>
@@ -51,10 +24,6 @@
         <article class="video-one-block">
             <h1>{{ lecture.title|truncate(45) }}</h1>
             <div class="video-one-image video-time-image">
-               {# <a href="{{ path('armd_lecture_view', {'id': lecture.id}) }}" class="video-one-image-link">
-                    {{ lectureMacro.lectureThumbnail(lecture, 'big', {'alt': lecture.title, 'width': '100%', 'height' : 'auto'}) }}
-                    <span class="play"></span>
-                </a> #}  
                 {% media lecture.mediaLectureVideo, 'reference' with { 'width': '100%', 'height': 506 } %}
             </div>
 
@@ -66,78 +35,31 @@
                         {% if lecture.timeLength %}{{ lecture.timeLength~' мин. ' }}{% endif %}
                     </span>
                 {% endif %}
-            </div> 
-               
+            </div>
         </article>
     {% endif %}
-{#
-    <section id="sort-panel" class="clearfix" {% if tag is not empty %}style="display:none"{% endif %}>
-        <div  class="sort-filter" id="sort-filter">
-            <ul>
-                <li{% if filter.sortBy != 'title' %} class="active"{% endif %}><a href="#" data-sort-by="popularity">по популярности</a></li>
-                <li{% if filter.sortBy == 'title' %} class="active"{% endif %}><a href="#" data-sort-by="title">по алфавиту</a></li>
-            </ul>
-        </div>
-        <div id="alphabet-filter">
-            <ul>
-                <li class="all-let{% if not filter.letter %} active{% endif %}"><a href="#">Все</a></li>
-                {% for l in filter.alphabet %}
-                    <li{% if filter.letter == l %} class="active"{% endif %}><a href="#" data-letter="{{ l }}">{{ l }}</a></li>
-                {% endfor %}
-            </ul>
-        </div>
-    </section>
-#}    
 
-    {% if tag is not empty %}
-        <section id="tag-filter-panel">
-            Показаны результаты по тегу <strong>{{ tag.name }}</strong>
-        </section>
-    {% endif %}
-
-    
-        {% render url('armd_lecture_news_list', {
-                'lectureSuperTypeCode': lectureSuperType.code,
-                'limit': 12,
-                'search_query': searchQuery,
-                'genre_ids': selectedGenreIds,
-                'tag_id': (tag is empty ? 0 : tag.id),
-                'genre1_id': (genre1 is empty ? 0 : genre1.id),
-                'first_letter': filter.letter,
-                'offset': filter.offset,
-                'sort_by': filter.sortBy
-            })
-        %}
-    {#
-    <div id="lecture-more-container" class="more more2">
-        <p><a id="lecture-more-button" href="#">{{ "show_more"|trans }}</a></p>
-    </div>
-    <script>if ($('#lecture-container').find('.plitka-one-wrap').length < 12) { armdMkLectures.hideMore();}</script>
-    #}
-    
+    {% render url('armd_lecture_news_list', { 'search_query': searchQuery }) %}
 {% endblock %}
 
-{#--------------------------------------------------------------------------------------------------------------------#}
 {% block right_column %}
-
-    {#{% render url('armd_news_memorial_events') %}#}
     {% render url('armd_atlas_related_objects', {'tags': {}, 'limit': 1}) %}
+
     <div class="right-video-block">
         {% render url('armd_lecture_related_lectures', {'tags': {}, 'limit': 4, 'superTypeCode': 'LECTURE_SUPER_TYPE_CINEMA' }) %}
     </div>
+
     <div class="right-video-block">
         {% render url('armd_lecture_related_lectures', {'tags': {}, 'limit': 4, 'superTypeCode': 'LECTURE_SUPER_TYPE_LECTURE' }) %}
     </div>
-
 {% endblock %}
-
 
 {% block javascripts %}
     {{ parent() }}
     <script type="text/javascript" src="{{ asset('bundles/armdlecture/js/lectures.js') }}"></script>
     <script type="text/javascript">
         $(function() {
-            armdMkLectures.init('{{ lectureSuperType.code }}');
+            armdMkLectures.init('{{ lectureSuperTypeCode }}');
             $('.video-time-slider').flexslider({
                 animation: "slide",
                 slideshow: false,

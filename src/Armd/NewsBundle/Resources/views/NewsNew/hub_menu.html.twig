@@ -1,24 +1,31 @@
+{% set menuCounter = 1 %}
+
 <ul class="hub-menu">
-{% spaceless %}
     <li>
         <a{% if currentCategory is empty %} class="{{ palette_color }}"{% endif %} href="{{ path('armd_news_index_by_category') }}">
             {{- "Hub.MenuAll"|trans -}}
         </a>
     </li>
+
     {% for category in categories if category.filtrable %}
+        {% if menuCounter % 5 == 0 %}
+            <br />
+        {% endif %}
+
         <li>
             <a{% if category.slug == currentCategory %} class="{{ palette_color }}"{% endif %} href="{{ path('armd_news_index_by_category', { 'category': category.slug }) }}">
                 {{- category.title -}}
             </a>
         </li>
+
+        {% set menuCounter = menuCounter + 1 %}
     {% endfor %}
-    <br />
-    {% for category in categories if not category.filtrable %}
-        <li>
-            <a{% if category.slug == currentCategory %} class="{{ palette_color }}"{% endif %} href="{{ path('armd_news_index_by_category', { 'category': category.slug }) }}">
-                {{- category.title -}}
-            </a>
-        </li>
-    {% endfor %}
-{% endspaceless %}
+
+    {% if menuCounter % 5 == 0 %}
+        <br />
+    {% endif %}
+
+    <li>
+        <a href="{{ path('armd_lecture_news_index') }}">видео</a>
+    </li>
 </ul>

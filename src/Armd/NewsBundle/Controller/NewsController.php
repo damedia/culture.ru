@@ -15,6 +15,7 @@ use DateTime;
 use Armd\UserBundle\Entity\Favorites;
 use Armd\UserBundle\Entity\User;
 use Armd\NewsBundle\Entity\News;
+use Armd\LectureBundle\Entity\LectureManager;
 
 class NewsController extends Controller {
     const DEFAULT_RELATED_LIMIT = 5;
@@ -244,6 +245,53 @@ class NewsController extends Controller {
         $news = $this->getNewsManager()->findObjects($criteria);
 
         return array('news' => $news);
+    }
+
+    /**
+     * @Route("/news-video", name="armd_lecture_news_index", options={"expose"=true})
+     * @Template("ArmdLectureBundle:Default:index_news.html.twig")
+     */
+    public function newsVideosIndexAction() {
+        $request = $this->getRequest();
+        $em = $this->getDoctrine()->getManager();
+
+        return array(
+            'lectureSuperTypeCode' => 'LECTURE_SUPER_TYPE_NEWS',
+            'searchQuery' => $request->get('search_query'),
+            'lecture' => $em->getRepository('ArmdLectureBundle:Lecture')->findOneBy(array('isHeadline' => true))
+        );
+    }
+
+    /**
+     * @Route("/news-video/list", name="armd_lecture_news_list", options={"expose"=true})
+     * @Template("ArmdLectureBundle:Default:list_news.html.twig")
+     */
+    public function newsVideosIndexListAction() {
+        $request = $this->getRequest();
+        $lecturesManager = $this->get('armd_lecture.manager.lecture');
+
+        $criteria = array(
+            LectureManager::CRITERIA_SUPER_TYPE_CODES_OR => array('LECTURE_SUPER_TYPE_NEWS'),
+            LectureManager::CRITERIA_LIMIT => 12,
+            LectureManager::CRITERIA_ORDER_BY => array('createdAt' => 'DESC')
+        );
+
+        if ($request->query->has('search_query')) {
+            $criteria[LectureManager::CRITERIA_SEARCH_STRING] = $request->get('search_query');
+        }
+
+        $lectures = $lecturesManager->findObjects($criteria);
+
+        $lecturesByMonth = array();
+        foreach ($lectures as $entity) {
+            $date = $entity->getCreatedAt()->format('Y-m');
+            if (!isset($lecturesByMonth[$date])) {
+                $lecturesByMonth[$date] = array();
+            }
+            $lecturesByMonth[$date][] = $entity;
+        }
+
+        return array('lecturesByMonth' => $lecturesByMonth);
     }
 
     /**
