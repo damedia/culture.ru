@@ -405,4 +405,15 @@ class ObjectAdmin extends Admin
         $this->container->get('fpn_tag.tag_manager')->saveTagging($object);
     }
 
+    public function getTemplate($name)
+    {
+        switch ($name) {
+            case 'list':
+                return 'ArmdAtlasBundle:CRUD:list.html.twig';
+                break;
+            default:
+                return parent::getTemplate($name);
+                break;
+        }
+    }
 }

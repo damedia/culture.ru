@@ -19,13 +19,27 @@ file that was distributed with this source code.
                 <i class="icon-zoom-in"></i>
                 {{ 'link_action_show'|trans({}, 'SonataAdminBundle') }}</a>
                 
-            {% if (has_change_history(object)) %}    
+            {% if (has_change_history(object)) %}
                 <a class="btn sonata-action-element view-history" href="{{ path('ru__RG__admin_armd_main_changehistory_list', { 'entity_id' : admin.id(object), 'entity_class' : object.className }) }}">
                     <i class="icon-zoom-in"></i>
                     {{ 'link_action_view_history'|trans({}, 'SonataAdminBundle') }}</a>
-            {% endif %}                   
+            {% endif %}
+             <a  class="btn sonata-action-element" href="#" id="dcx-search-article">
+                <i class="icon-plus"></i>
+                Добавить статью по DCX
+             </a>
+             <div id="dialog-form" title="Поиск статьи по DCX">
+              <p class="validateTips">Введите DcxID статьи</p>
+              <form>
+              <fieldset>
+                <label for="name">DCX ID</label>
+                <input type="text" name="name" id="dcx-search-article" class="text ui-widget-content ui-corner-all">
+              </fieldset>
+              </form>
+            </div>            
             
         {% endif %}
+
         {% if admin.hasroute('history') and admin.id(object) and admin.isGranted('EDIT', object) %}
             <a class="btn sonata-action-element" href="{{ admin.generateObjectUrl('history', object) }}">
                 <i class="icon-book"></i>
@@ -100,6 +114,35 @@ file that was distributed with this source code.
                 }
                 $('#history-list').load($('a.view-history').attr('href')+'&filter[_page]='+page+'&filter[_per_page]='+per_page);
                 return false;            
+            });
+
+
+            var name = $( "#dcx-search-article" ),
+            allFields = $( [] ).add( name ),
+            tips = $( ".validateTips" );
+            $( "#dialog-form" ).dialog({
+              autoOpen: false,
+              height: 250,
+              width: 300,
+              modal: true,
+              buttons: {
+                "Search": function() {
+                    var bValid = true;
+                    allFields.removeClass( "ui-state-error" );
+                    $( this ).dialog( "close" );
+                },
+                Cancel: function() {
+                  $( this ).dialog( "close" );
+                }
+              },
+              close: function() {
+                allFields.val( "" ).removeClass( "ui-state-error" );
+              }
+            });
+            $( "#dcx-search-article" )
+              .button()
+              .click(function() {
+                $( "#dialog-form" ).dialog( "open" );
             });
             
         });

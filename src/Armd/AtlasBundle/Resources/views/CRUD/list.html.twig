@@ -1,0 +1,58 @@
+{% extends 'SonataAdminBundle:CRUD:list.html.twig' %}
+
+
+{% block actions %}
+    <div class="sonata-actions">
+        {% if admin.hasroute('list') %}
+             <a  class="btn sonata-action-element" href="#" id="dcx-search-article">
+                <i class="icon-plus"></i>
+                Добавить статью по DCX
+             </a>
+             <div id="dialog-form" title="Поиск статьи по DCX">
+              <p class="validateTips">Введите DcxID статьи</p>
+              <form>
+              <fieldset>
+                <label for="name">DCX ID</label>
+                <input type="text" name="name" id="dcx-search-article" class="text ui-widget-content ui-corner-all">
+              </fieldset>
+              </form>
+            </div>
+        {% endif %}
+        {% include 'SonataAdminBundle:Core:create_button.html.twig' %}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $(function(){
+            var name = $( "#dcx-search-article" ),
+            allFields = $( [] ).add( name ),
+            tips = $( ".validateTips" );
+            $( "#dialog-form" ).dialog({
+              autoOpen: false,
+              height: 250,
+              width: 300,
+              modal: true,
+              buttons: {
+                "Search": function() {
+                    var bValid = true;
+                    allFields.removeClass( "ui-state-error" );
+                    $( this ).dialog( "close" );
+                },
+                Cancel: function() {
+                  $( this ).dialog( "close" );
+                }
+              },
+              close: function() {
+                allFields.val( "" ).removeClass( "ui-state-error" );
+              }
+            });
+            $( "#dcx-search-article" )
+              .button()
+              .click(function() {
+                $( "#dialog-form" ).dialog( "open" );
+            });
+        });
+    </script>    
+{% endblock %} 
