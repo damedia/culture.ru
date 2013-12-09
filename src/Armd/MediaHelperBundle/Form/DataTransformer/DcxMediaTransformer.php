@@ -4,7 +4,7 @@ namespace Armd\MediaHelperBundle\Form\DataTransformer;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 use Doctrine\Common\Persistence\ObjectManager;
-use Armd\Application\Sonata\MediaBundle\Entity\Media;
+use Application\Sonata\MediaBundle\Entity\Media;
 
 class DcxMediaTransformer implements DataTransformerInterface
 {
@@ -49,21 +49,15 @@ class DcxMediaTransformer implements DataTransformerInterface
      */
     public function reverseTransform($params)
     {
-        if (empty($params['currentMediaId'])) {
-            return null;
-        }
 
-        $media = $this->om
-            ->getRepository('ApplicationSonataMediaBundle:Media')
-            ->findOneBy(array('id' => $params['currentMediaId']))
-        ;
-        if (null === $media) {
-            throw new TransformationFailedException(sprintf(
-                'An media with currentMediaId "%s" does not exist!',
-                $params['currentMediaId']
-            ));
+        if(!$params['dcxId'] && !$params['imageFile']){
+            $media = $this->om
+                ->getRepository('ApplicationSonataMediaBundle:Media')
+                ->findOneBy(array('id' => $params['currentMediaId']))
+            ;
         }
         if ($params['dcxId']){
+            $media = new Media();
             $media->setBinaryContent($params['dcxId']); 
             $media->setContext($params['context']);
             $media->setProviderName('sonata.media.provider.dcx');
@@ -71,12 +65,12 @@ class DcxMediaTransformer implements DataTransformerInterface
         }
 
         if ($params['imageFile']) {
+            $media = new Media();
             $media->setBinaryContent($params['imageFile']); 
             $media->setContext($params['context']);
             $media->setProviderName('sonata.media.provider.image');
             $this->om->persist($media);
         }
-
 
         return $media;
     }
