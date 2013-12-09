@@ -249,7 +249,7 @@ class NewsController extends Controller {
 
     /**
      * @Route("/news-video", name="armd_lecture_news_index", options={"expose"=true})
-     * @Template("ArmdLectureBundle:Default:index_news.html.twig")
+     * @Template("ArmdNewsBundle:NewsNew:index_newsVideos.html.twig")
      */
     public function newsVideosIndexAction() {
         $request = $this->getRequest();
@@ -264,7 +264,7 @@ class NewsController extends Controller {
 
     /**
      * @Route("/news-video/list", name="armd_lecture_news_list", options={"expose"=true})
-     * @Template("ArmdLectureBundle:Default:list_news.html.twig")
+     * @Template("ArmdNewsBundle:NewsNew:index_newsVideosList.html.twig")
      */
     public function newsVideosIndexListAction() {
         $request = $this->getRequest();
