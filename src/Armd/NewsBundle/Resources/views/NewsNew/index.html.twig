@@ -21,7 +21,11 @@
         {{ include('ArmdNewsBundle:NewsNew:hub_menu.html.twig', { 'categories': categories, 'palette_color': palette_color, 'currentCategory': currentCategory }) }}
 
         <div id="news-items-list">
-            {% render url('armd_news_index_list', {'category': category, 'searchQuery': searchQuery }) %}
+            {% if category == 'news-video' %}
+                {% render url('armd_lecture_news_list', { 'searchQuery': searchQuery }) %}
+            {% else %}
+                {% render url('armd_news_index_list', { 'category': category, 'searchQuery': searchQuery }) %}
+            {% endif %}
         </div>
 
         <div id="news-showMore" title="{{ 'ShowMore'|trans }}"></div>
@@ -37,12 +41,13 @@
 
     <script type="text/javascript" src="{{ asset('js/damedia/simpleSlider.js') }}"></script>
     <script type="text/javascript">
-         $(function(){
+        $(function(){
             var searchWrapper = $('#quick-search-wrapper'),
                 searchInput = $('#search-txt', searchWrapper),
                 searchForm = searchWrapper.find('form'),
                 checkboxesHoverTab = searchWrapper.find('div.search-checkboxes'),
-                searchThisSectionCheckbox = $('#search-this-section', searchWrapper);
+                searchThisSectionCheckbox = $('#search-this-section', searchWrapper),
+                currentCategory = '{{ category }}';
 
             searchWrapper.mouseenter(function(){
                 checkboxesHoverTab.show();
@@ -70,13 +75,15 @@
             var itemsPlaceholder = $('#news-items-list');
 
             $('#news-showMore').on('click', function(){
-                var offset = itemsPlaceholder.find('section').length,
-                    data = {
-                        offset: offset,
+                var ajaxUrl = (currentCategory === 'news-video') ?
+                              Routing.generate('armd_lecture_news_list') :
+                              Routing.generate('armd_news_index_list', { category: '{{ category }}' }),
+                    ajaxData = {
+                        offset: itemsPlaceholder.find('section').length,
                         searchQuery: '{{ searchQuery }}'
                     };
 
-                $.post(Routing.generate('armd_news_index_list', { category: '{{ category }}' }), data, function(html){
+                $.post(ajaxUrl, ajaxData, function(html){
                     itemsPlaceholder.append(html);
                 });
             });

@@ -20,6 +20,7 @@ use Armd\LectureBundle\Entity\LectureManager;
 class NewsController extends Controller {
     const DEFAULT_RELATED_LIMIT = 5;
     const PALETTE_COLOR_HEX = '#95BD59';
+    const DEFAULT_LIST_LIMIT = 10;
 
     private $palette_color = 'palette-color-1';
     private $palette_background = 'palette-background-1';
@@ -163,6 +164,7 @@ class NewsController extends Controller {
 
     /**
      * @Route("/{category}", name="armd_news_index_by_category", options={"expose"=true}, requirements={"category" = "[a-z]+"}, defaults={"category" = null})
+     * @Route("/news-video", name="armd_lecture_news_index", options={"expose"=true}, defaults={"category" = "news-video"})
      * @Template("ArmdNewsBundle:NewsNew:index.html.twig")
      */
     function newsIndexAction($category = null) { //TODO: should be renamed to '$categorySlug'
@@ -222,7 +224,7 @@ class NewsController extends Controller {
         $criteria = array(
             NewsManager::CRITERIA_CATEGORY_SLUGS_OR => $category,
             //NewsManager::CRITERIA_NEWS_DATE_TILL => $firstLoadedDate,
-            NewsManager::CRITERIA_LIMIT => 5,
+            NewsManager::CRITERIA_LIMIT => self::DEFAULT_LIST_LIMIT,
             NewsManager::CRITERIA_OFFSET => $offset,
             NewsManager::CRITERIA_ORDER_BY => array('newsDate' => 'DESC')
         );
@@ -248,36 +250,28 @@ class NewsController extends Controller {
     }
 
     /**
-     * @Route("/news-video", name="armd_lecture_news_index", options={"expose"=true})
-     * @Template("ArmdNewsBundle:NewsNew:index_newsVideos.html.twig")
-     */
-    public function newsVideosIndexAction() {
-        $request = $this->getRequest();
-        $em = $this->getDoctrine()->getManager();
-
-        return array(
-            'lectureSuperTypeCode' => 'LECTURE_SUPER_TYPE_NEWS',
-            'searchQuery' => $request->get('search_query'),
-            'lecture' => $em->getRepository('ArmdLectureBundle:Lecture')->findOneBy(array('isHeadline' => true))
-        );
-    }
-
-    /**
      * @Route("/news-video/list", name="armd_lecture_news_list", options={"expose"=true})
-     * @Template("ArmdNewsBundle:NewsNew:index_newsVideosList.html.twig")
+     * @Template("ArmdNewsBundle:NewsNew:indexListVideos.html.twig")
      */
-    public function newsVideosIndexListAction() {
+    public function newsIndexListVideosAction() {
         $request = $this->getRequest();
         $lecturesManager = $this->get('armd_lecture.manager.lecture');
 
+        $offset = $request->get('offset');
+        $searchQuery = $request->get('searchQuery');
+
         $criteria = array(
             LectureManager::CRITERIA_SUPER_TYPE_CODES_OR => array('LECTURE_SUPER_TYPE_NEWS'),
-            LectureManager::CRITERIA_LIMIT => 12,
+            LectureManager::CRITERIA_LIMIT => self::DEFAULT_LIST_LIMIT,
             LectureManager::CRITERIA_ORDER_BY => array('createdAt' => 'DESC')
         );
 
-        if ($request->query->has('search_query')) {
-            $criteria[LectureManager::CRITERIA_SEARCH_STRING] = $request->get('search_query');
+        if ($offset) {
+            $criteria[LectureManager::CRITERIA_OFFSET] = $offset;
+        }
+
+        if ($searchQuery) {
+            $criteria[LectureManager::CRITERIA_SEARCH_STRING] = $searchQuery;
         }
 
         $lectures = $lecturesManager->findObjects($criteria);

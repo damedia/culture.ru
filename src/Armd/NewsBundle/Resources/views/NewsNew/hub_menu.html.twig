@@ -26,6 +26,6 @@
     {% endif %}
 
     <li>
-        <a href="{{ path('armd_lecture_news_index') }}">видео</a>
+        <a{% if currentCategory == 'news-video' %} class="{{ palette_color }}"{% endif %} href="{{ path('armd_lecture_news_index') }}">видео</a>
     </li>
 </ul>
