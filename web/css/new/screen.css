@@ -3073,6 +3073,9 @@ a.sidebar-widget-item:hover > .darkLayer {
     width: 700px;
 }
 
+.height50 {
+    height: 50px;
+}
 .height60 {
     height: 60px;
 }

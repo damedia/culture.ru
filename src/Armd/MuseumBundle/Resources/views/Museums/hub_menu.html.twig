@@ -1,5 +1,4 @@
-<ul class="hub-menu">
-{% spaceless %}
+<ul class="hub-menu height50">
     <li>
         <a class="{{ palette_color }}" href="{{ path('armd_museum_virtual') }}">
             {{- 'Hub.MenuVirtualTours'|trans -}}
@@ -10,6 +9,14 @@
             {{- 'Hub.MenuMuseumReserved'|trans -}}
         </a>
     </li>
+
+    <!--
+    The section below is commented out "temporary" because these sections are
+    not maintained or under construction. Templates and controller actions are
+    up and running.
+    -->
+
+    <!--
     <br />
     <li>
         <a href="{{ path('armd_lesson_list') }}">
@@ -21,5 +28,5 @@
             {{- 'Hub.MenuWarGallery'|trans -}}
         </a>
     </li>
-{% endspaceless %}
+    -->
 </ul>
