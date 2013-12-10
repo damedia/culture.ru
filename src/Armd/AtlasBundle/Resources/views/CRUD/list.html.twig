@@ -10,11 +10,11 @@
              </a>
              <div id="dialog-form" title="Поиск статьи по DCX">
               <p class="validateTips">Введите DcxID статьи</p>
-              <form>
-              <fieldset>
-                <label for="name">DCX ID</label>
-                <input type="text" name="name" id="dcx-search-article" class="text ui-widget-content ui-corner-all">
-              </fieldset>
+              <form id = "form-submit-id" action="{{ admin.generateUrl('addArticle')}}" method="post">
+                <fieldset>
+                  <label for="name">DCX ID</label>
+                  <input type="text" name="name" id="dcx_id" class="text ui-widget-content ui-corner-all">
+                </fieldset>
               </form>
             </div>
         {% endif %}
@@ -26,7 +26,7 @@
     {{ parent() }}
     <script type="text/javascript">
         $(function(){
-            var name = $( "#dcx-search-article" ),
+            var name = $( "#dcx_id" ),
             allFields = $( [] ).add( name ),
             tips = $( ".validateTips" );
             $( "#dialog-form" ).dialog({
@@ -38,7 +38,10 @@
                 "Search": function() {
                     var bValid = true;
                     allFields.removeClass( "ui-state-error" );
-                    $( this ).dialog( "close" );
+                    bValid = bValid && checkLength( name, "DCX ID", 0);
+                    if ( bValid ) {
+                      $('#form-submit-id').submit();
+                    }
                 },
                 Cancel: function() {
                   $( this ).dialog( "close" );
@@ -53,6 +56,38 @@
               .click(function() {
                 $( "#dialog-form" ).dialog( "open" );
             });
+
+            $('#form-submit-id').ajaxForm({
+                dataType: 'json',
+                success: function(response, statusText, xhr, $form){
+                    if(!response.success){
+                      name.addClass( "ui-state-error" );
+                      updateTips(response.error);
+                    }
+                    else{
+                      location.href = "{{ admin.generateUrl('addArticle')}}";
+                    }
+                }
+            });
+
+            function updateTips( t ) {
+              tips
+                .text( t )
+                .addClass( "ui-state-highlight" );
+              setTimeout(function() {
+                tips.removeClass( "ui-state-highlight", 1500 );
+              }, 500 );
+            }
+
+            function checkLength( o, n, min) {
+              if ( o.val().length <= min) {
+                o.addClass( "ui-state-error" );
+                updateTips( "Поле " + n + " не может быть пустым" );
+                return false;
+              } else {
+                return true;
+              }
+            }
         });
     </script>    
 {% endblock %} 

@@ -11,6 +11,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Admin\Admin;
 use Armd\AtlasBundle\Entity\Category;
 use Armd\AtlasBundle\Entity\TouristCluster;
+use Sonata\AdminBundle\Route\RouteCollection;
 
 class ObjectAdmin extends Admin
 {
@@ -416,4 +417,10 @@ class ObjectAdmin extends Admin
                 break;
         }
     }
+
+    protected function configureRoutes(RouteCollection $collection)
+    {
+        $collection->add('addArticle');
+    }
+
 }
