@@ -134,105 +134,106 @@
     <script type="text/javascript" charset="utf-8" src="http://js.tmcrussia.com/?{{ progorod_api_key }}&version=0.1.8"></script>
     <script type="text/javascript" src="{{ asset('bundles/damediaatlasjsmodule/js/module.atlas.js') }}"></script>
     <script type="text/javascript">
-        $(window).load(function(){
-            var instruction = $('.virt-museum-instr'),
-                slider = $('#museums-images-widget-placeholder'),
-                sliderNav = slider.find('div.b-pagination-nav'),
-                sliderItems = slider.find('ul#museum_widget > li'),
-                sidebarMapPlaceholder = $('#slider-museum-item-map-placeholder'),
-                sidebarInfoPlaceholder = $('#slider-museum-item-info-placeholder'),
-                info_address = sidebarInfoPlaceholder.find('span[data-info="address"]'),
-                info_siteUrl = sidebarInfoPlaceholder.find('span[data-info="siteUrl"]'),
-                info_phone = sidebarInfoPlaceholder.find('span[data-info="phone"]'),
-                info_workTime = sidebarInfoPlaceholder.find('span[data-info="workTime"]'),
-                setupMapForCurrentItem = function(){
-                    var currentItemNavHref = sliderNav.find('ul > li.selected > a').attr('href'),
-                        currentItemNumber = parseInt(currentItemNavHref.substring(1), 10) - 1,
-                        currentItem = $(sliderItems[currentItemNumber]),
-                        sidebar = currentItem.find('div.item-title-side'),
-                        mapHolder = sidebar.find('div.circle'),
-                        mapHolderId = mapHolder.attr('id'),
-                        objectId = mapHolder.attr('data-id'),
-                        objectLon = mapHolder.attr('data-lon'),
-                        objectLat = mapHolder.attr('data-lat'),
-                        objectAddress = sidebar.find('span[data-info="address"]').html(),
-                        objectSiteUrl = sidebar.find('span[data-info="siteUrl"]').html(),
-                        objectPhone = sidebar.find('span[data-info="phone"]').html(),
-                        objectWorkTime = sidebar.find('span[data-info="workTime"]').html();
+        {% if currentCategory == 'virtual' %}
+            $(window).load(function(){
+                var instruction = $('.virt-museum-instr'),
+                    slider = $('#museums-images-widget-placeholder'),
+                    sliderNav = slider.find('div.b-pagination-nav'),
+                    sliderItems = slider.find('ul#museum_widget > li'),
+                    sidebarMapPlaceholder = $('#slider-museum-item-map-placeholder'),
+                    sidebarInfoPlaceholder = $('#slider-museum-item-info-placeholder'),
+                    info_address = sidebarInfoPlaceholder.find('span[data-info="address"]'),
+                    info_siteUrl = sidebarInfoPlaceholder.find('span[data-info="siteUrl"]'),
+                    info_phone = sidebarInfoPlaceholder.find('span[data-info="phone"]'),
+                    info_workTime = sidebarInfoPlaceholder.find('span[data-info="workTime"]'),
+                    setupMapForCurrentItem = function(){
+                        var currentItemNavHref = sliderNav.find('ul > li.selected > a').attr('href'),
+                                currentItemNumber = parseInt(currentItemNavHref.substring(1), 10) - 1,
+                                currentItem = $(sliderItems[currentItemNumber]),
+                                sidebar = currentItem.find('div.item-title-side'),
+                                mapHolder = sidebar.find('div.circle'),
+                                mapHolderId = mapHolder.attr('id'),
+                                objectId = mapHolder.attr('data-id'),
+                                objectLon = mapHolder.attr('data-lon'),
+                                objectLat = mapHolder.attr('data-lat'),
+                                objectAddress = sidebar.find('span[data-info="address"]').html(),
+                                objectSiteUrl = sidebar.find('span[data-info="siteUrl"]').html(),
+                                objectPhone = sidebar.find('span[data-info="phone"]').html(),
+                                objectWorkTime = sidebar.find('span[data-info="workTime"]').html();
 
-                    sidebarMapPlaceholder.html(sidebar.html());
+                        sidebarMapPlaceholder.html(sidebar.html());
 
-                    ATLAS_MODULE.init({
-                        spotlightId: objectId,
-                        spotlightUrl: Routing.generate('armd_atlas_default_object_view', { id: objectId }),
-                        spotlightImageUrl: '/img/museums_icons/point.png',
-                        pgMap: {
-                            placeholderId: mapHolderId,
-                            locale: '{{ app.request.locale }}',
-                            mapClusterImagesUrl: '{{ asset('bundles/armdatlas/images') }}',
-                            focusX: objectLon,
-                            focusY: objectLat
-                        }
-                    });
+                        ATLAS_MODULE.init({
+                            spotlightId: objectId,
+                            spotlightUrl: Routing.generate('armd_atlas_default_object_view', { id: objectId }),
+                            spotlightImageUrl: '/img/museums_icons/point.png',
+                            pgMap: {
+                                placeholderId: mapHolderId,
+                                locale: '{{ app.request.locale }}',
+                                mapClusterImagesUrl: '{{ asset('bundles/armdatlas/images') }}',
+                                focusX: objectLon,
+                                focusY: objectLat
+                            }
+                        });
 
-                    info_address.html(objectAddress);
-                    info_siteUrl.html('<a href="'+objectSiteUrl+'" class="palette-color-3 fontBold">'+objectSiteUrl+'</a>');
-                    info_phone.html(objectPhone);
-                    info_workTime.html(objectWorkTime);
-                };
+                        info_address.html(objectAddress);
+                        info_siteUrl.html('<a href="'+objectSiteUrl+'" class="palette-color-3 fontBold">'+objectSiteUrl+'</a>');
+                        info_phone.html(objectPhone);
+                        info_workTime.html(objectWorkTime);
+                    };
 
-            setupMapForCurrentItem();
-
-            sliderNav.find('ul > li').on('click', function(){
-                sidebarMapPlaceholder.find('div.PGmap').remove();
                 setupMapForCurrentItem();
-            });
 
-            if (instruction.length > 0) {
-                instruction.fancybox({
-                    width: 900,
-                    height: 900,
-                    autoSize: false,
-                    transitionIn: 'none',
-                    transitionOut: 'none'
-                });
-            }
-
-            /* Show more button */
-            var itemsPlaceholder = $('#museums-items-list');
-
-            $('#museums-showMore').on('click', function(){
-                var loadedItems = $('.museums-list-item', itemsPlaceholder),
-                    loadedIds = [];
-
-                $.each(loadedItems, function(){
-                    loadedIds.push($(this).attr('data-id'));
+                sliderNav.find('ul > li').on('click', function(){
+                    sidebarMapPlaceholder.find('div.PGmap').remove();
+                    setupMapForCurrentItem();
                 });
 
-                $.post(Routing.generate('armd_museum_list'), { loadedIds: loadedIds }, function(html){
-                    itemsPlaceholder.append(html);
-                });
-            });
-
-            /* Show next set of reserve Museums button */
-            var reserveMuseumsPlaceholder = $('#museums-sidebar-list-placeholder');
-
-            $('#museums-sidebar-list-next-set-button').on('click', function(){
-                var activeChunk = reserveMuseumsPlaceholder.find('div.museums-sidebar-list-chunk.active'),
-                    nextChunk = activeChunk.next();
-
-                if (nextChunk.length === 0) {
-                    nextChunk = reserveMuseumsPlaceholder.find('div.museums-sidebar-list-chunk:first');
+                if (instruction.length > 0) {
+                    instruction.fancybox({
+                        width: 900,
+                        height: 900,
+                        autoSize: false,
+                        transitionIn: 'none',
+                        transitionOut: 'none'
+                    });
                 }
 
-                activeChunk.fadeOut(200, function(){
-                    nextChunk.fadeIn(200, function(){
-                        activeChunk.removeClass('active').addClass('displayNone');
-                        nextChunk.addClass('active').removeClass('displayNone');
-                        console.log('animation complete');
+                /* Show more button */
+                var itemsPlaceholder = $('#museums-items-list');
+
+                $('#museums-showMore').on('click', function(){
+                    var loadedItems = $('.museums-list-item', itemsPlaceholder),
+                        loadedIds = [];
+
+                    $.each(loadedItems, function(){
+                        loadedIds.push($(this).attr('data-id'));
+                    });
+
+                    $.post(Routing.generate('armd_museum_list'), { loadedIds: loadedIds }, function(html){
+                        itemsPlaceholder.append(html);
+                    });
+                });
+
+                /* Show next set of reserve Museums button */
+                var reserveMuseumsPlaceholder = $('#museums-sidebar-list-placeholder');
+
+                $('#museums-sidebar-list-next-set-button').on('click', function(){
+                    var activeChunk = reserveMuseumsPlaceholder.find('div.museums-sidebar-list-chunk.active'),
+                        nextChunk = activeChunk.next();
+
+                    if (nextChunk.length === 0) {
+                        nextChunk = reserveMuseumsPlaceholder.find('div.museums-sidebar-list-chunk:first');
+                    }
+
+                    activeChunk.fadeOut(200, function(){
+                        nextChunk.fadeIn(200, function(){
+                            activeChunk.removeClass('active').addClass('displayNone');
+                            nextChunk.addClass('active').removeClass('displayNone');
+                        });
                     });
                 });
             });
-        });
+        {% endif %}
     </script>
 {% endblock %}
