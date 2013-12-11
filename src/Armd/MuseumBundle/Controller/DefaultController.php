@@ -11,6 +11,7 @@ use Armd\MuseumBundle\Entity\MuseumManager;
 class DefaultController extends Controller {
     const PALETTE_COLOR_HEX = '#349A8A';
 
+    private $reserveMuseums = array(27, 16, 15, 21, 18, 10, 26, 5, 24, 22); //TODO: this should be in the persistence layer!
     private $palette_color = 'palette-color-3';
 
     /**
@@ -27,7 +28,29 @@ class DefaultController extends Controller {
             'palette_color_hex' => DefaultController::PALETTE_COLOR_HEX,
             'regionId' => $regionId,
             'regions' => $regions,
-            'categories' => $categories
+            'categories' => $categories,
+            'currentCategory' => 'virtual'
+        );
+    }
+
+    /**
+     * @Route("/museum_reserve", name="armd_main_museum_reserve", options={"expose"=true})
+     * @Template("ArmdMuseumBundle:Museums:museumsIndex.html.twig")
+     */
+    public function museumReserveAction() {
+        $regionId = (int)$this->getRequest()->get('region', 0);
+        $regions = $this->getMuseumManager()->getDistinctRegions();
+        $categories = $this->getMuseumManager()->getCategories();
+
+        return array(
+            'palette_color' => $this->palette_color,
+            'palette_color_hex' => DefaultController::PALETTE_COLOR_HEX,
+            'regionId' => $regionId,
+            'regions' => $regions,
+            'categories' => $categories,
+            'currentCategory' => 'museum_reserve',
+
+            'museum_reserve' => $this->getReserveMuseums()
         );
     }
 
@@ -61,20 +84,11 @@ class DefaultController extends Controller {
      */
     private function getReserveMuseums() {
         $criteria = array();
-        $reserveMuseums = array(27, 16, 15, 21, 18, 10, 26, 5, 24, 22);
 
-        $criteria[MuseumManager::CRITERIA_IDS_OR] = $reserveMuseums;
+        $criteria[MuseumManager::CRITERIA_IDS_OR] = $this->reserveMuseums;
         $museums = $this->getMuseumManager()->findObjects($criteria);
 
         return $museums;
-    }
-
-    /**
-     * @Route("/museum_reserve", name="armd_main_museum_reserve", options={"expose"=true})
-     * @Template("ArmdMuseumBundle:Museums:museum_reserve.html.twig")
-     */
-    public function museumReserveAction() {
-        return array('museum_reserve' => $this->getReserveMuseums());
     }
 
     /**
@@ -143,6 +157,23 @@ class DefaultController extends Controller {
         */
 
         return array('museums' => $museums, /*'by_region' => $by_region*/);
+    }
+
+    /**
+     * @Route("/list-reserve", name="armd_museum_reserve_list", options={"expose"=true})
+     * @Template("ArmdAtlasBundle:Objects:imagesOfRussiaList.html.twig")
+     */
+    public function listReserveAction() {
+        $objects = array();
+        $reserveMuseums = $this->getReserveMuseums();
+
+        foreach ($reserveMuseums as $museum) {
+            $objects[] = $museum->getAtlasObject();
+        }
+
+        return array(
+            'objects' => $objects
+        );
     }
 
 

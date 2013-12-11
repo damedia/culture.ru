@@ -3060,8 +3060,14 @@ a.sidebar-widget-item:hover > .darkLayer {
 .width200 {
     width: 200px;
 }
+.width210 {
+    width: 210px;
+}
 .width220 {
     width: 220px;
+}
+.width225 {
+    width: 225px;
 }
 .width400 {
     width: 400px;
@@ -3118,6 +3124,9 @@ a.sidebar-widget-item:hover > .darkLayer {
 
 .marginTop10 {
     margin-top: 10px;
+}
+.marginTop30 {
+    margin-top: 30px;
 }
 .marginTop123 {
     margin-top: 123px;
@@ -3393,10 +3402,15 @@ a.sidebar-widget-item:hover > .darkLayer {
     background: url(../../img/new/main-border-bg.png) left top repeat-x;
     margin: 40px 0 0 -800px;
 }
+.dottedLine-full {
+    width: 3500px;
+    height: 1px;
+    background: url(../../img/new/main-border-bg.png) left top repeat-x;
+    margin: 40px 0 0 -800px;
+}
 .museums-hub-list-header {
     background-color: #ffffff;
     margin: -12px 0 0 -20px;
-    width: 210px;
     padding-left: 20px;
 }
 .virt-museum-instr {

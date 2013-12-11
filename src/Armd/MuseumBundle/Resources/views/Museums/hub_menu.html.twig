@@ -1,11 +1,11 @@
 <ul class="hub-menu height50">
     <li>
-        <a class="{{ palette_color }}" href="{{ path('armd_museum_virtual') }}">
+        <a{% if currentCategory == 'virtual' %} class="{{ palette_color }}"{% endif %} href="{{ path('armd_museum_virtual') }}">
             {{- 'Hub.MenuVirtualTours'|trans -}}
         </a>
     </li>
     <li>
-        <a href="{{ path('armd_main_museum_reserve') }}">
+        <a{% if currentCategory == 'museum_reserve' %} class="{{ palette_color }}"{% endif %} href="{{ path('armd_main_museum_reserve') }}">
             {{- 'Hub.MenuMuseumReserved'|trans -}}
         </a>
     </li>
