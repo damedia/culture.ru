@@ -50,7 +50,7 @@ class DcxMediaTransformer implements DataTransformerInterface
     public function reverseTransform($params)
     {
 
-        if(!$params['dcxId'] && !$params['imageFile']){
+        if(!isset($params['dcxId']) && !isset($params['imageFile'])){
             $media = $this->om
                 ->getRepository('ApplicationSonataMediaBundle:Media')
                 ->findOneBy(array('id' => $params['currentMediaId']))

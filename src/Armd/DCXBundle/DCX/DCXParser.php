@@ -65,6 +65,7 @@ class DCXParser
         return $docs[0];
     }
 
+    //@todo пришлось делать в спешке, надо бы переписать и отрефакторить
     private function baseParseDocument($xml)
     {
         $sxml = $this->xmlLoader($xml);
@@ -134,6 +135,12 @@ class DCXParser
                                     }
                                     if($nkey === 'files' && is_object($nvalue)){
                                         $val['variant'] = (string)$nvalue['variant'];
+                                        $check = $nvalue->xpath("dcx:file[@type='original']");
+                                        if (isset($check[0])){
+                                            $href = $check[0]['src'];
+                                        }
+                                        else $href = '';
+                                        //$href = isset($nvalue->xpath("dcx:file[@type='original']")[0]) ? $nvalue->xpath("dcx:file[@type='original']")[0]['src'] : '';
                                         $href = isset($nvalue->xpath("dcx:file[@type='original']")[0]) ? $nvalue->xpath("dcx:file[@type='original']")[0]['src'] : '';
                                         $val['href'] = (string)$href;
                                     }
