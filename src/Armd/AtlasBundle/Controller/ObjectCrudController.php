@@ -8,14 +8,7 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\HttpException;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sonata\AdminBundle\Exception\ModelManagerException;
 use Symfony\Component\HttpFoundation\Request;
-use Sonata\AdminBundle\Admin\BaseFieldDescription;
-use Sonata\AdminBundle\Util\AdminObjectAclData;
 
 use Armd\DCXBundle\DCX\DCXDocument;
 
@@ -50,28 +43,11 @@ class ObjectCrudController extends BaseCrudController
             });
     }
 
-    // protected function getRestMethod()
-    // {
-    //     $request = $this->getRequest();
-    //     if (Request::getHttpMethodParameterOverride() || !$request->request->has('_method')) {
-    //         return $request->getMethod();
-    //     }
-
-    //     return $request->request->get('_method');
-    // }
-
-    public function addArticleAction()
+    public function craeteArticleAction($dcxId)
     {
-        $request = $this->getRequest();
-        if ( $request->isMethod( 'POST' ) ) {
-            $dcx_id = $request->request->get('name');
-            $dcx_client = $this->get('dcx.client');
-            $DcxObj = $dcx_client->getDoc($dcx_id);
-            if(!$DcxObj instanceof DCXDocument){
-                return new JsonResponse(array('error' => 'Документа с таким DC ID не существует', 'success' => false));
-            }
-            return new JsonResponse(array('success' => true));
-        }
+        $dcxClient = $this->get('dcx.client');
+        $DcxObj = $dcxClient->getDoc($dcxId);
+
         // the key used to lookup the template
         $templateKey = 'edit';
 
@@ -81,7 +57,17 @@ class ObjectCrudController extends BaseCrudController
 
         $object = $this->admin->getNewInstance();
 
-        $object->setTitle('title');
+        $object->setTitle($DcxObj->title);
+        $object->setAnnounce($DcxObj->lead);
+        $object->setContent($DcxObj->body);
+        $object->setSiteUrl($DcxObj->uri);
+        $object->setEmail($DcxObj->email);
+        $object->setPhone($DcxObj->phone);
+        $object->setAddress($DcxObj->address);
+        $object->setLat($DcxObj->latitude);
+        $object->setLon($DcxObj->longitude);
+        $object->setWorkTime($DcxObj->schedule);
+        $object->setShowAtRussianImage(true);
 
         $this->admin->setSubject($object);
 
@@ -132,6 +118,18 @@ class ObjectCrudController extends BaseCrudController
             'form'   => $view,
             'object' => $object,
         ));
+    }
+
+    public function checkArticleAction()
+    {
+        $request = $this->getRequest();
+        $dcxId = $request->request->get('name');
+        $dcxClient = $this->get('dcx.client');
+        $DcxObj = $dcxClient->getDoc($dcxId);
+        if(!$DcxObj instanceof DCXDocument){
+            return new JsonResponse(array('error' => 'Документа с таким DC ID не существует', 'success' => false));
+        }
+        return new JsonResponse(array('success' => true, 'dcxId' => $dcxId));
     }
 
 }

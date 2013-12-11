@@ -420,7 +420,8 @@ class ObjectAdmin extends Admin
 
     protected function configureRoutes(RouteCollection $collection)
     {
-        $collection->add('addArticle');
+        $collection->add('checkArticle', null, array(), array('_method'=>'POST'));
+        $collection->add('craeteArticle','createArticle/{dcxId}',array(), array('_method'=>'GET'), array('expose' => true));
     }
 
 }

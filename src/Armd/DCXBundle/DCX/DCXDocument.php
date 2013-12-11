@@ -46,7 +46,15 @@ class DCXDocument
     {
         foreach ($fields as $key => $value) {
             if (property_exists($this, $key)){
-                $this->$key = $value;       
+
+                if($key == 'latitude' || $key == 'longitude')
+                {
+                    $this->$key = floatval(str_replace(',','.',$value));
+                }
+                else
+                {
+                    $this->$key = $value;
+                }
             }
         }
     }
