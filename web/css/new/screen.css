@@ -3043,6 +3043,9 @@ a.sidebar-widget-item:hover > .darkLayer {
 .greyBackground {
     background-color: #E1E3E4;
 }
+.whiteBackground {
+    background-color: #FFFFFF;
+}
 
 .floatLeft {
     float: left;
