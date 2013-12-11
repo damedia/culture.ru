@@ -140,8 +140,6 @@ class DCXParser
                                             $href = $check[0]['src'];
                                         }
                                         else $href = '';
-                                        //$href = isset($nvalue->xpath("dcx:file[@type='original']")[0]) ? $nvalue->xpath("dcx:file[@type='original']")[0]['src'] : '';
-                                        $href = isset($nvalue->xpath("dcx:file[@type='original']")[0]) ? $nvalue->xpath("dcx:file[@type='original']")[0]['src'] : '';
                                         $val['href'] = (string)$href;
                                     }
                                 }
