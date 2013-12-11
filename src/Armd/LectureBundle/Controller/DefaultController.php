@@ -315,12 +315,6 @@ class DefaultController extends Controller {
      *  name="armd_lecture_view",
      *  defaults={"version" = "trailer"}
      * )
-     *
-     * @Route(
-     *  "/lecture/view/{id}/{version}",
-     *  requirements={"id"="\d+"},
-     *  defaults={"version" = "trailer"}
-     * )
      */
     public function lectureDetailsAction($id, $version) {
         $em = $this->getDoctrine()->getManager();
