@@ -1,0 +1,53 @@
+{% macro fourPlusOne(subset) %}
+    {% for object in subset %}
+        {% if loop.index == 1 %}
+            <div class="imageOfRussia-list-item-4pack">
+        {% endif %}
+
+        {% if loop.index == 5 %}
+            {% include 'ArmdAtlasBundle:Objects:imagesOfRussia_list_item_big.html.twig' with {'item': object} %}
+        {% else %}
+            {% include 'ArmdAtlasBundle:Objects:imagesOfRussia_list_item.html.twig' with {'item': object} %}
+        {% endif %}
+
+        {% if loop.index == 4 %}
+            </div>
+        {% endif %}
+    {% endfor %}
+{% endmacro %}
+
+{% macro onePlusFour(subset) %}
+    {% for object in subset %}
+        {% if loop.index == 2 %}
+            <div class="imageOfRussia-list-item-4pack">
+        {% endif %}
+
+        {% if loop.index == 1 %}
+            {% include 'ArmdAtlasBundle:Objects:imagesOfRussia_list_item_big.html.twig' with {'item': object} %}
+        {% else %}
+            {% include 'ArmdAtlasBundle:Objects:imagesOfRussia_list_item.html.twig' with {'item': object} %}
+        {% endif %}
+
+        {% if loop.index == 5 %}
+            </div>
+        {% endif %}
+    {% endfor %}
+{% endmacro %}
+
+{% set objectsTotal = objects|length %}
+{% set objectsInRow = 5 %}
+{% set numberOfSections = ((objectsTotal / objectsInRow) > (objectsTotal // objectsInRow)) ? (objectsTotal // objectsInRow) + 1 : (objectsTotal // objectsInRow) %}
+
+{% spaceless %}
+    {% for i in 1..numberOfSections %}
+        {% if i % 2 == 0 %}
+            {% set start = ((i == 1) ? 0 : ((i - 1) * objectsInRow)) %}
+            {% set subset = objects|slice(start, objectsInRow) %}
+            {{ _self.onePlusFour(subset) }}
+        {% else %}
+            {% set start = ((i == 1) ? 0 : ((i - 1) * objectsInRow)) %}
+            {% set subset = objects|slice(start, objectsInRow) %}
+            {{ _self.fourPlusOne(subset) }}
+        {% endif %}
+    {% endfor %}
+{% endspaceless %}

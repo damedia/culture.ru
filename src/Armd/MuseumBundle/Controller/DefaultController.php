@@ -161,7 +161,7 @@ class DefaultController extends Controller {
 
     /**
      * @Route("/list-reserve", name="armd_museum_reserve_list", options={"expose"=true})
-     * @Template("ArmdAtlasBundle:Objects:imagesOfRussiaList.html.twig")
+     * @Template("ArmdAtlasBundle:Objects:imagesOfRussiaList_alternative.html.twig")
      */
     public function listReserveAction() {
         $objects = array();
