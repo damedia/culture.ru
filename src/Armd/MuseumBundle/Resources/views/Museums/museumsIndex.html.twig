@@ -31,9 +31,9 @@
 
         {{ include('ArmdMuseumBundle:Museums:hub_menu.html.twig', {'palette_color': palette_color, 'currentCategory': currentCategory}) }}
 
-        {% render url('armd_museum_indexWidget') %}
-
         {% if currentCategory == 'virtual' %}
+            {% render url('armd_museum_indexWidget') %}
+
             <div class="dottedLine-left"></div>
             <div class="header-text-medium museums-hub-list-header width210">
                 {{ 'VirtualTours'|trans }}
@@ -86,6 +86,11 @@
                 <div id="museums-showMore" title="{{ 'ShowMore'|trans }}"></div>
             </div>
         {% elseif currentCategory == 'museum_reserve' %}
+            <div style="position: relative;">
+                <span class="museums-hub-background-left"></span>
+                <span class="museums-hub-background-right"></span>
+            </div>
+
             <div class="dottedLine-full"></div>
             <div class="header-text-medium museums-hub-list-header width225">
                 {{ 'MuseumsReserves'|trans }}
@@ -101,9 +106,9 @@
 {% endblock %}
 
 {% block sidebar %}
-    {% render url('armd_museum_indexSidebar') %}
-
     {% if currentCategory == 'virtual' %}
+        {% render url('armd_museum_indexSidebar') %}
+
         <div class="palette-colored-box-3 greyBackground marginTop123">
             <div class="header-text-medium textAlignCenter museums-sidebar-header">
                 {{ 'MuseumsReserve'|trans }}
