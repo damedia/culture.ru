@@ -3402,12 +3402,6 @@ a.sidebar-widget-item:hover > .darkLayer {
     background: url(../../img/new/main-border-bg.png) left top repeat-x;
     margin: 40px 0 0 -800px;
 }
-.dottedLine-full {
-    width: 3500px;
-    height: 1px;
-    background: url(../../img/new/main-border-bg.png) left top repeat-x;
-    margin: 40px 0 0 -800px;
-}
 .museums-hub-list-header {
     background-color: #ffffff;
     margin: -12px 0 0 -20px;
