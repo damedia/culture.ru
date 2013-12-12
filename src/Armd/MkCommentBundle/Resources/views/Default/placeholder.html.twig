@@ -2,7 +2,7 @@
     <div class="b-comments{% if not is_granted('ROLE_USER') %} not-login{% endif %}" id="post-comments">
         <div class="commtents-header">{{ 'Comments.Header'|trans }}</div>
 
-        {% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': app.request.locale ~ '_' ~ entity_type ~ '_' ~ entity.id, 'style': 'new', 'buttonClass': palette_background, 'textClass': palette_color } %}
+        {% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': app.request.locale ~ '_' ~ entity_type ~ '_' ~ entity.id, 'buttonClass': palette_background, 'textClass': palette_color } %}
 
         {% if not is_granted('ROLE_USER') %}
             <div class="b-user-not-login">

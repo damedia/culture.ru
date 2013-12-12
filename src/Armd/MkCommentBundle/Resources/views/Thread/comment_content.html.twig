@@ -6,9 +6,104 @@
 {% import 'ArmdNewsBundle::date_macro.html.twig' as armd_news %}
 
 {% block fos_comment_comment %}
-    {% if 'new' in app.request.attributes.get('id') %}
-        {% include 'ArmdMkCommentBundle:Thread:comment_content_partNew.html.twig' %}
-    {% else %}
-        {% include 'ArmdMkCommentBundle:Thread:comment_content_partOld.html.twig' %}
-    {% endif %}
+<div id="comment{{ comment.id }}" class="fos_comment_comment_show fos_comment_comment_depth_{{ depth }} comment-item {% if depth == 0 %}first{% endif %}" {% if parentId is defined %}data-parent="{{ parentId }}"{% endif %}>
+    <div class="comment-list_text">
+        {# author #}
+        {% block fos_comment_comment_metas_authorline %}
+            <div class="comment-info">
+                {% if comment is fos_comment_in_state(constant('FOS\\CommentBundle\\Model\\CommentInterface::STATE_VISIBLE')) %}
+                    <b>{{ comment.authorName }}</b>
+                {% endif %}
+                <span class="date-style">{{ armd_news.macro_date_full(comment.createdAt) }}</span>
+            </div>
+        {% endblock fos_comment_comment_metas_authorline %}
+
+        {# body #}
+        {% block fos_comment_comment_body %}
+            <div class="fos_comment_comment_body comment-text">
+                <div class="comment-list_comment">
+                    {% if comment is fos_comment_in_state(constant('FOS\\CommentBundle\\Model\\CommentInterface::STATE_DELETED')) %}
+                        {% trans from 'FOSCommentBundle' %}fos_comment_comment_deleted{% endtrans %}
+                    {% elseif comment is fos_comment_in_state(constant('FOS\\CommentBundle\\Model\\CommentInterface::STATE_PENDING')) %}
+                        {% trans from 'ArmdMkCommentBundle' %}state_pending{% endtrans %}
+                    {% elseif comment is fos_comment_in_state(constant('FOS\\CommentBundle\\Model\\CommentInterface::STATE_VISIBLE')) %}
+                        <p>
+                            {% if comment is fos_comment_raw %}
+                                {{ comment.rawBody | raw }}
+                            {% else %}
+                                {{ comment.body | nl2br }}
+                            {% endif %}
+                        </p>
+                    {% endif %}
+                </div>
+            </div>
+        {% endblock fos_comment_comment_body %}
+
+        {# metas #}
+        {% block fos_comment_comment_metas %}
+            <div class="comment-list_footer">
+                {% if comment is fos_comment_in_state(constant('FOS\\CommentBundle\\Model\\CommentInterface::STATE_VISIBLE')) %}
+                    {# comment reply #}
+                    {% if fos_comment_can_comment(comment) %}
+                        <span data-url="{{ url('fos_comment_new_thread_comments', {"id": comment.thread.id}) }}" data-name="{{ comment.authorName }}" data-parent-id="{{ comment.id }}" class="palette-text fos_comment_comment_reply_show_form">{{ 'Comments.Comment.Reply'|trans }}</span>
+                    {% endif %}
+
+                    {# comment link #}
+                    <a href="#comment{{comment.id}}" class="palette-text fos-comment-link-buttonlike displayNone" role="comment-link">
+                        {{ 'Comments.Comment.Link'|trans }}
+                    </a>
+
+                    {# begin: voting block - we are not using this for now #}
+                    {% block fos_comment_comment_metas_voting %}
+                        {% if fos_comment_can_vote(comment) %}
+                            <div class="fos_comment_comment_voting">
+                                <a href="javascript:;" data-url="{{ url("fos_comment_new_thread_comment_votes", {"id": comment.thread.id, "commentId": comment.id, "value": 1}) }}" class="fos_comment_comment_vote">{% trans from 'FOSCommentBundle' %}fos_comment_comment_show_voteup{% endtrans %}</a>
+                                <a href="javascript:;" data-url="{{ url("fos_comment_new_thread_comment_votes", {"id": comment.thread.id, "commentId": comment.id, "value": -1}) }}" class="fos_comment_comment_vote">{% trans from 'FOSCommentBundle' %}fos_comment_comment_show_votedown{% endtrans %}</a>
+                                <div class="fos_comment_comment_score" id="fos_comment_score_{{ comment.id }}">{% include "FOSCommentBundle:Thread:comment_votes.html.twig" with { 'commentScore': comment.score } %}</div>
+                            </div>
+                        {% endif %}
+                    {% endblock fos_comment_comment_metas_voting %}
+                    {# end: voting block #}
+                {% endif %}
+
+                {# comment edit #}
+                {% block fos_comment_comment_metas_edit %}
+                    {% if fos_comment_can_edit_comment(comment) %}
+                        <span data-url="{{ url("fos_comment_edit_thread_comment", {"id": comment.thread.id, "commentId": comment.id}) }}" class="palette-text fos_comment_comment_edit_show_form">{{ 'Comments.Comment.Edit'|trans }}</span>
+                    {% endif %}
+                {% endblock fos_comment_comment_metas_edit %}
+
+                {# comment delete #}
+                {% block fos_comment_comment_metas_delete %}
+                    {% if fos_comment_can_delete_comment(comment) %}
+                        {% if comment is fos_comment_in_state(constant('FOS\\CommentBundle\\Model\\CommentInterface::STATE_DELETED')) %}
+                            {# restore comment link #}
+                            <span data-url="{{ url("fos_comment_remove_thread_comment", {"id": comment.thread.id, "commentId": comment.id, "value": constant('FOS\\CommentBundle\\Model\\CommentInterface::STATE_VISIBLE') }) }}" class="palette-text fos_comment_comment_remove">{{ 'Comments.Comment.Restore'|trans }}</span>
+                        {% else %}
+                            {# delete comment link #}
+                            <span data-url="{{ url("fos_comment_remove_thread_comment", {"id": comment.thread.id, "commentId": comment.id, "value":  constant('FOS\\CommentBundle\\Model\\CommentInterface::STATE_DELETED')}) }}" class="palette-text fos_comment_comment_remove">{{ 'Comments.Comment.Delete'|trans }}</span>
+                        {% endif %}
+                    {% endif %}
+                {% endblock fos_comment_comment_metas_delete %}
+            </div>
+        {% endblock fos_comment_comment_metas %}
+    </dev>
+
+    {# children #}
+    {% block fos_comment_comment_children %}
+        {% block fos_comment_comment_reply %}
+            <div class="fos_comment_comment_reply"></div>
+        {% endblock fos_comment_comment_reply %}
+
+        {% if view is not sameas('flat') %}
+            <div class="fos_comment_comment_replies">
+                {% if children is defined %}
+                    {% include "FOSCommentBundle:Thread:comments.html.twig" with { "comments": children, "depth": depth + 1, "parentId": comment.id, "view": view } %}
+                {% endif %}
+            </div>
+        {% elseif view is sameas('flat') and children is defined %}
+            {% include "FOSCommentBundle:Thread:comments.html.twig" with { "comments": children, "depth": depth + 1, "parentId": comment.id, "view": view } %}
+        {% endif %}
+    {% endblock fos_comment_comment_children %}
+</div>
 {% endblock fos_comment_comment %}
