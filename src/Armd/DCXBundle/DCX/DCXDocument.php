@@ -102,9 +102,11 @@ class DCXDocument
         $slot_images = array();
         foreach ($AttacheDocuments as $value) {
             if($value->slot === $slot && $value->variant == 'Образы России'){
-                array_push($slot_images, $value);
+                $slot_images[$value->position] = $value;
+                // array_push($slot_images, $value);
             }
         }
+        ksort($slot_images);
         return $slot_images;
     }
 
@@ -114,7 +116,7 @@ class DCXDocument
         if ($primaryImageObj === false){
             return false;
         }
-        return $primaryImageObj[0];
+        return array_pop($primaryImageObj);
     }
 
     public function getGaleryImages()
