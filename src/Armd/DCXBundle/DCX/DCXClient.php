@@ -71,6 +71,13 @@ class DCXClient
         return $file;
     }
 
+    public function getImageFromArticle($path)
+    {
+        $url = Url::build_url('',array('scheme' => $this->scheme, 'host' => $this->host, 'path' => $path));
+        $file = $this->getFeed($url, true);
+        return $file;
+    }
+
     /**
      * @param object DCXChannel
      * @return void

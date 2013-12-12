@@ -16,6 +16,7 @@ services:
             - [setOption, [%dcx.auth.userpwd.constant%, %dcx.auth.userpwd%]]
             - [setOption, [%dcx.auth.cookiejar.constant%, %dcx.auth.cookiejar%]]
             - [setOption, [%dcx.auth.cookiefile.constant%, %dcx.auth.cookiefile%]]
+            - [setTimeout, [0]]
 
     buzz.browser:
         class: %buzz.browser.class%
