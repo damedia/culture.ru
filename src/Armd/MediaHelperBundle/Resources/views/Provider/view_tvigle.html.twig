@@ -1,11 +1,24 @@
 {% if options.src %}
-<iframe
-    id="{{ options.id }}"
-    src="{{ options.src }}&amp;dopparam=armada_skin&amp;wmode={{ options.wmode }}"
-    width="{{ options.width }}"
-    height="{{ options.height }}"
-    frameborder="{{ options.frameborder }}"
-    wmode="{{ options.wmode }}"
-    {% if options.style %}style="{{ options.style}}"{% endif %}>
-</iframe>
+    {% if tvigle_player_api_version == 'new' %}
+        <iframe
+            src="http://cloud.tvigle.ru/video/{{ options.videoId }}/?width={{ options.width }}&height={{ options.height }}"
+            width="{{ options.width }}"
+            height="{{ options.height }}"
+            frameborder="{{ options.frameborder }}"
+            scrolling="no"
+            webkitallowfullscreen=""
+            mozallowfullscreen=""
+            allowfullscreen="">
+        </iframe>
+    {% else %}
+        <iframe
+            id="{{ options.id }}"
+            src="{{ options.src }}&amp;dopparam=armada_skin&amp;wmode={{ options.wmode }}"
+            width="{{ options.width }}"
+            height="{{ options.height }}"
+            frameborder="{{ options.frameborder }}"
+            wmode="{{ options.wmode }}"
+            {% if options.style %}style="{{ options.style}}"{% endif %}>
+        </iframe>
+    {% endif %}
 {% endif %}
