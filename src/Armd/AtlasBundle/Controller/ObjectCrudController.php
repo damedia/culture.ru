@@ -116,6 +116,7 @@ class ObjectCrudController extends BaseCrudController
             $primaryStoryImage = $DcxObj->getPrimaryImage();
             $binaryContentImage = $dcxClient->getImageFromArticle($primaryStoryImage->href);
             $media = new Media();
+            $media->setTitle($primaryStoryImage->fields_title);
             $media->setBinaryContent($binaryContentImage); 
             $media->setContext('atlas');
             $media->setProviderName('sonata.media.provider.dcx');
@@ -129,6 +130,7 @@ class ObjectCrudController extends BaseCrudController
                 foreach ($galleryImages as $image) {
                     $binaryContentImage = $dcxClient->getImageFromArticle($image->href);
                     $media = new Media();
+                    $media->setTitle($image->fields_title);
                     $media->setBinaryContent($binaryContentImage); 
                     $media->setContext('atlas');
                     $media->setProviderName('sonata.media.provider.dcx');
