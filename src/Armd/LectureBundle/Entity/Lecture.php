@@ -5,9 +5,11 @@ namespace Armd\LectureBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use DoctrineExtensions\Taggable\Taggable;
 use Application\Sonata\MediaBundle\Entity\Media;
+use Armd\MkCommentBundle\Entity\Thread;
 use Application\Sonata\MediaBundle\Entity\Gallery;
 use Doctrine\Common\Collections\ArrayCollection;
 use Armd\MainBundle\Model\ChangeHistorySavableInterface;
+use Armd\MkCommentBundle\Model\CommentableInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -15,8 +17,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="\Armd\LectureBundle\Repository\LectureRepository")
  * @ORM\HasLifecycleCallbacks()
  */
-class Lecture implements Taggable, ChangeHistorySavableInterface
-{
+class Lecture implements CommentableInterface, Taggable, ChangeHistorySavableInterface {
     /**
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -215,6 +216,13 @@ class Lecture implements Taggable, ChangeHistorySavableInterface
      */
     private $stuff;
 
+    /**
+     * This entity comments thread
+     *
+     * @var \Armd\MkCommentBundle\Entity\Thread
+     * @ORM\ManyToOne(targetEntity="\Armd\MkCommentBundle\Entity\Thread", cascade={"all"}, fetch="EAGER")
+     */
+    protected $thread;
 
     /**
      * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"all"}, fetch="EAGER")
@@ -319,6 +327,18 @@ class Lecture implements Taggable, ChangeHistorySavableInterface
     public function setTitle($title)
     {
         $this->title = $title;
+    }
+
+    /**
+     * implements Commentable interface
+     */
+    public function setThread(Thread $thread = null) {
+        $this->thread = $thread;
+
+        return $this;
+    }
+    public function getThread() {
+        return $this->thread;
     }
 
     /**
