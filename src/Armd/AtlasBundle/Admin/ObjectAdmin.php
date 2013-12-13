@@ -11,6 +11,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Admin\Admin;
 use Armd\AtlasBundle\Entity\Category;
 use Armd\AtlasBundle\Entity\TouristCluster;
+use Sonata\AdminBundle\Route\RouteCollection;
 
 class ObjectAdmin extends Admin
 {
@@ -157,11 +158,9 @@ class ObjectAdmin extends Admin
                 )
             ->end()
             ->with('Media')
-                ->add('primaryImage', 'armd_media_file_type', array(
-                    'required' => false,
-                    'with_remove' => true,
+                ->add('primaryImage', 'armd_dcx_media_file_type', array(
+                    'with_remove' => false,
                     'media_context' => 'atlas',
-                    'media_provider' => 'sonata.media.provider.image',
                     'media_format' => 'thumbnail'
                 ))
                 ->add('sideBannerImage', 'armd_media_file_type', array(
@@ -172,12 +171,11 @@ class ObjectAdmin extends Admin
                     'media_format' => 'thumbnail'
                 ))
                 ->add('images', 'collection', array(
-                    'type' => 'armd_media_file_type',
+                    'type' => 'armd_dcx_media_file_type',
                     'options' => array(
                         'media_context' => 'atlas',
-                        'media_provider' => 'sonata.media.provider.image',
                         'media_format' => 'thumbnail',
-                        'with_title' => true,
+                        'with_remove' => false,
                     ),
                     'by_reference' => false,
                     'allow_add' => true,
@@ -406,6 +404,23 @@ class ObjectAdmin extends Admin
     protected function saveTagging($object)
     {
         $this->container->get('fpn_tag.tag_manager')->saveTagging($object);
+    }
+
+    public function getTemplate($name)
+    {
+        switch ($name) {
+            case 'list':
+                return 'ArmdAtlasBundle:CRUD:list.html.twig';
+                break;
+            default:
+                return parent::getTemplate($name);
+                break;
+        }
+    }
+
+    protected function configureRoutes(RouteCollection $collection)
+    {
+        $collection->add('addArticle');
     }
 
 }

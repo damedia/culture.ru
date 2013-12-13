@@ -5,10 +5,10 @@
         "psr-0": { "": "src/" }
     },
     "repositories":{
-        "armd/banner-bundle":{ "type":"git", "url":"git@git.armd.ru:armdbannerbundle.git" },
-        "armd/sphinx-search-bundle":{ "type":"git", "url":"git@git.armd.ru:armdsphinxsearchbundle.git" },
-        "armd/twig-bundle": {"type":"git", "url":"git@git.armd.ru:armdtwigbundle.git"},
-        "armd/poll-bundle": {"type":"git", "url":"git@git.armd.ru:armdpollbundle.git"}
+        "armd/banner-bundle":{ "type":"git", "url":"git@git.armd.ru:shpeyzulaev/armdbannerbundle.git" },
+        "armd/sphinx-search-bundle":{ "type":"git", "url":"git@git.armd.ru:shpeyzulaev/armdsphinxsearchbundle.git" },
+        "armd/twig-bundle": {"type":"git", "url":"git@git.armd.ru:shpeyzulaev/armdtwigbundle.git"},
+        "armd/poll-bundle": {"type":"git", "url":"git@git.armd.ru:shpeyzulaev/armdpollbundle.git"}
     },
     "require": {
         "php": ">=5.3.3",
