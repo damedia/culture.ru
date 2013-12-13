@@ -18,14 +18,7 @@
 {% spaceless %}
 <div class="armd-sonata-media-file">
     {% if form.vars.value is not empty %}
-        {#{ dump(form.vars.value) }#}
-        {# {% if media_provider == 'sonata.media.provider.image' %} #}
-             {% media form.vars.value.currentMediaId,  media_format %}
-        {# {% elseif media_provider == 'sonata.media.provider.file' %} #}
-            {# {{ form.vars.value.name }} #}
-        {# {% elseif media_provider == 'sonata.media.provider.dcx' %} #}
-            {# {{ form.vars.value.name }} #}
-        {# {% endif %} #}
+        {% media form.vars.value.currentMediaId,  media_format %}
     {% endif %}
     {{ form_widget(form) }}
 </div>

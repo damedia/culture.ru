@@ -46,7 +46,17 @@ class DCXDocument
     {
         foreach ($fields as $key => $value) {
             if (property_exists($this, $key)){
-                $this->$key = $value;       
+
+                if($key != 'files' && $key != 'story_documents'){
+                    $this->$key = (string) $value;
+                }
+                else
+                {
+                    $this->$key = $value;
+                }
+                if($key == 'latitude' || $key == 'longitude'){
+                    $this->$key = floatval(str_replace(',','.',$value));
+                }
             }
         }
     }
@@ -81,6 +91,37 @@ class DCXDocument
             return false;
         }
         return false;
+    }
+
+    private function getAttachedBySlot($slot)
+    {
+        $AttacheDocuments = $this->story_documents;
+        if (count($AttacheDocuments) == 0){
+            return false;
+        }
+        $slot_images = array();
+        foreach ($AttacheDocuments as $value) {
+            if($value->slot === $slot && $value->variant == 'Образы России'){
+                $slot_images[$value->position] = $value;
+                // array_push($slot_images, $value);
+            }
+        }
+        ksort($slot_images);
+        return $slot_images;
+    }
+
+    public function getPrimaryImage()
+    {
+        $primaryImageObj = $this->getAttachedBySlot('primarypicture');
+        if ($primaryImageObj === false){
+            return false;
+        }
+        return array_pop($primaryImageObj);
+    }
+
+    public function getGaleryImages()
+    {
+        return $this->getAttachedBySlot('gallery');
     }
 }
 
