@@ -41,3 +41,5 @@ armd_media_helper:
             filesystem: sonata.media.filesystem.ftp
         tvigle:
             filesystem: sonata.media.filesystem.ftp
+        dcx:
+            filesystem: sonata.media.filesystem.ftp
