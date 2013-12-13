@@ -11,6 +11,16 @@ services:
         tags:
             - { name: form.type, alias: armd_media_file_type }
 
+    armd_media_helper.type.armd_dcx_media_file_type:
+        class: Armd\MediaHelperBundle\Form\Type\DCXMediaFileType
+        arguments: ["@doctrine.orm.entity_manager"]
+        tags:
+            - { name: form.type, alias: armd_dcx_media_file_type }
+
+    # armd_media_helper.data_transformer.dcx_media_transformer:
+    #     class: Armd\MediaHelperBundle\Form\DataTransformer\DcxMediaTransformer
+    #     arguments: [@doctrine.orm.entity_manager]
+
     armd_media_helper.type.armd_media_video_type:
         class: Armd\MediaHelperBundle\Form\Type\MediaVideoType
         tags:
@@ -45,7 +55,7 @@ services:
         calls:
             - [ setTemplates, [ { helper_thumbnail: ArmdMediaHelperBundle:Provider:thumbnail_culturetv.html.twig, helper_view: ArmdMediaHelperBundle:Provider:view_culturetv.html.twig } ] ]
 #            - [ setResizer, [%armd_media_helper.providers.culturetv.resizer%] ]
-    
+
     sonata.media.provider.tvigle:
         class: Armd\MediaHelperBundle\Provider\TvigleProvider
         tags:
@@ -60,3 +70,21 @@ services:
             - null
         calls:
             - [ setTemplates, [ { helper_thumbnail: ArmdMediaHelperBundle:Provider:thumbnail_tvigle.html.twig, helper_view: ArmdMediaHelperBundle:Provider:view_tvigle.html.twig } ] ]
+
+    sonata.media.provider.dcx:
+        class: Armd\MediaHelperBundle\Provider\DcxProvider
+        tags:
+            - { name: sonata.media.provider }
+        arguments:
+            - sonata.media.provider.dcx
+            - null
+            - @sonata.media.cdn.server
+            - null
+            - null
+            - []
+            - []
+            - @sonata.media.adapter.image.gd
+            - @dcx.client
+        calls:
+            - [ setTemplates, [ { helper_thumbnail: SonataMediaBundle:Provider:thumbnail.html.twig, helper_view: SonataMediaBundle:Provider:view_image.html.twig } ] ]
+

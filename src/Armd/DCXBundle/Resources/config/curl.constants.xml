@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <parameters>
+        <parameter key="dcx.auth.userpwd.constant" type="constant">CURLOPT_USERPWD</parameter>
+        <parameter key="dcx.auth.cookiejar.constant" type="constant">CURLOPT_COOKIEJAR</parameter>
+        <parameter key="dcx.auth.cookiefile.constant" type="constant">CURLOPT_COOKIEFILE</parameter>
+    </parameters>
+</container>

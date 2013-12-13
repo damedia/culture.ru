@@ -1,0 +1,57 @@
+{% use 'form_table_layout.html.twig' %}
+{% form_theme search_form _self %}
+
+{% block body %}
+    <form action="{{ path('ajax_search') }}" method="post" {{ form_enctype(search_form) }}>
+        {{ form_widget(search_form) }}
+    </form>
+    <style type="text/css">
+        #image_data img{ max-width:none; }
+        #documents_info{ padding: 10px 20px; border:dashed 1px green; width: 200px;}
+    </style>
+    <div id="info"></div>
+    <div id="image_data"></div>
+{% endblock %}
+
+{% block stylesheets %}
+
+{% endblock %}
+
+{% block javascripts %}
+<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+<script type="text/javascript">
+    function ajaxSearch( $form, callback ){
+        $.ajax({
+          type        : $form.attr('method'),
+          url         : $form.attr('action'),
+          data        : $form.serialize(),
+          success     : function(data) {
+            console.log(data);
+            callback(data);
+          }
+        });
+    }
+
+    function setData(response){
+        var info = '';
+        $.each(response, function( key, value ) {
+          if(!$.isArray(value)){
+              info += key + ' : ' + value + '<br/>' ;
+          }
+          // if(key == 'image_subpath'){
+          //    $('#image_data').append('<img src="' + "/app_dev.php/test/get_image/" + value + '"/>');
+          // }
+        });
+        $('#info').append('<p>' + info + '</p>');
+    }
+    $().ready(function(){
+      $('form').submit( function( e ){
+        e.preventDefault();
+        ajaxSearch( $(this), function(resp){setData(resp)});
+        return false;
+      });
+ 
+    });
+</script>
+
+{% endblock %}

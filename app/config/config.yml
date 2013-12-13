@@ -131,6 +131,7 @@ sonata_media:
                 - sonata.media.provider.file
                 - sonata.media.provider.culturetv
                 - sonata.media.provider.tvigle
+                - sonata.media.provider.dcx
 
             formats:
                 adminPreview: { width: 314, height: 187, quality: 90}
@@ -184,6 +185,7 @@ sonata_media:
             providers:
                 - sonata.media.provider.image
                 - sonata.media.provider.tvigle
+                - sonata.media.provider.dcx
             formats:
                 image3d: { width: 405 }
                 big: { width: 920 }
@@ -550,6 +552,11 @@ armd_media_helper:
                 url:      http://pub.tvigle.ru/soap/index.php?wsdl
                 login:    Stella_l
                 password: armada
+        dcx:
+            filesystem: sonata.media.filesystem.local
+            generator: sonata.media.generator.default
+            thumbnail: sonata.media.thumbnail.format
+            resizer: sonata.media.resizer.simple
 
 
 stfalcon_tinymce:
@@ -627,3 +634,11 @@ armd_sitemap:
     locales: [ru, en]
     directory: sitemap # relative to server document_root (web)
     urls_per_file: 10000
+
+armd_dcx:
+    auth:
+        dcx_auth_userpwd: robot.armada:qwerty
+        dcx_auth_cookiefile: /tmp/cookie.txt
+        dcx_auth_cookiejar: /tmp/cookie.txt
+    settings:
+        host: 84.47.177.24
