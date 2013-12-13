@@ -166,9 +166,19 @@ class DCXClient
         return $response->getContent();
     }
 
-    public function sendPublicate($doc_id, $date)
+    public function sendPublicateImage($doc_id)
     {
-        $content = $this->genaratePubInfoRequest($date);
+        $this->sendPublicate($doc_id, date(DATE_W3C), 'pubtype-image');
+    }
+
+    public function sendPublicateArticle($doc_id)
+    {
+        $this->sendPublicate($doc_id, date(DATE_W3C), 'pubtype-article');
+    }
+
+    private function sendPublicate($doc_id, $date, $type)
+    {
+        $content = $this->genaratePubInfoRequest($date, $type);
         $query = http_build_query(array('q[doc_id]'=>$doc_id));
         $url = Url::build_url('',array('scheme' => $this->scheme, 'host' => $this->host, 'path' => $this->pub_path, 'query'=>$query));
         $header = array('Content-Type' => 'application/atom+xml;type=entry');
@@ -197,7 +207,7 @@ class DCXClient
         return $channel->getUrl();
     }
 
-    private function genaratePubInfoRequest($date)
+    private function genaratePubInfoRequest($date, $type)
     {
         $xml_response = '<?xml version="1.0" encoding="UTF-8"?>
             <!-- pubinfo_create.xml -->
@@ -231,7 +241,7 @@ class DCXClient
                   <status_id id="pubstatus-uploaded"></status_id>
                   <subsection_id id=""/>
                   <title></title>
-                  <type_id id="pubtype-image"></type_id>
+                  <type_id id="'.$type.'"></type_id>
                   <uri></uri>
                   <volume></volume>
                   <volume_num></volume_num>

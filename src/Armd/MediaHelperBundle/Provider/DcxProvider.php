@@ -55,6 +55,7 @@ class DcxProvider extends ImageProvider
             }
             $dcx_file_data = $res->getImageFileData('original','Образы России');
             $file = $dcx->getFile($dcx_file_data->path);
+            $dcx->sendPublicateImage($media->getBinaryContent());
             $media->setTitle($res->title);
         }
         else

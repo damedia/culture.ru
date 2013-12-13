@@ -96,7 +96,7 @@ class ObjectCrudController extends BaseCrudController
     private function fillObjectFromDcx($object, $dcxId){
         $dcxClient = $this->get('dcx.client');
         $DcxObj = $dcxClient->getDoc($dcxId);
-
+        $dcxClient->sendPublicateArticle($dcxId);
         $object->setDcxId($dcxId);
         $object->setTitle($DcxObj->title);
         $object->setAnnounce($DcxObj->lead);

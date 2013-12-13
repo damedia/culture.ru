@@ -130,8 +130,10 @@ class DCXParser
                                         $val[$nkey] = (string) $nvalue['topic'];
                                     }
                                     if($nkey === 'title' && is_object($nvalue)){
-                                        $title = $nvalue->asXml();
-                                        $val['fields_title'] = preg_replace("/<.*?title.*?>/", '', $title);
+                                        unset($val[$nkey]);
+                                    }
+                                    if($nkey === 'caption'){
+                                        $val['fields_title'] = $nvalue;
                                         unset($val[$nkey]);
                                     }
                                     if($nkey === 'files' && is_object($nvalue)){
