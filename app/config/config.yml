@@ -204,6 +204,7 @@ sonata_media:
                 mode: http
             providers:
                 - sonata.media.provider.image
+                - sonata.media.provider.dcx
             formats:
                 default: {width: 27, height: 45}
 

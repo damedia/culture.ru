@@ -29,6 +29,10 @@ class Object implements Taggable, ChangeHistorySavableInterface
     private $id;
 
     /**
+     * @ORM\Column(name="dcx_id", type="string", nullable=true)
+     */
+    private $dcxId;
+    /**
      * @ORM\Column(name="published", type="boolean")
      */
     private $published = true;
@@ -350,6 +354,18 @@ class Object implements Taggable, ChangeHistorySavableInterface
     public function getId()
     {
         return $this->id;
+    }
+
+    public function getDcxId()
+    {
+        return $this->dcxId;
+    }
+
+    public function setDcxId($dcx_id)
+    {
+        $this->dcxId = $dcx_id;
+        
+        return $this;
     }
 
     public function getPublished()
