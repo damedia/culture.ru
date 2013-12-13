@@ -6,6 +6,12 @@
     {% set limit = 19 %}
 {% endif %}
 
+{% if tag is empty %}
+    {% set tagId = false %}
+{% else %}
+    {% set tagId = tag.id %}
+{% endif %}
+
 {% block stylesheets %}
     {{ parent() }}
 
@@ -61,6 +67,12 @@
 
         <div class="marginTop123"></div>
 
+        {% if tag %}
+            <div class="marginBottom20">
+                {{ 'ResultsWithTag'|trans }} <b>{{ tag.name }}</b>
+            </div>
+        {% endif %}
+
         {% for genre in genresForSections %}
             <div class="movies-genre-section-holder marginBottom20" data-genreId="{{ genre.id }}" data-genreSlug="{{ genre.slug }}">
                 <div class="movies-counter">
@@ -84,7 +96,7 @@
                 </div>
 
                 <div class="movies-genre-section" data-genreId="{{ genre.id }}">
-                    {% render url('armd_movies_genre_section_list', {'genreId': genre.id, 'genreSlug': genre.slug, 'limit': limit, 'selectedGenreId': selectedGenreId}) %}
+                    {% render url('armd_movies_genre_section_list', {'genreId': genre.id, 'genreSlug': genre.slug, 'limit': limit, 'selectedGenreId': selectedGenreId, 'tagId': tagId, 'searchQuery': searchQuery}) %}
                 </div>
 
                 <div class="movies-showMore" title="{{ 'ShowMore'|trans }}"></div>
@@ -139,6 +151,8 @@
                         firstLetter: firstLetter,
                         limit: '{{ limit }}',
                         selectedGenreId: '{{ selectedGenreId }}',
+                        tagId: '{{ tagId }}',
+                        searchQuery: '{{ searchQuery }}',
                         extra: true
                     };
 

@@ -1,0 +1,25 @@
+<div class="entity-stuff-placeholder-sidebar sidebar-bordered-block">
+    <header>
+        {{ 'Stuff'|trans }}
+    </header>
+
+    {% for mediaItem in stuff %}
+        <p>
+            <img src="/img/file_icons/32px/{{ mediaItem.extension }}.png" width="16" height="16" />
+
+            <a class="{{ palette_color }}" href="{{ path('sonata_media_download', {'id': mediaItem.id}) }}">
+                {{ mediaItem.name }}
+            </a>
+
+            {% if mediaItem.description %}
+                <div class="marginTop3">
+                    {{ mediaItem.description }}
+                </div>
+            {% endif %}
+        </p>
+
+        {% if not loop.last %}
+            <div class="height30"></div>
+        {% endif %}
+    {% endfor %}
+</div>

@@ -210,7 +210,7 @@ class News extends BaseNews implements CommentableInterface, Taggable, ChangeHis
     private $lon;
 
     /**
-     * This news comments thread
+     * This entity comments thread
      *
      * @var \Armd\MkCommentBundle\Entity\Thread
      * @ORM\ManyToOne(targetEntity="\Armd\MkCommentBundle\Entity\Thread", cascade={"all"}, fetch="EAGER")

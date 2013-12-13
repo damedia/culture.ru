@@ -23,7 +23,7 @@
         ul.hub-menu li a:hover {
             color: {{ palette_color_hex }};
         }
-        .b-post p a {
+        .b-post a {
             color: {{ palette_color_hex }};
         }
     </style>
@@ -85,6 +85,12 @@
         </div>
 
         {{ entity.body|raw }}
+
+        {% if entity.stuff.count %}
+            <div class="height50"></div>
+
+            {{ include('ArmdMainBundle:Generics:stuffBlock.html.twig', {'stuff': entity.stuff}) }}
+        {% endif %}
 
         <div class="b-share-buttons">
             <span class="small-title m-first">{{ 'Entity.SocialShare'|trans }}:</span>

@@ -3,12 +3,13 @@ searchCategoryGenre: Жанр
 CounterText: фильмов
 SidebarRecommended: рекомендуем
 
-LECTURE_SUPER_TYPE_LECTURE: Лекции
-LECTURE_SUPER_TYPE_VIDEO_TRANSLATION: Трансляции
+LECTURE_SUPER_TYPE_LECTURE: Лекция
+LECTURE_SUPER_TYPE_VIDEO_TRANSLATION: Трансляция
 LECTURE_SUPER_TYPE_CINEMA: Кино
 LECTURE_SUPER_TYPE_TOP100: 100 фильмов для школьников
-LECTURE_SUPER_TYPE_PERFOMANCES: Спектакли
+LECTURE_SUPER_TYPE_PERFOMANCES: Спектакль
 LECTURE_SUPER_TYPE_NEWS: Видео
+
 Lectures: Лекции
 Lecture: Лекция
 Cinema Hall: Кино
@@ -40,3 +41,14 @@ Genres: Жанры
 Genres 1: Жанры 1
 Genres 2: Жанры 2
 
+ResultsWithTag: Показаны результаты по тэгу
+
+ViewsCount: Количество просмотров
+Tags: Тэги
+Genre: Жанр
+DirectedBy: Режиссер
+Starring: В главных ролях
+ReleaseDate: Год выпуска
+RunningTime: Продолжительность
+MinutesShort: мин.
+Description: Описание

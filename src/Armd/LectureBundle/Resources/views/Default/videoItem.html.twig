@@ -1,0 +1,269 @@
+{% extends ':Frontend:new_base.html.twig' %}
+
+{% block title %}{{ entity.seoTitle|default(entity.title) }} &mdash; {{ parent() }}{% endblock %}
+{% block meta_keywords %}{{ entity.seoKeywords|default('') }}{% endblock %}
+{% block meta_description %}{{ entity.seoDescription|default('') }}{% endblock %}
+
+{% block opengraph %}
+    <meta property="og:title" content="{{ entity.title }}" />
+    <meta property="og:description" content="{{ entity.announce }}" />
+    <meta property="og:site_name" content="{{ 'Portal title'|trans }}" />
+    <meta property="og:url" content="{{ app.request.uri }}" />
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    <style type="text/css">
+        .b-post a {
+            color: {{ palette_color_hex }};
+        }
+        ul.video-series li.active {
+            background: none repeat scroll 0 0 {{ palette_color_hex }};
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <!--
+    Property "entity.lectureSuperType.code" variants:
+
+    newsVideo:  LECTURE_SUPER_TYPE_NEWS
+    movie:      LECTURE_SUPER_TYPE_CINEMA
+    lecture:    LECTURE_SUPER_TYPE_LECTURE
+    ...
+
+    Other types like "translation" (broadcast) are possible!
+    -->
+
+    {% set showSeriesLine = (entity.series and entity.series.galleryHasMedias|length > 1) or entity.mediaTrailerVideo %}
+
+    {{ add_viewed_content(entity, path('armd_lecture_view', {id: entity.id})) }}
+
+    <div class="b-post marginBottom70">
+        <h1 class="b-left-title">
+            {{ entity.lectureSuperType.code|trans }}
+        </h1>
+
+        <div class="header-text-medium marginTop100 marginBottom10">
+            {{ entity.title }}
+        </div>
+
+        <div class="marginBottom60">
+            <div id="video-container"></div>
+
+            <ul id="video-series-{{ entity.id }}" class="video-series{% if not showSeriesLine %} displayNoneImportant{% endif %}">
+                {% if entity.mediaTrailerVideo is not empty %}
+                    <li class="active">
+                        <a href="#video-media-trailer">
+                            {% thumbnail entity.mediaTrailerVideo, 'lectureW160H120' with {'width': 160, 'height': 'auto'} %}
+                        </a>
+
+                        <div id="video-media-trailer" class="displayNone">
+                            {% if entity.mediaTrailerVideo.providerName == 'sonata.media.provider.image' and entity.mediaTrailerVideo.externalUrl %}
+                                <a href="{{ entity.externalUrl }}" target="_blank">
+                                    {% media entity.mediaTrailerVideo, 'reference' with { 'width': 700, 'height': 520 } %}
+                                </a>
+                            {% else %}
+                                {% media entity.mediaTrailerVideo, 'reference' with { 'width': 700, 'height': 520 } %}
+                            {% endif %}
+                        </div>
+                    </li>
+                {% endif %}
+
+                {% if entity.mediaLectureVideo is not empty %}
+                    <li{% if entity.mediaTrailerVideo is empty %} class="active"{% endif %}>
+                        <a href="#video-media">
+                            {% thumbnail entity.mediaLectureVideo, 'lectureW160H120' with {'width': 160, 'height': 'auto'} %}
+                        </a>
+
+                        <div id="video-media" class="displayNone">
+                            {% if entity.mediaLectureVideo.providerName == 'sonata.media.provider.image' and entity.externalUrl %}
+                                <a href="{{ entity.externalUrl }}" target="_blank">
+                                    {% media entity.mediaLectureVideo, 'reference' with { 'width': 700, 'height': 520 } %}
+                                </a>
+                            {% else %}
+                                {% media entity.mediaLectureVideo, 'reference' with { 'width': 700, 'height': 520 } %}
+                            {% endif %}
+                        </div>
+                    </li>
+                {% endif %}
+
+                {% if entity.series and entity.series.galleryHasMedias|length %}
+                    {% for mediaItem in entity.series.galleryHasMedias %}
+                        <li>
+                            <a href="#video-ser-{{ mediaItem.id }}">
+                                {% thumbnail mediaItem.media, 'lectureW160H120' with {'width': 160, 'height': 'auto'} %}
+                            </a>
+
+                            <div id="video-ser-{{ mediaItem.id }}" class="displayNone">
+                                {% if mediaItem.media.providerName == 'sonata.media.provider.image' and mediaItem.media.copyright %}
+                                    <a href="{{ mediaItem.media.copyright }}" target="_blank">
+                                        {% media mediaItem.media, 'reference' with { 'width': 700, 'height': 520 } %}
+                                    </a>
+                                {% else %}
+                                    {% media mediaItem.media, 'reference' with { 'width': 700, 'height': 520 } %}
+                                {% endif %}
+                            </div>
+                        </li>
+                    {% endfor %}
+                {% endif %}
+            </ul>
+
+            <div class="entity-image-footer">
+                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                    {% if isInFavorites %}
+                        {{ include('ArmdMainBundle:Generics:favoriteIcon.html.twig', {
+                        'palette_color': palette_color,
+                        'palette_icon': palette_favoritesIconAdded,
+                        'action': 'remove',
+                        'text': 'Entity.RemoveFromFavorites'|trans
+                        }) }}
+                    {% else %}
+                        {{ include('ArmdMainBundle:Generics:favoriteIcon.html.twig', {
+                        'palette_color': palette_color,
+                        'palette_icon': palette_favoritesIcon,
+                        'action': 'add',
+                        'text': 'Entity.AddToFavorites'|trans
+                        }) }}
+                    {% endif %}
+                {% endif %}
+
+                <span class="floatRight">
+                    {{ 'ViewsCount'|trans }}: {{ entity.viewCount }}
+                </span>
+            </div>
+        </div>
+
+        <div class="entity-description-block">
+            {% if tags|length > 0 %}
+                <div>
+                    <b>{{ 'Tags'|trans }}</b>:
+                    {% for tag in tags %}
+                        <a href="{{ path('armd_lecture_cinema_index', {'tag_id': tag.id }) }}">{{ tag.name }}</a>{% if not loop.last %},{% endif %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            {% if entity.lectureSuperType.code == 'LECTURE_SUPER_TYPE_CINEMA' %}
+                <div>
+                    <b>{{ 'Genre'|trans }}</b>:
+                    {% for genre in genres %}
+                        <a href="{{ path('armd_lecture_cinema_index', {'selectedGenreId': genre.id}) }}">{{ genre.title }}</a>{% if not loop.last %}, {% endif %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            {% if entity.lectureSuperType.code == 'LECTURE_SUPER_TYPE_CINEMA' and entity.director %}
+                <div>
+                    <b>{{ 'DirectedBy'|trans }}</b>: {{ entity.director }}
+                </div>
+            {% endif %}
+
+            {% if entity.lectureSuperType.code == 'LECTURE_SUPER_TYPE_CINEMA' and entity.stars %}
+                <div>
+                    <b>{{ 'Starring'|trans }}</b>: {{ entity.stars }}
+                </div>
+            {% endif %}
+
+            {% if entity.lectureSuperType.code == 'LECTURE_SUPER_TYPE_CINEMA' and entity.productionYear %}
+                <div>
+                    <b>{{ 'ReleaseDate'|trans }}</b>: {{ entity.productionYear }}
+                </div>
+            {% endif %}
+
+            {% if entity.timeLength %}
+                <div>
+                    <b>{{ 'RunningTime'|trans }}</b>: {{ entity.timeLength ~ ' ' ~ 'MinutesShort'|trans }}
+                </div>
+            {% endif %}
+
+            <div>
+                <b>{{ 'Description'|trans }}</b>:
+            </div>
+
+            {{ entity.description|raw }}
+        </div>
+
+        {% if entity.stuff.count %}
+            {{ include('ArmdMainBundle:Generics:stuffBlock.html.twig', {'stuff': entity.stuff}) }}
+        {% endif %}
+
+        <div class="b-share-buttons">
+            <span class="small-title m-first">{{ 'Entity.SocialShare'|trans }}:</span>
+            <span id="yandex-share"></span>
+        </div>
+    </div>
+
+    {{ include('ArmdMkCommentBundle:Default:placeholder.html.twig', { 'entity_type': 'lecture', 'palette_background': palette_background }) }}
+{% endblock %}
+
+{% block sidebar %}
+    {% render url('armd_sidebar_atlas_related_objects', {'tags': entity.tags|extract_array_values('getName'), 'limit': 1}) %}
+    {% render url('armd_sidebar_lecture_related_lectures', {'tags': entity.tags|extract_array_values('getName'), 'limit': 4, 'superTypeCode': 'LECTURE_SUPER_TYPE_CINEMA', 'id': entity.id, 'headerText': 'Sidebar.LinkedContent.Type.Movies'|trans}) %}
+    {% render url('armd_sidebar_lecture_related_lectures', {'tags': entity.tags|extract_array_values('getName'), 'limit': 4, 'superTypeCode': 'LECTURE_SUPER_TYPE_LECTURE', 'id': entity.id, 'headerText': 'Sidebar.LinkedContent.Type.Lectures'|trans}) %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript" src="{{ asset('bundles/armdlecture/js/lecture.js') }}"></script>
+    <script type="text/javascript" src="http://yandex.st/share/share.js" charset="utf-8"></script>
+    <script type="text/javascript" src="{{ asset('js/damedia/simpleSlider.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/damedia/addToFavorites.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/damedia/share.js') }}"></script>
+    <script type="text/javascript">
+        $(function(){
+            armdMkLecture.init('{{ entity.lectureSuperType.code }}');
+
+            var videoContainer = $('#video-container'),
+                videoSeriesUl = $('#video-series-{{ entity.id }}'),
+                videoSeriesItems = $('li a', videoSeriesUl);
+
+            videoSeriesItems.on('click', function(){
+                var selector = $(this).attr('href'),
+                    item = $(selector),
+                    itemHtml = item.html();
+
+                if (item.length > 0) {
+                    videoContainer.html(itemHtml);
+                    item.parent().addClass('active').siblings().removeClass('active');
+                }
+
+                return false;
+            });
+            $('li a:first', videoSeriesUl).click();
+
+            DamediaShare.init({
+                locale: '{{ app.request.locale }}',
+                link: '{{ url('view_blog', { 'id': entity.id }) }}',
+                title: '{{ entity.title }}',
+                description: '{{ entity.announce|replace({"\n":'',"\r":''})|striptags }}'
+            });
+
+            DamediaAddToFavorites.init({
+                entityType: '{{ constant('Armd\\UserBundle\\Entity\\Favorites::TYPE_LECTURE') }}',
+                entityId: '{{ entity.id }}',
+                htmlReplacementForAdd: '{{ include('ArmdMainBundle:Generics:favoriteIcon.html.twig', {
+                    'palette_color': palette_color,
+                    'palette_icon': palette_favoritesIconAdded,
+                    'action': 'remove',
+                    'text': 'Entity.RemoveFromFavorites'|trans
+                }) }}',
+                htmlReplacementForRemove : '{{ include('ArmdMainBundle:Generics:favoriteIcon.html.twig', {
+                    'palette_color': palette_color,
+                    'palette_icon': palette_favoritesIcon,
+                    'action': 'add',
+                    'text': 'Entity.AddToFavorites'|trans
+                }) }}'
+            });
+
+            /* Sidebar slider widget */
+            $.each($('div.sidebar-movies-widget-switcher'), function(){
+                DamediaSimpleSlider.init($(this),{
+                    next: '{{ 'Sidebar.LinkedContent.Next'|trans }}'
+                });
+            });
+        });
+    </script>
+{% endblock %}

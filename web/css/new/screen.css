@@ -3053,6 +3053,9 @@ a.sidebar-widget-item:hover > .darkLayer {
 .floatRight {
     float: right;
 }
+.clearRight {
+    clear: right;
+}
 
 .fullWidth {
     width: 100%;
@@ -3082,6 +3085,12 @@ a.sidebar-widget-item:hover > .darkLayer {
     width: 700px;
 }
 
+.height15 {
+    height: 15px;
+}
+.height30 {
+    height: 30px;
+}
 .height50 {
     height: 50px;
 }
@@ -3125,11 +3134,17 @@ a.sidebar-widget-item:hover > .darkLayer {
     vertical-align: top;
 }
 
+.marginTop3 {
+    margin-top: 3px;
+}
 .marginTop10 {
     margin-top: 10px;
 }
 .marginTop30 {
     margin-top: 30px;
+}
+.marginTop100 {
+    margin-top: 100px;
 }
 .marginTop123 {
     margin-top: 123px;
@@ -3157,6 +3172,15 @@ a.sidebar-widget-item:hover > .darkLayer {
 }
 .marginBottom20 {
     margin-bottom: 20px;
+}
+.marginBottom25 {
+    margin-bottom: 25px;
+}
+.marginBottom32 {
+    margin-bottom: 32px;
+}
+.marginBottom60 {
+    margin-bottom: 60px;
 }
 .marginBottom70 {
     margin-bottom: 70px;
@@ -3836,6 +3860,15 @@ textarea[name="fos_comment_comment[body]"] {
 .palette-color-4 {
     color: #327BA7 !important;
 }
+.palette-favoritesIcon-4 {
+    background: url(../../img/new/icons/palette-favorites-icon-4.png) no-repeat;
+}
+.palette-favoritesIconAdded-4 {
+    background: url(../../img/new/icons/palette-favorites-icon-added-4.png) no-repeat;
+}
+.palette-background-4 {
+    background-color: #327BA7;
+}
 .palette-colored-box-4 .goto-link-button:hover {
     background-color: #327BA7;
     text-decoration: underline !important;
@@ -3973,8 +4006,7 @@ ul.comments-list li {
     background-color: #FFFFFF;
 }
 .archive-slider-bottom-fix {
-    margin-top: -120px;
-    height: 150px;
+    height: 35px;
 }
 .sidebar-item-title {
     display: block;
@@ -4153,6 +4185,54 @@ ul.comments-list li {
 
 /*===============
 ==== Entity ===*/
+ul.video-series {
+    display: table;
+    list-style: none outside none;
+    margin: 9px 0;
+}
+ul.video-series li {
+    display: inline-block;
+    padding: 5px;
+}
+ul.video-series li a {
+    background: none repeat scroll 0 0 #000000;
+    display: table-cell;
+    height: 120px;
+    vertical-align: middle;
+}
+
+.entity-stuff-placeholder {
+    border-top: 1px solid #D5D4D4;
+    position: relative;
+    padding-top: 30px;
+}
+.entity-stuff-placeholder header {
+    top: -6px;
+    background-color: #ffffff;
+    display: block;
+    position: absolute;
+    padding-right: 8px;
+    font: bold 1.1em "PTSansRegular",sans-serif;
+    letter-spacing: -1px;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+.entity-stuff-placeholder-sidebar {
+    padding: 17px;
+    font-size: 0.8em;
+    margin-bottom: 40px;
+    margin-top: 35px;
+}
+.entity-stuff-placeholder-sidebar header {
+    font: bold 1.4em "PTSansRegular",sans-serif;
+    letter-spacing: -1px;
+    text-decoration: none;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 15px;
+    display: block;
+}
+
 .entity-date-of-event {
     text-align: center;
     padding-bottom: 15px;

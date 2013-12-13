@@ -98,3 +98,7 @@
         <div class="sidebar-bordered-block-noTop archive-slider-bottom-fix"></div>
     </div>
 {% endif %}
+
+{% if entity.stuff.count %}
+    {{ include('ArmdMainBundle:Generics:stuffBlock_sidebar.html.twig', {'stuff': entity.stuff}) }}
+{% endif %}

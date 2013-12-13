@@ -23,3 +23,6 @@ services:
         tags:
             - { name: kernel.event_subscriber }
             - { name: doctrine.event_listener, event: postRemove }
+
+    armd_comments_integrator:
+        class: Armd\MkCommentBundle\Model\CommentsIntegrator

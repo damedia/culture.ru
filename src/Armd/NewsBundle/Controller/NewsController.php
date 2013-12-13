@@ -306,6 +306,9 @@ class NewsController extends Controller {
         $favoritesManager = $this->get('armd_favorites_manager');
         $isInFavorites = $favoritesManager->entityIsInFavorites(Favorites::TYPE_MEDIA, $entity->getId());
 
+        $commentsIntegrator = $this->get('armd_comments_integrator');
+        $isCommentable = $commentsIntegrator->entityIsCommentable($entity);
+
         return array(
             'entity' => $entity,
             'isInFavorites' => $isInFavorites,
@@ -315,14 +318,8 @@ class NewsController extends Controller {
             'palette_favoritesIcon' => $this->palette_favoritesIcon,
             'palette_favoritesIconAdded' => $this->palette_favoritesIconAdded,
             'palette_background' => $this->palette_background,
-            'isCommentable' => $this->isCommentable($entity)
+            'isCommentable' => $isCommentable
         );
-    }
-
-    private function isCommentable($entity) { //TODO: this method should be elsewhere!
-        $interfaces = class_implements(get_class($entity));
-
-        return (isset($interfaces['Armd\MkCommentBundle\Model\CommentableInterface'])) ? true : false;
     }
 
     /**
