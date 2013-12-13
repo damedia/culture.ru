@@ -65,6 +65,7 @@ class ObjectAdmin extends Admin
     {
         $formMapper
             ->with('General')
+                ->add('dcxId', 'hidden', array('required' => false))
                 ->add('published', null, array('required' => false))
                 ->add('corrected', null, array('required' => false, 'disabled' => ($this->container->get('security.context')->isGranted('ROLE_CORRECTOR') ? false : true )))
                 ->add('title')
@@ -420,7 +421,8 @@ class ObjectAdmin extends Admin
 
     protected function configureRoutes(RouteCollection $collection)
     {
-        $collection->add('addArticle');
+        $collection->add('checkArticle', null, array(), array('_method'=>'POST'));
+        $collection->add('craeteArticle','createArticle/{dcxId}',array(), array(), array('expose' => true));
     }
 
 }

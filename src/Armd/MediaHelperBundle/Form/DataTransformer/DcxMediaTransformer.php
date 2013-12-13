@@ -49,23 +49,26 @@ class DcxMediaTransformer implements DataTransformerInterface
      */
     public function reverseTransform($params)
     {
-
-        if(!isset($params['dcxId']) && !isset($params['imageFile'])){
+        $media = null;
+        
+        if (isset($params['currentMediaId'])){
             $media = $this->om
-                ->getRepository('ApplicationSonataMediaBundle:Media')
-                ->findOneBy(array('id' => $params['currentMediaId']))
+                    ->getRepository('ApplicationSonataMediaBundle:Media')
+                    ->findOneBy(array('id' => $params['currentMediaId']))
             ;
         }
-        if ($params['dcxId']){
+        if($media == null){
             $media = new Media();
+        }
+        
+        if (isset($params['dcxId'])){
             $media->setBinaryContent($params['dcxId']); 
             $media->setContext($params['context']);
             $media->setProviderName('sonata.media.provider.dcx');
             $this->om->persist($media);
         }
 
-        if ($params['imageFile']) {
-            $media = new Media();
+        if (isset($params['imageFile'])) {
             $media->setBinaryContent($params['imageFile']); 
             $media->setContext($params['context']);
             $media->setProviderName('sonata.media.provider.image');

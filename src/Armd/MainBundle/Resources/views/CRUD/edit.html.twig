@@ -30,13 +30,13 @@ file that was distributed with this source code.
              </a>
              <div id="dialog-form" title="Поиск статьи по DCX">
               <p class="validateTips">Введите DcxID статьи</p>
-              <form id = "form-submit-id" action="{{ admin.generateUrl('addArticle')}}" method="post">
+              <form id = "form-submit-id" action="{{ admin.generateUrl('checkArticle')}}" method="post">
                 <fieldset>
                   <label for="name">DCX ID</label>
                   <input type="text" name="name" id="dcx_id" class="text ui-widget-content ui-corner-all">
                 </fieldset>
               </form>
-            </div>            
+            </div>         
             
         {% endif %}
 
@@ -154,7 +154,9 @@ file that was distributed with this source code.
                       updateTips(response.error);
                     }
                     else{
-                      location.href = "{{ admin.generateUrl('addArticle')}}";
+                      location.href = Routing.generate('admin_armd_atlas_object_craeteArticle',
+                        {'dcxId':response.dcxId}
+                      );
                     }
                 }
             });

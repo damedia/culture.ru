@@ -41,7 +41,7 @@ class DCXMediaFileType extends AbstractType
                 'required' => false
             ))
             ->add('dcxId', 'text',array(
-                'label' => ' DCX Search ID',
+                'label' => 'DCX Search ID',
                 'required' => false
             ))
             ->add('currentMediaId', 'hidden')

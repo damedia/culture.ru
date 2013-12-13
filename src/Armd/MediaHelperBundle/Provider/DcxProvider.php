@@ -44,16 +44,24 @@ class DcxProvider extends ImageProvider
         if (!$media->getBinaryContent()) {
             return;
         }
-        $dcx = $this->dcxClient;
-        $res = $dcx->getDoc($media->getBinaryContent());
-        if(!$res instanceof DCXDocument){
-            throw new \RuntimeException('Изображение с заданным DC ID не найдено в системе. DC_ID: '.$media->getBinaryContent());
+        if (ctype_print($media->getBinaryContent())) {
+            $dcx = $this->dcxClient;
+            $res = $dcx->getDoc($media->getBinaryContent());
+            if(!$res instanceof DCXDocument){
+                throw new \RuntimeException('Изображение с заданным DC ID не найдено в системе. DC_ID: '.$media->getBinaryContent());
+            }
+            if(!$res->checkFileName('original','Образы России')){
+                throw new \RuntimeException('Изображение с заданным DC ID не имеет правильного варианта для выгрузки DCX_ID:' .$media->getBinaryContent());
+            }
+            $dcx_file_data = $res->getImageFileData('original','Образы России');
+            $file = $dcx->getFile($dcx_file_data->path);
+            $dcx->sendPublicateImage($media->getBinaryContent());
+            $media->setTitle($res->title);
         }
-        if(!$res->checkFileName('original','Образы России')){
-            throw new \RuntimeException('Изображение с заданным DC ID не имеет правильного варианта для выгрузки DCX_ID:' .$media->getBinaryContent());
+        else
+        {
+            $file = $media->getBinaryContent();
         }
-        $dcx_file_data = $res->getImageFileData('original','Образы России');
-        $file = $dcx->getFile($dcx_file_data->path);
 
         $path       = tempnam(sys_get_temp_dir(), 'sonata_update_metadata');
         $fileObject = new \SplFileObject($path, 'w');
