@@ -140,7 +140,7 @@
                 <div>
                     <b>{{ 'Tags'|trans }}</b>:
                     {% for tag in tags %}
-                        <a href="{{ path('armd_lecture_cinema_index', {'tag_id': tag.id }) }}">{{ tag.name }}</a>{% if not loop.last %},{% endif %}
+                        <a href="{{ path('armd_index_page_selector', {'lectureSuperTypeId': entity.lectureSuperType.id, 'tag_id': tag.id }) }}">{{ tag.name }}</a>{% if not loop.last %},{% endif %}
                     {% endfor %}
                 </div>
             {% endif %}
@@ -207,15 +207,12 @@
 {% block javascripts %}
     {{ parent() }}
 
-    <script type="text/javascript" src="{{ asset('bundles/armdlecture/js/lecture.js') }}"></script>
     <script type="text/javascript" src="http://yandex.st/share/share.js" charset="utf-8"></script>
     <script type="text/javascript" src="{{ asset('js/damedia/simpleSlider.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/damedia/addToFavorites.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/damedia/share.js') }}"></script>
     <script type="text/javascript">
         $(function(){
-            armdMkLecture.init('{{ entity.lectureSuperType.code }}');
-
             var videoContainer = $('#video-container'),
                 videoSeriesUl = $('#video-series-{{ entity.id }}'),
                 videoSeriesItems = $('li a', videoSeriesUl);
@@ -263,6 +260,14 @@
                 DamediaSimpleSlider.init($(this),{
                     next: '{{ 'Sidebar.LinkedContent.Next'|trans }}'
                 });
+            });
+
+            /* Search in this section */
+            $('#search-form').bind('submit', function(event){
+                if ($('#search-this-section').prop('checked')) {
+                    event.preventDefault();
+                    window.location = Routing.generate('armd_index_page_selector', { 'lectureSuperTypeId': {{ entity.lectureSuperType.id }}, 'search_query': $('#search-txt').val() });
+                }
             });
         });
     </script>

@@ -173,6 +173,46 @@ class DefaultController extends Controller {
     }
 
     /**
+     * Controller action selector for different lectureSuperTypeCode values.
+     *
+     * @Route("/index-page-selector/{lectureSuperTypeId}", name="armd_index_page_selector", requirements={"lectureSuperTypeId" = "\d+"}, options={"expose"=true})
+     */
+    public function indexPageSelectorAction($lectureSuperTypeId) {
+        $request = $this->get('request');
+
+        $controllerAction = '';
+        $routeParameters = $request->attributes->get('_route_params');
+        $allGetParameters = $request->query->all();
+
+        $lectureSuperType = $this->getDoctrine()->getRepository('ArmdLectureBundle:LectureSupertype')->find($lectureSuperTypeId);
+
+        if (!$lectureSuperType) {
+            throw $this->createNotFoundException('Type not found!');
+        }
+
+        $lectureSuperTypeCode = $lectureSuperType->getCode();
+
+        switch ($lectureSuperTypeCode) {
+            case 'LECTURE_SUPER_TYPE_LECTURE':
+                $controllerAction = 'ArmdLectureBundle:Default:lectureIndex';
+                break;
+            case 'LECTURE_SUPER_TYPE_VIDEO_TRANSLATION':
+                //
+                break;
+            case 'LECTURE_SUPER_TYPE_CINEMA':
+                $controllerAction = 'ArmdLectureBundle:Default:cinemaIndex';
+                break;
+            case 'LECTURE_SUPER_TYPE_NEWS':
+                //
+                break;
+            default:
+                throw $this->createNotFoundException('Index page route not found!');
+        }
+
+        return $this->forward($controllerAction, $routeParameters, $allGetParameters);
+    }
+
+    /**
      * @param $objects
      * @Template("ArmdLectureBundle:Lectures:sidebarIndexWidget.html.twig")
      * @return array
