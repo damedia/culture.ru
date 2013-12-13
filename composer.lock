@@ -11,7 +11,7 @@
             "target-dir": "Armd/BannerBundle",
             "source": {
                 "type": "git",
-                "url": "git@git.armd.ru:armdbannerbundle.git",
+                "url": "git@git.armd.ru:shpeyzulaev/armdbannerbundle.git",
                 "reference": "9e41b9794fe21715bd7cf6c936e69495331ba5e9"
             },
             "type": "armd-cms-bundle",
@@ -29,7 +29,7 @@
             "target-dir": "Armd/PollBundle",
             "source": {
                 "type": "git",
-                "url": "git@git.armd.ru:armdpollbundle.git",
+                "url": "git@git.armd.ru:shpeyzulaev/armdpollbundle.git",
                 "reference": "67e8e50fa61387e3dae8690837ace6aba5e39e9c"
             },
             "require": {
@@ -52,7 +52,7 @@
             "target-dir": "Armd/SphinxSearchBundle",
             "source": {
                 "type": "git",
-                "url": "git@git.armd.ru:armdsphinxsearchbundle.git",
+                "url": "git@git.armd.ru:shpeyzulaev/armdsphinxsearchbundle.git",
                 "reference": "7b310fa5e256533c0996fd144f6728a0089f0628"
             },
             "type": "armd-cms-bundle",
@@ -70,7 +70,7 @@
             "target-dir": "Armd/TwigBundle",
             "source": {
                 "type": "git",
-                "url": "git@git.armd.ru:armdtwigbundle.git",
+                "url": "git@git.armd.ru:shpeyzulaev/armdtwigbundle.git",
                 "reference": "90d10ccb63fd92c5a7817fc41cf7c03aacc1f62a"
             },
             "type": "armd-twig-bundle",

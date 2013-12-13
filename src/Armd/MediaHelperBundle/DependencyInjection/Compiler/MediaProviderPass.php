@@ -43,6 +43,19 @@ class MediaProviderPass implements CompilerPassInterface
                 ->addMethodCall('setResizer', array(new Reference($providers['tvigle']['resizer'])))
             ;
         }
+
+        if($container->hasDefinition('sonata.media.provider.dcx')) {
+            $configPool = $container->get('armd_media_helper.configuration_pool');
+
+            $providers = $configPool->getOption('providers');
+
+            $container->getDefinition('sonata.media.provider.dcx')
+                ->replaceArgument(1, new Reference($providers['dcx']['filesystem']))
+                ->replaceArgument(3, new Reference($providers['dcx']['generator']))
+                ->replaceArgument(4, new Reference($providers['dcx']['thumbnail']))
+                ->addMethodCall('setResizer', array(new Reference($providers['dcx']['resizer'])))
+            ;
+        }
     }
 
 }

@@ -1,0 +1,93 @@
+{% extends 'SonataAdminBundle:CRUD:list.html.twig' %}
+
+
+{% block actions %}
+    <div class="sonata-actions">
+        {% if admin.hasroute('list') %}
+             <a  class="btn sonata-action-element" href="#" id="dcx-search-article">
+                <i class="icon-plus"></i>
+                Добавить статью по DCX
+             </a>
+             <div id="dialog-form" title="Поиск статьи по DCX">
+              <p class="validateTips">Введите DcxID статьи</p>
+              <form id = "form-submit-id" action="{{ admin.generateUrl('addArticle')}}" method="post">
+                <fieldset>
+                  <label for="name">DCX ID</label>
+                  <input type="text" name="name" id="dcx_id" class="text ui-widget-content ui-corner-all">
+                </fieldset>
+              </form>
+            </div>
+        {% endif %}
+        {% include 'SonataAdminBundle:Core:create_button.html.twig' %}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $(function(){
+            var name = $( "#dcx_id" ),
+            allFields = $( [] ).add( name ),
+            tips = $( ".validateTips" );
+            $( "#dialog-form" ).dialog({
+              autoOpen: false,
+              height: 250,
+              width: 300,
+              modal: true,
+              buttons: {
+                "Search": function() {
+                    var bValid = true;
+                    allFields.removeClass( "ui-state-error" );
+                    bValid = bValid && checkLength( name, "DCX ID", 0);
+                    if ( bValid ) {
+                      $('#form-submit-id').submit();
+                    }
+                },
+                Cancel: function() {
+                  $( this ).dialog( "close" );
+                }
+              },
+              close: function() {
+                allFields.val( "" ).removeClass( "ui-state-error" );
+              }
+            });
+            $( "#dcx-search-article" )
+              .button()
+              .click(function() {
+                $( "#dialog-form" ).dialog( "open" );
+            });
+
+            $('#form-submit-id').ajaxForm({
+                dataType: 'json',
+                success: function(response, statusText, xhr, $form){
+                    if(!response.success){
+                      name.addClass( "ui-state-error" );
+                      updateTips(response.error);
+                    }
+                    else{
+                      location.href = "{{ admin.generateUrl('addArticle')}}";
+                    }
+                }
+            });
+
+            function updateTips( t ) {
+              tips
+                .text( t )
+                .addClass( "ui-state-highlight" );
+              setTimeout(function() {
+                tips.removeClass( "ui-state-highlight", 1500 );
+              }, 500 );
+            }
+
+            function checkLength( o, n, min) {
+              if ( o.val().length <= min) {
+                o.addClass( "ui-state-error" );
+                updateTips( "Поле " + n + " не может быть пустым" );
+                return false;
+              } else {
+                return true;
+              }
+            }
+        });
+    </script>    
+{% endblock %} 
