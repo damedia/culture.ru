@@ -38,7 +38,81 @@
     <script src="/vendor/qtip/jquery.qtip.js" type="text/javascript"></script>
     <script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
     <script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
-    <script src="/js/new/s.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(function(){
+            (function(){
+                //Chrome/safari detect
+                var ua = navigator.userAgent.toLowerCase();
+
+                if ((ua.indexOf('safari') != -1)) {
+                    if (ua.indexOf('chrome') > -1) {
+                        $('body').addClass('m-chrome'); //used just once in CSS!
+                    }
+                }
+
+                if ((ua.indexOf('firefox') != -1)) {
+                    $('body').addClass('m-firefox'); //used 4 times in CSS!
+                }
+            }());
+
+            //Main page sliders?
+            $('.m-sights-carousel .b-main-slides, .m-specialproject .b-main-slides, .b-slider-wrapper .slides').each(function(){
+                $(this).css({
+                    height: $(this).children(':first').height(),
+                    overflow: 'hidden'
+                });
+            });
+        });
+
+        $(window).load(function(){
+            $('.b-main-slides').each(function(){
+                var slider = $(this),
+                        paginationContainer = $('<div />', {'class': 'b-pagination-nav'}),
+                        paginationUl = $('<ul />'),
+                        container = slider.closest('.b-simple-slider'),
+                        scrollOptions = {
+                            fx: 'fade'
+                        };
+
+                container.append(paginationContainer);
+                paginationUl.appendTo(container.find('.b-pagination-nav'));
+
+                if (slider.attr('id') === 'russia_image_widget' || slider.attr('id') === 'museum_widget') {
+                    scrollOptions = {
+                        onBefore: function(data){
+                            slider.children().removeClass('visible');
+                        },
+                        onAfter: function(data){
+                            data.items.visible.each(function(){
+                                $(this).addClass('visible');
+                            });
+                        }
+                    }
+                }
+
+                slider.caroufredsel({
+                    items: 1,
+                    visible: 1,
+                    width: 'auto',
+                    align: 'center',
+                    auto: false,
+                    pagination: {
+                        container: container.find('.b-pagination-nav ul'),
+                        anchorBuilder: function(nr){
+                            return '<li><a href="#' + nr + '">' + nr + '</a></li>';
+                        }
+                    },
+                    onCreate: function(data){
+                        container.addClass('js-fred-active');
+                        data.items.each(function(){
+                            $(this).addClass('visible');
+                        });
+                    },
+                    scroll: scrollOptions
+                });
+            });
+        });
+    </script>
     <!--[if lt IE 9]><script src="/js/new/html5.js" type="text/javascript"></script><![endif]-->
 {% endblock %}
 </head>
