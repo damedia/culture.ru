@@ -19,13 +19,30 @@ file that was distributed with this source code.
                 <i class="icon-zoom-in"></i>
                 {{ 'link_action_show'|trans({}, 'SonataAdminBundle') }}</a>
                 
-            {% if (has_change_history(object)) %}    
+            {% if (has_change_history(object)) %}
                 <a class="btn sonata-action-element view-history" href="{{ path('ru__RG__admin_armd_main_changehistory_list', { 'entity_id' : admin.id(object), 'entity_class' : object.className }) }}">
                     <i class="icon-zoom-in"></i>
                     {{ 'link_action_view_history'|trans({}, 'SonataAdminBundle') }}</a>
-            {% endif %}                   
-            
+            {% endif %}
+
+            {% if admin.hasroute('checkArticle') and admin.id(object) and admin.isGranted('EDIT', object) %}
+                 <a  class="btn sonata-action-element" href="#" id="dcx-search-article">
+                    <i class="icon-plus"></i>
+                    Добавить статью по DCX
+                 </a>
+                 <div id="dialog-form" title="Поиск статьи по DCX">
+                  <p class="validateTips">Введите DcxID статьи</p>
+                  <form id = "form-submit-id" action="{{ admin.generateUrl('checkArticle')}}" method="post">
+                    <fieldset>
+                      <label for="name">DCX ID</label>
+                      <input type="text" name="name" id="dcx_id" class="text ui-widget-content ui-corner-all">
+                    </fieldset>
+                  </form>
+                </div>
+            {% endif %}
+
         {% endif %}
+
         {% if admin.hasroute('history') and admin.id(object) and admin.isGranted('EDIT', object) %}
             <a class="btn sonata-action-element" href="{{ admin.generateObjectUrl('history', object) }}">
                 <i class="icon-book"></i>
@@ -61,7 +78,7 @@ file that was distributed with this source code.
             $('a.view-history').on('click', function(){
                 $('#history-list').load($(this).attr('href'), function(responseText, textStatus, XMLHttpRequest){
                     $('#history-list').show('slow');
-                })
+                });
                 return false;
             });
             
@@ -81,6 +98,92 @@ file that was distributed with this source code.
                 return false;
             });
             
+            $('#history-list').on('click', '.pagination a', function(){
+                var t = $(this).attr('href').split('?'),
+                    query_param = (t.length > 1) ? t[1].split('&') : null,
+                    page = 1,
+                    per_page = 0;
+
+                if (query_param.length > 0)
+                {
+                    for (var i=0; i<query_param.length; i++)
+                    {
+                        var param = query_param[i].split('=');
+                        if (param[0] == 'filter%5B_page%5D')
+                            page = param[1];
+                        else if (param[0] == 'filter%5B_per_page%5D')
+                            per_page = param[1];
+                    }
+                }
+                $('#history-list').load($('a.view-history').attr('href')+'&filter[_page]='+page+'&filter[_per_page]='+per_page);
+                return false;            
+            });
+            var name = $( "#dcx_id" ),
+            allFields = $( [] ).add( name ),
+            tips = $( ".validateTips" );
+            $( "#dialog-form" ).dialog({
+              autoOpen: false,
+              height: 250,
+              width: 300,
+              modal: true,
+              buttons: {
+                "Search": function() {
+                    var bValid = true;
+                    allFields.removeClass( "ui-state-error" );
+                    bValid = bValid && checkLength( name, "DCX ID", 0);
+                    if ( bValid ) {
+                      $('#form-submit-id').submit();
+                    }
+                },
+                Cancel: function() {
+                  $( this ).dialog( "close" );
+                }
+              },
+              close: function() {
+                allFields.val( "" ).removeClass( "ui-state-error" );
+              }
+            });
+            $( "#dcx-search-article" )
+              .button()
+              .click(function() {
+                $( "#dialog-form" ).dialog( "open" );
+            });
+
+            $('#form-submit-id').ajaxForm({
+                dataType: 'json',
+                success: function(response, statusText, xhr, $form){
+                    if(!response.success){
+                      name.addClass( "ui-state-error" );
+                      updateTips(response.error);
+                    }
+                    else{
+                      location.href = Routing.generate('admin_armd_atlas_object_craeteArticle',
+                        {'dcxId':response.dcxId}
+                      );
+                    }
+                }
+            });
+
+            function updateTips( t ) {
+              tips
+                .text( t )
+                .addClass( "ui-state-highlight" );
+              setTimeout(function() {
+                tips.removeClass( "ui-state-highlight", 1500 );
+              }, 500 );
+            }
+
+            function checkLength( o, n, min) {
+              if ( o.val().length <= min) {
+                o.addClass( "ui-state-error" );
+                updateTips( "Поле " + n + " не может быть пустым" );
+                return false;
+              } else {
+                return true;
+              }
+            }
+            
         });
+    
     </script>    
 {% endblock %}    

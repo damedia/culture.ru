@@ -1673,6 +1673,11 @@ body {
 			margin-bottom:20px;
 			margin-top:10px;
 		}
+
+       .search-found #found-objects-total i { 
+            font-style: normal;
+        }
+
 		.russia-top-found .button{
             position:relative;
             top:-3px;
@@ -4052,6 +4057,18 @@ body {
                         padding:14px;
                         position:relative;
                     }   
+
+                    .static-block-2 {
+                        padding: 0 14px;
+                    }
+
+                        .static-block-2 .o-slider-header {
+                            border: none;
+                            font: 15px Tahoma,Arial,Helvetica,sans-serif;
+                            margin: 0 0 0;
+                            padding: 14px 0 0 0;
+                        }
+
                         .period-block h1, .period-block h2, .static-block h2 {
                             text-transform:uppercase;
                             font:15px Tahoma, Arial, Helvetica, sans-serif;
@@ -4079,6 +4096,7 @@ body {
                                 height:88px;
                                 margin:-44px 0 0 -42px;
                                 background:url(../img/play.png) no-repeat 0 0;
+                                opacity: 0.6;
                             }
                         
                         .period-block_text, .block-text {
@@ -6545,6 +6563,7 @@ body {
 		background:url('../img/borodino/play.png') no-repeat 0 0;
 		width:26px;
 		height:31px;
+        opacity: 0.6;
 	}
 	.video-three .play  {
 		position:absolute;
@@ -9382,6 +9401,7 @@ a.appstore-link {
                             margin: -44px 0 0 -42px;
                             background: url(../img/play.png) no-repeat 0 0;
                             z-index:5;
+                            opacity: 0.6;
                         }
                         
                     .video-time-descr {
@@ -10019,7 +10039,71 @@ a.appstore-link {
                         }
             
 
+.profile-help {
+    min-height:33px;
+    position:relative;
+    margin-bottom:10px;
+    margin-top:10px;
+}
 
+    .profile-help_icon {
+        height:33px;
+        padding-right:43px;
+        position:absolute;
+        right:-3px;
+        top:-7px;
+        background:url(/img/help_icon.png) right 0 no-repeat;
+        cursor:pointer;
+        z-index:10;
+    }
+
+        .profile-help_icon h3 {
+            margin:0;
+            padding:0;
+            color:#333;
+            font-size:15px;
+            line-height:33px;
+            font-weight:normal;
+        }
+
+        .profile-help-show h3 { display:none; }
+
+.profile-help.profile-help-show {
+    margin-bottom:15px;
+}
+
+.profile-help.profile-help-open {
+    margin:20px 10px 0 10px;
+    min-height:23px;
+}
+
+    .profile-help_text {
+        position:relative;
+        padding:20px 55px 20px 24px;
+        border:1px solid #d4d4d4;
+        color:#333;
+        font-size:13px;
+        display:none;
+    }
+
+    .profile-help-open .profile-help_text {
+        display:block;
+        padding:20px 25px 20px 24px;
+    }
+
+    .profile-help_text_shift {
+        margin-left:200px;
+    }
+
+        .profile-help_text span {
+            width:47px;
+            height:45px;
+            background:url(/img/help_bg.jpg) right 0 no-repeat;
+            display:block;
+            position:absolute;
+            right:-1px;
+            top:-1px;
+        }
 
 
 

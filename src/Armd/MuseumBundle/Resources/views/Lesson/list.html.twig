@@ -131,10 +131,10 @@
 {% block right_column %}
     <div style="height:25px; gont-size:0; line-height:0;"></div>
     {% render url('armd_atlas_related_objects', {'tags': {}, 'limit': 1}) %}
-    <div class="right-video-block">
+    <div class="right-video-block static-block-2">
         {% render url('armd_lecture_related_lectures', {'tags': {}, 'limit':4, 'superTypeCode': 'LECTURE_SUPER_TYPE_CINEMA' }) %}
     </div>
-    <div class="right-video-block">
+    <div class="right-video-block static-block-2">
         {% render url('armd_lecture_related_lectures', {'tags': {}, 'limit': 4, 'superTypeCode': 'LECTURE_SUPER_TYPE_LECTURE' }) %}
     </div>
 

@@ -1,0 +1,23 @@
+parameters:
+    dcx.client.class: Armd\DCXBundle\DCX\DCXClient
+    buzz.client.curl.class: Buzz\Client\Curl
+    buzz.browser.class: Buzz\Browser
+services:
+
+    dcx.client:
+        class: %dcx.client.class%
+        arguments: [@buzz.browser, %dcx.host%]
+
+    buzz.client.curl:
+        class:  %buzz.client.curl.class%
+        public: false
+        calls:
+            - [setVerifyPeer, [false]]
+            - [setOption, [%dcx.auth.userpwd.constant%, %dcx.auth.userpwd%]]
+            - [setOption, [%dcx.auth.cookiejar.constant%, %dcx.auth.cookiejar%]]
+            - [setOption, [%dcx.auth.cookiefile.constant%, %dcx.auth.cookiefile%]]
+            - [setTimeout, [0]]
+
+    buzz.browser:
+        class: %buzz.browser.class%
+        arguments: ['@buzz.client.curl']

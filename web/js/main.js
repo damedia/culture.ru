@@ -632,3 +632,15 @@ $(window).load(function(){
 
     });
 });
+
+jQuery(document).ready(function(){
+    $(".profile-help_icon").click(function(){
+        var help_show = $(this).parent();
+        if (help_show.hasClass("profile-help-show")) {
+            help_show.removeClass("profile-help-show")
+            help_show.find(".profile-help_text").hide();
+        } else {
+            help_show.addClass("profile-help-show");
+            help_show.find(".profile-help_text").fadeIn(300); }
+    })
+}); //ready

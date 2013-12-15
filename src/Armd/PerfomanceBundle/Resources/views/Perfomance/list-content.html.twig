@@ -13,9 +13,10 @@
 					<div class="plitka-text">
 						<span class="plitka-name">
 							<a href="{{ path('armd_perfomance_item', {'id': entity.id }) }}" title="{$entity.title|escape}">
-								{{ entity.title|raw }}
+								{{ entity.title|raw }}{% if entity.year %}, {{ entity.year}}{% endif %}
 							</a>
 						</span>
+
 						<span class="three-row-link">
                             {% if entity.theater %}
                                 <a href="{{ path('armd_perfomance_list', {'theaterId': entity.theater.id }) }}">{{ entity.theater.title }}</a>

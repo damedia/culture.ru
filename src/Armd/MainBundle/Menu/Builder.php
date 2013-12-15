@@ -150,20 +150,23 @@ class Builder extends ContainerAware {
         $theatersMenu->setAttribute('class', 'm-color-5');
 
         //Performances
-        $performancesMenu = $menu->addChild('menu.perfomance', array('route' => 'armd_perfomance_list')); //TODO: typo in the route name
-        $performancesMenu->setAttribute('class', 'm-color-6');
-
-        //Music
-        $musicMenu = $menu->addChild('menu.music', array('route' => 'armd_main_underconstruction'));
-        $musicMenu->setAttribute('class', 'm-color-7');
+        //$performancesMenu = $menu->addChild('menu.perfomance', array('route' => 'armd_perfomance_list')); //TODO: typo in the route name
+        //$performancesMenu->setAttribute('class', 'm-color-6');
 
         //Lectures
         $lecturesMenu = $menu->addChild('menu.lectures', array('route' => 'armd_lecture_lecture_index'));
-        $lecturesMenu->setAttribute('class', 'm-color-8');
+        $lecturesMenu->setAttribute('class', 'm-color-7');
 
         //Atlas
         $atlasMenu = $menu->addChild('menu.atlas', array('route' => 'armd_atlas_index'));
-        $atlasMenu->setAttribute('class', 'm-color-9');
+        $atlasMenu->setAttribute('class', 'm-color-8');
+
+        //The year of culture
+        $yearOfCulture = $menu->addChild('menu.year_of_culture', array(
+            'route' => 'damedia_special_project_view',
+            'routeParameters' => array('slug' => 'year-of-culture')
+        ));
+        $yearOfCulture->setAttribute('class', 'm-color-9');
 
         //SpecialProjects
         $specialProjectsMenu = $menu->addChild('menu.special_projects', array('route' => 'damedia_special_project_list'));
@@ -198,16 +201,19 @@ class Builder extends ContainerAware {
         $menu->addChild('menu.theaters', array('route' => 'armd_theater_list'));
 
         //Performances
-        $menu->addChild('menu.perfomance', array('route' => 'armd_perfomance_list')); //TODO: typo in the route name
-
-        //Music
-        $menu->addChild('menu.music', array('route' => 'armd_main_underconstruction'));
+        //$menu->addChild('menu.perfomance', array('route' => 'armd_perfomance_list')); //TODO: typo in the route name
 
         //Lectures
         $menu->addChild('menu.lectures', array('route' => 'armd_lecture_lecture_index'));
 
         //Atlas
         $menu->addChild('menu.atlas', array('route' => 'armd_atlas_index'));
+
+        //The year of culture
+        $menu->addChild('menu.year_of_culture', array(
+            'route' => 'damedia_special_project_view',
+            'routeParameters' => array('slug' => 'year-of-culture')
+        ));
 
         //SpecialProjects
         $menu->addChild('menu.special_projects', array('route' => 'damedia_special_project_list'));

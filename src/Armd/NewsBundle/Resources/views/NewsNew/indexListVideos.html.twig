@@ -14,8 +14,9 @@
         {% for item in lectures %}
             <section class="hub-list-item">
                 <article>
-                    <div class="teaser-thumb">
+                    <div class="teaser-thumb positionRelative">
                         {{ lectureMacro.lectureThumbnail(item, 'tile', { 'alt': item.title }) }}
+                        <span class="play"></span>
                     </div>
 
                     <div class="teaser-header">

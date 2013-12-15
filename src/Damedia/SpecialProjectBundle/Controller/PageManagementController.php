@@ -167,8 +167,8 @@ class PageManagementController extends Controller {
 
             $formBuilder->add($placeholder, 'textarea',
                               array('required' => false,
-                                    'attr' => array('class' => 'createPage_blockTextarea tinymce',
-                                                    'data-theme' => 'sproject_snippets'),
+                                    'attr' => array('class' => 'createPage_blockTextarea tinymce'),
+                                    //                'data-theme' => 'sproject_snippets'),
                                     'data' => $blockContent,
             						'label' => $placeholder));
         }

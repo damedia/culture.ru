@@ -15,7 +15,22 @@
         {{ profileMenu.user_profile_menu('subscriptions-edit') }}
     </div>
     <div class="profile-right">
-        <div class="profile-right-block">    
+        <div class="profile-right-block">
+
+            <div class="profile-help">
+                <div class="profile-help_icon">
+                        <h3>Подсказка</h3>
+                        <span></span>
+                </div>
+
+                <div class="profile-help_text">
+                        Подпишитесь на рассылку портала и будьте в курсе самых
+                        последних событий в области культуры.
+                        Рассылка осуществляется один раз в сутки.
+                    <span></span>
+                </div>
+            </div>
+
             {% include 'ArmdUserBundle:Profile:edit_subscriptions_form.html.twig' %}
         </div>
     </div>

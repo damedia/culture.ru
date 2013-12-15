@@ -15,6 +15,21 @@
     </div>
     <div class="profile-right">
         <div class="profile-right-block clearfix">
+
+            <div class="profile-help">
+                <div class="profile-help_icon">
+                    <h3>Подсказка</h3>
+                    <span></span>
+                </div>
+
+                <div class="profile-help_text">
+                     Здесь Вы можете добавить новый объект культурного наследия
+                     в раздел «Атлас», а так же отредактировать информацию об
+                     объектах, добавленных Вами ранее.
+                    <span></span>
+                </div>
+            </div>
+
             {% if userObjects|length %}
                 <ul class="profile-object-list"><!--
                     {% for object in userObjects %}
