@@ -1,4 +1,24 @@
-Museums: Museums
+MuseumsOfRussia: Museums of Russia
+MuseumsReserve: museums reserve
+VirtualTour: virtual tour
+AboutMuseum: about museum
+LookAtTheAtlas: look at the atlas
+ContactInformation: contact information
+Info:
+    Address: Address
+    Website: Website
+    Phone: Phone
+    OpeningHours: Opening hours
+Hub:
+    MenuVirtualTours: virtual tours
+    MenuMuseumReserved: museum reserved
+    MenuMuseumEducation: museum education
+    MenuWarGallery: war gallery
+VirtualTours: virtual tours
+MuseumsReserves: museums reserves
+OperationManual: operation manual
+NextButton: next
+
 Museum Guide: Museum Guide
 visit_museum: Visit Virtual<br/> museum
 manual_instruction: How to use Virtual tour

@@ -79,7 +79,7 @@
 {% block left_column %}
     <ul class="breadcrumbs">
         <li><a href="{{ path('armd_main_homepage') }}">{{ 'menu.mainpage'|trans }}</a></li>
-        <li><a href="{{ path('armd_news_list_index_by_category', {'category': 'reportages'}) }}">{{ 'menu.media'|trans }}</a></li>
+        <li><a href="{{ path('armd_news_index_by_category', {'category': 'reportages'}) }}">{{ 'menu.media'|trans }}</a></li>
         <li><a href="{{ path('armd_lecture_news_index') }}">{{ 'menu.lectures_news'|trans }}</a></li>
         <li><span>{{ lecture.title }}</span></li>
     </ul>

@@ -6,16 +6,13 @@ use Sonata\AdminBundle\Datagrid\ProxyQueryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
-class TvigleVideoCrudController extends CRUDController
-{
-    public function batchActionUpdateMetadata(ProxyQueryInterface $selectedModelQuery)
-    {
+class TvigleVideoCrudController extends CRUDController {
+    public function batchActionUpdateMetadata(ProxyQueryInterface $selectedModelQuery) {
         if ($this->admin->isGranted('EDIT') === false) {
             throw new AccessDeniedException();
         }
 
         $modelManager = $this->admin->getModelManager();
-
         $selectedModels = $selectedModelQuery->execute();
         $tvigleManager = $this->get('armd_tvigle_video.manager.tvigle_video');
 

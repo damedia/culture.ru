@@ -1,0 +1,15 @@
+{% if museums|length > 0 %}
+    {% for museum in museums %}
+        <a class="museums-list-item noTextDecoration" data-id="{{ museum.id }}" href="{{ path('armd_atlas_default_object_view', {id: museum.atlasObject.id}) }}">
+            {% for h in museum.atlasObject.images|slice(0, 1) %}
+                {% thumbnail h, 'big' with {'alt': museum.title, 'class': 'displayBlock', 'width': 340, 'height': 227} %}
+            {% endfor %}
+            <span class="sidebar-item-title marginTop10">
+                {{ museum.title|raw }}
+            </span>
+        </a>
+        {% if (loop.index is not even) %}
+            <div class="spacer"></div>
+        {% endif %}
+    {% endfor %}
+{% endif %}

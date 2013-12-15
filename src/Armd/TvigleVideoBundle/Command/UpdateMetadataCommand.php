@@ -7,25 +7,19 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class UpdateMetadataCommand extends Command
-{
-    protected function configure()
-    {
-        $this
-            ->setName('armd:tvigle:update')
-            ->setDescription('Update metadata from tvigle')
-        ;
+class UpdateMetadataCommand extends Command {
+    protected function configure() {
+        $this->setName('armd:tvigle:update')->setDescription('Update metadata from tvigle');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
-    {
+    protected function execute(InputInterface $input, OutputInterface $output) {
         $container = $this->getApplication()->getKernel()->getContainer();
         $manager = $container->get('armd_tvigle_video.manager.tvigle_video');
         $em = $container->get('doctrine')->getManager();
 
         $videos = $em->getRepository('ArmdTvigleVideoBundle:TvigleVideo')->findAll();
         foreach($videos as $video) {
-            $output->writeln('Update tvigle ' . $video->getTvigleId());
+            $output->writeln('Update tvigle '.$video->getTvigleId());
             $manager->updateVideoDataFromTvigle($video);
         }
 

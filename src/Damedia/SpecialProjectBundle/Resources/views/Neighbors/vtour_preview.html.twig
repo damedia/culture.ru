@@ -1,0 +1,16 @@
+<div style="border: 1px solid #EDEDED;">
+    <div class="virt-museum-new-list-one" style="margin: 0;">
+        <a class="vob iframe" href="{{ object.url }}" data-fancybox-type="iframe"><img src="{% path object.bannerImage, 'banner' %}" alt="" /></a>
+        <div class="virt-museum-circle">
+            <h2><span>{{ object.title|raw }}</span></h2>
+            <div class="virt-museum-list-one-descr">
+                {% if object.region %}
+                    <a href="{{ path('armd_museum_virtual', { region: object.region.id }) }}" class="virt-museum-city">{{ object.region.title }}</a>
+                {% endif %}
+                <a class="virt-museum-link vob iframe" href="{{ object.url }}" data-fancybox-type="iframe">{{ "visit_museum"|trans|raw }}</a>
+                <a href="#instruction" class="virt-museum-instr">{{ "manual_instruction"|trans|raw }}</a>
+            </div>
+            <div class="museum-image-image"></div>
+        </div>
+    </div>
+</div>

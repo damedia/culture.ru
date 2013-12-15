@@ -1,3 +1,111 @@
+Main:
+    SiteName: Культура.рф
+    Section:
+        Partners:
+            Header: Партнеры
+        Copyright: При цитировании и копировании материалов с портала активная гиперссылка обязательна
+        Footer:
+            iPad: Приложения для iPad
+    Widget:
+        Announce:
+            Header: Анонсы
+            Goto: перейти в Анонсы
+        Media:
+            Header: Медиа
+            Goto: перейти в Медиа
+            Today: сегодня
+        ImagesOfRussia:
+            Header: Образы России
+            Goto: перейти в Образы России
+        SpecialProject:
+            Header: Спецпроекты
+            Goto: перейти в Спецпроекты
+        Movie:
+            Header: Кино
+            Goto: перейти в Кино
+            Recommended: рекомендуем
+            ForChildren: для детей
+            Genre: Жанр
+            Director: Режиссер
+            Cast: В ролях
+        Museum:
+            Header: Виртуальные музеи
+            Goto: перейти в Музеи
+            VirtualTour: виртуальный тур
+            AboutMuseum: о музее
+        Performance:
+            Header1: Виртуальный
+            Header2: театр
+            Goto: перейти в Театр
+            Recommended: рекомендуем
+            Popular: популярные
+            Cast: В ролях
+        Lecture:
+            Header: Лекции
+            Goto: перейти в Лекции
+            Recommended: рекомендуем
+            Popular: популярные
+
+Sidebar:
+    LinkedContent:
+        Header: По теме
+        Next: следующее
+        Type:
+            ImagesOfRussia: Образы России
+            Lectures: Лекции
+            Movies: Кино
+    RelatedContent:
+        Header: Интересно
+
+Comments:
+    Header: Комментарии
+    AuthRequire1: Чтобы оставлять комментарии необходимо
+    AuthRequire2: авторизоваться
+    AuthRequire3: на сайте
+    PostComment: прокомментировать
+    PostReply: ответить
+    PostComment: Добавить комментарий
+    LoadingComments: Загрузка комментариев
+    MessageSent:
+        Part1: Сообщение
+        Part2: отправлено
+        Part3: на модерацию.
+        Part4: В ближайшее время оно появится на сайте
+    Rules:
+        Lead: Дорогие друзья! Помните, что модераторы сайта будут удалять:
+        Rule1: Комментарии с грубой и ненормативной лексикой
+        Rule2: Прямые или косвенные оскорбления героя поста или читателей
+        Rule3: Короткие оценочные комментарии ("ужасно", "класс", "фууу")
+        Rule4: Комментарии, разжигающие национальную и социальную рознь
+    Thread:
+        Open: Открыть обсуждение
+        Close: Закрыть обсуждение
+    Comment:
+        Reply: Ответить
+        Link: Ссылка
+        Edit: Редактировать
+        Delete: Удалить
+        Restore: Восстановить
+
+SearchDefault: поиск по сайту
+
+Hub:
+    MenuAll: все
+    CulturalObjects: объекты культуры
+    TourismClusters: туристические кластеры
+
+Entity:
+    SocialShare: Опубликовать в социальных сетях
+    AddToFavorites: Добавить в «Избранное»
+    RemoveFromFavorites: Убрать из «Избранного»
+    DateOfEvent: Дата проведения
+    DateOfEventFrom: с
+    DateOfEventTo: по
+    Source: Источник
+    GotoSection: перейти в раздел
+
+
+
 calendar:
     full:
         Jan: Января

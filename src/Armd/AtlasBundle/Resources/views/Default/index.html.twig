@@ -25,170 +25,86 @@
     </ul>
 
     <div class="blocksection w {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}logged-in{% endif %}" id="map-section">
-        <div class="filter checks-filter sidebar">
-
-            <form id="atlas-filter-form" class="atlas-filter-form" action="{{ path('armd_atlas_default_filter') }}" method="POST">
-
-                <input id="category-id" type="hidden" name="category" value="">
-                <input id="filter-type" type="hidden" name="filter_type" value="{{ filterType }}">
-
-                <div class="simple-search">
-                    <input type="text" class="ss-input" id="ss_input" placeholder="{{ "atlas.address"|trans }}"/>
-                </div>
-
-
-                <div id="atlas-side-tabs">
-
-                    <div id="culture-objects-tab" class="ajax-filter-tabs atlas-side-tab">
-                        {% render url('armd_atlas_ajax_filters', {'typeTab': 'filter_culture_objects' }) %}
-                    </div>
-
-                    <div id="tourist-clusters-tab" class="ajax-filter-tabs atlas-side-tab">
-                        {% render url('armd_atlas_ajax_filters', {'typeTab': 'filter_tourist_clusters' }) %}
-                    </div>
-
-                    <div id="user-objects-tab" class="filter-sub-tab atlas-side-tab">
-
-                        <ol class="filter-sub-tab-list" id="myobj_list">
-                        </ol>
-
-                        <!-- template -->
-                        <script id="myobj_list_template" type="text/x-jquery-tmpl">
-                            <li data-id="${id}">
-                                <span>${title}</span>
-                                <a class="del" href="#" title="{{ "atlas.delete"|trans }}"></a>
-                                <div class="moder status${status}" title="${statusTitle}" data-reason="${reason}">
-                                    <span>${status}</span>
-                                </div>
-                                <ins class="edit" title="Редактировать"></ins>
-                            </li>
-                        </script>
-                        <!-- /template -->
-
-                        <input id="atlas-objects-add" type="button" class="button green-button" value="{{ "atlas.object.add"|trans }}" />
-
-                        <div id="atlas-objects-add-hint">{{ "atlas.click_map"|trans }}</div>
-
-                        <div class="profile-help profile-help-open">
-                            <div class="profile-help_text">
-                                В этом разделе вы можете добавить на карту новый объект культуры.
-                                <ol>
-                                    <li>Для этого нажмите кнопку «Добавить».</li>
-                                    <li>Выберите на карте место расположения объекта.</li>
-                                    <li>В появившемся окне введите точный адрес или координаты точки.</li>
-                                    <li>Заполните остальные поля.</li>
-                                    <li>Загрузите фото.</li>
-                                    <li>Вы можете изменить информацию об объекте во вкладке "Мои объекты".</li>
-                                </ol>
-                                Объект будет доступен всем пользователям портала Культура.рф после модерации.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-{#
-                <div class="filter-tabs">
-                    <ul class="filter-tabs-titles">
-                        <li class="active"><a href="#obj">{{ "atlas.objects"|trans }}</a></li>
-                        <li class=""><a href="#maps">{{ "atlas.my_map"|trans }}</a></li>
-                    </ul>
-                    &#123;&#35; Блок, который был на этом месте перенесен в шаблон src\Armd\AtlasBundle\Resources\views\Default\ajax_filter.html.twig &#35;&#125;
-                    &#123;&#35;
-                    <div class="filter-tab" id="mrsh">
-                        <!-- маршруты -->
-                    </div>
-                    &#35;&#125;
-                     
-                    <div class="filter-tab" id="maps">
-                        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                            <!-- мои карты -->
-                            <div class="filter-sub-tabs">
-                                <ul class="filter-sub-tabs-titles">
-                                    <li class="active"><a href="#myobj">Мои объекты</a></li>
-                                    &#123;&#35;<li><a href="#mymrsh">Мои маршруты</a></li>&#35;&#125;
-                                </ul>
-                                <div class="filter-sub-tab" id="myobj" style="display:block;">
-                                    <ol class="filter-sub-tab-list" id="myobj_list">
-                                        &#123;&#35;<li>
-                                            <span>Новый объект</span>
-                                            <a href="#" class="del" title="Удалить"></a>
-                                            <span class="moder"></span>
-                                        </li>&#35;&#125;
-                                    </ol>
-
-                                    <!-- template -->
-                                    <script id="myobj_list_template" type="text/x-jquery-tmpl">
-                                        <li data-id="${id}">
-                                            <span>${title}</span>
-                                            <a class="del" href="#" title="{{ "atlas.delete"|trans }}"></a>
-                                            <div class="moder status${status}" title="${statusTitle}" data-reason="${reason}">
-                                                <span>${status}</span>
-                                            </div>
-                                            &#123;&#35;<ins class="edit"></ins>&#35;&#125;
-                                        </li>
-                                    </script>
-                                    <!-- /template -->
-
-                                    <input id="atlas-objects-add" type="button" class="button green-button" value="{{ "atlas.object.add"|trans }}" />
-
-                                    <div id="atlas-objects-add-hint">{{ "atlas.click_map"|trans }}</div>
-                                </div>
-                                <div class="filter-sub-tab" id="mymrsh">
-
-                                </div>
-                            </div>
-                        {% else %}
-                            <div class="auth-required-msg">
-                                {{ "atlas.auth_required"|trans({ '%loginUrl%':path("fos_user_security_login"), '%registerUrl%':path("fos_user_registration_register") })|raw }}
-                            </div>
-                        {% endif %}
-                    </div>
-                </div>
-#}
-
-            </form>
-        </div>
         <div class="atlas-center">
-            {#
-            <div class="sort-filter sort-element-filter">
+            <div id="filter-tabs" class="content-tabs" style="margin-bottom:20px;">
                 <a id="filter_culture_objects" href="#" class="atlas-tab-filters {% if filterType is sameas('filter_culture_objects') %}active{% endif %}">
-                    Объекты культуры
-                </a>
-                <a id="filter_tourist_clusters" href="#" class="atlas-tab-filters" {% if filterType is sameas('filter_tourist_clusters') %}active{% endif %}>
-                    Туристические кластеры
-                </a>
-                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                    <a id="filter_user_objects" href="#" class="atlas-tab-filters" {% if filterType is sameas('filter_user_objects') %}active{% endif %}>
-                        Мои объекты
-                    </a>
-                {% endif %}
-            </div>
-            #}
-            <div class="content-tabs" style="margin-bottom:20px;">
-                <a id="filter_culture_objects" href="#" class="atlas-tab-filters  {% if filterType is sameas('filter_culture_objects') %}active{% endif %}">
                     {{ "atlas.culture_objects"|trans }}
                 </a>
 
-                <a id="filter_tourist_clusters" href="#" class="atlas-tab-filters" {% if filterType is sameas('filter_tourist_clusters') %}active{% endif %}>
+                <a id="filter_tourist_clusters" href="#" class="atlas-tab-filters {% if filterType is sameas('filter_tourist_clusters') %}active{% endif %}">
                     {{ "atlas.tourist_clusters"|trans }}
                 </a>
 
                 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                    <a id="filter_user_objects" href="#" class="atlas-tab-filters" {% if filterType is sameas('filter_user_objects') %}active{% endif %}>
+                    <a id="filter_user_objects" href="#" class="atlas-tab-filters {% if filterType is sameas('filter_user_objects') %}active{% endif %}">
                         {{ "atlas.my_objects"|trans }}
                     </a>
                 {% endif %}
             </div>
+
             <div class="clear"></div>
+
             <div class="atlas-map">
                 <div class="bar bar-top"></div>
                 <div class="bar bar-right"></div>
                 <div class="bar bar-bottom"></div>
                 <div class="bar bar-left"></div>
+
                 <div id="map"></div>
                 <div id="ajax-loading" class="ajax-loading"></div>
             </div>
         </div>
+
+        <div class="filter checks-filter sidebar">
+            <div class="simple-search">
+                <input type="text" class="ss-input" id="ss_input" placeholder="{{ "atlas.address"|trans }}"/>
+            </div>
+
+            <div id="atlas-side-tabs">
+                <div id="culture-objects-tab" data-type="filter_culture_objects" class="ajax-filter-tabs atlas-side-tab">
+                    {% render url('armd_atlas_ajax_filters', { 'typeTab': 'filter_culture_objects' }) %}
+                </div>
+
+                <div id="tourist-clusters-tab" data-type="filter_tourist_clusters" class="ajax-filter-tabs atlas-side-tab">
+                    {% render url('armd_atlas_ajax_filters', { 'typeTab': 'filter_tourist_clusters' }) %}
+                </div>
+
+                <div id="user-objects-tab" data-type="filter_user_objects" class="filter-sub-tab atlas-side-tab">
+                    <input id="atlas-objects-add" type="button" class="button atlas-add-object-button" value="{{ "atlas.object.add"|trans }}" />
+
+                    <div class="profile-help_text">
+                        В этом разделе вы можете добавить на карту новый объект культуры.
+                        <ol>
+                            <li>Для этого нажмите кнопку «Добавить».</li>
+                            <li>Выберите на карте место расположения объекта.</li>
+                            <li>В появившемся окне введите точный адрес или координаты точки.</li>
+                            <li>Заполните остальные поля.</li>
+                            <li>Загрузите фото.</li>
+                            <li>Вы можете изменить информацию об объекте во вкладке "Мои объекты".</li>
+                        </ol>
+                        Объект будет доступен всем пользователям портала Культура.рф после модерации.
+                    </div>
+
+                    <div id="atlas-objects-add-hint">{{ "atlas.click_map"|trans }}</div>
+
+                    <ol class="filter-sub-tab-list" id="myobj_list"></ol>
+
+                    <!-- template -->
+                    <script id="myobj_list_template" type="text/x-jquery-tmpl">
+                        <li data-id="${id}">
+                            <span>${title}</span>
+                            <a class="del" href="#" title="{{ "atlas.delete"|trans }}"></a>
+                            <div class="moder status${status}" title="${statusTitle}" data-reason="${reason}">
+                                <span>${status}</span>
+                            </div>
+                            <ins class="edit" title="Редактировать"></ins>
+                        </li>
+                    </script>
+                    <!-- /template -->
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <!-- popups -------------------------------------------- -->
@@ -199,44 +115,53 @@
         <form action="{{ path('armd_atlas_default_objectsadd') }}" method="POST">
             <h2 class="add">{{ "atlas.object.add"|trans }}</h2>
             <h2 class="edit">{{ "atlas.object.edit"|trans }}</h2>
-            <input id="object-id" type="hidden" name="id" value="">
+
+            <input id="object-id" name="id" type="hidden" value="">
+
             <ul class="add-object-form-fields">
                 <li>
-                    <label for="name">{{ "atlas.object.title"|trans }}</label>
-                    <input name="title" type="text" value="" placeholder="" id="name" />
+                    <label for="title">{{ "atlas.object.title"|trans }}</label>
+                    <input id="title" name="title" type="text" value="" placeholder="" />
                 </li>
+
                 <li>
-                    <label for="address">{{ "atlas.object.address"|trans }}</label>
-                    <input name="address" type="text" value="" placeholder="" id="address" />
+                    <label for="announce">{{ "atlas.object.announce"|trans }}</label>
+                    <textarea id="announce" name="announce" cols="30" rows="10"></textarea>
                 </li>
+
                 <li class="coords">
                     <div class="coords-block">
-                        <label for="lat">{{ "atlas.object.latitude"|trans }}</label>
-                        <input name="lat" type="text" value="" id="lat" />
+                        <label for="lat">{{ "atlas.object.lat"|trans }}</label>
+                        <input id="lat" name="lat" type="text" value="" />
                     </div>
                     <div class="coords-block last">
-                        <label for="lon">{{ "atlas.object.longitude"|trans }}</label>
-                        <input name="lon" type="text" value="" id="lon" />
+                        <label for="lon">{{ "atlas.object.lon"|trans }}</label>
+                        <input id="lon" name="lon" type="text" value="" />
                     </div>
                 </li>
+
                 <li>
-                    <label for="descr">{{ "atlas.object.description"|trans }}</label>
-                    <textarea name="description" id="descr" cols="30" rows="10"></textarea>
+                    {{ "atlas.object.classification"|trans }}
                 </li>
+
+                <!-- TODO: This form field twig logic duplicates the same field logic from SonataAdmin! -->
                 <li>
-                    <label for="category">{{ "atlas.object.category"|trans }}</label>
-                    <select id="primary-category" name="primary_category" class="chzn-select" data-placeholder="{{ "atlas.object.choose_category"|trans }}" style="width:298px">
+                    <label for="primaryCategory">{{ "atlas.object.primaryCategory"|trans }}</label>
+                    <select id="primaryCategory" name="primaryCategory" class="chzn-select atlas-object-form-select" data-placeholder="{{ "atlas.object.choose_category"|trans }}">
                         <option value=""></option>
-                        {% for optgroup in categories if optgroup.title=='Object Type' or optgroup.title=='Тип объекта' %}
-                            {% for tag in optgroup.tags if tag.hasIcon %}
-                                <option value="{{ tag.id }}">{{ tag.title }}</option>
-                            {% endfor %}
+                        {% for optgroup in categories if (optgroup.title == 'Object Type' or optgroup.title == 'Тип объекта' or optgroup.title == 'Theme' or optgroup.title == 'Тематика') %}
+                            <optgroup label="{{ optgroup.title }}">
+                                {% for tag in optgroup.tags if tag.hasIcon %}
+                                    <option value="{{ tag.id }}">{{ tag.title }}</option>
+                                {% endfor %}
+                            </optgroup>
                         {% endfor %}
                     </select>
                 </li>
+
                 <li>
-                    <label for="category">{{ "atlas.object.additional_tags"|trans }}</label>
-                    <select id="category" name="category[]" class="chzn-select" multiple="multiple" data-placeholder="{{ "atlas.object.choose_category"|trans }}" style="width:298px">
+                    <label for="secondaryCategories">{{ "atlas.object.secondaryCategories"|trans }}</label>
+                    <select id="secondaryCategories" name="secondaryCategories[]" class="chzn-select atlas-object-form-select" multiple="multiple" data-placeholder="{{ "atlas.object.choose_category"|trans }}">
                         <option value=""></option>
                         {% for optgroup in categories %}
                             <optgroup label="{{ optgroup.title }}">
@@ -247,31 +172,98 @@
                         {% endfor %}
                     </select>
                 </li>
-                <li class="add-photos">
-                    <div id="file-uploader"></div>
-                    <div class="added-images">
-                    </div>
-                    <!-- template for .added-images -->
-                    <script id="added-image-template" type="text/x-jquery-tmpl">
-                        <div class="added-image" data-id="${id}">
-                            <div class="image-wrapper"><img src="${imageUrl}" alt=""/></div>
-                            <ins class="del" title="{{ "atlas.delete"|trans }}"></ins>
-                            <input type="hidden" name="media[]" value="${id}">
-                        </div>
-                    </script>
-                    <!-- /template for .added-images -->
+
+                <li>
+                    {{ "atlas.object.contacts"|trans }}
                 </li>
+
+                <li>
+                    <label for="siteUrl">{{ "atlas.object.siteUrl"|trans }}</label>
+                    <input id="siteUrl" name="siteUrl" type="text" value="" placeholder="" />
+                </li>
+
+                <li>
+                    <label for="email">{{ "atlas.object.email"|trans }}</label>
+                    <input id="email" name="email" type="text" value="" placeholder="" />
+                </li>
+
+                <li>
+                    <label for="phone">{{ "atlas.object.phone"|trans }}</label>
+                    <input id="phone" name="phone" type="text" value="" placeholder="" />
+                </li>
+
+                <li>
+                    <label for="regions">{{ "atlas.object.regions"|trans }}</label>
+                    <select id="regions" name="regions[]" class="chzn-select atlas-object-form-select" multiple="multiple" data-placeholder="{{ "atlas.object.choose_region"|trans }}">
+                        <option value=""></option>
+                        {% for region in regions %}
+                            <option value="{{ region.id }}">{{ region.title }}</option>
+                        {% endfor %}
+                    </select>
+                </li>
+
+                <li>
+                    <label for="address">{{ "atlas.object.address"|trans }}</label>
+                    <input id="address" name="address" type="text" value="" placeholder="" />
+                </li>
+
+                <li>
+                    <label for="workTime">{{ "atlas.object.workTime"|trans }}</label>
+                    <input id="workTime" name="workTime" type="text" value="" placeholder="" />
+                </li>
+
+                <li>
+                    <label for="weekends">{{ "atlas.object.weekends"|trans }}</label>
+                    <select id="weekends" name="weekends[]" class="chzn-select atlas-object-form-select" multiple="multiple" data-placeholder="{{ "atlas.object.choose_weekends"|trans }}">
+                        <option value=""></option>
+                        {% for weekend in weekends %}
+                            <option value="{{ weekend.id }}">{{ weekend.name }}</option>
+                        {% endfor %}
+                    </select>
+                </li>
+
+                <li>
+                    {{ "atlas.object.media"|trans }}
+                </li>
+
+                <li class="objectImages add-photos">
+                    <div id="file-uploader"></div>
+                    <div class="added-images"></div>
+                </li>
+
+                <!-- template for #file-uploader -->
+                <script id="file-uploader-template" type="text/x-jquery-tmpl">
+                    <div class="qq-uploader">
+                        <div class="qq-upload-drop-area"></div>
+                        <div class="qq-upload-button">{{ "atlas.object.upload_button"|trans }}</div>
+                        <ul class="qq-upload-list"></ul>
+                    </div>
+                </script>
+                <!-- /template for #file-uploader -->
+
+                <!-- template for .added-images -->
+                <script id="added-image-template" type="text/x-jquery-tmpl">
+                    <div class="added-image" data-id="${id}">
+                        <div class="image-wrapper">
+                            <img src="${imageUrl}" alt="" />
+                        </div>
+                        <ins class="del" title="{{ "atlas.delete"|trans }}"></ins>
+                        <input type="hidden" name="media[]" value="${id}" />
+                    </div>
+                </script>
+                <!-- /template for .added-images -->
             </ul>
+
             <fieldset class="form-buttons">
-                <input type="submit" class="button sbmt-btn" value="{{ "atlas.save"|trans }}"  />
-                <input type="reset" class="button rst-btn" value="{{ "atlas.cancel"|trans }}"  />
+                <input type="submit" class="button sbmt-btn" value="{{ "atlas.save"|trans }}" />
+                <input type="reset" class="button rst-btn" value="{{ "atlas.cancel"|trans }}" />
             </fieldset>
         </form>
     </div>
     <!-- /object form popup -->
 
     <!-- success add popup -->
-    <div class="add-object-form success-object-form draggable" id="success-object-form" >
+    <div class="add-object-form success-object-form draggable" id="success-object-form">
         <a href="#" class="exit" title="{{ "atlas.alert.close"|trans }}"></a>
         <form action="{{ path('armd_atlas_default_objectmakepublic') }}" method="POST">
             <input class="object-id" name="id" type="hidden"/>
@@ -286,7 +278,7 @@
             </div>
             <p class="note">{{ "atlas.alert.will_available"|trans }}</p>
             <fieldset class="form-buttons">
-                <input type="submit" class="button sbmt-btn" value="{{ "atlas.alert.complete"|trans }}"  />
+                <input type="submit" class="button sbmt-btn" value="{{ "atlas.alert.complete"|trans }}" />
             </fieldset>
         </form>
     </div>
@@ -370,28 +362,29 @@
     <script type="text/javascript" src="{{ asset('vendor/jquery.tmpl.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('vendor/jquery.cookie.js') }}"></script>
     <script type="text/javascript" src="{{ asset('vendor/chosen/chosen.jquery.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('vendor/ajaxchosen/ajax-chosen.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('vendor/select2/select2.js') }}"></script>
     <script type="text/javascript" src="{{ asset('vendor/valums-file-uploader/client/fileuploader.js') }}"></script>
     <script type="text/javascript" src="{{ asset('vendor/fancybox/jquery.fancybox.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('bundles/armdatlas/js/atlas_new.js') }}"></script>
+
+    <script type="text/javascript" src="{{ asset('bundles/damediaatlasjsmodule/js/module.atlas.js') }}"></script>
+
     <script type="text/javascript">
-        $(function(){
-            AT.init({
-                map: 'map',
-                center: [55,56],
-                zoom: 4,
-                leftLon: 10,
-                rightLon: -190,
-                fetchMarkersUri:       '{{ path('armd_atlas_default_filter') }}',
-                fetchMarkerDetailUri:  '{{ path('armd_atlas_default_objectballoon') }}',
-                fetchClusterDetailUri: '{{ path('armd_atlas_default_clusterballoon') }}',
-                fetchMyObjectsUri:     '{{ path('armd_atlas_default_objectsmy') }}',
-                deleteMyObjectsUri:    '{{ path('armd_atlas_default_objectsmydelete') }}',
-                imageUploadUri:        '{{ path('armd_atlas_default_objectsmyupload') }}',
-                bundleImagesUri:       '{{ asset('bundles/armdatlas/images') }}',
-                locale:                '{{ app.request.locale }}',
-                initialFilterType:     '{{ filterType }}',
-                objectId:              '{{ objectId }}'
+        $(document).ready(function(){
+            ATLAS_MODULE.init({
+                objectId: '{{ objectId }}',
+                pgMap: {
+                    placeholderId: 'map',
+                    locale: '{{ app.request.locale }}',
+                    mapClusterImagesUrl: '{{ asset('bundles/armdatlas/images') }}'
+                },
+                locationFinderAc: {
+                    placeholderId: 'ss_input'
+                },
+                filterTabs: {
+                    tabs_placeholderId: 'filter-tabs',
+                    filters_placeholderId: 'atlas-side-tabs'
+                }
             });
         });
     </script>

@@ -1,0 +1,20 @@
+{% spaceless %}
+{% if russianImages is not empty %}
+    <div id="imagesOfRussia-images-widget-placeholder" class="fullWidth positionRelative">
+        <div class="b-post width700">
+            <section class="b-block-body m-sights-carousel b-simple-slider palette-colored-box-2">
+                <ul id="russia_image_widget" class="b-main-slides clearfix">
+                    {% include 'ArmdAtlasBundle:Objects:imagesOfRussia_indexWidget_item.html.twig' with russianImages %}
+                </ul>
+            </section>
+        </div>
+        <span class="imagesOfRussia-hub-background"></span>
+        <div class="description positionAbsolute">
+            <div class="header">
+                {{ 'IndexHeader'|trans }}
+            </div>
+            {{ 'IndexDescription'|trans }}
+        </div>
+    </div>
+{% endif %}
+{% endspaceless %}

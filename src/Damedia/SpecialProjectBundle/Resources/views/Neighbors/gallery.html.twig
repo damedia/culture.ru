@@ -1,0 +1,17 @@
+<div style="border: 1px solid #EDEDED; width: 500px;">
+    <div style="padding: 3px; font-weight: bolder;">
+        {{ object.name }}
+    </div>
+
+    <div class="orange-slider-block gallery-h">
+        <div class="flexslider" data-behave="nice" data-width="500" data-height="300">
+            <ul class="slides">
+                {% for galleryHasMedia in object.GalleryHasMedias %}
+                    <li><a class="sonata-media-gallery-media-item-link" href="{{ url('sonata_media_view', {'id': galleryHasMedia.media|sonata_urlsafeid }) }}">
+                        {% thumbnail galleryHasMedia.media, object.defaultFormat %}
+                    </a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>

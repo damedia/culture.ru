@@ -4,7 +4,7 @@
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                   http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-    <entity name="Armd\UserBundle\Entity\ViewedContent" table="armd_user_viewed_content">
+    <entity name="Armd\UserBundle\Entity\ViewedContent" table="armd_user_viewed_content" repository-class="Armd\UserBundle\Repository\ViewedContentRepository">
         <indexes>
             <index name="user_idx" columns="user_id"/>
             <index name="date_idx" columns="date"/>
@@ -21,7 +21,7 @@
         </many-to-one>
 
         <field name="entityId" type="integer" nullable="false" />
-        
+
         <field name="entityClass" type="string" nullable="false" />
 
         <field name="entityTitle" type="string" nullable="false" />

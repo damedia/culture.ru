@@ -1,0 +1,50 @@
+{% macro sectionItem(movie) %}
+    <a href="{{ path('armd_lecture_view', {'id': movie.id}) }}" class="movies-genre-section-item noTextDecoration displayInlineBlock" data-id="{{ movie.id }}">
+        {% if movie.verticalBanner %}
+            <img src="{% path movie.verticalBanner, 'tile' %}" />
+        {% else %}
+            <div class="movies-genre-section-imageStub"></div>
+        {% endif %}
+
+        <span class="sidebar-item-title">
+            {{ movie.title }}
+        </span>
+    </a>
+{% endmacro %}
+
+{% macro gotoButton(paletteCSS, slug) %}
+    <div class="movies-goto-section-button-holder {{ paletteCSS }} displayInlineBlock width171">
+        <a class="goto-link-button noTextDecoration fullWidth" href="{{ path('armd_lecture_cinema_index', {'genreSlug': slug}) }}">
+            {{ 'Entity.GotoSection'|trans }}
+        </a>
+    </div>
+{% endmacro %}
+
+{% set counter = 1 %}
+
+{% spaceless %}
+    {% if movies is not empty %}
+        {% if extra is not empty %}
+            {% set extraItem = movies|first %}
+            {% set movies = movies|slice(1) %}
+
+            {{ _self.sectionItem(extraItem) }}
+        {% endif %}
+
+        {% for movie in movies %}
+            {{ _self.sectionItem(movie) }}
+
+            {% if counter % 4 != 0 %}
+                <div class="movies-genre-section-spacer"></div>
+            {% endif %}
+
+            {% set counter = counter + 1 %}
+        {% endfor %}
+
+        {{ _self.gotoButton(palette_colored_box, genreSlug) }}
+    {% else %}
+        {% if extra is empty %}
+            {{ _self.gotoButton(palette_colored_box, genreSlug) }}
+        {% endif %}
+    {% endif %}
+{% endspaceless %}

@@ -5,13 +5,13 @@ use Doctrine\Common\Collections\ArrayCollection;
 use FPN\TagBundle\Entity\TagManager as BaseTagManager;
 use DoctrineExtensions\Taggable\Taggable;
 
-class TagManager extends BaseTagManager
-{
-    public function getResourceIdsByTags($resourceType, array $tags, $limit = 100)
-    {
+class TagManager extends BaseTagManager {
+    public function getResourceIdsByTags($resourceType, array $tags, $limit = 100) {
         $resourceIds = array();
+
         if (!empty($tags)) {
-            $rows = $this->em->createQueryBuilder()
+            $builder = $this->em->createQueryBuilder();
+            $rows = $builder
                 ->select('tn.resourceId, COUNT(tn.resourceId) rcount')
                 ->from($this->taggingClass, 'tn')
                 ->innerJoin($this->tagClass, 't')
@@ -26,8 +26,8 @@ class TagManager extends BaseTagManager
             foreach ($rows as $row) {
                 $resourceIds[] = $row['resourceId'];
             }
-
         }
+
         return $resourceIds;
     }
 
@@ -38,26 +38,23 @@ class TagManager extends BaseTagManager
      * @param array  $names   Array of tag names
      * @return Tag[]
      */
-    public function loadOrCreateTags(array $names)
-    {
+    public function loadOrCreateTags(array $names) {
         if (empty($names)) {
             return array();
         }
 
         $names = array_unique($names);
-        $lowerNames = array_map(function($v) { return mb_strtolower($v, mb_detect_encoding($v)); }, $names);
+        $lowerNames = array_map(function($v){
+            return mb_strtolower($v, mb_detect_encoding($v));
+        }, $names);
 
         $builder = $this->em->createQueryBuilder();
-
         $tags = $builder
             ->select('t')
             ->from($this->tagClass, 't')
-
             ->where($builder->expr()->in('LOWER(t.name)', $lowerNames))
-
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
 
         $loadedNames = array();
         foreach ($tags as $tag) {
@@ -68,7 +65,6 @@ class TagManager extends BaseTagManager
             if (!in_array(mb_strtolower($name, mb_detect_encoding($name)), $loadedNames)) {
                 $tag = $this->createTag($name);
                 $this->em->persist($tag);
-
                 $tags[] = $tag;
             }
 
@@ -83,29 +79,26 @@ class TagManager extends BaseTagManager
      *
      * @param Taggable  $resource   Taggable resource
      */
-    public function saveTagging(Taggable $resource)
-    {
+    public function saveTagging(Taggable $resource) {
         $tags = $resource->getTags();
         $uniqueTags = new ArrayCollection();
+
         foreach ($tags as $tag) {
             if ($uniqueTags->indexOf($tag) === false) {
                 $uniqueTags->add($tag);
             }
         }
+
         $resource->setTags($uniqueTags);
+
         parent::saveTagging($resource);
     }
 
-    public function getTaggingClass()
-    {
+    public function getTaggingClass() {
         return $this->taggingClass;
     }
 
-    public function getTagClass()
-    {
+    public function getTagClass() {
         return $this->tagClass;
     }
-
-
-
 }

@@ -51,8 +51,8 @@ class LectureCinemaAdmin extends Admin
             ->add('isTop100Film')
             ->add('lectureVideo')
             ->add('lectureFile')
-            ->add('showOnMain')
-            ->add('showOnMainOrd')
+            ->add('showOnMainAsRecommended', null, array('label' => 'Рекомендуемое на главной'))
+            ->add('showOnMainAsForChildren', null, array('label' => 'Для детей на главной'))
             ;
     }
 
@@ -67,14 +67,14 @@ class LectureCinemaAdmin extends Admin
         $superType = $this->modelManager->getEntityManager('ArmdLectureBundle:LectureSuperType')
             ->getRepository('ArmdLectureBundle:LectureSuperType')
             ->findOneByCode('LECTURE_SUPER_TYPE_CINEMA');
-        
+
         if (!$lecture->getId()) {
             $lecture->setLectureSuperType($superType);
 
         } elseif ($lecture->getLectureSuperType()->getId() !== $superType->getId()) {
             throw new \RuntimeException('You can not edit video with type "' .$lecture->getLectureSuperType()->getName() .'" as video with type "' .$superType->getName() .'"');
         }
-        
+
         $formMapper
             ->add('published')
             ->add('corrected', null, array('required' => false, 'disabled' => ($this->container->get('security.context')->isGranted('ROLE_CORRECTOR') ? false : true )))
@@ -135,10 +135,14 @@ class LectureCinemaAdmin extends Admin
                 )
             )
             ->add('tags', 'armd_tag', array('required' => false, 'attr' => array('class' => 'select2-tags')))
+            ->add('productionYear')
+            ->add('director')
+            ->add('stars')
+            ->add('timeLength')
             ->add('recommended')
             ->add('showAtSlider')
             ->add('showAtFeatured')
-            ->add('limitSliderForGenres', 'entity',
+                ->add('limitSliderForGenres', 'entity',
                 array(
                     'class' => 'ArmdLectureBundle:LectureGenre',
                     'required' => false,
@@ -167,12 +171,42 @@ class LectureCinemaAdmin extends Admin
                 )
             )
             ->add('isTop100Film', null, array('required' => false))
-            ->with('Главная')
-                ->add('showOnMain', null, array(
-                    'required' => false
+            ->with('Рекомендуемое на главной')
+            ->add('showOnMainAsRecommended', null, array(
+                    'required' => false,
+                    'label' => 'Рекомендуемое на главной'
                 ))
-                ->add('showOnMainOrd', null, array(
-                    'required' => false
+            ->add('showOnMainAsRecommendedFrom', 'date', array(
+                    'required' => false,
+                    'label' => 'С'
+
+                ))
+            ->add('showOnMainAsRecommendedTo', 'date', array(
+                    'required' => false,
+                    'label' => 'По'
+                ))
+            ->add('showOnMainAsRecommendedOrd', null, array(
+                    'required' => false,
+                    'label' => 'Приоритет'
+                ))
+            ->end()
+            ->with('Для детей на главной')
+            ->add('showOnMainAsForChildren', null, array(
+                    'required' => false,
+                    'label' => 'Для детей на главной'
+                ))
+            ->add('showOnMainAsForChildrenFrom', 'date', array(
+                    'required' => false,
+                    'label' => 'С'
+
+                ))
+            ->add('showOnMainAsForChildrenTo', 'date', array(
+                    'required' => false,
+                    'label' => 'По'
+                ))
+            ->add('showOnMainAsForChildrenOrd', null, array(
+                    'required' => false,
+                    'label' => 'Приоритет'
                 ))
             ->end()
             /*->with('Tvigle Video')
@@ -202,8 +236,8 @@ class LectureCinemaAdmin extends Admin
             ->add('title')
             ->add('genres')
             ->add('isTop100Film')
-            ->add('showOnMain')
-            ->add('showOnMainOrd')
+            ->add('showOnMainAsRecommended', null, array('label' => 'Рекомендуемое на главной'))
+            ->add('showOnMainAsForChildren', null, array('label' => 'Для детей на главной'))
             ->add('recommended')
             ->add('showAtSlider')
             ->add('showAtFeatured')
@@ -222,8 +256,10 @@ class LectureCinemaAdmin extends Admin
             ->addIdentifier('title')
             ->add('published')
             ->add('corrected')
-            ->add('showOnMain')
-            ->add('showOnMainOrd')
+            ->add('showOnMainAsRecommended', null, array('label' => 'Рекомендуемое на главной', 'editable' => true))
+            ->add('showOnMainAsRecommendedOrd', null, array('label' => 'Приоритет'))
+            ->add('showOnMainAsForChildren', null, array('label' => 'Для детей на главной', 'editable' => true))
+            ->add('showOnMainAsForChildrenOrd', null, array('label' => 'Приоритет'))
             ->add('createdAt')
             ->add('genres', null, array('template' => 'ArmdLectureBundle:Admin:list_lecture_categories.html.twig'))
             ->add('isTop100Film')
@@ -251,20 +287,28 @@ class LectureCinemaAdmin extends Admin
 
         // check user permissions
         if($this->hasRoute('edit') && $this->isGranted('EDIT') && $this->hasRoute('delete') && $this->isGranted('DELETE')){
-            $actions['ShowOnMain']=array(
+            $actions['ShowOnMain'] = array(
                 'label'            => $this->trans('aShowOnMain', array(), 'SonataAdminBundle'),
                 'ask_confirmation' => false // If true, a confirmation will be asked before performing the action
             );
-            $actions['NotShowOnMain']=array(
+            $actions['NotShowOnMain'] = array(
                 'label'            => $this->trans('aNotShowOnMain', array(), 'SonataAdminBundle'),
                 'ask_confirmation' => false // If true, a confirmation will be asked before performing the action
             );
-            $actions['SetRecommended']=array(
-                'label'            => 'Установить "Рекомендована"',
+            $actions['ShowOnMainAsForChildren'] = array(
+                'label'            => 'Установить "Для детей на главной"',
+                'ask_confirmation' => false // If true, a confirmation will be asked before performing the action
+            );
+            $actions['NotShowOnMainAsForChildren'] = array(
+                'label'            => 'Сбросить "Для детей на главной"',
+                'ask_confirmation' => false // If true, a confirmation will be asked before performing the action
+            );
+            $actions['SetRecommended'] = array(
+                'label'            => 'Установить "Рекомендованна"',
                 'ask_confirmation' => false
             );
-            $actions['ResetRecommended']=array(
-                'label'            => 'Сбросить "Рекомендована"',
+            $actions['ResetRecommended'] = array(
+                'label'            => 'Сбросить "Рекомендованна"',
                 'ask_confirmation' => false
             );
             $actions['SetShowAtSlider']=array(
@@ -287,7 +331,7 @@ class LectureCinemaAdmin extends Admin
 
         return $actions;
     }
-    
+
     public function postPersist($object)
     {
         parent::postPersist($object);

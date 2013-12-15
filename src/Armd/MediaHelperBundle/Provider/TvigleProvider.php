@@ -55,16 +55,41 @@ class TvigleProvider extends BaseVideoProvider
     /**
      * {@inheritdoc}
      */
-    public function getHelperProperties(MediaInterface $media, $format, $options = array())
-    {
-        $box    = $this->getBoxHelperProperties($media, $format, $options);
-        $width  = $box->getWidth();
+    public function getHelperProperties(MediaInterface $media, $format, $options = array()) {
+        $box = $this->getBoxHelperProperties($media, $format, $options);
+        $width = $box->getWidth();
         $height = $box->getHeight();
 
         if (!empty($options['width']) and !empty($options['height'])) {
             $width  = $options['width'];
             $height = $options['height'];
         }
+
+        /**
+         * All this data is from our DB! It's in the table "media__media", field "provider_metadata" (SQL type: text).
+         * The result of print_r($media->getProviderMetadata()) call:
+         * Array (
+         *      [id] => 2372998
+         *      [name] => Фестиваль OPEN PLACE – первый кинофестиваль в Резекне (Латвия)
+         *      [catalog] => 6034
+         *      [anons] => Авторам короткометражных фильмов вручили награды
+         *      [tags] =>
+         *      [duration] => 222880
+         *      [geo] =>
+         *      [date] => 2013-08-05T23:26:53+04:00
+         *      [img] => http://photo.tvigle.ru/res/prt/85deec0537d438363b1c3b54dbe222e8/29/98/000002372998/pub.jpg
+         *      [swf] => http://pub.tvigle.ru/swf/tvigle_single_v2.swf?prt=85deec0537d438363b1c3b54dbe222e8&id=2372998&srv=pub.tvigle.ru&modes=1&nl=1
+         *      [frame] => http://pub.tvigle.ru/frame/p.htm?prt=85deec0537d438363b1c3b54dbe222e8&id=2372998&srv=pub.tvigle.ru&modes=1&nl=1
+         *      [rs] => 1
+         *      [code] =>
+         *      [subtitles] => 0
+         *      [under] => 0
+         *      [mob] => 0
+         *      [thumbnail_url] => http://photo.tvigle.ru/res/prt/85deec0537d438363b1c3b54dbe222e8/29/98/000002372998/pub.jpg
+         *      [height] => 405
+         *      [width] => 720
+         * )
+         */
 
         $params = array(
             'src'         => $media->getMetadataValue('frame'),
@@ -73,7 +98,8 @@ class TvigleProvider extends BaseVideoProvider
             'height'      => $height,
             'frameborder' => isset($options['frameborder']) ? $options['frameborder'] : 0,
             'wmode'       => isset($options['wmode']) ? $options['wmode'] : 'opaque',
-            'style'       => isset($options['style']) ? $options['style'] : ''
+            'style'       => isset($options['style']) ? $options['style'] : '',
+            'videoId'     => $media->getMetadataValue('id')
         );
 
         return $params;
@@ -111,6 +137,8 @@ class TvigleProvider extends BaseVideoProvider
         if (!$media->getBinaryContent()) {
             return;
         }
+
+        //TODO: Property $media->binaryContent is ALWAYS empty so we should never reach the code below! Have to clean this up later =)
 
         $soap = new \SoapClient(
             $this->api['url'],

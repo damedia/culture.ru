@@ -5,10 +5,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Damedia\SpecialProjectBundle\Entity\Template;
 use Damedia\SpecialProjectBundle\Entity\Block;
+use Application\Sonata\MediaBundle\Entity\Media;
+use Armd\NewsBundle\Entity\News;
 
 /**
  * @ORM\Table(name="damedia_project_page")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Damedia\SpecialProjectBundle\Repository\PageRepository")
  * @ORM\HasLifecycleCallbacks
  */
 class Page {
@@ -49,18 +51,18 @@ class Page {
      * @ORM\JoinColumn(name="template", referencedColumnName="id")
      */
     private $template;
-    
+
     /**
      * @ORM\OneToMany(targetEntity="Block", mappedBy="page")
      */
     protected $blocks;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="Page", inversedBy="children")
      * @ORM\JoinColumn(name="parent", referencedColumnName="id")
      */
     private $parent;
-    
+
     /**
      * @ORM\OneToMany(targetEntity="Page", mappedBy="parent")
      */
@@ -75,12 +77,40 @@ class Page {
      * @ORM\Column(name="javascript", type="text", nullable=true)
      */
     private $javascript;
-    
-    
-    
+
+    /**
+     * @ORM\Column(name="show_on_main", type="boolean", nullable=true)
+     */
+    private $showOnMain = false;
+
+    /**
+     * @ORM\Column(name="show_on_main_from", type="datetime", nullable=true)
+     */
+    private $showOnMainFrom;
+
+    /**
+     * @ORM\Column(name="show_on_main_to", type="datetime", nullable=true)
+     */
+    private $showOnMainTo;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"all"}, fetch="EAGER")
+     * @ORM\JoinColumn(name="banner_image_id", referencedColumnName="id")
+     */
+    private $bannerImage;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Armd\NewsBundle\Entity\News", inversedBy="projects")
+     * @ORM\JoinTable(name="sprojects_news")
+     */
+    private $news;
+
+
+
     public function __construct() {
-    	$this->blocks = new ArrayCollection();
-    	$this->children = new ArrayCollection();
+        $this->blocks = new ArrayCollection();
+        $this->children = new ArrayCollection();
+        $this->news = new ArrayCollection();
     }
 
 
@@ -150,13 +180,13 @@ class Page {
 
         return $this;
     }
-    
+
     public function getBlocks() {
     	return $this->blocks;
     }
     public function addBlock(Block $blocks) {
         $this->blocks[] = $blocks;
-    
+
         return $this;
     }
     public function removeBlock(Block $blocks) {
@@ -168,7 +198,7 @@ class Page {
     }
     public function setParent(Page $parent = null) {
         $this->parent = $parent;
-    
+
         return $this;
     }
 
@@ -177,7 +207,7 @@ class Page {
     }
     public function addChildren(Page $children) {
         $this->children[] = $children;
-    
+
         return $this;
     }
     public function removeChildren(Page $children) {
@@ -200,5 +230,60 @@ class Page {
         $this->javascript = $javascript;
 
         return $this;
+    }
+
+    public function getShowOnMain() {
+        return $this->showOnMain;
+    }
+    public function setShowOnMain($showOnMain) {
+        $this->showOnMain = $showOnMain;
+
+        return $this;
+    }
+
+    public function getShowOnMainFrom() {
+        return $this->showOnMainFrom;
+    }
+    public function setShowOnMainFrom($showOnMainFrom) {
+        $this->showOnMainFrom = $showOnMainFrom;
+
+        return $this;
+    }
+
+    public function getShowOnMainTo() {
+        return $this->showOnMainTo;
+    }
+    public function setShowOnMainTo($showOnMainTo) {
+        $this->showOnMainTo = $showOnMainTo;
+
+        return $this;
+    }
+
+    public function getBannerImage() {
+        return $this->bannerImage;
+    }
+    public function setBannerImage(Media $bannerImage) {
+        if (is_null($bannerImage) || $bannerImage->isUploaded()) {
+            $this->bannerImage = $bannerImage;
+        }
+
+        return $this;
+    }
+
+    public function getNews() {
+        return $this->news;
+    }
+    public function setNews(News $news) {
+        $this->news[] = $news;
+
+        return $this;
+    }
+    public function addNews(News $news) {
+        $this->news[] = $news;
+
+        return $this;
+    }
+    public function removeNews(News $news) {
+        $this->news->removeElement($news);
     }
 }

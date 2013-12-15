@@ -1,0 +1,11 @@
+{% for blog in blogs %}
+    {% if loop.first == true and expandFirst == true %}
+        {{ include('BlogBundle:Default:list_item.html.twig', {'blog': blog, 'count': stats[blog.id], 'expandFirst': true}) }}
+    {% else %}
+        <section class="b-post-list">
+            {{ include('BlogBundle:Default:list_item.html.twig', {'blog': blog, 'count': stats[blog.id], 'expandFirst': false}) }}
+        </section>
+    {% endif %}
+{% else %}
+    {{ 'Пока нет ни одного блога. ' | trans }}
+{% endfor %}

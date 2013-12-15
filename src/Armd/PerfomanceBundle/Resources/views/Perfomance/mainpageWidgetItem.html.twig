@@ -1,0 +1,46 @@
+{% import 'ArmdPerfomanceBundle::perfomance_macro.html.twig' as perfomanceMacro %}
+
+{% for item in objects %}
+    <li class="b-theatre-item">
+        <div class="b-virtual-video js-process-video">
+            <a href="{{ path('armd_perfomance_item', {id: item.id }) }}">
+                {#{% media item.image, 'xbig' with {'alt' : item.title|escape, 'width' : 480, 'height' : 352} %}#}
+
+                {% if item.gallery and item.gallery|length > 0 %}
+                    {% for img in item.gallery.galleryHasMedias|slice(0,1) %}
+                        {% media img.media, 'xbig' with {'alt' : item.interviewTitle|escape, 'width':480, 'height': 352} %}
+                    {% endfor %}
+                    <span class="play"></span>
+                {% endif %}
+
+                {#<img alt="" src="{% path item.image, 'main_page' %}" />#}
+            </a>
+        </div>
+
+        <div class="b-virtual-theatre-item-content clearfix">
+            <header>
+                <h1>{{ item.title }}</h1>
+            </header>
+
+            <div class="e-theatre-name">
+                <a href="{{ path('armd_theater_item', {'id': item.theater.id }) }}">
+                    {{ item.theater.title }}
+                </a>
+            </div>
+
+            <div class="b-virtual-theatre-wrap">
+                {% if item.timeLength > 0 %}
+                    <div class="e-virtual-time">
+                        {{ item.timeLengthInHours }}
+                    </div>
+                {% endif %}
+
+                {% if item.stars is not empty %}
+                    <div class="e-theatre-cnt">
+                        {{ 'Main.Widget.Performance.Cast'|trans }}: {{ item.stars }}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </li>
+{% endfor %}
