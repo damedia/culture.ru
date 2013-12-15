@@ -181,8 +181,8 @@ class DCXClient
         $content = $this->genaratePubInfoRequest($date, $type);
         $query = http_build_query(array('q[doc_id]'=>$doc_id));
         $url = Url::build_url('',array('scheme' => $this->scheme, 'host' => $this->host, 'path' => $this->pub_path, 'query'=>$query));
-        $header = array('Content-Type' => 'application/atom+xml;type=entry');
-        $response = $this->browser->post($url,$header,$content);
+        $header = array('Content-type: application/atom+xml;type=entry');
+        $response = $this->browser->post($url, $header, $content);
     }
 
     /**
