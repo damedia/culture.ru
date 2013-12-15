@@ -20,7 +20,7 @@ monolog:
             level: info
 
 assetic:
-    use_controller: false
+    use_controller: true
 
 armd_sphinx_search:
     indexes:

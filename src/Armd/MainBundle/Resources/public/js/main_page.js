@@ -1,5 +1,5 @@
-var fetchMarkersUri = Routing.generate('armd_atlas_default_filter'),
-    fetchMarkerDetailUri = Routing.generate('armd_atlas_default_objectballoon'),
+var fetchMarkersUri = Routing.generate('armd_atlas_send_filters'),
+    fetchMarkerDetailUri = Routing.generate('armd_atlas_fetch_point_details'),
     fetchClusterDetailUri = Routing.generate('armd_atlas_default_clusterballoon'),
     fetchSideDetailUri = Routing.generate('armd_atlas_default_objectside'),
     bundleImagesUri = armdMk.asset('bundles/armdatlas/images'),

@@ -1,0 +1,41 @@
+{% extends ':Frontend:new_base.html.twig' %}
+
+{% import 'ArmdNewsBundle::date_macro.html.twig' as armd_news %}
+
+{% block title %} Блоги {% endblock %}
+
+{% block body %}
+
+
+    <div class="b-main-wrap b-post">
+        <h1 class="b-left-title">Блоги</h1>
+        {% render 'BlogBundle:Default:bloggers' with {'user' : user} %}
+
+        {{ include('BlogBundle:Default:list.html.twig', {'blog': blogs, 'stats': stats, 'expandFirst' : true}) }}
+
+        {% if paginationData.pageCount > 1 %}
+            <div class="b-load-more">
+                <a data-page="1" data-user="{% spaceless %}{% if user is not null %} {{ user.id }} {% endif %}{% endspaceless %}" href="{{ path('blog_list') }}" class="load-more-links">+</a>
+            </div>
+        {% endif %}
+    </div>
+
+{% endblock %}
+
+{% block sidebar %}
+    <div class="popular-container">
+        {% render 'BlogBundle:Default:popular' %}
+    </div>
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts
+    "@BlogBundle/Resources/public/blogs.js" %}
+    <script src="{{ asset_url }}" type="text/javascript"></script>
+    {% endjavascripts %}
+{% endblock %}
+
+
+

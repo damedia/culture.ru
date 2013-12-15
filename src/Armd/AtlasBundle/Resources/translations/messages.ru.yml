@@ -1,16 +1,42 @@
-# Переводы для публичной части
+ImagesOfRussia: Образы России
+IndexTotalCount: образов
+IndexHeader: Что такое Образы России?
+IndexDescription: Это места, что отзываются в сердце каждого россиянина, и куда хочется возвращаться снова и снова. Виртуальные туры, позволяющие в режиме реального времени отправиться практически в любую точку России, в ее культурные центры, напоминают о том, что наша страна была и остается великой державой, и русская духовность, русское слово, русская культура - не просто красивые слова. Это символы России - наше культурное наследие, истоки нашей культуры.
+Filter: Фильтр
+EmptyResult: Нет результатов с этими критериями
+ShowMore: показать еще
+
 atlas:
     object:
         add: Добавить объект
         edit: Редактировать объект
+
         title: Название
-        address: Адрес
-        latitude: Широта
-        longitude: Долгота
-        description: Описание
-        category: Категория
-        additional_tags: Дополнительные категории
+        announce: Анонс
+        lat: Широта
+        lon: Долгота
+
+        classification: Классификация
+
+        primaryCategory: Категория
+        secondaryCategories: Дополнительные категории
         choose_category: Выберите категорию...
+
+        contacts: Контакты
+
+        siteUrl: Адрес сайта
+        email: E-mail
+        phone: Телефон
+        regions: Регионы
+        choose_region: Выберите регион...
+        address: Адрес
+        workTime: График работы
+        weekends: Выходные
+        choose_weekends: Выберите выходные...
+
+        media: Медиа
+        upload_button: Загрузить...
+
     address: Адрес
     all: Все
     atlas: Атлас
@@ -72,7 +98,7 @@ infographics_open_original: Открыть оригинал
 mobile_app: Мобильное приложение
 available_appstore: Доступно в AppStore
 video: Видео
-archives: Архивы
+archives: Фотоархивы
 archive_document: Архивный документ
 contact_info: Контактная информация
 website: Веб-сайт
@@ -110,7 +136,7 @@ types_icons:
     photo_gallery: Фотогалерея
     archives: Архивы
 
-save_original_photo: Сохранить
+save_original_photo: Сохранить изображение
 read_more: Читать дальше
 read_more_2: Читать дальше
 recommended: Рекомендуем

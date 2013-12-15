@@ -2,8 +2,7 @@
 
 namespace Armd\NewsBundle\Model;
 
-interface NewsInterface
-{
+interface NewsInterface {
     /**
      * Set title
      *
@@ -21,14 +20,14 @@ interface NewsInterface
     /**
      * Set date
      *
-     * @param datetime $date
+     * @param \DateTime  $date
      */
-    public function setDate($date);
+    public function setDate(\DateTime $date);
 
     /**
      * Get date
      *
-     * @return datetime
+     * @return \DateTime
      */
     public function getDate();
 }

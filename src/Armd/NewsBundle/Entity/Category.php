@@ -5,11 +5,10 @@ namespace Armd\NewsBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity()
- * @ORM\Table(name="content_news_category") 
+ * @ORM\Table(name="content_news_category")
+ * @ORM\Entity(repositoryClass="Armd\NewsBundle\Repository\CategoryRepository")
  */
-class Category
-{
+class Category {
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")

@@ -125,7 +125,7 @@ class LectureManager extends ListManager
         }
 
         if (!empty($criteria[self::CRITERIA_SHOW_ON_MAIN])) {
-            $qb->andWhere('_lecture.showOnMain = TRUE');
+            $qb->andWhere('_lecture.showOnMainAsRecommended = TRUE');
         }
 
         if (!empty($criteria[self::CRITERIA_SHOW_AT_SLIDER])) {

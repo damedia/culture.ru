@@ -11,6 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 use Application\Sonata\MediaBundle\Entity\Media;
 use Armd\MainBundle\Model\ChangeHistorySavableInterface;
+
 /**
  * Armd\AtlasBundle\Entity\Object
  *
@@ -254,15 +255,44 @@ class Object implements Taggable, ChangeHistorySavableInterface
     private $tags;
 
     /**
-     * @ORM\Column(name="show_on_main", type="boolean", nullable=false)
+     * @ORM\Column(name="show_on_main_as_recommended", type="boolean", nullable=false)
      */
-    private $showOnMain = false;
-    
+    private $showOnMainAsRecommended = false;
+
     /**
-     * @ORM\Column(name="show_on_main_ord", type="integer", nullable=false)
+     * @ORM\Column(name="show_on_main_as_recommended_from", type="datetime", nullable=true)
      */
-    private $showOnMainOrd = 0;
-    
+    private $showOnMainAsRecommendedFrom;
+
+    /**
+     * @ORM\Column(name="show_on_main_as_recommended_to", type="datetime", nullable=true)
+     */
+    private $showOnMainAsRecommendedTo;
+
+    /**
+     * @ORM\Column(name="show_on_main_as_recommended_ord", type="integer", nullable=false)
+     */
+    private $showOnMainAsRecommendedOrd = 0;
+
+    /**
+     * @ORM\Column(name="show_on_main_as_novel", type="boolean", nullable=true)
+     */
+    private $showOnMainAsNovel = false;
+
+    /**
+     * @ORM\Column(name="show_on_main_as_novel_from", type="datetime", nullable=true)
+     */
+    private $showOnMainAsNovelFrom;
+
+    /**
+     * @ORM\Column(name="show_on_main_as_novel_to", type="datetime", nullable=true)
+     */
+    private $showOnMainAsNovelTo;
+
+    /**
+     * @ORM\Column(name="show_on_main_as_novel_ord", type="integer", nullable=true)
+     */
+    private $showOnMainAsNovelOrd = 0;
 
     /**
      * @ORM\ManyToMany(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"persist"})
@@ -277,13 +307,13 @@ class Object implements Taggable, ChangeHistorySavableInterface
      * @ORM\JoinTable(name="atlas_object_tourist_cluster")
      */
     private $touristCluster;
-    
+
     /**
      * @ORM\Column(name="corrected", type="boolean", nullable=true)
      */
     protected $corrected;
-    
-    
+
+
     public function __toString()
     {
         return $this->getTitle();
@@ -751,9 +781,9 @@ class Object implements Taggable, ChangeHistorySavableInterface
      * @param \Armd\AtlasBundle\Entity\WeekDay $weekends
      * @return Object
      */
-    public function addWeekend(\Armd\AtlasBundle\Entity\WeekDay $weekend)
+    public function addWeekend(\Armd\AtlasBundle\Entity\WeekDay $weekends)
     {
-        $this->weekends[] = $weekend;
+        $this->weekends[] = $weekends;
 
         return $this;
     }
@@ -761,7 +791,7 @@ class Object implements Taggable, ChangeHistorySavableInterface
     /**
      * Remove weekends
      *
-     * @param <variableType$weekends
+     * @param \Armd\AtlasBundle\Entity\WeekDay $weekends
      */
     public function removeWeekend(\Armd\AtlasBundle\Entity\WeekDay $weekends)
     {
@@ -823,7 +853,7 @@ class Object implements Taggable, ChangeHistorySavableInterface
     /**
      * Add videos
      *
-     * @param \Armd\TvigleVideoBundle\Entity\TvigleVideo $videos
+     * @param \Armd\TvigleVideoBundle\Entity\TvigleVideo $video
      * @return Object
      */
     public function addVideo(\Armd\TvigleVideoBundle\Entity\TvigleVideo $video)
@@ -838,7 +868,7 @@ class Object implements Taggable, ChangeHistorySavableInterface
     /**
      * Remove videos
      *
-     * @param \Armd\TvigleVideoBundle\Entity\TvigleVideo $videos
+     * @param \Armd\TvigleVideoBundle\Entity\TvigleVideo $video
      */
     public function removeVideo(\Armd\TvigleVideoBundle\Entity\TvigleVideo $video)
     {
@@ -1048,7 +1078,7 @@ class Object implements Taggable, ChangeHistorySavableInterface
         return $this->regions;
     }
 
-    public function setRegions($regions)
+    public function setRegions($regions) //TODO: This probably has to be removed!
     {
         $this->regions = $regions;
     }
@@ -1371,40 +1401,6 @@ class Object implements Taggable, ChangeHistorySavableInterface
         return $this->getId();
     }
 
-    /**
-     * @return boolean
-     */
-    public function getShowOnMain()
-    {
-        $this->showOnMain = $this->showOnMain;
-
-        return $this->showOnMain;
-    }
-
-    public function setShowOnMain($showOnMain)
-    {
-        $this->showOnMain = $showOnMain;
-
-        return $this;
-    }
-
-    /**
-     * @return integer
-     */
-    public function getShowOnMainOrd()
-    {
-        $this->showOnMainOrd = $this->showOnMainOrd;
-
-        return $this->showOnMainOrd;
-    }
-
-    public function setShowOnMainOrd($showOnMainOrd)
-    {
-        $this->showOnMainOrd = $showOnMainOrd;
-
-        return $this;
-    }    
-
     public function getTouristCluster()
     {
         return $this->touristCluster;
@@ -1426,23 +1422,168 @@ class Object implements Taggable, ChangeHistorySavableInterface
     public function setCorrected($corrected)
     {
         $this->corrected = $corrected;
-    
+
         return $this;
     }
 
     /**
      * Get corrected
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getCorrected()
     {
         return $this->corrected;
     }
 
-    public function getClassName()    
+
+    /**
+     * @return boolean
+     */
+    public function getShowOnMainAsRecommended()
+    {
+        return $this->showOnMainAsRecommended;
+    }
+
+    /**
+     * @param $showOnMainAsRecommended
+     * @return $this
+     */
+    public function setShowOnMainAsRecommended($showOnMainAsRecommended)
+    {
+        $this->showOnMainAsRecommended = $showOnMainAsRecommended;
+
+        return $this;
+    }
+
+    /**
+     * @return integer
+     */
+    public function getShowOnMainAsRecommendedOrd()
+    {
+        return $this->showOnMainAsRecommendedOrd;
+    }
+
+    public function setShowOnMainAsRecommendedOrd($showOnMainAsRecommendedOrd)
+    {
+        $this->showOnMainAsRecommendedOrd = $showOnMainAsRecommendedOrd;
+
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getShowOnMainAsRecommendedFrom()
+    {
+        return $this->showOnMainAsRecommendedFrom;
+    }
+
+    /**
+     * @param $showOnMainAsRecommendedFrom \DateTime
+     * @return $this
+     */
+    public function setShowOnMainAsRecommendedFrom($showOnMainAsRecommendedFrom)
+    {
+        $this->showOnMainAsRecommendedFrom = $showOnMainAsRecommendedFrom;
+
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getShowOnMainAsRecommendedTo()
+    {
+        return $this->showOnMainAsRecommendedTo;
+    }
+
+    /**
+     * @param $showOnMainAsRecommendedTo \DateTime
+     * @return $this
+     */
+    public function setShowOnMainAsRecommendedTo($showOnMainAsRecommendedTo)
+    {
+        $this->showOnMainAsRecommendedTo = $showOnMainAsRecommendedTo;
+
+        return $this;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getShowOnMainAsNovel()
+    {
+        return $this->showOnMainAsNovel;
+    }
+
+    /**
+     * @param $showOnMainAsNovel
+     * @return $this
+     */
+    public function setShowOnMainAsNovel($showOnMainAsNovel)
+    {
+        $this->showOnMainAsNovel = $showOnMainAsNovel;
+
+        return $this;
+    }
+
+    /**
+     * @return integer
+     */
+    public function getShowOnMainAsNovelOrd()
+    {
+        return $this->showOnMainAsNovelOrd;
+    }
+
+    public function setShowOnMainAsNovelOrd($showOnMainAsNovelOrd)
+    {
+        $this->showOnMainAsNovelOrd = $showOnMainAsNovelOrd;
+
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getShowOnMainAsNovelFrom()
+    {
+        return $this->showOnMainAsNovelFrom;
+    }
+
+    /**
+     * @param $showOnMainAsNovelFrom \DateTime
+     * @return $this
+     */
+    public function setShowOnMainAsNovelFrom($showOnMainAsNovelFrom)
+    {
+        $this->showOnMainAsNovelFrom = $showOnMainAsNovelFrom;
+
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getShowOnMainAsNovelTo()
+    {
+        return $this->showOnMainAsNovelTo;
+    }
+
+    /**
+     * @param $showOnMainAsNovelTo \DateTime
+     * @return $this
+     */
+    public function setShowOnMainAsNovelTo($showOnMainAsNovelTo)
+    {
+        $this->showOnMainAsNovelTo = $showOnMainAsNovelTo;
+
+        return $this;
+    }
+
+    public function getClassName()
     {
         return get_class($this);
     }
-    
+
 }

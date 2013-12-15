@@ -1,0 +1,53 @@
+{% import 'ArmdNewsBundle::date_macro.html.twig' as armd_news %}
+{% if expandFirst == true %}
+    <div class="b-list-image">
+        <div class="entity-image-wrapper">
+            {% if blog.topImage is not empty %}
+            <img width="698" height="476" alt="{{ blog.title }}" src="{% path blog.topImage, 'default' %}">
+            {% endif %}
+            <div class="image-description m-details">
+                <div class="circle-img-thumb">
+                    {% if blog.user.avatar is empty %}
+                    <img alt="" src="/img/new/avatar.png">
+                    {% else %}
+                    <img alt="" src="{% path blog.user.avatar, 'default' %}">
+                    {% endif %}
+                </div>
+                <div class="b-post-descr">
+                    <div class="b-post-info">
+                        <span class="date">{{ armd_news.news_date_short(blog.createdAt) }}</span> /
+                        <span class="views-count">{{ count }}</span> /
+                        <span class="commetn-count"><a href="{{ path('view_blog', {'id' : blog.id}) }}#post-comments">{{ blog.thread|length }}</a></span>
+                    </div>
+                    <a href="{{ path('blog_list', {'user': blog.user.id}) }}" class="author-link">{{ blog.user.firstname }} {{ blog.user.lastname }}</a>
+                    <a class="desc-post-link" href="{{ path('view_blog', {'id' : blog.id}) }}">{{ blog.title }}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% else %}
+    <article>
+        <div class="teaser-thumb">
+            <img alt="{{ blog.title }}" src="{% path blog.topImage, 'big_thumbnail' %}">
+        </div>
+        <div class="circle-img-thumb">
+            {% if blog.user.avatar is empty %}
+            <img alt="" width="65" height="65" src="/img/new/avatar.png">
+            {% else %}
+            <img alt="" src="{% path blog.user.avatar, 'default' %}">
+            {% endif %}
+        </div>
+        <header>
+            <div class="b-post-info">
+                <span class="date">{{ armd_news.news_date_short(blog.createdAt) }}</span> /
+                <span class="views-count">{{ count }}</span> /
+                <span class="commetn-count"><a href="{{ path('view_blog', {'id' : blog.id}) }}#post-comments">{{ blog.thread|length }}</a></span>
+            </div>
+            <a href="{{ path('blog_list', {'user': blog.user.id}) }}" class="author-link">{{ blog.user.firstname }} {{ blog.user.lastname }}</a>
+        </header>
+        <div class="teaser-content">
+            <a class="desc-post-link" href="{{ path('view_blog', {'id' : blog.id}) }}">{{ blog.title }}</a>
+            {{ blog.lead | raw }}
+        </div>
+    </article>
+{% endif %}

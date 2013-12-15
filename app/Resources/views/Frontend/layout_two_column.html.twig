@@ -2,13 +2,13 @@
 
 {% block body %}
     {% block pre_content %}{% endblock %}
-    <div class="right-column">
+    <div class="right-column" style="margin-top:0;margin-right:0;">
         {% block right_column %}{% endblock %}
     </div><!-- /right-column -->
 
     <div class="left-column">
-        <div class="left-column-content">
+        {#<div class="left-column-content">#}
             {% block left_column %}{% endblock %}
-        </div>
+        {#</div>#}
     </div><!-- /left-column -->
 {% endblock %}

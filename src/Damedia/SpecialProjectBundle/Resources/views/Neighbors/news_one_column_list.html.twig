@@ -1,0 +1,14 @@
+<div style="border: 1px solid #EDEDED; padding: 5px; min-height: 93px;">
+    <div class="tn-list-image-wrap">
+        {% if object.image %}
+            <img class="tn-list-image" src="{% path object.image, 'list' %}" alt="{{ object.title|escape }}">
+        {% else %}
+            <img class="tn-list-image" src="/img/temp_125_125.png" alt="">
+        {% endif %}
+    </div>
+    <div class="tn-list-text">
+        <h3><a href="{{ path('armd_news_item_by_category', {'id': object.id, 'category': object.category.slug }) }}" class="tn-list-title">{{ object.title }}</a></h3>
+        <span class="tn-list-dates">{{ object.newsDate|date('Y-m-d') }}</span>
+        <p>{{ object.announce|raw }}</p>
+    </div>
+</div>

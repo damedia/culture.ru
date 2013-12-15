@@ -21,17 +21,17 @@ use Sonata\AdminBundle\Admin\Admin;
 class TheaterAdmin extends Admin
 {
     protected $datagridValues = array(
-        '_sort_by'      => 'title',    
+        '_sort_by'      => 'title',
         '_sort_order'   => 'ASC',
     );
-    
+
     protected $container;
 
     public function __construct($code, $class, $baseControllerName, $serviceContainer)
     {
         parent::__construct($code, $class, $baseControllerName);
         $this->container = $serviceContainer;
-    }    
+    }
 
     /**
      * @param \Sonata\AdminBundle\Show\ShowMapper $showMapper
@@ -54,7 +54,7 @@ class TheaterAdmin extends Admin
             ->add('ticketOfficeMode')
             ->add('image')
         ;
-        
+
         parent::configureShowFields($showMapper);
     }
 
@@ -68,7 +68,7 @@ class TheaterAdmin extends Admin
         $formMapper
             ->with('General')
                 ->add('published', null, array('required' => false))
-                ->add('corrected', null, array('required' => false, 'disabled' => ($this->container->get('security.context')->isGranted('ROLE_CORRECTOR') ? false : true )))                       
+                ->add('corrected', null, array('required' => false, 'disabled' => ($this->container->get('security.context')->isGranted('ROLE_CORRECTOR') ? false : true )))
                 ->add('title')
                 ->add('city', null, array(
                     'required' => true,
@@ -84,22 +84,22 @@ class TheaterAdmin extends Admin
                 ->add('categories', null, array('attr' => array('class' => 'chzn-select span5')))
                 ->add('description', null, array('attr' => array('class' => 'tinymce')))
                 ->add('director')
-                ->add('address')               
+                ->add('address')
                 ->add('url')
                 ->add('email')
-                ->add('phone')  
+                ->add('phone')
                 ->add('metro')
                 ->add('ticketOfficeMode')
-            ->end()   
+            ->end()
             ->with('Map')
                 ->add('latitude', 'text', array('required' => false, 'attr' => array('class' => 'geopicker lat')))
                 ->add('longitude', 'text', array('required' => false, 'attr' => array('class' => 'geopicker lon')))
             ->end()
-            ->with('Media')                
-                ->add('image', 'sonata_type_model_list', array('required' => false), array('link_parameters'=>array('context'=>'theater')))               
+            ->with('Media')
+                ->add('image', 'sonata_type_model_list', array('required' => false), array('link_parameters'=>array('context'=>'theater')))
                 ->add('gallery', 'sonata_type_model_list', array('required' => false), array('link_parameters'=>array('context'=>'theater')))
             ->end()
-            ->with('Tvigle Video')                      
+            ->with('Tvigle Video')
                 /*->add('interviews', 'collection', array(
                     'required' => false,
                     'type' => 'armd_tvigle_video_selector',
@@ -125,12 +125,12 @@ class TheaterAdmin extends Admin
                     'attr' => array('class' => 'armd-sonata-images-collection'),
                     'label' => 'Видео (Tvigle ID)'
                 ))
-            ->end()            
+            ->end()
             ;
 
         parent::configureFormFields($formMapper);
     }
-    
+
     public function getTemplate($name)
     {
         switch ($name) {
@@ -149,16 +149,16 @@ class TheaterAdmin extends Admin
      * @return void
      */
     protected function configureListFields(ListMapper $listMapper)
-    {        
+    {
         $listMapper
             ->addIdentifier('title')
-            ->add('published')   
-            ->add('corrected')                                
+            ->add('published')
+            ->add('corrected')
         ;
-        
-        parent::configureListFields($listMapper);        
+
+        parent::configureListFields($listMapper);
     }
-    
+
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
@@ -167,5 +167,5 @@ class TheaterAdmin extends Admin
             ->add('title')
             ->add('city')
         ;
-    }        
+    }
 }

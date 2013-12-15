@@ -1,0 +1,37 @@
+{% spaceless %}
+{% if lectures is not empty %}
+    <div id="lecture_block" class="b-main-wrap b-block-main m-clear-both b-lecture positionRelative">
+        <div class="mainpage-header-title-holder">
+            <a href="{{ path('armd_lecture_lecture_index') }}" class="noTextDecoration">
+                {{ 'Main.Widget.Lecture.Header'|trans }}
+            </a>
+        </div>
+
+        <header class="b-heading">
+            <h2 class="lectures-header-expander"></h2>
+        </header>
+
+        <div class="b-block-heading m-align">
+            <nav class="b-heading-nav js-tabs-nav">
+                <a class="order current" href="{{ path('armd_lecture_mainpage', {type: 'recommend', date: date}) }}">
+                    {{ 'Main.Widget.Lecture.Recommended'|trans }}
+                </a>
+
+                <a class="order" href="{{ path('armd_lecture_mainpage', {type: 'popular', date: date}) }}">
+                    {{ 'Main.Widget.Lecture.Popular'|trans }}
+                </a>
+            </nav>
+        </div>
+
+        <div id="lecture_widget" class="b-grid">
+            {% include 'ArmdLectureBundle:Default:mainpageWidgetItem.html.twig' with lectures %}
+        </div>
+
+        <div class="b-button-wrapper m-right-btn palette-colored-box-8">
+            <a href="{{ path('armd_lecture_lecture_index') }}" class="goto-link-button paddingSides25">
+                {{ 'Main.Widget.Lecture.Goto'|trans }}
+            </a>
+        </div>
+    </div>
+{% endif %}
+{% endspaceless %}

@@ -50,8 +50,8 @@ class ObjectAdmin extends Admin
             ->add('archiveImages')
             ->add('image3d')
             ->add('virtualTour')
-            ->add('showOnMain')
-            ->add('showOnMainOrd')
+            ->add('showOnMainAsRecommended', null, array('label' => 'Рекомендуемое на главной'))
+            ->add('showOnMainAsNovel', null, array('label' => 'Неизведанное на главной'))
             ->add('touristCluster');
     }
 
@@ -67,217 +67,177 @@ class ObjectAdmin extends Admin
             ->with('General')
                 ->add('dcxId', 'hidden', array('required' => false))
                 ->add('published', null, array('required' => false))
-                ->add('corrected', null, array('required' => false, 'disabled' => ($this->container->get('security.context')->isGranted('ROLE_CORRECTOR') ? false : true )))
+                ->add('corrected', null, array('required' => false,
+                                               'disabled' => ($this->container->get('security.context')->isGranted('ROLE_CORRECTOR') ? false : true )))
                 ->add('title')
                 ->add('announce')
-                ->add('content', null, array(
-                    'attr' => array('class' => 'tinymce'),
-                ))
-//                ->add('categories', 'sonata_type_model',
-//                    array('multiple' => true, 'expanded' => true)
-//                )
-            ->with('Главная')
-                ->add('showOnMain', null, array(
-                    'required' => false
-                ))
-                ->add('showOnMainOrd', null, array(
-                    'required' => false
-                ))
+                ->add('content', null, array('attr' => array('class' => 'tinymce')))
+                ->add('lat')
+                ->add('lon')
+//                ->add('categories', 'sonata_type_model', array('multiple' => true,
+//                                                               'expanded' => true))
+            ->end()
+
             ->with('Classification')
-                ->add('primaryCategory', 'armd_atlas_object_categories',
-                array(
-                    'multiple' => false,
-                    'attr' => array('class' => 'chzn-select atlas-object-categories-select'),
-                    'only_with_icon' => true,
-                    'empty_value' => '=== Не выбрано ==='
-                ))
-                ->add('secondaryCategories', 'armd_atlas_object_categories', array(
-                    'required' => true,
-                    'attr' => array('class' => 'chzn-select atlas-object-categories-select')
-                ))
-                ->add('tags', 'armd_tag', array(
-                    'required' => false,
-                ))
-                ->add('touristCluster', null, array(
-                    'required' => false,
-                    'attr' => array('class' => 'chzn-select atlas-object-categories-select'),
-                ))
+                ->add('primaryCategory', 'armd_atlas_object_categories', array('multiple' => false,
+                                                                               'attr' => array('class' => 'chzn-select atlas-object-categories-select'),
+                                                                               'only_with_icon' => true,
+                                                                               'empty_value' => '=== Не выбрано ==='))
+                ->add('secondaryCategories', 'armd_atlas_object_categories', array('required' => true,
+                                                                                   'attr' => array('class' => 'chzn-select atlas-object-categories-select')))
+                ->add('tags', 'armd_tag', array('required' => false))
+                ->add('touristCluster', null, array('required' => false,
+                                                    'attr' => array('class' => 'chzn-select atlas-object-categories-select')))
                 ->add('isOfficial', null, array('required' => false))
             ->end()
+
+            ->with('Contacts')
+                ->add('siteUrl')
+                ->add('email')
+                ->add('phone')
+                ->add('regions', null, array('required' => false,
+                                             'attr' => array('class' => 'chzn-select atlas-object-region-select')))
+                ->add('address')
+                ->add('workTime')
+                ->add('weekends', null, array('multiple' => true,
+                                              'expanded' => true,
+                                              'required' => false,
+                                              'attr' => array('class' => 'armd-sonata-weekdays')))
+            ->end()
+
+            ->with('Рекомендуемое на главной')
+                ->add('showOnMainAsRecommended', null, array('required' => false,
+                                                             'label' => 'Рекомендуемое на главной'))
+                ->add('showOnMainAsRecommendedFrom', 'date', array('required' => false,
+                                                                   'label' => 'С'))
+                ->add('showOnMainAsRecommendedTo', 'date', array('required' => false,
+                                                                 'label' => 'По'))
+                ->add('showOnMainAsRecommendedOrd', null, array('required' => false,
+                                                                'label' => 'Приоритет'))
+            ->end()
+
+            ->with('Неизведанное на главной')
+                ->add('showOnMainAsNovel', null, array('required' => false,
+                                                       'label' => 'Неизведанное на главной'))
+                ->add('showOnMainAsNovelFrom', 'date', array('required' => false,
+                                                             'label' => 'С'))
+                ->add('showOnMainAsNovelTo', 'date', array('required' => false,
+                                                           'label' => 'По'))
+                ->add('showOnMainAsNovelOrd', null, array('required' => false,
+                                                          'label' => 'Приоритет'))
+            ->end()
+
             ->with('Moderation')
                 ->add('status')
                 ->add('reason')
             ->end()
+
             ->with('SEO')
                 ->add('seoTitle', null, array('attr' => array('class' => 'span8')))
                 ->add('seoKeywords')
                 ->add('seoDescription')
             ->end()
+
             ->with('Russia Image')
-                ->add('showAtRussianImage', null,
-                    array('required' => false)
-                )
+                ->add('showAtRussianImage', null, array('required' => false))
                 ->add('russiaImageAnnounce')
             ->end()
+
             ->with('Virtual Tour')
 //                ->add('virtualTour')
-//                ->add('virtualTourImage', 'armd_media_file_type', array(
-//                    'required' => false,
-//                    'with_remove' => true,
-//                    'media_context' => 'atlas',
-//                    'media_provider' => 'sonata.media.provider.image',
-//                    'media_format' => 'thumbnail'
-//                ))
-                ->add(
-                    'virtualTours',
-                    null,
-                    array(
-                        'required' => false,
-                        'attr' => array('class' => 'chzn-select atlas-object-virtual-tours-select')
-                    )
-                )
+//                ->add('virtualTourImage', 'armd_media_file_type', array('required' => false,
+//                                                                        'with_remove' => true,
+//                                                                        'media_context' => 'atlas',
+//                                                                        'media_provider' => 'sonata.media.provider.image',
+//                                                                        'media_format' => 'thumbnail'))
+                ->add('virtualTours', null, array('required' => false,
+                                                  'attr' => array('class' => 'chzn-select atlas-object-virtual-tours-select')))
             ->end()
-            ->with('Contacts')
-                ->add('siteUrl')
-                ->add('email')
-                ->add('phone')
-                ->add('regions', null, array(
-                    'required' => false,
-                    'attr' => array('class' => 'chzn-select atlas-object-region-select')
-                ))
-                ->add('address')
-                ->add('lat')
-                ->add('lon')
-                ->add('workTime')
-                ->add('weekends', null,
-                    array(
-                        'multiple' => true,
-                        'expanded' => true,
-                        'required' => false,
-                        'attr' => array('class' => 'armd-sonata-weekdays')
-                    )
-                )
-            ->end()
+
             ->with('Media')
                 ->add('primaryImage', 'armd_dcx_media_file_type', array(
-                    'with_remove' => false,
-                    'media_context' => 'atlas',
-                    'media_format' => 'thumbnail'
-                ))
-                ->add('sideBannerImage', 'armd_media_file_type', array(
-                    'required' => false,
-                    'with_remove' => true,
-                    'media_context' => 'atlas',
-                    'media_provider' => 'sonata.media.provider.image',
-                    'media_format' => 'thumbnail'
-                ))
-                ->add('images', 'collection', array(
-                    'type' => 'armd_dcx_media_file_type',
-                    'options' => array(
-                        'media_context' => 'atlas',
-                        'media_format' => 'thumbnail',
-                        'with_remove' => false,
-                    ),
-                    'by_reference' => false,
-                    'allow_add' => true,
-                    'allow_delete' => true,
-                    'required' => false,
-                    'attr' => array('class' => 'armd-sonata-images-collection'),
-                ))
-                ->add('archiveImages', 'collection', array(
-                    'type' => 'armd_media_file_type',
-                    'options' => array(
-                        'media_context' => 'atlas',
-                        'media_provider' => 'sonata.media.provider.image',
-                        'media_format' => 'thumbnail',
-                        'with_title' => true,
-                        'with_description' => true
-                    ),
-                    'by_reference' => false,
-                    'allow_add' => true,
-                    'allow_delete' => true,
-                    'required' => false,
-                    'attr' => array('class' => 'armd-sonata-images-collection'),
-                ))
-                ->add('image3d', 'armd_media_file_type', array(
-                    'required' => false,
-                    'with_remove' => true,
-                    'media_context' => 'atlas',
-                    'media_provider' => 'sonata.media.provider.image',
-                    'media_format' => 'thumbnail'
-                ))
-                /*->add('videos', 'collection', array(
-                    'type' => 'armd_tvigle_video_selector',
-                    'by_reference' => false,
-                    'allow_add' => true,
-                    'allow_delete' => true,
-                    'attr' => array('class' => 'armd-sonata-tvigle-collection'),
-                    'options' => array('attr' => array('class' => 'armd-sonata-tvigle-form')),
-                    'label' => 'Видео (Tvigle ID)'
-                ))*/
-                ->add('mediaVideos',  'collection', array(
-                    'type' => 'armd_media_video_type',
-                    'options' => array(
-                        'media_context' => 'atlas',
-                        'media_provider' => 'sonata.media.provider.tvigle',
-                        'media_format' => 'thumbnail',
-                        'with_title' => true
-                    ),
-                    'by_reference' => false,
-                    'allow_add' => true,
-                    'allow_delete' => true,
-                    'required' => false,
-                    'attr' => array('class' => 'armd-sonata-images-collection'),
-                    'label' => 'Видео (Tvigle ID)'
-                ))
+                                                                    'with_remove' => false,
+                                                                    'media_context' => 'atlas',
+                                                                    'media_format' => 'thumbnail'))
+                ->add('sideBannerImage', 'armd_media_file_type', array('required' => false,
+                                                                       'with_remove' => true,
+                                                                       'media_context' => 'atlas',
+                                                                       'media_provider' => 'sonata.media.provider.image',
+                                                                       'media_format' => 'thumbnail'))
+                ->add('images', 'collection', array('type' => 'armd_dcx_media_file_type',
+                                                    'options' => array('media_context' => 'atlas',
+                                                                       'media_format' => 'thumbnail',
+                                                                       'with_remove' => false),
+                                                    'by_reference' => false,
+                                                    'allow_add' => true,
+                                                    'allow_delete' => true,
+                                                    'required' => false,
+                                                    'attr' => array('class' => 'armd-sonata-images-collection')))
+                ->add('archiveImages', 'collection', array('type' => 'armd_media_file_type',
+                                                           'options' => array('media_context' => 'atlas',
+                                                                              'media_provider' => 'sonata.media.provider.image',
+                                                                              'media_format' => 'thumbnail',
+                                                                              'with_title' => true,
+                                                                              'with_description' => true),
+                                                           'by_reference' => false,
+                                                           'allow_add' => true,
+                                                           'allow_delete' => true,
+                                                           'required' => false,
+                                                           'attr' => array('class' => 'armd-sonata-images-collection')))
+                ->add('image3d', 'armd_media_file_type', array('required' => false,
+                                                               'with_remove' => true,
+                                                               'media_context' => 'atlas',
+                                                               'media_provider' => 'sonata.media.provider.image',
+                                                               'media_format' => 'thumbnail'))
+//                ->add('videos', 'collection', array('type' => 'armd_tvigle_video_selector',
+//                                                    'by_reference' => false,
+//                                                    'allow_add' => true,
+//                                                    'allow_delete' => true,
+//                                                    'attr' => array('class' => 'armd-sonata-tvigle-collection'),
+//                                                    'options' => array('attr' => array('class' => 'armd-sonata-tvigle-form')),
+//                                                    'label' => 'Видео (Tvigle ID)'))
+                ->add('mediaVideos',  'collection', array('type' => 'armd_media_video_type',
+                                                          'options' => array('media_context' => 'atlas',
+                                                                             'media_provider' => 'sonata.media.provider.tvigle',
+                                                                             'media_format' => 'thumbnail',
+                                                                             'with_title' => true),
+                                                          'by_reference' => false,
+                                                          'allow_add' => true,
+                                                          'allow_delete' => true,
+                                                          'required' => false,
+                                                          'attr' => array('class' => 'armd-sonata-images-collection'),
+                                                          'label' => 'Видео (Tvigle ID)'))
             ->end()
+
             ->with('Literature')
-                ->add('literatures', 'sonata_type_collection',
-                    array(
-                        'by_reference' => false,
-                        'required' => true,
-                    ),
-                    array(
-                        'edit' => 'inline',
-                        'inline' => 'table'
-                    )
-                )
+                ->add('literatures', 'sonata_type_collection', array('by_reference' => false,
+                                                                     'required' => true),
+                                                               array('edit' => 'inline',
+                                                                     'inline' => 'table'))
             ->end()
+
             ->with('Stuff')
-            ->add(
-                'stuff',
-                'collection',
-                array(
-                    'type' => 'armd_media_file_type',
-                    'allow_add' => true,
-                    'allow_delete' => true,
-                    'options' => array(
-                        'required' => false,
-                        'media_provider' => 'sonata.media.provider.file',
-                        'by_reference' => true,
-                        'media_context' => 'stuff',
-                        'media_format' => 'original',
-                        'with_remove' => false, // Удаление выше, на уровне коллекции.
-                        'with_title' => false,
-                        'with_description' => true,
-                    ),
-                    'attr' => array('class' => 'armd-sonata-images-collection'),
-                )
-            )
+            ->add('stuff', 'collection', array('type' => 'armd_media_file_type',
+                                               'allow_add' => true,
+                                               'allow_delete' => true,
+                                               'options' => array('required' => false,
+                                                                  'media_provider' => 'sonata.media.provider.file',
+                                                                  'by_reference' => true,
+                                                                  'media_context' => 'stuff',
+                                                                  'media_format' => 'original',
+                                                                  'with_remove' => false, // Удаление выше, на уровне коллекции.
+                                                                  'with_title' => false,
+                                                                  'with_description' => true),
+                                               'attr' => array('class' => 'armd-sonata-images-collection')))
             ->end()
+
             ->with('Hints')
-                ->add('objectHints', 'sonata_type_collection',
-                    array(
-                        'by_reference' => false,
-                        'required' => true,
-                    ),
-                    array(
-                        'edit' => 'inline',
-                        'inline' => 'table'
-                    )
-                )
-            ->end()
-        ;
+                ->add('objectHints', 'sonata_type_collection', array('by_reference' => false,
+                                                                     'required' => true),
+                                                               array('edit' => 'inline',
+                                                                     'inline' => 'table'))
+            ->end();
+
         parent::configureFormFields($formMapper);
     }
 
@@ -292,8 +252,8 @@ class ObjectAdmin extends Admin
             ->addIdentifier('title')
             ->add('published')
             ->add('corrected')
-            ->add('showOnMain')
-            ->add('showOnMainOrd')
+            ->add('showOnMainAsRecommended', null, array('label' => 'Рекомендуемое на главной', 'editable' => true))
+            ->add('showOnMainAsNovel', null, array('label' => 'Неизведанное на главной', 'editable' => true))
             ->add('primaryCategory', null, array('template' => 'ArmdAtlasBundle:Admin:list_object_categories.html.twig'))
             ->add('secondaryCategories', null, array('template' => 'ArmdAtlasBundle:Admin:list_object_categories.html.twig'))
             ->add('touristCluster', null, array('template' => 'ArmdAtlasBundle:Admin:list_object_categories.html.twig'));
@@ -314,16 +274,16 @@ class ObjectAdmin extends Admin
                     }
                 ),
             ))
-//            ->add('primaryCategory')
+            ->add('primaryCategory')
 //            ->add('secondaryCategories')
             ->add('coordinatesAreEmpty', 'doctrine_orm_callback', array(
                 'field_type' => 'checkbox',
                 'callback' => array($this, 'getEmptyCoordinatesFilter')
             ))
             ->add('showAtRussianImage')
-            ->add('showOnMain')
-            ->add('showOnMainOrd')
-            ->add('corrected');                        
+            ->add('showOnMainAsRecommended', null, array('label' => 'Рекомендуемое на главной'))
+            ->add('showOnMainAsNovel', null, array('label' => 'Неизведанное на главной'))
+            ->add('corrected');
     }
 
     public function getEmptyCoordinatesFilter($qb, $alias, $field, $value)
@@ -360,12 +320,21 @@ class ObjectAdmin extends Admin
             'label' => 'Снять публикацию'
         );
 
-        $actions['ShowOnMain']=array(
+        $actions['ShowOnMainAsRecommended'] = array(
             'label'            => $this->trans('aShowOnMain', array(), 'SonataAdminBundle'),
             'ask_confirmation' => false // If true, a confirmation will be asked before performing the action
         );
-        $actions['NotShowOnMain']=array(
+        $actions['NotShowOnMainAsRecommended'] = array(
             'label'            => $this->trans('aNotShowOnMain', array(), 'SonataAdminBundle'),
+            'ask_confirmation' => false // If true, a confirmation will be asked before performing the action
+        );
+
+        $actions['ShowOnMainAsNovel'] = array(
+            'label'            => $this->trans('aShowOnMainAsNovel', array(), 'SonataAdminBundle'),
+            'ask_confirmation' => false // If true, a confirmation will be asked before performing the action
+        );
+        $actions['NotShowOnMainAsNovel'] = array(
+            'label'            => $this->trans('aNotShowOnMainAsNovel', array(), 'SonataAdminBundle'),
             'ask_confirmation' => false // If true, a confirmation will be asked before performing the action
         );
 

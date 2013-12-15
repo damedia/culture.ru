@@ -1,0 +1,162 @@
+{% extends ':Frontend:new_base.html.twig' %}
+
+{% import 'ArmdNewsBundle::date_macro.html.twig' as armd_news %}
+
+{% block title %}{{ entity.seoTitle|default(entity.title) }} &mdash; {{ parent() }}{% endblock %}
+{% block meta_keywords %}{{ entity.seoKeywords|default('') }}{% endblock %}
+{% block meta_description %}{{ entity.seoDescription|default('') }}{% endblock %}
+
+{% block opengraph %}
+    <meta property="og:title" content="{{ entity.title }}" />
+    <meta property="og:description" content="{{ entity.announce }}" />
+    <meta property="og:site_name" content="{{ 'Portal title'|trans }}" />
+    <meta property="og:url" content="{{ app.request.uri }}" />
+    {% if entity.image is not empty %}
+        <meta property="og:image" content="{% path entity.image, 'reference' %}" />
+    {% endif %}
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    <style type="text/css">
+        ul.hub-menu li a:hover {
+            color: {{ palette_color_hex }};
+        }
+        .b-post a {
+            color: {{ palette_color_hex }};
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="b-post b-post-taxonomy marginBottom70">
+        <h1 class="b-left-title">{{ 'Media'|trans }}</h1>
+
+        {{ include('ArmdNewsBundle:NewsNew:hub_menu.html.twig', { 'categories': categories, 'palette_color': palette_color, 'currentCategory': entity.category.slug }) }}
+
+        <div class="b-post-image">
+            {% if entity.date %}
+                <div class="entity-date-of-event">
+                    <span class="title">{{ 'Entity.DateOfEvent'|trans }}:</span>
+                    <span class="interval">{{ 'Entity.DateOfEventFrom'|trans }} {{ armd_news.news_date_short(entity.date) }}
+                        {% if entity.endDate %}
+                            {{ 'Entity.DateOfEventTo'|trans }} {{ armd_news.news_date_short(entity.endDate) }}
+                        {% endif %}
+                    </span>
+                </div>
+            {% endif %}
+
+            <div class="entity-image-wrapper">
+                <img class="entity-image" alt="{{ entity.image.description }}" src="{% path entity.image, 'big' %}" />
+
+                <div class="image-description">
+                    <span class="title">{{ entity.title|raw }}</span>
+                    <span class="date">{{ armd_news.macro_date_standart(entity.newsDate) }}</span>
+                </div>
+            </div>
+
+            <div class="entity-image-footer">
+                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                    {% if isInFavorites %}
+                        {{ include('ArmdMainBundle:Generics:favoriteIcon.html.twig', {
+                            'palette_color': palette_color,
+                            'palette_icon': palette_favoritesIconAdded,
+                            'action': 'remove',
+                            'text': 'Entity.RemoveFromFavorites'|trans
+                        }) }}
+                    {% else %}
+                        {{ include('ArmdMainBundle:Generics:favoriteIcon.html.twig', {
+                            'palette_color': palette_color,
+                            'palette_icon': palette_favoritesIcon,
+                            'action': 'add',
+                            'text': 'Entity.AddToFavorites'|trans
+                        }) }}
+                    {% endif %}
+                {% endif %}
+
+                <span class="description">
+                    {{ entity.image.description }}
+                    {% if entity.source is not empty %}
+                        <span class="source">{{ 'Entity.Source'|trans }}: {{ entity.source }}</span>
+                    {% endif %}
+                </span>
+            </div>
+        </div>
+
+        {{ entity.body|raw }}
+
+        {% if entity.stuff.count %}
+            <div class="height50"></div>
+
+            {{ include('ArmdMainBundle:Generics:stuffBlock.html.twig', {'stuff': entity.stuff}) }}
+        {% endif %}
+
+        <div class="b-share-buttons">
+            <span class="small-title m-first">{{ 'Entity.SocialShare'|trans }}:</span>
+            <span id="yandex-share"></span>
+        </div>
+    </div>
+
+    {{ include('ArmdMkCommentBundle:Default:placeholder.html.twig', { 'entity_type': 'news', 'palette_background': palette_background }) }}
+{% endblock %}
+
+{% block sidebar %}
+    {% render 'ArmdNewsBundle:News:sidebarItemWidget' with {'entity': entity} %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript" src="http://yandex.st/share/share.js" charset="utf-8"></script>
+    <script type="text/javascript" src="{{ asset('js/damedia/addToFavorites.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/damedia/share.js') }}"></script>
+    <script type="text/javascript">
+        $(function(){
+            var searchWrapper = $('#quick-search-wrapper'),
+                    searchInput = $('#search-txt', searchWrapper),
+                    searchForm = searchWrapper.find('form'),
+                    checkboxesHoverTab = searchWrapper.find('div.search-checkboxes'),
+                    searchThisSectionCheckbox = $('#search-this-section', searchWrapper);
+
+            searchWrapper.mouseenter(function(){
+                checkboxesHoverTab.show();
+            });
+
+            searchWrapper.mouseleave(function(){
+                checkboxesHoverTab.hide();
+            });
+
+            searchForm.bind('submit', function(e){
+                if (searchThisSectionCheckbox.is(':checked')) {
+                    e.preventDefault();
+                    window.location = Routing.generate('armd_news_index_by_category', { 'search_query': searchInput.val() });
+                }
+            });
+
+            DamediaShare.init({
+                locale: '{{ app.request.locale }}',
+                link: '{{ url('view_blog', { 'id': entity.id }) }}',
+                title: '{{ entity.title }}',
+                description: '{{ entity.announce|replace({"\n":'',"\r":''})|striptags }}'
+            });
+
+            DamediaAddToFavorites.init({
+                entityType: '{{ constant('Armd\\UserBundle\\Entity\\Favorites::TYPE_MEDIA') }}',
+                entityId: '{{ entity.id }}',
+                htmlReplacementForAdd: '{{ include('ArmdMainBundle:Generics:favoriteIcon.html.twig', {
+                    'palette_color': palette_color,
+                    'palette_icon': palette_favoritesIconAdded,
+                    'action': 'remove',
+                    'text': 'Entity.RemoveFromFavorites'|trans
+                }) }}',
+                htmlReplacementForRemove : '{{ include('ArmdMainBundle:Generics:favoriteIcon.html.twig', {
+                    'palette_color': palette_color,
+                    'palette_icon': palette_favoritesIcon,
+                    'action': 'add',
+                    'text': 'Entity.AddToFavorites'|trans
+                }) }}'
+            });
+        });
+    </script>
+{% endblock %}

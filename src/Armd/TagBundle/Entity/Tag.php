@@ -10,8 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="DoctrineExtensions\Taggable\Entity\TagRepository")
  */
-class Tag extends BaseTag
-{
+class Tag extends BaseTag {
     /**
      * @var integer $id
      *
@@ -31,13 +30,11 @@ class Tag extends BaseTag
      */        
     private $isTechnical = false;
     
-    public function getIsTechnical()
-    {
+    public function getIsTechnical() {
         return $this->isTechnical;
     }
     
-    public function setIsTechnical($isTechnical)
-    {
+    public function setIsTechnical($isTechnical) {
         $this->isTechnical = $isTechnical;
     }
 
@@ -47,8 +44,7 @@ class Tag extends BaseTag
 //     * @param \Armd\TagBundle\Entity\Tagging $tagging
 //     * @return Tag
 //     */
-//    public function addTagging(\Armd\TagBundle\Entity\Tagging $tagging)
-//    {
+//    public function addTagging(\Armd\TagBundle\Entity\Tagging $tagging) {
 //        $this->tagging[] = $tagging;
 //
 //        return $this;
@@ -59,8 +55,7 @@ class Tag extends BaseTag
 //     *
 //     * @param \Armd\TagBundle\Entity\Tagging $tagging
 //     */
-//    public function removeTagging(\Armd\TagBundle\Entity\Tagging $tagging)
-//    {
+//    public function removeTagging(\Armd\TagBundle\Entity\Tagging $tagging) {
 //        $this->tagging->removeElement($tagging);
 //    }
 //
@@ -69,8 +64,7 @@ class Tag extends BaseTag
 //     *
 //     * @return \Doctrine\Common\Collections\Collection
 //     */
-//    public function getTagging()
-//    {
+//    public function getTagging() {
 //        return $this->tagging;
 //    }
 }

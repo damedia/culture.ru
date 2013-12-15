@@ -1,0 +1,34 @@
+{% import 'ArmdLectureBundle::lecture_macro.html.twig' as lectureMacro %}
+{% import 'ArmdNewsBundle::date_macro.html.twig' as armd_news %}
+
+{% for date, lectures in lecturesByMonth %}
+    <div name="month-block" data-date="{{ date }}">
+        <div class="header-text-medium textAlignCenter marginBottom10">
+            {% if ("now"|date('Y')) == (lectures[0].createdAt|date('Y')) %}
+                {{ ('calendar.month.' ~ lectures[0].createdAt|date('M'))|trans }}
+            {% else %}
+                {{ ('calendar.month.' ~ lectures[0].createdAt|date('M'))|trans ~ lectures[0].createdAt|date(', Y') }}
+            {% endif %}
+        </div>
+
+        {% for item in lectures %}
+            <section class="hub-list-item">
+                <article>
+                    <div class="teaser-thumb">
+                        {{ lectureMacro.lectureThumbnail(item, 'tile', { 'alt': item.title }) }}
+                    </div>
+
+                    <div class="teaser-header">
+                        <span class="date">{{ armd_news.news_date_short(item.createdAt) }}</span>
+                        <span class="item-type">видео</span>
+                        <a class="teaser-item-link" href="{{ path('armd_lecture_view', {'id': item.id}) }}">{{ item.title }}</a>
+                    </div>
+
+                    <div class="teaser-content">
+                        <p>{{ item.announce|raw }}</p>
+                    </div>
+                </article>
+            </section>
+        {% endfor %}
+    </div>
+{% endfor %}

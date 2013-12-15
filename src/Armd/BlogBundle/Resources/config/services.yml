@@ -1,0 +1,14 @@
+parameters:
+#    blog.example.class: Armd\BlogBundle\Example
+
+services:
+    armd_blog.admin.blog:
+        class: Armd\BlogBundle\Admin\Blog
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Blog, label: Blog }
+        arguments: [null, Armd\BlogBundle\Entity\Blog, SonataAdminBundle:CRUD, @service_container]
+
+    armd_blog.form.type.blogger_type:
+        class: Armd\BlogBundle\Form\Type\BloggerType
+        tags:
+            - { name: form.type, alias: blogger_type }
