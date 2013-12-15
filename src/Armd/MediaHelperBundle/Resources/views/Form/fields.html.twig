@@ -14,6 +14,18 @@
 {% endblock %}
 
 
+{% block armd_dcx_media_file_type_widget %}
+{% spaceless %}
+<div class="armd-sonata-media-file">
+    {% if form.vars.value is not empty %}
+        {% media form.vars.value.currentMediaId,  media_format %}
+    {% endif %}
+    {{ form_widget(form) }}
+</div>
+{% endspaceless %}
+{% endblock %}
+
+
 {% block armd_media_video_type_widget %}
 {% spaceless %}
 <div class="armd-sonata-media-video">

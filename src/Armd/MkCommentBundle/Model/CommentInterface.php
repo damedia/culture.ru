@@ -14,4 +14,5 @@ interface CommentInterface extends BaseInterface
     const SECTION_THEATER     = 'theater';
     const SECTION_PERFOMANCE  = 'perfomance';
     const SECTION_NEWS        = 'news';
+    const SECTION_BLOGS       = 'blogs';
 }

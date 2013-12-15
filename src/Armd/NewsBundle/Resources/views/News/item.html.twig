@@ -42,7 +42,7 @@
     <ul class="breadcrumbs">
         <li><a href="{{ path('armd_main_homepage') }}">{{ 'menu.mainpage'|trans }}</a></li>
         {% if entity.category %}
-            <li><a href="{{ path('armd_news_list_index_by_category', {'category': entity.category.slug }) }}">{{ entity.category.title }}</a></li>
+            <li><a href="{{ path('armd_news_index_by_category', {'category': entity.category.slug }) }}">{{ entity.category.title }}</a></li>
         {% endif %}
 
         <li><span>{{ entity.title }}</span></li>
@@ -126,6 +126,24 @@
     </div>
 {% endif %}
 
+{% if entity.projects is not empty %}
+    <div class="block news-gallery-block">
+        <h2><span>Спецпроекты</span></h2>
+        <ul class="news-gallery">
+            {% for project in entity.projects %}
+                <li style="border: 1px solid #D9D9D9; height: 150px;">
+                    <a href="{{ path('damedia_special_project_view', {'slug': project.slug }) }}">{{ project.title }}</a>
+                    {% if project.bannerImage %}
+                        <img class="tn-list-image" src="{% path project.bannerImage, 'list' %}" alt="{{ project.title|escape }}">
+                    {% else %}
+                        <img class="tn-list-image" src="/img/temp_125_125.png" alt="">
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}
+
 {% if entity.stuff.count %}
 <div>
     <div>
@@ -170,7 +188,7 @@
 
 
 
-{#<div class="back-link"><p><a href="{{ path('armd_news_list_index_by_category', { 'category': entity.category.slug }) }}">{{ "Back"|trans }}</a></p></div>#}
+
 <div class="back-link"><p><a href="javascript:history.back()">{{ "Back"|trans }}</a></p></div>
 <div class="event-one_footer clearfix">
     <div href="#" class="print-link"><a target="_blank" href="{{ path('armd_news_item_by_category_print', { 'category':entity.category.slug, 'id':entity.id }) }}"></a> {{ "Printversion"|trans }}: </div>
@@ -264,7 +282,7 @@
             $('#search-form').bind('submit', function(event) {
                 if ($('#search-this-section').prop('checked')) {
                     event.preventDefault();
-                    window.location = Routing.generate('armd_news_list_index', {'search_query': $('#search-txt').val()})
+                    window.location = Routing.generate('armd_news_index_by_category', {'search_query': $('#search-txt').val()})
                 }
             });
         });

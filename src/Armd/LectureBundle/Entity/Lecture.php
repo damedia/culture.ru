@@ -5,17 +5,19 @@ namespace Armd\LectureBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use DoctrineExtensions\Taggable\Taggable;
 use Application\Sonata\MediaBundle\Entity\Media;
+use Armd\MkCommentBundle\Entity\Thread;
 use Application\Sonata\MediaBundle\Entity\Gallery;
 use Doctrine\Common\Collections\ArrayCollection;
 use Armd\MainBundle\Model\ChangeHistorySavableInterface;
+use Armd\MkCommentBundle\Model\CommentableInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Table(name="lecture")
  * @ORM\Entity(repositoryClass="\Armd\LectureBundle\Repository\LectureRepository")
  * @ORM\HasLifecycleCallbacks()
  */
-class Lecture implements Taggable, ChangeHistorySavableInterface
-{
+class Lecture implements CommentableInterface, Taggable, ChangeHistorySavableInterface {
     /**
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -126,14 +128,15 @@ class Lecture implements Taggable, ChangeHistorySavableInterface
 
     /**
      * Длительность фильма в минутах, например 120
-     *
+     *@Assert\Type(type="integer", message="Длительность фильма в минутах, например 120.")
      * @ORM\Column(name="time_length", type="integer", nullable=true)
      */
     private $timeLength;
 
     /**
      * Год выхода фильма, например 1969
-     *
+     * @Assert\Type(type="integer", message="Год выхода фильма, например 1969.")
+     * @Assert\Range(min="1900", max="2100")
      * @ORM\Column(name="production_year", type="integer", nullable=true)
      */
     private $productionYear;
@@ -161,15 +164,45 @@ class Lecture implements Taggable, ChangeHistorySavableInterface
     private $isTop100Film = false;
 
     /**
-     * @ORM\Column(name="show_on_main", type="boolean", nullable=false)
+     * @ORM\Column(name="show_on_main_as_recommended", type="boolean", nullable=true)
      */
-    private $showOnMain = false;
-    
+    private $showOnMainAsRecommended = false;
+
     /**
-     * @ORM\Column(name="show_on_main_ord", type="integer", nullable=false)
+     * @ORM\Column(name="show_on_main_as_recommended_from", type="datetime", nullable=true)
      */
-    private $showOnMainOrd = 0;
-    
+    private $showOnMainAsRecommendedFrom;
+
+    /**
+     * @ORM\Column(name="show_on_main_as_recommended_to", type="datetime", nullable=true)
+     */
+    private $showOnMainAsRecommendedTo;
+
+    /**
+     * @ORM\Column(name="show_on_main_as_recommended_ord", type="integer", nullable=true)
+     */
+    private $showOnMainAsRecommendedOrd = 0;
+
+    /**
+     * @ORM\Column(name="show_on_main_as_for_children", type="boolean", nullable=false)
+     */
+    private $showOnMainAsForChildren = false;
+
+    /**
+     * @ORM\Column(name="show_on_main_as_for_children_from", type="datetime", nullable=true)
+     */
+    private $showOnMainAsForChildrenFrom;
+
+    /**
+     * @ORM\Column(name="show_on_main_as_for_children_to", type="datetime", nullable=true)
+     */
+    private $showOnMainAsForChildrenTo;
+
+    /**
+     * @ORM\Column(name="show_on_main_as_for_children_ord", type="integer", nullable=false)
+     */
+    private $showOnMainAsForChildrenOrd = 0;
+
     /**
      * @ORM\Column(name="is_headline", type="boolean", nullable=true)
      */
@@ -183,6 +216,13 @@ class Lecture implements Taggable, ChangeHistorySavableInterface
      */
     private $stuff;
 
+    /**
+     * This entity comments thread
+     *
+     * @var \Armd\MkCommentBundle\Entity\Thread
+     * @ORM\ManyToOne(targetEntity="\Armd\MkCommentBundle\Entity\Thread", cascade={"all"}, fetch="EAGER")
+     */
+    protected $thread;
 
     /**
      * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"all"}, fetch="EAGER")
@@ -217,11 +257,26 @@ class Lecture implements Taggable, ChangeHistorySavableInterface
      * @ORM\JoinTable(name="lecture_limit_featured_genre")
      */
     private $limitFeaturedForGenres;
-    
+
     /**
      * @ORM\Column(name="corrected", type="boolean", nullable=true)
      */
-    protected $corrected;    
+    protected $corrected;
+
+    /** Additional fields form carousel on main page */
+
+    /**
+     * @Assert\Length(max = "255")
+     * @ORM\Column(name="director", type="string", length=255, nullable=true)
+     */
+    protected $director;
+
+    /**
+     * @Assert\Length(max = "255")
+     * @ORM\Column(name="stars", type="string", length=255, nullable=true)
+     */
+    protected $stars;
+
 
     public function __construct()
     {
@@ -272,6 +327,18 @@ class Lecture implements Taggable, ChangeHistorySavableInterface
     public function setTitle($title)
     {
         $this->title = $title;
+    }
+
+    /**
+     * implements Commentable interface
+     */
+    public function setThread(Thread $thread = null) {
+        $this->thread = $thread;
+
+        return $this;
+    }
+    public function getThread() {
+        return $this->thread;
     }
 
     /**
@@ -631,7 +698,7 @@ class Lecture implements Taggable, ChangeHistorySavableInterface
     public function addCategorie(\Armd\LectureBundle\Entity\LectureCategory $categories)
     {
         $this->categories[] = $categories;
-    
+
         return $this;
     }
 
@@ -655,7 +722,7 @@ class Lecture implements Taggable, ChangeHistorySavableInterface
     public function addRolesPerson(\Armd\LectureBundle\Entity\LectureRolePerson $rolesPersons)
     {
         $this->rolesPersons[] = $rolesPersons;
-    
+
         return $this;
     }
 
@@ -705,7 +772,7 @@ class Lecture implements Taggable, ChangeHistorySavableInterface
     /**
      * Get rolesPersons
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getRolesPersons()
     {
@@ -738,14 +805,14 @@ class Lecture implements Taggable, ChangeHistorySavableInterface
     public function setTimeLength($timeLength)
     {
         $this->timeLength = $timeLength;
-    
+
         return $this;
     }
 
     /**
      * Get timeLength
      *
-     * @return integer 
+     * @return integer
      */
     public function getTimeLength()
     {
@@ -761,14 +828,14 @@ class Lecture implements Taggable, ChangeHistorySavableInterface
     public function setProductionYear($productionYear)
     {
         $this->productionYear = $productionYear;
-    
+
         return $this;
     }
 
     /**
      * Get productionYear
      *
-     * @return integer 
+     * @return integer
      */
     public function getProductionYear()
     {
@@ -784,14 +851,14 @@ class Lecture implements Taggable, ChangeHistorySavableInterface
     public function setExternalUrl($externalUrl)
     {
         $this->externalUrl = $externalUrl;
-    
+
         return $this;
     }
 
     /**
      * Get externalUrl
      *
-     * @return string 
+     * @return string
      */
     public function getExternalUrl()
     {
@@ -826,16 +893,18 @@ class Lecture implements Taggable, ChangeHistorySavableInterface
     /**
      * @return boolean
      */
-    public function getShowOnMain()
+    public function getShowOnMainAsRecommended()
     {
-        $this->showOnMain = $this->showOnMain;
-
-        return $this->showOnMain;
+        return $this->showOnMainAsRecommended;
     }
 
-    public function setShowOnMain($showOnMain)
+    /**
+     * @param $showOnMainAsRecommended
+     * @return $this
+     */
+    public function setShowOnMainAsRecommended($showOnMainAsRecommended)
     {
-        $this->showOnMain = $showOnMain;
+        $this->showOnMainAsRecommended = $showOnMainAsRecommended;
 
         return $this;
     }
@@ -843,16 +912,124 @@ class Lecture implements Taggable, ChangeHistorySavableInterface
     /**
      * @return integer
      */
-    public function getShowOnMainOrd()
+    public function getShowOnMainAsRecommendedOrd()
     {
-        $this->showOnMainOrd = $this->showOnMainOrd;
-
-        return $this->showOnMainOrd;
+        return $this->showOnMainAsRecommendedOrd;
     }
 
-    public function setShowOnMainOrd($showOnMainOrd)
+    public function setShowOnMainAsRecommendedOrd($showOnMainAsRecommendedOrd)
     {
-        $this->showOnMainOrd = $showOnMainOrd;
+        $this->showOnMainAsRecommendedOrd = $showOnMainAsRecommendedOrd;
+
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getShowOnMainAsRecommendedFrom()
+    {
+        return $this->showOnMainAsRecommendedFrom;
+    }
+
+    /**
+     * @param $showOnMainAsRecommendedFrom \DateTime
+     * @return $this
+     */
+    public function setShowOnMainAsRecommendedFrom($showOnMainAsRecommendedFrom)
+    {
+        $this->showOnMainAsRecommendedFrom = $showOnMainAsRecommendedFrom;
+
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getShowOnMainAsRecommendedTo()
+    {
+        return $this->showOnMainAsRecommendedTo;
+    }
+
+    /**
+     * @param $showOnMainAsRecommendedTo \DateTime
+     * @return $this
+     */
+    public function setShowOnMainAsRecommendedTo($showOnMainAsRecommendedTo)
+    {
+        $this->showOnMainAsRecommendedTo = $showOnMainAsRecommendedTo;
+
+        return $this;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getShowOnMainAsForChildren()
+    {
+        return $this->showOnMainAsForChildren;
+    }
+
+    /**
+     * @param $showOnMainAsForChildren
+     * @return $this
+     */
+    public function setShowOnMainAsForChildren($showOnMainAsForChildren)
+    {
+        $this->showOnMainAsForChildren = $showOnMainAsForChildren;
+
+        return $this;
+    }
+
+    /**
+     * @return integer
+     */
+    public function getShowOnMainAsForChildrenOrd()
+    {
+        return $this->showOnMainAsForChildrenOrd;
+    }
+
+    public function setShowOnMainAsForChildrenOrd($showOnMainAsForChildrenOrd)
+    {
+        $this->showOnMainAsForChildrenOrd = $showOnMainAsForChildrenOrd;
+
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getShowOnMainAsForChildrenFrom()
+    {
+        return $this->showOnMainAsForChildrenFrom;
+    }
+
+    /**
+     * @param $showOnMainAsForChildrenFrom \DateTime
+     * @return $this
+     */
+    public function setShowOnMainAsForChildrenFrom($showOnMainAsForChildrenFrom)
+    {
+        $this->showOnMainAsForChildrenFrom = $showOnMainAsForChildrenFrom;
+
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getShowOnMainAsForChildrenTo()
+    {
+        return $this->showOnMainAsForChildrenTo;
+    }
+
+    /**
+     * @param $showOnMainAsForChildrenTo \DateTime
+     * @return $this
+     */
+    public function setShowOnMainAsForChildrenTo($showOnMainAsForChildrenTo)
+    {
+        $this->showOnMainAsForChildrenTo = $showOnMainAsForChildrenTo;
 
         return $this;
     }
@@ -876,7 +1053,7 @@ class Lecture implements Taggable, ChangeHistorySavableInterface
     {
         return $this->stuff;
     }
-    
+
     /**
      * @param boolean $isHeadline
      */
@@ -884,7 +1061,7 @@ class Lecture implements Taggable, ChangeHistorySavableInterface
     {
         $this->isHeadline = $isHeadline;
     }
-  
+
     /**
      * @return boolean
      */
@@ -1002,22 +1179,71 @@ class Lecture implements Taggable, ChangeHistorySavableInterface
     public function setCorrected($corrected)
     {
         $this->corrected = $corrected;
-    
+
         return $this;
     }
 
     /**
      * Get corrected
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getCorrected()
     {
         return $this->corrected;
     }
 
-    public function getClassName()    
+    /**
+     * @param $director
+     * @return Lecture
+     */
+    public function setDirector($director)
+    {
+        $this->director = $director;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getDirector()
+    {
+        return $this->director;
+    }
+
+    /**
+     * @param $stars
+     * @return Lecture
+     */
+    public function setStars($stars)
+    {
+        $this->stars = $stars;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getStars()
+    {
+        return $this->stars;
+    }
+
+    public function getClassName()
     {
         return get_class($this);
+    }
+
+    /**
+     * @return string
+     */
+    public function getTimeLengthInHours()
+    {
+        if ($this->timeLength > 0) {
+            return str_pad(floor($this->timeLength / 60), 2, '0', STR_PAD_LEFT) . ':' . str_pad(($this->timeLength % 60), 2, '0', STR_PAD_LEFT);
+        }
+        return '';
     }
 }

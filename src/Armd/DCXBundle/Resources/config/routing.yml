@@ -1,0 +1,3 @@
+# armd_dcx_homepage:
+#     pattern:  /test
+#     defaults: { _controller: ArmdDCXBundle:Default:index }

@@ -1,0 +1,119 @@
+{% extends base_template %}
+
+{% block javascripts %}
+
+    <script type="text/javascript" src="{{ asset('bundles/sonatajquery/jquery-1.8.0.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/sonatajquery/jquery-ui-1.8.23.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/sonatajquery/jquery-ui-i18n.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/sonataadmin/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/sonataadmin/qtip/jquery.qtip-1.0.0-rc3.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/sonataadmin/jquery/jquery.form.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/sonataadmin/base.js') }}"></script>
+
+    {# BEGIN: This little block is required for FOSJsRoutingBundle to work #}
+    <script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+    {# END #}
+
+    <script type="text/javascript" src="{{ asset('vendor/chosen/chosen.jquery.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('vendor/select2/select2.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('vendor/select2/select2_locale_ru.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/armdtag/js/armd_tag.js') }}"></script>
+    {# END #}
+
+    <script type="text/javascript" src="{{ asset('bundles/armdmediahelper/js/tinymce/plugins/sonatamedia/editor_plugin.js') }}"></script>
+
+    <script type="text/javascript" src="{{ asset('bundles/damediaspecialproject/js/bootstrap-modal.js') }}"></script>
+
+    {{ tinymce_init() }}
+
+    <script type="text/javascript">
+        /* BEGIN TinyMCE initialization */
+        initTinyMCE.defaults.theme.sproject_snippets.parameters = { sonataAdmin: "{{ admin.code }}",
+            acAjaxUrl: "{{ path('get_snippet_jsonlist') }}",
+            entityViewsListUrl: "{{ path('get_entity_viewslist') }}",
+            mainFormUrl: "{{ path('damedia_snippet_form') }}",
+            modalLayerImgSrc: "{{ asset('bundles/damediaspecialproject/images/ajax-loader.gif') }}"
+        };
+        initTinyMCE(initTinyMCE.defaults);
+        /* END TinyMCE initialization */
+    </script>
+{% endblock %}
+
+{% block form %}
+    {% set url = admin.id(object) ? 'edit' : 'create' %}
+
+    {% if not admin.hasRoute(url)%}
+        <div>
+            {{ "form_not_available"|trans({}, "SonataAdminBundle") }}
+        </div>
+    {% else %}
+        <form novalidate="1" class="form-horizontal" action="{{ admin.generateUrl(url, {'id': admin.id(object), 'uniqid': admin.uniqid, 'subclass': app.request.get('subclass')}) }}" {{ form_enctype(form) }} method="POST">
+            {% if form.vars.errors|length > 0 %}
+                <div class="sonata-ba-form-error">
+                    {{ form_errors(form) }}
+                </div>
+            {% endif %}
+
+            {% block sonata_pre_fieldsets %}{% endblock %}
+
+            {% for name, form_group in admin.formgroups %}
+                <fieldset {% if form_group.collapsed %}class="sonata-ba-fieldset-collapsed"{% endif %}>
+                    <legend{% if form_group.description != false %} class="sonata-ba-fieldset-collapsed-description"{% endif %}>
+                        {% if form_group.collapsed %}
+                            <a href="" class="sonata-ba-collapsed" title="{{ 'link_expand'|trans({}, 'SonataAdminBundle') }}">{{ name|trans({}, admin.translationdomain) }}</a>
+                        {% else %}
+                            {{ name|trans({}, admin.translationdomain) }}
+                        {% endif %}
+                    </legend>
+
+                    <div class="sonata-ba-collapsed-fields">
+                        {% if form_group.description != false %}
+                            <p>{{ form_group.description|raw }}</p>
+                        {% endif %}
+
+                        {% for field_name in form_group.fields %}
+                            {% if admin.formfielddescriptions[field_name] is defined %}
+                                {{ form_row(form[field_name])}}
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </fieldset>
+            {% endfor %}
+
+            {% block sonata_post_fieldsets %}{% endblock %}
+
+            {{ form_rest(form) }}
+
+            {% block formactions %}
+                <div class="well form-actions">
+                    {% if app.request.isxmlhttprequest %}
+                        {% if admin.id(object) %}
+                            <input type="submit" class="btn btn-primary" name="btn_update" value="{{ 'btn_update'|trans({}, 'SonataAdminBundle') }}"/>
+                        {% else %}
+                            <input type="submit" class="btn" name="btn_create" value="{{ 'btn_create'|trans({}, 'SonataAdminBundle') }}"/>
+                        {% endif %}
+                    {% else %}
+                        {% if admin.supportsPreviewMode %}
+                            <input class="btn btn-info persist-preview" name="btn_preview" type="submit" value="{{ 'btn_preview'|trans({}, 'SonataAdminBundle') }}"/>
+                        {% endif %}
+                        {% if admin.id(object) %}
+                            <input type="submit" class="btn btn-primary" name="btn_update_and_edit" value="{{ 'btn_update_and_edit_again'|trans({}, 'SonataAdminBundle') }}"/>
+                            <input type="submit" class="btn" name="btn_update_and_list" value="{{ 'btn_update_and_return_to_list'|trans({}, 'SonataAdminBundle') }}"/>
+
+                            {% if admin.hasroute('delete') and admin.isGranted('DELETE', object) %}
+                                {{ 'delete_or'|trans({}, 'SonataAdminBundle') }}
+                                <a class="btn btn-danger" href="{{ admin.generateObjectUrl('delete', object) }}">{{ 'link_delete'|trans({}, 'SonataAdminBundle') }}</a>
+                            {% endif %}
+                        {% else %}
+                            <input class="btn btn-primary" type="submit" name="btn_create_and_edit" value="{{ 'btn_create_and_edit_again'|trans({}, 'SonataAdminBundle') }}"/>
+                            <input type="submit" class="btn" name="btn_create_and_list" value="{{ 'btn_create_and_return_to_list'|trans({}, 'SonataAdminBundle') }}"/>
+                            <input class="btn" type="submit" name="btn_create_and_create" value="{{ 'btn_create_and_create_a_new_one'|trans({}, 'SonataAdminBundle') }}"/>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            {% endblock formactions %}
+        </form>
+    {% endif%}
+
+{% endblock %}

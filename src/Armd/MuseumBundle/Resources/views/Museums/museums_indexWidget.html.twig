@@ -1,0 +1,16 @@
+{% spaceless %}
+{% if museums is not empty %}
+    <div id="museums-images-widget-placeholder" class="fullWidth positionRelative">
+        <div class="b-post width700">
+            <section class="b-block-body m-sights-carousel b-simple-slider palette-colored-box-3">
+                <ul id="museum_widget" class="b-main-slides clearfix">
+                    {% include 'ArmdMuseumBundle:Museums:museums_indexWidget_item.html.twig' with {'museums': museums, 'palette_color': palette_color} %}
+                </ul>
+            </section>
+        </div>
+        <span class="museums-hub-background-left"></span>
+        <span class="museums-hub-background-right"></span>
+        <span class="slider-museum-item-path"></span>
+    </div>
+{% endif %}
+{% endspaceless %}

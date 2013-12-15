@@ -32,7 +32,7 @@ armd_user_favorites_add:
 armd_user_favorites_del:
     pattern:   /favorites-del
     defaults:  { _controller: ArmdUserBundle:Favorites:del }
-
+    options: { expose: true }
 
 armd_user_comments_list:
     pattern: /profile/comments/

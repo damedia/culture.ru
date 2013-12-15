@@ -31,8 +31,8 @@ class Category extends Admin
             ->add('title')
             ->add('priority')
         ;
-        
-        parent::configureShowField($showMapper);        
+
+        parent::configureShowFields($showMapper);
     }
 
     /**
@@ -47,7 +47,7 @@ class Category extends Admin
                 ->add('title')
                 ->add('slug')
                 ->add('priority')
-                ->add('filtrable')                
+                ->add('filtrable')
             ->end();
 
         parent::configureFormFields($formMapper);
@@ -59,14 +59,14 @@ class Category extends Admin
      * @return void
      */
     protected function configureListFields(ListMapper $listMapper)
-    {        
+    {
         $listMapper
             ->addIdentifier('title')
-            ->add('slug')            
+            ->add('slug')
             ->add('priority')
-            ->add('filtrable')                    
+            ->add('filtrable')
         ;
-        
-        parent::configureListFields($listMapper);        
+
+        parent::configureListFields($listMapper);
     }
 }

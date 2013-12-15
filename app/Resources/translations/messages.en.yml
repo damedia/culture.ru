@@ -1,3 +1,111 @@
+Main:
+    SiteName: Culture.ru
+    Section:
+        Partners:
+            Header: Partners
+        Copyright: If you quote or copy materials from this portal active reference to us is obligatory
+        Footer:
+            iPad: Apps for iPad
+    Widget:
+        Announce:
+            Header: Announces
+            Goto: go to Announces
+        Media:
+            Header: Media
+            Goto: go to Media
+            Today: today,
+        ImagesOfRussia:
+            Header: Images of Russia
+            Goto: go to Images of Russia
+        SpecialProject:
+            Header: Special Projects
+            Goto: go to Special Projects
+        Movie:
+            Header: Movies
+            Goto:  go to Movies
+            Recommended: recommended
+            ForChildren: for children
+            Genre: Genre
+            Director: Director
+            Cast: Cast
+        Museum:
+            Header: Virtual museums
+            Goto: go to Museums
+            VirtualTour: virtual tour
+            AboutMuseum: about museum
+        Performance:
+            Header1: Virtual
+            Header2: theater
+            Goto: go to Theater
+            Recommended: recommended
+            Popular: popular
+            Cast: Cast
+        Lecture:
+            Header: Lectures
+            Goto: go to Lectures
+            Recommended: recommended
+            Popular: popular
+
+Sidebar:
+    LinkedContent:
+        Header: Related
+        Next: next
+        Type:
+            ImagesOfRussia: Images of Russia
+            Lectures: Lectures
+            Movies: Movies
+    RelatedContent:
+        Header: Interesting
+
+Comments:
+    Header: Comments
+    AuthRequire1: You must be
+    AuthRequire2: authorized
+    AuthRequire3: to post comments
+    PostComment: post your comment
+    PostReply: post reply
+    PostComment: Post comment
+    LoadingComments: Loading comments
+    MessageSent:
+        Part1: Message
+        Part2: sent
+        Part3: for moderation.
+        Part4: In the near future it will appear on the site
+    Rules:
+        Lead: Dear friends! Please remember that our moderators will remove:
+        Rule1: Comments with rude words or profanity
+        Rule2: Direct or indirect insults of post hero or other readers
+        Rule3: Short evaluation comments ("awful", "great", "boooo")
+        Rule4: Comments that incite ethnic and social strife
+    Thread:
+        Open: Open thread
+        Close: Close thread
+    Comment:
+        Reply: Reply
+        Link: Link
+        Edit: Edit
+        Delete: Delete
+        Restore: Restore
+
+SearchDefault: site search
+
+Hub:
+    MenuAll: all
+    CulturalObjects: cultural objects
+    TourismClusters: tourism clusters
+
+Entity:
+    SocialShare: Share in social networks
+    AddToFavorites: Add to 'Favorites'
+    RemoveFromFavorites: Remove from 'Favorites'
+    DateOfEvent: Date of event
+    DateOfEventFrom: from
+    DateOfEventTo: to
+    Source: Source
+    GotoSection: go to section
+
+
+
 calendar:
     full:
         Jan: January

@@ -5,18 +5,32 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 
 class RenderController extends Controller {
-	public function footerMenuElementsAction() {
+    public function snippetAction($entity, $itemId, $view) { //rename to: renderSnippetAction()
+        $communicator = $this->get('special_project_neighbors_communicator');
+        $entityDescription = $communicator->getFriendlyEntityDescription($entity);
+        $twigFile = $communicator->getFriendlyEntityTwig($entity, $view);
+
+        $object = $this->getDoctrine()->getRepository($entityDescription['class'])->find($itemId);
+
+        if (!$object) {
+            return $this->render('DamediaSpecialProjectBundle:Neighbors:notExists.html.twig', array('entity' => $entity, 'itemId' => $itemId));
+        }
+
+        return $this->render($twigFile, array('object' => $object));
+    }
+
+    public function footerMenuElementsAction() {
 		$pageRepository = $this->getDoctrine()->getRepository('DamediaSpecialProjectBundle:Page');
     	$pages = $pageRepository->findBy(array('parent' => null, 'isPublished' => true), array('id' => 'ASC'));
-    	
+
     	$menuElements = array();
     	foreach ($pages as $page) {
     		$menuElements[] = array('href' => $this->generateUrl('damedia_special_project_view', array('slug' => $page->getSlug())), 'caption' => $page->getTitle());
     	}
-		
+
 		return $this->render('DamediaSpecialProjectBundle:Default:footerMenu.html.twig', array('ProjectsFooterMenu' => $menuElements));
 	}
-	
+
 	public function indexAction() {
         $helper = $this->get('special_project_helper');
         $breadcrumbs = $helper->createInitialBreadcrumbsArray($this);
@@ -34,8 +48,8 @@ class RenderController extends Controller {
             if (count($children) > 0) {
                 foreach ($children as $child) {
                     $projects[] = array('href' => $this->generateUrl('damedia_special_project_view', array('slug' => $child->getSlug())),
-                        'caption' => $child->getTitle(),
-                        'padding' => 1);
+                                        'caption' => $child->getTitle(),
+                                        'padding' => 1);
                 }
             }
         }
@@ -44,12 +58,25 @@ class RenderController extends Controller {
                                                                                           'Breadcrumbs' => $breadcrumbs,
                                                                                           'Projects' => $projects));
 	}
-	
-    public function viewAction($slug) {
+
+    public function viewAction($slug) { //rename to: previewPageAction()
     	$pageRepository = $this->getDoctrine()->getRepository('DamediaSpecialProjectBundle:Page');
         $page = $pageRepository->findOneBy(array('slug' => $slug, 'isPublished' => true));
         $helper = $this->get('special_project_helper');
 
         return $helper->renderSpecialProjectPage($this, $page, 'Страница <span class="variable">'.$slug.'</span> не опубликована или не существует!');
+    }
+
+    /**
+     * @param string $date
+     * @return Response
+     */
+    public function mainpageWidgetAction($date = '')
+    {
+        /** @var \Damedia\SpecialProjectBundle\Repository\PageRepository $pageRepository */
+        $pageRepository = $this->getDoctrine()->getRepository('DamediaSpecialProjectBundle:Page');
+        $projects = $pageRepository->findForMainPage($date, 5);
+
+        return $this->render('DamediaSpecialProjectBundle:Default:mainpageWidget.html.twig', array('projects' => $projects));
     }
 }

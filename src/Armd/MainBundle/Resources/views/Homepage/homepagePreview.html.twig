@@ -1,0 +1,31 @@
+{% extends ':Frontend:new_base.html.twig' %}
+
+{% block title %}{{ 'Portal title'|trans }}{% endblock %}
+
+{% block body %}
+
+    {% render 'ArmdNewsBundle:News:mainpageWidget' with { 'date': date } %}
+
+    {% render 'ArmdAtlasBundle:Default:mainpageWidget' with { 'date': date } %}
+
+    {% render 'DamediaSpecialProjectBundle:Render:mainpageWidget' with { 'date': date } %}
+
+    <div class="b-main-wrap b-block-main clearfix b-block-double">
+
+        {% render 'ArmdLectureBundle:Default:mainpageWidget' with { 'date': date } %}
+
+        {% render 'ArmdMuseumBundle:Default:mainpageWidget' with { 'date': date } %}
+
+    </div>
+
+    {% render 'ArmdPerfomanceBundle:Perfomance:mainpageWidget' with { 'date': date } %}
+
+    {% render 'ArmdLectureBundle:Default:mainpageLectureWidget' with { 'date': date } %}
+
+
+{% endblock %}
+
+{% block sidebar %}
+    {% render 'ActualInfoBundle:Default:mainpageWidget' with { 'date': date } %}
+    {% render 'BlogBundle:Default:lastPost' %}
+{% endblock %}

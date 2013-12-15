@@ -9,8 +9,13 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Damedia\SpecialProjectBundle\Entity\Page;
 use Damedia\SpecialProjectBundle\Entity\Block;
 use Damedia\SpecialProjectBundle\Entity\Chunk;
+use Damedia\SpecialProjectBundle\Form\Type\NewsSelectType;
 
 use Sonata\AdminBundle\Route\RouteCollection;
+
+use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\FormEvent;
+use Doctrine\ORM\EntityRepository;
 
 class PageAdmin extends Admin {
     const LABEL_ID = 'ID';
@@ -23,6 +28,11 @@ class PageAdmin extends Admin {
     const LABEL_JAVASCRIPT = 'Javascript';
     const LABEL_IS_PUBLISHED = 'Опубликован';
     const LABEL_TEMPLATE_ID = 'Шаблон';
+    const LABEL_SHOW_ON_MAIN = 'Показывать на главной';
+    const LABEL_SHOW_ON_MAIN_FROM = 'Показывать на главной с';
+    const LABEL_SHOW_ON_MAIN_TO = 'Показывать на главной до';
+    const LABEL_BANNER_IMAGE = 'Баннер';
+    const LABEL_NEWS = 'Связанные новости';
 
     const LABEL_ACTIONS = 'Управление';
 
@@ -45,7 +55,12 @@ class PageAdmin extends Admin {
         $userData = $this->getBlocksContentFromRequest();
         $entityManager = $this->getEntityManager();
 
+        $container = $this->getConfigurationPool()->getContainer();
+        $snippetParser = $container->get('special_project_snippet_parser');
+
         foreach ($userData as $placeholder => $content) {
+            $snippetParser->html_to_entities($content);
+
             $block = $this->createBlock($entityManager, $object, $placeholder);
             $this->createChunksForBlock($entityManager, $block, $content);
         }
@@ -57,9 +72,14 @@ class PageAdmin extends Admin {
         $userData = $this->getBlocksContentFromRequest();
         $entityManager = $this->getEntityManager();
 
+        $container = $this->getConfigurationPool()->getContainer();
+        $snippetParser = $container->get('special_project_snippet_parser');
+
         $pageBlocks = $this->getBlocksForPageId($object->getId(), 'mappedByBlockPlaceholder'); // use $page->getBlocks() and do mapping!!!
 
         foreach ($userData as $placeholder => $content) {
+            $snippetParser->html_to_entities($content);
+
             if (!isset($pageBlocks[$placeholder])) {
                 $block = $this->createBlock($entityManager, $object, $placeholder);
             }
@@ -83,7 +103,6 @@ class PageAdmin extends Admin {
         foreach ($blocksChunks as $chunk) {
             $entityManager->remove($chunk);
         }
-        //$entityManager->flush();
 
         foreach ($pageBlocks as $block) {
             $entityManager->remove($block);
@@ -94,16 +113,19 @@ class PageAdmin extends Admin {
 
 
     protected function configureFormFields(FormMapper $formMapper) {
+        $isNew = ($this->getSubject() && !$this->getSubject()->getId());
+        $pageId = $isNew ? null : $this->getSubject()->getId();
+
         $formMapper->add('title', null,
             array('label' => $this::LABEL_TITLE));
 
         $formMapper->add('slug', null,
             array('label' => $this::LABEL_SLUG,
                   'required' => false));
-        
+
         $formMapper->add('parent', null,
-        	array('label' => $this::LABEL_PARENT,
-        		  'required' => false));
+            array('label' => $this::LABEL_PARENT,
+                  'required' => false));
 
         $formMapper->add('template', 'entity',
             array('label' => $this::LABEL_TEMPLATE_ID,
@@ -123,6 +145,45 @@ class PageAdmin extends Admin {
         $formMapper->add('isPublished', null,
             array('label' => $this::LABEL_IS_PUBLISHED,
                   'required' => false));
+
+        $formMapper->add('showOnMain', null,
+            array('label' => $this::LABEL_SHOW_ON_MAIN,
+                  'required' => false));
+
+        $formMapper->add('showOnMainFrom', null,
+            array('label' => $this::LABEL_SHOW_ON_MAIN_FROM,
+                  'required' => false));
+
+        $formMapper->add('showOnMainTo', null,
+            array('label' => $this::LABEL_SHOW_ON_MAIN_TO,
+                  'required' => false));
+
+        $formMapper->add('bannerImage', 'armd_media_file_type',
+            array('label' => $this::LABEL_BANNER_IMAGE,
+                  'required' => $isNew,
+                  'with_remove' => false,
+                  'media_context' => 'sproject_banner',
+                  'media_provider' => 'sonata.media.provider.image'));
+
+        $formMapper->add('news', new NewsSelectType($pageId),
+            array('label' => $this::LABEL_NEWS,
+                  'required' => false));
+
+        $formBuilder = $formMapper->getFormBuilder();
+        $formFactory = $formBuilder->getFormFactory();
+        $formBuilder->addEventListener(FormEvents::PRE_BIND, function(FormEvent $event) use ($formFactory, $pageId){
+            $form = $event->getForm();
+
+            if ($form->has('news')) {
+                $form->remove('news');
+            }
+
+            $form->add($formFactory->createNamed('news', new NewsSelectType($pageId), null,
+                array('required' => false,
+                      'query_builder' => function(EntityRepository $er) {
+                          return $er->createQueryBuilder('g');
+                      })));
+        });
     }
 
     protected function configureListFields(ListMapper $listMapper) {
@@ -138,12 +199,9 @@ class PageAdmin extends Admin {
 
         $listMapper->add('slug', null,
             array('label' => $this::LABEL_SLUG));
-        
+
         $listMapper->add('parent', null,
         	array('label' => $this::LABEL_PARENT));
-
-        $listMapper->add('created', null,
-            array('label' => $this::LABEL_CREATED));
 
         $listMapper->add('updated', null,
             array('label' => $this::LABEL_UPDATED));
@@ -151,8 +209,14 @@ class PageAdmin extends Admin {
         $listMapper->add('isPublished', null,
             array('label' => $this::LABEL_IS_PUBLISHED));
 
+        $listMapper->add('showOnMain', null,
+            array('label' => $this::LABEL_SHOW_ON_MAIN, 'editable' => true));
+
         $listMapper->add('template', null,
             array('label' => $this::LABEL_TEMPLATE_ID));
+
+        $listMapper->add('news', null,
+            array('label' => $this::LABEL_NEWS));
     }
 
     protected function configureRoutes(RouteCollection $collection) {

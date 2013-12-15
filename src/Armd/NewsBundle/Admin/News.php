@@ -24,7 +24,7 @@ class News extends Admin
     protected $container;
 
     protected $datagridValues = array(
-        '_sort_by'      => 'newsDate',    
+        '_sort_by'      => 'newsDate',
         '_sort_order'   => 'DESC',
     );
 
@@ -45,14 +45,14 @@ class News extends Admin
             ->add('corrected')
             ->add('title')
             ->add('announce')
-            ->add('body' )
-            ->add('newsDate')   
-            ->add('date')                            
-            ->add('showOnMain')
-            ->add('showOnMainOrd')
+            ->add('body')
+            ->add('newsDate')
+            ->add('date')
+//            ->add('showOnMain')
+//            ->add('showOnMainOrd')
         ;
-        
-        parent::configureShowField($showMapper);        
+
+        parent::configureShowFields($showMapper);
     }
 
     /**
@@ -60,12 +60,13 @@ class News extends Admin
      *
      * @return void
      */
-    protected function configureFormFields(FormMapper $formMapper)
-    {
+    protected function configureFormFields(FormMapper $formMapper) {
         $article = $this->getSubject();
+
         if (!empty($article) && $article->getCategory() && !$article->getCategory()->getFiltrable()) {
             $dateFormType = 'armd_simple_date';
-        } else {
+        }
+        else {
             $dateFormType = null;
         }
 
@@ -74,20 +75,18 @@ class News extends Admin
                 ->add('corrected', null, array('required' => false, 'disabled' => ($this->container->get('security.context')->isGranted('ROLE_CORRECTOR') ? false : true )))
                 ->add('newsDate', $dateFormType)
                 ->add('title')
-                ->add('announce')
-                ->add('body', null, array(
-                    'attr' => array('class' => 'tinymce', 'data-theme' => 'news'),
-                ))
+                ->add('announce', null, array('attr' => array('class' => 'span12')))
+                ->add('body', null, array('attr' => array('class' => 'tinymce')))
                 ->add('source')
             ->end()
-            ->with('Главная')
-                ->add('showOnMain', null, array(
-                    'required' => false
-                ))
-                ->add('showOnMainOrd', null, array(
-                    'required' => false
-                ))                
-            ->end()
+//            ->with('Главная')
+//                ->add('showOnMain', null, array(
+//                    'required' => false
+//                ))
+//                ->add('showOnMainOrd', null, array(
+//                    'required' => false
+//                ))
+//            ->end()
             ->with('Classification')
                 ->add('category')
                 ->add('tags', 'armd_tag', array('required' => false, 'attr' => array('class' => 'select2-tags')))
@@ -95,6 +94,7 @@ class News extends Admin
                 ->add('important', null, array('required' => false))
                 ->add('priority')
                 ->add('countryDistrict')
+                ->add('projects', null, array('required' => false, 'attr' => array('class' => 'chzn-select atlas-object-categories-select')))
             ->end()
             ->with('Publish')
                 ->add('published', null, array('required' => false))
@@ -110,7 +110,7 @@ class News extends Admin
                 ->add('seoKeywords')
                 ->add('seoDescription')
             ->end()
-            ->with('Media')                
+            ->with('Media')
                 ->add('image', 'sonata_type_model_list', array('required' => false), array('link_parameters'=>array('context'=>'news')))
                 ->add('gallery', 'sonata_type_model_list', array('required' => false), array('link_parameters'=>array('context'=>'news')))
                 //->add('video', 'armd_tvigle_video_selector', array('required' => false))
@@ -123,10 +123,7 @@ class News extends Admin
                 ->add('theme')
             ->end()
             ->with('Stuff')
-            ->add(
-                'stuff',
-                'collection',
-                array(
+                ->add('stuff', 'collection', array(
                     'type' => 'armd_media_file_type',
                     'allow_add' => true,
                     'allow_delete' => true,
@@ -141,10 +138,8 @@ class News extends Admin
                         'with_description' => true,
                     ),
                     'attr' => array('class' => 'armd-sonata-images-collection'),
-                )
-            )
-            ->end()
-        ;
+                ))
+            ->end();
 
         parent::configureFormFields($formMapper);
     }
@@ -155,27 +150,28 @@ class News extends Admin
      * @return void
      */
     protected function configureListFields(ListMapper $listMapper)
-    {        
+    {
         $listMapper
             ->addIdentifier('title')
             ->add('corrected')
-            ->add('showOnMain')
-            ->add('showOnMainOrd')
+//            ->add('showOnMain', null, array('editable' => true))
+//            ->add('showOnMainOrd')
             ->add('newsDate')
-            ->add('date')            
+            ->add('date')
             ->add('category')
-            ->add('subject')            
-            ->add('important')                  
-            ->add('published')                            
+            ->add('subject')
+            ->add('important')
+            ->add('published', null, array('editable' => true))
             ->add('isOnMap')
         ;
-        
-        parent::configureListFields($listMapper);        
+
+        parent::configureListFields($listMapper);
     }
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
+            ->add('id')
             ->add('corrected')
             ->add('title')
             ->add('category')
@@ -183,8 +179,8 @@ class News extends Admin
             ->add('published')
             ->add('important')
             ->add('isOnMap')
-            ->add('showOnMain')
-            ->add('showOnMainOrd')
+//            ->add('showOnMain')
+//            ->add('showOnMainOrd')
         ;
     }
 
@@ -223,7 +219,7 @@ class News extends Admin
         // retrieve the default (currently only the delete action) actions
         $actions = parent::getBatchActions();
 
-        
+
         // check user permissions
         if($this->hasRoute('edit') && $this->isGranted('EDIT') && $this->hasRoute('delete') && $this->isGranted('DELETE')){
             // /*
@@ -237,7 +233,7 @@ class News extends Admin
             );
             // */
         }
-        
+
         return $actions;
-    }    
+    }
 }
