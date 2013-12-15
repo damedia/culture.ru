@@ -21,15 +21,17 @@ class NewsSelectType extends AbstractType {
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver) {
+        $pageId = $this->pageId;
+
         $resolver->setDefaults(array(
             'attr' => array('class' => 'chzn-select atlas-object-categories-select'),
             'multiple' => true,
             'class' => 'Armd\NewsBundle\Entity\News',
-            'query_builder' => function(EntityRepository $er) {
+            'query_builder' => function(EntityRepository $er) use ($pageId) {
                 return $er->createQueryBuilder('g')
                           ->innerJoin('g.projects', 'p')
                           ->where('p.id = :id')
-                          ->setParameter('id', $this->pageId);
+                          ->setParameter('id', $pageId);
             }));
     }
 }
