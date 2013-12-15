@@ -11,6 +11,9 @@ use Armd\PerfomanceBundle\Entity\PerfomanceManager;
 class DefaultController extends Controller
 {
     static $limit = 24;
+    private $palette_color = 'palette-color-5';
+
+    const PALETTE_COLOR_HEX = '#5E3878';
 
     protected function getTheaterOrders()
     {
@@ -27,9 +30,26 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/list/{category}", name="armd_theater_list",
-     *      requirements={"category"="\d+"}, defaults={"category"=0}, options={"expose"=true}
-     * )
+     * @Route("/hub/{category}", name="armd_theaters_hub", defaults={"category"=null}, options={"expose"=true})
+     * @Template("ArmdTheaterBundle:Default:index.html.twig")
+     */
+    public function hubIndexAction($category) {
+        $em = $this->getDoctrine()->getManager();
+
+        $performancesGenres = $em->getRepository('\Armd\PerfomanceBundle\Entity\PerfomanceGanre')->findAll();
+        $theaters = $em->getRepository('\Armd\TheaterBundle\Entity\Theater')->findBy(array(), array('title' => 'ASC'));
+
+        return array(
+            'performancesGenres' => $performancesGenres,
+            'theaters' => $theaters,
+            'currentCategory' => $category,
+            'palette_color' => $this->palette_color,
+            'palette_color_hex' => self::PALETTE_COLOR_HEX
+        );
+    }
+
+    /**
+     * @Route("/list/{category}", name="armd_theater_list", requirements={"category"="\d+"}, defaults={"category"=0}, options={"expose"=true})
      * @Template("ArmdTheaterBundle:Default:theater_list.html.twig")
      */
     public function theaterListAction($category = 0)

@@ -1,0 +1,94 @@
+{% extends ':Frontend:new_base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    <link rel="stylesheet" href="{{ asset('vendor/selectgroup/jquery.ui.selectgroup.css') }}" />
+
+    <style type="text/css">
+        ul.hub-menu li a:hover {
+            color: {{ palette_color_hex }};
+        }
+        .performances-search-category-submit:hover {
+            color: #ffffff !important;
+            background-color: {{ palette_color_hex }};
+        }
+    </style>
+{% endblock %}
+
+{% block title %}{{ 'Theater'|trans }}{% endblock %}
+
+{% block body %}
+    <div class="marginBottom50">
+        <h1 class="b-left-title">
+            {% if currentCategory == 'theaters' %}
+                {{ 'Theaters'|trans }}
+            {% elseif currentCategory == 'performances' %}
+                {{ 'Performances'|trans }}
+            {% else %}
+                {{ 'TheatersAndPerformances'|trans }}
+            {% endif %}
+        </h1>
+
+        {{ include('ArmdTheaterBundle:Default:hub_menu.html.twig', { 'palette_color': palette_color, 'currentCategory': currentCategory }) }}
+    </div>
+
+    {% if currentCategory == 'performances' or currentCategory is empty %}
+        {% render 'ArmdPerfomanceBundle:Perfomance:mainpageWidget' %}
+
+        <div class="b-performances-hub-section">
+            <!-- TOTAL COUNT CIRCLE -->
+
+            {{ include('ArmdTheaterBundle:Default:performances_filters_section.html.twig', { 'theaters': theaters, 'genres': performancesGenres }) }}
+
+            THEATERS LIST 2 rows of 4 items each
+
+            SHOW MORE BUTTON
+        </div>
+    {% endif %}
+
+    {% if currentCategory == 'theaters' or currentCategory is empty %}
+        <div style="background-color: #d3d3d3; margin-top: 70px;">
+            theaters list
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block sidebar %}{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript" src="{{ asset('vendor/jquery-ui/jquery-ui-1.8.24.custom.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('vendor/selectgroup/jquery.ui.selectgroup.js') }}"></script>
+    <script type="text/javascript">
+        $(window).load(function(){
+            $('#theater_block').removeClass('b-main-wrap marginBottomImportant88').find('.b-button-wrapper').remove();
+
+            /* Activate jQuery widgets for filter selects. */
+            $('select.uni').each(function(){
+                $(this).selectgroup({
+                    select: function(){
+                        alert('shit!');
+                    }
+                });
+            });
+            $('#performances-searchButton').on('click', function(){
+                alert('filter!');
+            });
+            $('body').on('click', '.ui-selectgroup-list a, .ui-selectgroup-list a', function(event){
+                var selectedOption = $(this),
+                    value = selectedOption.attr('data-value'),
+                    containerFor = selectedOption.parents('ul').attr('aria-labelledby');
+
+                if (containerFor === 'ui-theaters') {
+                    console.log('filterByTheater');
+                }
+
+                if (containerFor === 'ui-genres') {
+                    console.log('filterByGenre');
+                }
+            });
+        });
+    </script>
+{% endblock %}

@@ -161,7 +161,8 @@ Redirect after: Вы будете перенаправлены на Главну
 auth_account: Личный кабинет
 auth_logout: Выход
 auth_register: Регистрация
-auth_login: Вход
+auth_login: Войти
+auth_or: или
 site_search: Поиск по сайту
 
 ministerstvo: Министерство культуры<br/>Российской Федерации

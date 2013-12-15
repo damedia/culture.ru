@@ -1,4 +1,7 @@
 Theaters: Театры
+Performances: Спектакли
+TheatersAndPerformances: Театры и спектакли
+
 Theater: Театр
 Theater List: Театры
 Theater categories: Категории театров
@@ -40,3 +43,7 @@ Thursday: Четверг
 Friday: Пятница
 Saturday: Суббота
 Sunday: Воскресенье
+
+search_category:
+    theater: театр
+    genre: жанр

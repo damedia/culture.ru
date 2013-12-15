@@ -162,6 +162,7 @@ auth_account: Account
 auth_logout: Logout
 auth_register: Register
 auth_login: Login
+auth_or: or
 site_search: Site search
 
 ministerstvo: Ministry of Culture <br/> of the Russian Federation

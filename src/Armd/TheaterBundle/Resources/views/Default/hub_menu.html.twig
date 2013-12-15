@@ -1,0 +1,19 @@
+{% set menuCounter = 1 %}
+
+<ul class="hub-menu">
+    <li>
+        <a{% if currentCategory is empty %} class="{{ palette_color }}"{% endif %} href="{{ path('armd_theaters_hub') }}">
+            {{- 'Hub.MenuAll'|trans -}}
+        </a>
+    </li>
+
+    <li>
+        <a{% if currentCategory == 'theaters' %} class="{{ palette_color }}"{% endif %} href="{{ path('armd_theaters_hub', { 'category': 'theaters' }) }}">
+            {{- 'Theaters'|trans -}}</a>
+    </li>
+
+    <li>
+        <a{% if currentCategory == 'performances' %} class="{{ palette_color }}"{% endif %} href="{{ path('armd_theaters_hub', { 'category': 'performances' }) }}">
+            {{- 'Performances'|trans -}}</a>
+    </li>
+</ul>

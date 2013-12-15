@@ -69,8 +69,8 @@ class PerfomanceController extends Controller
 			'load_count' => self::$count,
 			'ganres' => $this -> getEntityManager() -> getRepository('\Armd\PerfomanceBundle\Entity\PerfomanceGanre') -> findAll(),
 			'theaters' => $this->getEntityManager()->getRepository('\Armd\TheaterBundle\Entity\Theater')->findBy(array(), array('title' => 'ASC')),
-                        'ganreId' => $ganreId,
-                        'theaterId' => $theaterId,
+            'ganreId' => $ganreId,
+            'theaterId' => $theaterId,
 			'searchQuery' => $request->get('search_query'),
 			'abc' => self::$abc
 		);

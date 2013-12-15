@@ -146,7 +146,7 @@ class Builder extends ContainerAware {
         $moviesMenu->setAttribute('class', 'm-color-4');
 
         //Theaters
-        $theatersMenu = $menu->addChild('menu.theaters', array('route' => 'armd_theater_list'));
+        $theatersMenu = $menu->addChild('menu.theater', array('route' => 'armd_theaters_hub')); //armd_theater_list
         $theatersMenu->setAttribute('class', 'm-color-5');
 
         //Performances

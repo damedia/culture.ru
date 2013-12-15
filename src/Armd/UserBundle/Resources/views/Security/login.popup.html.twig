@@ -1,6 +1,14 @@
 <div class="lk-form login-popup">
     <form action="{{ path("fos_user_security_check") }}" method="post">
-        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}"/>
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+
+        {% render url('armd_social_auth_auth_links', {'redirectUrl': path('armd_main_homepage') }) %}
+
+        <div class="separator">
+            <div class="separator-inner">
+                {{ 'auth_or'|trans }}
+            </div>
+        </div>
 
         <dl class="clearfix">
             {% if error %}
@@ -45,6 +53,5 @@
                 <li><a href="{{ path('fos_user_resetting_request') }}">{{ 'Forgot your password'|trans }}?</a></li>
             </ul>
         </div>
-        {% render url('armd_social_auth_auth_links', {'redirectUrl': path('armd_main_homepage') }) %}
     </form>
 </div>

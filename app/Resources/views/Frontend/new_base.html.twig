@@ -25,13 +25,19 @@
 <link rel="SHORTCUT ICON" href="favicon.ico" />
 
 {% block stylesheets %}
+    <link rel="stylesheet" href="/css/new/jquery-ui.min.css" type="text/css"/>
+
     <link rel="stylesheet" href="/vendor/qtip/jquery.qtip.css" type="text/css"/>
+    <link rel="stylesheet" href="{{ asset('bundles/armdsocialauth/css/styles.css') }}" type="text/css"/>
+
     <link href="/css/new/screen.css" media="screen, projection" rel="stylesheet" type="text/css"/>
     <!--[if lt IE 9]><link rel="stylesheet" media="screen" href="/css/new/ie.css" /><![endif]-->
 {% endblock %}
 
 {% block javascripts %}
     <script src="/js/new/jquery.min.js" type="text/javascript"></script>
+    <script src="/js/new/jquery-ui.min.js" type="text/javascript"></script>
+
     <script src="/js/new/jquery.carouFredSel-6.2.1-packed.js" type="text/javascript"></script>
     <script src="/js/new/init.js" type="text/javascript"></script>
     <script src="/js/core.js" type="text/javascript" ></script>
@@ -65,6 +71,16 @@
         });
 
         $(window).load(function(){
+            $('#login-link').on('click', function(event){
+                event.preventDefault();
+
+                $('#login-popup').dialog({
+                    modal: true,
+                    width: 400,
+                    height: 500
+                });
+            });
+
             $('.b-main-slides').each(function(){
                 var slider = $(this),
                         paginationContainer = $('<div />', {'class': 'b-pagination-nav'}),

@@ -1,13 +1,15 @@
 <div class="social-auth">
-    <span>
-        {{ 'Social network login'|trans }}:
-        <ul class="social-auth-links">
-            {#<li><a class="vkontakte" href="{{ path('armd_social_auth_vkontakte_auth_dialog') }}"></a></li>#}
-            <li><a class="vkontakte" href="{{ path('armd_social_auth_auth_result', {'armd_social_auth_provider': 'vkontakte'}) }}"></a></li>
-            <li><a class="facebook" href="{{ path('armd_social_auth_auth_result', {'armd_social_auth_provider': 'facebook'}) }}"></a></li>
-            {#<li><a class="twitter" href="{{ path('armd_social_auth_auth_result', {'armd_social_auth_provider': 'twitter'}) }}"></a></li>#}
-            {#<li><a class="google" href="{{ path('armd_social_auth_google_auth_dialog') }}"></a></li>#}
-            {#<li><a class="odnoklassniki" href="{{ path('armd_social_auth_odnoklassniki_auth_dialog') }}"></a></li>#}
-        </ul>
-    </span>
+    <span>{{ 'LoginViaSocialNetwork'|trans }}:</span>
+    <ul class="social-auth-links">
+        <li>
+            <a class="vkontakte" href="{{ path('armd_social_auth_auth_result', {'armd_social_auth_provider': 'vkontakte'}) }}"></a>
+        </li>
+        <li>
+            <a class="facebook" href="{{ path('armd_social_auth_auth_result', {'armd_social_auth_provider': 'facebook'}) }}"></a>
+        </li>
+
+        {#<li><a class="twitter" href="{{ path('armd_social_auth_auth_result', {'armd_social_auth_provider': 'twitter'}) }}"></a></li>#}
+        {#<li><a class="google" href="{{ path('armd_social_auth_google_auth_dialog') }}"></a></li>#}
+        {#<li><a class="odnoklassniki" href="{{ path('armd_social_auth_odnoklassniki_auth_dialog') }}"></a></li>#}
+    </ul>
 </div>
