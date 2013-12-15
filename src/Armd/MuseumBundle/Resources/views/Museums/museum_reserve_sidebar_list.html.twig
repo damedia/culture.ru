@@ -1,0 +1,18 @@
+{% for museum in museum_reserve %}
+    {% if loop.index % 4 == 1 %}
+        <div class="museums-sidebar-list-chunk {% if loop.first %}active{% else %}displayNone{% endif %}">
+    {% endif %}
+
+    <a href="{{ path('armd_atlas_default_object_view', {id: museum.atlasObject.id}) }}" class="displayBlock noTextDecoration">
+        {% for h in museum.atlasObject.images|slice(0, 1) %}
+            {% thumbnail h, 'sideBanner' with {'alt': museum.title, 'class': 'greyBackground displayBlock', 'width': 240, 'height': 'auto'} %}
+        {% endfor %}
+        <span class="sidebar-item-title museums-sidebar-item-title">
+            {{ museum.title }}
+        </span>
+    </a>
+
+    {% if (loop.index % 4 == 0) or loop.last %}
+        </div>
+    {% endif %}
+{% endfor %}

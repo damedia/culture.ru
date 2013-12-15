@@ -1,6 +1,8 @@
-reviews_auth_require: Чтобы оставлять рецензии необходимо <a href="%loginUrl%">авторизоваться</a> на сайте.
-LECTURE_SUPER_TYPE_LECTURE: Лекции
-LECTURE_SUPER_TYPE_VIDEO_TRANSLATION: Трансляции
+LECTURE_SUPER_TYPE_LECTURE: Лекция
+LECTURE_SUPER_TYPE_VIDEO_TRANSLATION: Трансляция
 LECTURE_SUPER_TYPE_CINEMA: Кино
 LECTURE_SUPER_TYPE_TOP100: 100 фильмов для школьников
-LECTURE_SUPER_TYPE_PERFOMANCES: Спектакли
+LECTURE_SUPER_TYPE_PERFOMANCES: Спектакль
+LECTURE_SUPER_TYPE_NEWS: Видео
+
+reviews_auth_require: Чтобы оставлять рецензии необходимо <a href="%loginUrl%">авторизоваться</a> на сайте.

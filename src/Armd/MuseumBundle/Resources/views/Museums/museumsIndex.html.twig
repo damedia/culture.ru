@@ -1,0 +1,239 @@
+{% extends ':Frontend:new_base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    <link rel="stylesheet" href="{{ asset('vendor/selectgroup/jquery.ui.selectgroup.css') }}" />
+    <link rel="stylesheet" href="{{ asset('vendor/fancybox/jquery.fancybox.css') }}" />
+    <style type="text/css">
+        div.PGmap-copyright {
+            display: none;
+        }
+        div.PGmap-bottomcenter-container > div {
+            display: none;
+        }
+        div.PGmap-controls-container {
+            display: none;
+        }
+        ul.hub-menu li a:hover {
+            color: {{ palette_color_hex }};
+        }
+    </style>
+{% endblock %}
+
+{% block title %}{{ 'MuseumsOfRussia'|trans }}{% endblock %}
+
+{% block body %}
+    <div class="b-post fullWidth overflowVisible positionRelative">
+        <h1 class="b-left-title">
+            {{ 'MuseumsOfRussia'|trans }}
+        </h1>
+
+        {{ include('ArmdMuseumBundle:Museums:hub_menu.html.twig', {'palette_color': palette_color, 'currentCategory': currentCategory}) }}
+
+        {% if currentCategory == 'virtual' %}
+            {% render url('armd_museum_indexWidget') %}
+
+            <div class="dottedLine-left"></div>
+            <div class="header-text-medium museums-hub-list-header width210">
+                {{ 'VirtualTours'|trans }}
+            </div>
+
+            <div class="museums-virtual-tours-icon"></div>
+
+            <a href="#instruction" class="{{ palette_color }} displayBlock virt-museum-instr">
+                {{ 'OperationManual'|trans }}
+            </a>
+
+            <div id="instruction" class="displayNone">
+                <div class="window">
+                    <div class="block window-content">
+                        {% include 'ArmdMuseumBundle:Default:instruction.'~app.request.locale~'.html.twig' %}
+                    </div>
+                </div>
+            </div>
+
+            <!--
+            We also have SEARCH FILTERS here ready to use, but they were not on designed prototype.
+
+            <div class="search-category">
+                <form id="museums-filter-form" action="{#{ path('armd_museum_list') }#}">
+                    <span class="search-dates-label">{{ "search.select"|trans }}</span>
+                    <div class="search-category-selects">
+                        <select name="region" id="filter-region" class="uni">
+                            <option value="">{{ "search.region"|trans }}</option>
+                            {% for region in regions %}
+                                <option value="{{ region.id }}" {% if region.id == regionId %}selected="selected"{% endif %}>{{ region.title }}</option>
+                            {% endfor %}
+                        </select>
+                        <select name="category" id="filter-category" class="uni">
+                            <option value="">{{ "search.category"|trans }}</option>
+                            {% for category in categories %}
+                                <option value="{{ category.id }}">{{ category.title }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <button type="submit" class="button search-dates-button">{{ "search.show"|trans }}</button>
+                </form>
+            </div>
+            -->
+
+            <div id="museums-items-list">
+                {% render url('armd_museum_list') %}
+            </div>
+
+            <div class="width700">
+                <div id="museums-showMore" title="{{ 'ShowMore'|trans }}"></div>
+            </div>
+        {% elseif currentCategory == 'museum_reserve' %}
+            <div class="positionRelative">
+                <span class="museums-hub-background-left"></span>
+                <span class="museums-hub-background-right"></span>
+            </div>
+
+            <div class="header-text-medium whiteBackground width225">
+                {{ 'MuseumsReserves'|trans }}
+            </div>
+
+            <div id="museumsReserves-items-list" class="marginTop30">
+                {% render url('armd_museum_reserve_list') %}
+            </div>
+        {% else %}
+            Unknown museums category = '{{ currentCategory }}'!
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block sidebar %}
+    {% if currentCategory == 'virtual' %}
+        {% render url('armd_museum_indexSidebar') %}
+
+        <div class="palette-colored-box-3 greyBackground marginTop123">
+            <div class="header-text-medium textAlignCenter museums-sidebar-header">
+                {{ 'MuseumsReserve'|trans }}
+            </div>
+
+            <div id="museums-sidebar-list-placeholder">
+                {% render url('armd_main_museum_reserve_sidebar_list') %}
+            </div>
+
+            <div id="museums-sidebar-list-next-set-button" class="goto-link-button noTextDecoration fullWidth noPadding" data-role="button">
+                {{ 'NextButton'|trans }}
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript" src="{{ asset('vendor/jquery.form.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('vendor/jquery-ui/jquery-ui-1.8.24.custom.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('vendor/chosen/chosen.jquery.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('vendor/fancybox/jquery.fancybox.js?v=2.0.6') }}"></script>
+    <script type="text/javascript" charset="utf-8" src="http://js.tmcrussia.com/?{{ progorod_api_key }}&version=0.1.8"></script>
+    <script type="text/javascript" src="{{ asset('bundles/damediaatlasjsmodule/js/module.atlas.js') }}"></script>
+    <script type="text/javascript">
+        {% if currentCategory == 'virtual' %}
+            $(window).load(function(){
+                var instruction = $('.virt-museum-instr'),
+                    slider = $('#museums-images-widget-placeholder'),
+                    sliderNav = slider.find('div.b-pagination-nav'),
+                    sliderItems = slider.find('ul#museum_widget > li'),
+                    sidebarMapPlaceholder = $('#slider-museum-item-map-placeholder'),
+                    sidebarInfoPlaceholder = $('#slider-museum-item-info-placeholder'),
+                    info_address = sidebarInfoPlaceholder.find('span[data-info="address"]'),
+                    info_siteUrl = sidebarInfoPlaceholder.find('span[data-info="siteUrl"]'),
+                    info_phone = sidebarInfoPlaceholder.find('span[data-info="phone"]'),
+                    info_workTime = sidebarInfoPlaceholder.find('span[data-info="workTime"]'),
+                    setupMapForCurrentItem = function(){
+                        var currentItemNavHref = sliderNav.find('ul > li.selected > a').attr('href'),
+                                currentItemNumber = parseInt(currentItemNavHref.substring(1), 10) - 1,
+                                currentItem = $(sliderItems[currentItemNumber]),
+                                sidebar = currentItem.find('div.item-title-side'),
+                                mapHolder = sidebar.find('div.circle'),
+                                mapHolderId = mapHolder.attr('id'),
+                                objectId = mapHolder.attr('data-id'),
+                                objectLon = mapHolder.attr('data-lon'),
+                                objectLat = mapHolder.attr('data-lat'),
+                                objectAddress = sidebar.find('span[data-info="address"]').html(),
+                                objectSiteUrl = sidebar.find('span[data-info="siteUrl"]').html(),
+                                objectPhone = sidebar.find('span[data-info="phone"]').html(),
+                                objectWorkTime = sidebar.find('span[data-info="workTime"]').html();
+
+                        sidebarMapPlaceholder.html(sidebar.html());
+
+                        ATLAS_MODULE.init({
+                            spotlightId: objectId,
+                            spotlightUrl: Routing.generate('armd_atlas_default_object_view', { id: objectId }),
+                            spotlightImageUrl: '/img/museums_icons/point.png',
+                            pgMap: {
+                                placeholderId: mapHolderId,
+                                locale: '{{ app.request.locale }}',
+                                mapClusterImagesUrl: '{{ asset('bundles/armdatlas/images') }}',
+                                focusX: objectLon,
+                                focusY: objectLat
+                            }
+                        });
+
+                        info_address.html(objectAddress);
+                        info_siteUrl.html('<a href="'+objectSiteUrl+'" class="palette-color-3 fontBold">'+objectSiteUrl+'</a>');
+                        info_phone.html(objectPhone);
+                        info_workTime.html(objectWorkTime);
+                    };
+
+                setupMapForCurrentItem();
+
+                sliderNav.find('ul > li').on('click', function(){
+                    sidebarMapPlaceholder.find('div.PGmap').remove();
+                    setupMapForCurrentItem();
+                });
+
+                if (instruction.length > 0) {
+                    instruction.fancybox({
+                        width: 900,
+                        height: 900,
+                        autoSize: false,
+                        transitionIn: 'none',
+                        transitionOut: 'none'
+                    });
+                }
+
+                /* Show more button */
+                var itemsPlaceholder = $('#museums-items-list');
+
+                $('#museums-showMore').on('click', function(){
+                    var loadedItems = $('.museums-list-item', itemsPlaceholder),
+                        loadedIds = [];
+
+                    $.each(loadedItems, function(){
+                        loadedIds.push($(this).attr('data-id'));
+                    });
+
+                    $.post(Routing.generate('armd_museum_list'), { loadedIds: loadedIds }, function(html){
+                        itemsPlaceholder.append(html);
+                    });
+                });
+
+                /* Show next set of reserve Museums button */
+                var reserveMuseumsPlaceholder = $('#museums-sidebar-list-placeholder');
+
+                $('#museums-sidebar-list-next-set-button').on('click', function(){
+                    var activeChunk = reserveMuseumsPlaceholder.find('div.museums-sidebar-list-chunk.active'),
+                        nextChunk = activeChunk.next();
+
+                    if (nextChunk.length === 0) {
+                        nextChunk = reserveMuseumsPlaceholder.find('div.museums-sidebar-list-chunk:first');
+                    }
+
+                    activeChunk.fadeOut(200, function(){
+                        nextChunk.fadeIn(200, function(){
+                            activeChunk.removeClass('active').addClass('displayNone');
+                            nextChunk.addClass('active').removeClass('displayNone');
+                        });
+                    });
+                });
+            });
+        {% endif %}
+    </script>
+{% endblock %}

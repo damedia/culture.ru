@@ -1,0 +1,23 @@
+<div style="border: 1px solid #EDEDED;">
+    <div class="me-list-image-wrap">
+        {% if object.image %}
+            {% media object.image, 'small' with {'alt': object.title|escape, 'class' : 'me-list-image'} %}
+        {% else %}
+            <img src="/img/me-list-image.png" class="me-list-image">
+        {% endif %}
+    </div>
+    <div class="me-list-text">
+        <h3><a href="{{ path('armd_lesson_item', {'id': object.id }) }}" class="me-list-title">{{ object.title }}</a></h3>
+        <span class="me-list-dates">
+            {{ object.dates }}
+            {% if object.time %}
+                , {{ object.time }}
+            {% endif %}
+        </span>
+        <span class="me-list-place">{{ object.place }}</span>
+        {% if object.city %}
+            <a href="{{ path('armd_lesson_list', {'lesson_city': object.city.id }) }}" class="me-list-region">{{ object.city.title }}</a>
+        {% endif %}
+        <p>{{ object.announce|raw }}</p>
+    </div>
+</div>

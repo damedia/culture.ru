@@ -1,0 +1,3 @@
+damedia_snippet_form:
+    pattern:  admin/damedia/tinymce/snippet/form
+    defaults: { _controller: DamediaTinymceBundle:Render:form }

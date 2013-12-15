@@ -1,0 +1,32 @@
+<ul class="hub-menu height50">
+    <li>
+        <a{% if currentCategory == 'virtual' %} class="{{ palette_color }}"{% endif %} href="{{ path('armd_museum_virtual') }}">
+            {{- 'Hub.MenuVirtualTours'|trans -}}
+        </a>
+    </li>
+    <li>
+        <a{% if currentCategory == 'museum_reserve' %} class="{{ palette_color }}"{% endif %} href="{{ path('armd_main_museum_reserve') }}">
+            {{- 'Hub.MenuMuseumReserved'|trans -}}
+        </a>
+    </li>
+
+    <!--
+    The section below is commented out "temporary" because these sections are
+    not maintained or under construction. Templates and controller actions are
+    up and running.
+    -->
+
+    <!--
+    <br />
+    <li>
+        <a href="{{ path('armd_lesson_list') }}">
+            {{- 'Hub.MenuMuseumEducation'|trans -}}
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('armd_war_gallery') }}">
+            {{- 'Hub.MenuWarGallery'|trans -}}
+        </a>
+    </li>
+    -->
+</ul>

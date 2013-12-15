@@ -10460,3 +10460,11 @@ a.appstore-link {
     font-size:13px;
 }
 /* /akoshelev. gallery of war */
+
+.b-head__logo {
+    vertical-align: baseline;
+}
+
+.atlas-object-form-select {
+    width: 298px;
+}

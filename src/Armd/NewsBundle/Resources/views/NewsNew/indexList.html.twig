@@ -1,0 +1,25 @@
+{% import 'ArmdNewsBundle::date_macro.html.twig' as armd_news %}
+
+{% for item in news %}
+    <section class="hub-list-item">
+        <article>
+            <div class="teaser-thumb">
+                {% if item.image %}
+                    <img alt="{{ item.title|escape }}" src="{% path item.image, 'adminPreview' %}" />
+                {% endif %}
+            </div>
+
+            <div class="teaser-header">
+                <span class="date">{{ armd_news.news_date_short(item.newsDate) }}</span>
+                <span class="item-type">{{ item.category.title }}</span>
+                <a class="teaser-item-link" href="{{ path('armd_news_item_by_category', {'id': item.id }) }}">{{ item.title }}</a>
+            </div>
+
+            <div class="teaser-content">
+                <p>{{ item.announce|raw }}</p>
+            </div>
+        </article>
+    </section>
+{% else %}
+    {{ 'Empty_list'|trans }}
+{% endfor %}

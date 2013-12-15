@@ -1,0 +1,30 @@
+{% spaceless %}
+{% if lectures is not empty %}
+    <div id="cinema_block" class="b-block-main b-movies-block">
+        <header class="b-block-heading">
+            <h3 class="e-block-title">
+                <a href="{{ path('armd_lecture_cinema_index', {'genreSlug': 'feature-film'}) }}" class="noTextDecoration">
+                    {{ 'Main.Widget.Movie.Header'|trans }}
+                </a>
+            </h3>
+
+            <nav class="b-heading-nav">
+                {% if showRecommended  %}
+                    <a class="order current" href="{{ path('armd_lecture_cinema_mainpage', {type: 'recommend', date: date}) }}">
+                        {{ 'Main.Widget.Movie.Recommended'|trans }}
+                    </a>&nbsp;
+                {% endif %}
+                {% if showForChildren %}
+                    <a class="order{% if not showRecommended %} current{% endif %}" href="{{ path('armd_lecture_cinema_mainpage', {type: 'children', date: date}) }}">
+                        {{ 'Main.Widget.Movie.ForChildren'|trans }}
+                    </a>
+                {% endif %}
+            </nav>
+        </header>
+
+        <div id="cinema_widget" class="movies-container-div palette-colored-box-4">
+            {{ include('ArmdLectureBundle:Default:mainpageCinemaWidgetItem.html.twig', {'lectures': lectures, 'genresString': genresString}) }}
+        </div>
+    </div>
+{% endif %}
+{% endspaceless %}

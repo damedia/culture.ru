@@ -1,0 +1,104 @@
+{% if entity.image3d %}
+    {% if entity.image3d.width > entity.image3d.height %}
+        {% set img3dWidth = 'auto' %}
+        {% set img3dHeight = '180' %}
+    {% else %}
+        {% set img3dWidth = '180' %}
+        {% set img3dHeight = 'auto' %}
+    {% endif %}
+
+    <div class="imagesOfRussia-item-sidebar-infographics">
+        <div class="header header-text-medium">
+            {{ 'infographics'|trans }}
+        </div>
+
+        <a class="zoom-fancybox" href="#infographics">
+            <div class="circleBorder"></div>
+            <div class="imageHolder">
+                <img src="{% path entity.image3d, 'image3d' %}" width="{{ img3dWidth }}" height="{{ img3dHeight }}" />
+            </div>
+        </a>
+
+        <div id="infographics" class="fancybox-image overflowHidden displayNoneImportant">
+            <img id="shiftzoom" class="shiftzoom" src="{% path entity.image3d, 'reference' %}" />
+            <div class="linkToSourceHolder">
+                <a target="_blank" href="{% path entity.image3d, 'reference' %}">
+                    {{ 'infographics_open_original'|trans }}
+                </a>
+            </div>
+        </div>
+    </div>
+{% endif %}
+
+<div id="imagesOfRussia-item-info-placeholder" class="sidebar-bordered-block">
+    <div class="header">
+        {{ 'contact_info'|trans }}
+    </div>
+    {% if entity.address %}
+        <p>{{ 'atlas.address'|trans }}: {{ entity.address }}</p>
+    {% endif %}
+    {% if entity.siteUrl %}
+        <p>{{ 'website'|trans }}: <a target="_blank" href="{{ entity.siteUrl }}" class="{{ palette_color }}">{{ entity.siteUrl }}</a><p>
+    {% endif %}
+    {% if entity.email %}
+        <p>{{ 'email'|trans }}: {{ entity.email }}</p>
+    {% endif %}
+    {% if entity.phone %}
+        <p>{{ 'phone'|trans}}: {{ entity.phone }}</p>
+    {% endif %}
+    {% if entity.workTime is not empty %}
+        <p>{{ 'visiting_hours'|trans}}: {{ entity.workTime }}</p>
+    {% endif %}
+    {% if entity.weekends|length > 0 %}
+        <p>{{ 'weekends'|trans}}: {% for day in entity.weekends %}{{ day.name }}{% if not loop.last %}, {% endif %}{% endfor %}</p>
+    {% else %}
+        <p>{{ 'without_holidays'|trans}}</p>
+    {% endif %}
+</div>
+
+{% if entity.virtualTours|length > 0 %}
+    <div class="imagesOfRussia-item-sidebar-virtualTours">
+        <div class="header-text-medium textAlignCenter paddingTopBottom20 sidebar-bordered-block marginBottom15">
+            {{ 'virtual_tour'|trans }}
+        </div>
+        {% for virtualTour in entity.virtualTours %}
+            <a href="{{ virtualTour.url }}" data-fancybox-type="iframe" class="iframe positionRelative displayBlock sidebar-widget-item">
+                <img src="{% path virtualTour.image, 'reference' %}" width="240" />
+                <span class="darkLayer height96Percent"></span>
+                <span class="orange360"></span>
+            </a>
+        {% endfor %}
+    </div>
+{% endif %}
+
+{% if entity.archiveImages|length > 0 %}
+    <div id="imageOfRussia-archiveGallery" class="imagesOfRussia-item-sidebar-archives positionRelative">
+        <div class="header-text-medium textAlignCenter paddingTopBottom20 sidebar-bordered-block-noBottom height60">
+            {{ 'archives'|trans }}
+        </div>
+        <div class="archiveSlides-controls-wrapper positionAbsolute">
+            <div class="archiveSlides-controls">
+                <span></span>
+            </div>
+        </div>
+        <div id="archive-slider" data-width="240" data-height="175">
+            <ul class="archiveSlides image-slider">
+                {% for h in entity.archiveImages %}
+                    <li>
+                        <a class="fancybox" rel="slider" href="{% path h, 'reference' %}">
+                            <img src="{% path h, 'big' %}" alt="{{ entity.title }}" width="240" height="auto" />
+                        </a>
+                        <div class="imageCounter displayNone">
+                            {{ loop.index }} {{ 'search_of'|trans }} {{ entity.archiveImages|length }}
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="sidebar-bordered-block-noTop archive-slider-bottom-fix"></div>
+    </div>
+{% endif %}
+
+{% if entity.stuff.count %}
+    {{ include('ArmdMainBundle:Generics:stuffBlock_sidebar.html.twig', {'stuff': entity.stuff}) }}
+{% endif %}

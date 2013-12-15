@@ -1,0 +1,92 @@
+{% extends ':Frontend:new_base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    <style type="text/css">
+        ul.hub-menu li a:hover {
+            color: {{ palette_color_hex }};
+        }
+    </style>
+{% endblock %}
+
+{% block title %}{{ 'Media'|trans }}{% endblock %}
+
+{% block body %}
+    <div class="b-main-wrap b-post">
+        <h1 class="b-left-title">
+            {{ 'Media'|trans }}
+        </h1>
+
+        {{ include('ArmdNewsBundle:NewsNew:hub_menu.html.twig', { 'categories': categories, 'palette_color': palette_color, 'currentCategory': currentCategory }) }}
+
+        <div id="news-items-list">
+            {% if category == 'news-video' %}
+                {% render url('armd_lecture_news_list', { 'searchQuery': searchQuery }) %}
+            {% else %}
+                {% render url('armd_news_index_list', { 'category': category, 'searchQuery': searchQuery }) %}
+            {% endif %}
+        </div>
+
+        <div id="news-showMore" title="{{ 'ShowMore'|trans }}"></div>
+    </div>
+{% endblock %}
+
+{% block sidebar %}
+    {% render url('armd_news_sidebar_index_widget') %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript" src="{{ asset('js/damedia/simpleSlider.js') }}"></script>
+    <script type="text/javascript">
+        $(function(){
+            var searchWrapper = $('#quick-search-wrapper'),
+                searchInput = $('#search-txt', searchWrapper),
+                searchForm = searchWrapper.find('form'),
+                checkboxesHoverTab = searchWrapper.find('div.search-checkboxes'),
+                searchThisSectionCheckbox = $('#search-this-section', searchWrapper),
+                currentCategory = '{{ category }}';
+
+            searchWrapper.mouseenter(function(){
+                checkboxesHoverTab.show();
+            });
+
+            searchWrapper.mouseleave(function(){
+                checkboxesHoverTab.hide();
+            });
+
+            searchForm.bind('submit', function(e){
+                if (searchThisSectionCheckbox.is(':checked')) {
+                    e.preventDefault();
+                    window.location = Routing.generate('armd_news_index_by_category', { 'search_query': searchInput.val() });
+                }
+            });
+
+            /* Sidebar slider widget */
+            $.each($('div.sidebar-movies-widget-switcher'), function(){
+                DamediaSimpleSlider.init($(this),{
+                    next: '{{ 'Sidebar.LinkedContent.Next'|trans }}'
+                });
+            });
+
+            /* Show more button */
+            var itemsPlaceholder = $('#news-items-list');
+
+            $('#news-showMore').on('click', function(){
+                var ajaxUrl = (currentCategory === 'news-video') ?
+                              Routing.generate('armd_lecture_news_list') :
+                              Routing.generate('armd_news_index_list', { category: '{{ category }}' }),
+                    ajaxData = {
+                        offset: itemsPlaceholder.find('section').length,
+                        searchQuery: '{{ searchQuery }}'
+                    };
+
+                $.post(ajaxUrl, ajaxData, function(html){
+                    itemsPlaceholder.append(html);
+                });
+            });
+        });
+    </script>
+{% endblock %}

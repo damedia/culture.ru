@@ -1,0 +1,37 @@
+{% set counter = 1 %}
+
+{% spaceless %}
+{% for object in objects %}
+    {% if counter <= 4 %}
+        {% include 'ArmdAtlasBundle:Objects:imagesOfRussia_list_item.html.twig' with {'item': object} %}
+    {% elseif counter > 4 and counter <= 8 %}
+        {% if counter == 5 %}
+            <div class="imageOfRussia-list-item-4pack">
+        {% endif %}
+
+        {% include 'ArmdAtlasBundle:Objects:imagesOfRussia_list_item.html.twig' with {'item': object} %}
+
+        {% if counter == 8 %}
+            </div>
+        {% endif %}
+    {% elseif counter == 9 %}
+        {% include 'ArmdAtlasBundle:Objects:imagesOfRussia_list_item_big.html.twig' with {'item': object} %}
+    {% elseif counter > 9 and counter <= 13 %}
+        {% include 'ArmdAtlasBundle:Objects:imagesOfRussia_list_item.html.twig' with {'item': object} %}
+    {% elseif counter == 14 %}
+        {% include 'ArmdAtlasBundle:Objects:imagesOfRussia_list_item_big.html.twig' with {'item': object} %}
+    {% else %}
+        {% if counter == 15 %}
+            <div class="imageOfRussia-list-item-4pack">
+        {% endif %}
+
+        {% include 'ArmdAtlasBundle:Objects:imagesOfRussia_list_item.html.twig' with {'item': object} %}
+
+        {% if counter == 18 %}
+            </div>
+        {% endif %}
+    {% endif %}
+
+    {% set counter = counter + 1 %}
+{% endfor %}
+{% endspaceless %}

@@ -88,7 +88,8 @@ class SpecialProjectHelper {
                   'Stylesheet' => $page->getStylesheet(),
                   'Javascript' => $page->getJavascript(),
                   'Breadcrumbs' => $breadcrumbs,
-                  'Blocks' => $blocksPlaceholders));
+                  'Blocks' => $blocksPlaceholders,
+                  'News' => $page->getNews()));
     }
 
 

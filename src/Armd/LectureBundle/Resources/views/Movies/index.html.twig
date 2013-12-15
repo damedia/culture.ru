@@ -1,0 +1,207 @@
+{% extends ':Frontend:new_base.html.twig' %}
+
+{% if current_genre is empty %}
+    {% set limit = 7 %}
+{% else %}
+    {% set limit = 19 %}
+{% endif %}
+
+{% if tag is empty %}
+    {% set tagId = false %}
+{% else %}
+    {% set tagId = tag.id %}
+{% endif %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    <link rel="stylesheet" href="{{ asset('vendor/selectgroup/jquery.ui.selectgroup.css') }}" />
+
+    <style type="text/css">
+        ul.hub-menu li a:hover {
+            color: {{ palette_color_hex }};
+        }
+        .movies-search-category-submit:hover {
+            color: #ffffff !important;
+            background-color: {{ palette_color_hex }};
+        }
+        .movies-alphabet-filter span.active {
+            color: {{ palette_color_hex }};
+        }
+        .movies-alphabet-filter span:hover {
+            color: {{ palette_color_hex }};
+        }
+    </style>
+{% endblock %}
+
+{% block title %}{{ 'Movies'|trans }}{% endblock %}
+
+{% block body %}
+    <div class="b-main-wrap b-post">
+        <h1 class="b-left-title">
+            {{ 'Movies'|trans }}
+        </h1>
+
+        {{ include('ArmdLectureBundle:Movies:hub_menu.html.twig', { 'palette_color': palette_color, 'moviesRootGenres': moviesRootGenres, 'current_genre': current_genre }) }}
+
+        <div class="movies-search-category">
+            <div class="floatRight marginRight50">
+                <span class="marginRight8">
+                    {{ 'Filter'|trans }}:
+                </span>
+                <div class="movies-search-category-selects">
+                    <select name="movies-genre" id="movies-genre" class="uni">
+                        <option value="">{{ "searchCategoryGenre"|trans }}</option>
+                        {% for genre in genres %}
+                            <option value="{{ genre.id }}" {% if genre.id == selectedGenreId %}selected="selected"{% endif %}>
+                                {{ genre.title }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div id="movies-searchButton" data-role="button" class="movies-search-category-submit displayInlineBlock {{ palette_color }}">
+                    {{ "search_category.show"|trans }}
+                </div>
+            </div>
+        </div>
+
+        <div class="marginTop123"></div>
+
+        {% if tag %}
+            <div class="marginBottom20">
+                {{ 'ResultsWithTag'|trans }} <b>{{ tag.name }}</b>
+            </div>
+        {% endif %}
+
+        {% for genre in genresForSections %}
+            <div class="movies-genre-section-holder marginBottom20" data-genreId="{{ genre.id }}" data-genreSlug="{{ genre.slug }}">
+                <div class="movies-counter">
+                    <span class="count">{{ totals[genre.slug] }}</span>
+                    <span class="text">{{ 'CounterText'|trans }}</span>
+                </div>
+
+                <div class="header-text-medium width200 displayInlineBlock marginBottom20">
+                    {{ genre.title }}
+                </div>
+
+                <div class="movies-alphabet-filter">
+                    <span class="all-let{% if not filter.letter %} active{% endif %}" data-letter="" data-role="button">
+                        {{- "Hub.MenuAll"|trans -}}
+                    </span>
+                    {% for letter in filter.alphabet %}
+                        <span{% if filter.letter == letter %} class="active"{% endif %} data-letter="{{ letter }}" data-role="button">
+                            {{ letter }}
+                        </span>
+                    {% endfor %}
+                </div>
+
+                <div class="movies-genre-section" data-genreId="{{ genre.id }}">
+                    {% render url('armd_movies_genre_section_list', {'genreId': genre.id, 'genreSlug': genre.slug, 'limit': limit, 'selectedGenreId': selectedGenreId, 'tagId': tagId, 'searchQuery': searchQuery}) %}
+                </div>
+
+                <div class="movies-showMore" title="{{ 'ShowMore'|trans }}"></div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block sidebar %}
+    {% render url('armd_movies_index_sidebar') %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript" src="{{ asset('vendor/jquery-ui/jquery-ui-1.8.24.custom.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('vendor/selectgroup/jquery.ui.selectgroup.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/damedia/simpleSlider.js') }}"></script>
+    <script type="text/javascript">
+        $(window).load(function(){
+            /* Sidebar slider widget */
+            $.each($('div.sidebar-movies-widget-switcher'), function(){
+                DamediaSimpleSlider.init($(this),{
+                    next: '{{ 'Sidebar.LinkedContent.Next'|trans }}'
+                });
+            });
+
+            /* Activate jQuery widgets for filter selects. */
+            $('select.uni').each(function(){
+                $(this).selectgroup();
+            });
+            $('#movies-searchButton').on('click', function(){
+                var filtersWrapper = $('.movies-search-category-selects'),
+                    selectedGenreId = filtersWrapper.find('select[name="movies-genre"]').val();
+
+                window.location = Routing.generate('armd_lecture_cinema_index', {genreSlug: '{{ current_genre }}', selectedGenreId: selectedGenreId});
+            });
+
+            /* Show more button */
+            $('.movies-showMore').on('click', function(){
+                var $this = $(this),
+                    sectionWrapper = $this.closest('.movies-genre-section-holder'),
+                    genreId = sectionWrapper.attr('data-genreId'),
+                    genreSlug = sectionWrapper.attr('data-genreSlug'),
+                    itemsPlaceholder = sectionWrapper.find('.movies-genre-section'),
+                    loadedItems = $('.movies-genre-section-item', itemsPlaceholder),
+                    loadedIds = [],
+                    ajaxUrl = Routing.generate('armd_movies_genre_section_list', {genreId: genreId}),
+                    firstLetter = $('.movies-alphabet-filter', sectionWrapper).find('span.active').attr('data-letter'),
+                    ajaxData = {
+                        genreSlug: genreSlug,
+                        firstLetter: firstLetter,
+                        limit: '{{ limit }}',
+                        selectedGenreId: '{{ selectedGenreId }}',
+                        tagId: '{{ tagId }}',
+                        searchQuery: '{{ searchQuery }}',
+                        extra: true
+                    };
+
+                $.each(loadedItems, function(){
+                    loadedIds.push($(this).attr('data-id'));
+                });
+
+                ajaxData.loadedIds = loadedIds;
+
+                $.post(ajaxUrl, ajaxData, function(html){
+                    if (html.trim() !== '') {
+                        itemsPlaceholder.find('.movies-genre-section-spacer:last').remove();
+                        itemsPlaceholder.find('.movies-goto-section-button-holder').remove();
+                        itemsPlaceholder.append(html);
+                    }
+                });
+            });
+
+            /* Activate alphabet filters */
+            $('.movies-alphabet-filter span').on('click', function(){
+                var $this = $(this),
+                    sectionWrapper = $this.closest('.movies-genre-section-holder'),
+                    itemsHolder = $('.movies-genre-section', sectionWrapper),
+                    alphabetFilterHolder = $('.movies-alphabet-filter', sectionWrapper),
+                    genreId = sectionWrapper.attr('data-genreId'),
+                    genreSlug = sectionWrapper.attr('data-genreSlug'),
+                    firstLetter = $this.attr('data-letter'),
+                    ajaxUrl = Routing.generate('armd_movies_genre_section_list', {genreId: genreId}),
+                    ajaxData = {
+                        genreSlug: genreSlug,
+                        firstLetter: firstLetter,
+                        limit: '{{ limit }}',
+                        selectedGenreId: '{{ selectedGenreId }}'
+                    };
+
+                if (!$this.hasClass('active')) {
+                    $.post(ajaxUrl, ajaxData, function(data){
+                        alphabetFilterHolder.find('span').removeClass('active');
+                        $this.addClass('active');
+
+                        if (data.trim() !== '') {
+                            itemsHolder.html(data);
+                        }
+                        else {
+                            itemsHolder.find('.movies-genre-section-item, .movies-genre-section-spacer').remove();
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+{% endblock %}

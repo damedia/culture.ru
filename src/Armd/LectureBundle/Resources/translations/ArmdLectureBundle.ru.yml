@@ -68,8 +68,10 @@ Roles persons: Персоны в ролях
 Lecture Role List: Список ролей
 Lecture Person List: Список персон
 
-Show On Main: Показывать на главной
-Show On Main Ord: Приоритет на главной
+Show On Main As Recommended: Показывать на главной
+Show On Main As Recommended Ord: Приоритет на главной
+Show On Main As Recommended From: Показывать на главной с
+Show On Main As Recommended To: Показывать на главной до
 
 Genres: Жанры
 Genres1: Жанры 1
@@ -81,3 +83,8 @@ Limit Featured For Genres: Ограничить показ на нижнем с�
 
 Announce: Анонс
 Corrected: Откорректировано
+
+Time Length: Длительность в минутах
+Director: Режиссер
+Production Year: Год создания
+Stars: В главных ролях

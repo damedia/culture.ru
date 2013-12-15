@@ -9,7 +9,7 @@
         {% set newsDate = news_date.news_date_short(article.newsDate) %}
     {% endif %}
 
-    <span class="date">{{ newsDate }} / <a href="{{ path('armd_news_list_index_by_category', {'category': article.category.slug}) }}">{{ article.category.title }}</a></span>
+    <span class="date">{{ newsDate }} / <a href="{{ path('armd_news_index_by_category', {'category': article.category.slug}) }}">{{ article.category.title }}</a></span>
     <a href="{{ path('armd_news_item_by_category', {'id': article.id, 'category': article.category.slug }) }}">{{ article.title}}</a>
 {% endmacro %}
 

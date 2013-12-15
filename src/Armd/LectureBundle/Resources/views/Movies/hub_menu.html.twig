@@ -1,0 +1,24 @@
+{% set counter = 1 %}
+
+<ul class="hub-menu">
+{% spaceless %}
+    <li>
+        <a{% if current_genre is empty %} class="{{ palette_color }}"{% endif %} href="{{ path('armd_lecture_cinema_index') }}">
+            {{- "Hub.MenuAll"|trans -}}
+        </a>
+    </li>
+    {% for genre in moviesRootGenres %}
+        <li>
+            <a{% if current_genre == genre.slug %} class="{{ palette_color }}"{% endif %} href="{{ path('armd_lecture_cinema_index', { 'genreSlug': genre.slug }) }}">
+                {{- genre.title -}}
+            </a>
+        </li>
+
+        {% if counter == 2 or counter == 4 %}
+            <br />
+        {% endif %}
+
+        {% set counter = counter + 1 %}
+    {% endfor %}
+{% endspaceless %}
+</ul>
