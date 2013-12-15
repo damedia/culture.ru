@@ -24,20 +24,23 @@ file that was distributed with this source code.
                     <i class="icon-zoom-in"></i>
                     {{ 'link_action_view_history'|trans({}, 'SonataAdminBundle') }}</a>
             {% endif %}
-             <a  class="btn sonata-action-element" href="#" id="dcx-search-article">
-                <i class="icon-plus"></i>
-                Добавить статью по DCX
-             </a>
-             <div id="dialog-form" title="Поиск статьи по DCX">
-              <p class="validateTips">Введите DcxID статьи</p>
-              <form id = "form-submit-id" action="{{ admin.generateUrl('checkArticle')}}" method="post">
-                <fieldset>
-                  <label for="name">DCX ID</label>
-                  <input type="text" name="name" id="dcx_id" class="text ui-widget-content ui-corner-all">
-                </fieldset>
-              </form>
-            </div>         
-            
+
+            {% if admin.hasroute('checkArticle') and admin.id(object) and admin.isGranted('EDIT', object) %}
+                 <a  class="btn sonata-action-element" href="#" id="dcx-search-article">
+                    <i class="icon-plus"></i>
+                    Добавить статью по DCX
+                 </a>
+                 <div id="dialog-form" title="Поиск статьи по DCX">
+                  <p class="validateTips">Введите DcxID статьи</p>
+                  <form id = "form-submit-id" action="{{ admin.generateUrl('checkArticle')}}" method="post">
+                    <fieldset>
+                      <label for="name">DCX ID</label>
+                      <input type="text" name="name" id="dcx_id" class="text ui-widget-content ui-corner-all">
+                    </fieldset>
+                  </form>
+                </div>
+            {% endif %}
+
         {% endif %}
 
         {% if admin.hasroute('history') and admin.id(object) and admin.isGranted('EDIT', object) %}
