@@ -1,0 +1,147 @@
+<style>
+    .b-image-post.m-right-view {
+        background: none repeat scroll 0 0 #349A8A;
+        border: 5px solid #349A8A;
+        color: #FFFFFF;
+        /*float: right;*/
+        /*margin: 0 5px 36px 20px;*/
+        padding: 23px 0 10px;
+        width: 290px;
+    }
+    .b-image-post {
+        border: 5px solid #E1E3E4;
+        /*float: left;*/
+        margin: 0 20px 36px 40px;
+        padding: 23px 30px 10px;
+        text-align: center;
+        width: 230px;
+    }
+
+    .b-image-title, .b-image-post h3 {
+        font-family: "pf_din_text_cond_promedium",serif;
+        font-size: 30px;
+        font-style: normal;
+        font-weight: normal;
+        line-height: 1em;
+        margin: 0 0 17px;
+        text-transform: uppercase;
+    }
+    .b-post-taxonomy h3 {
+        font-size: 18px;
+        line-height: 1.1em;
+        margin: 1.8em 0 1.2em;
+        padding: 0 0 0 20px;
+    }
+    .b-post i, .b-post-taxonomy h3, .b-post-taxonomy table caption, .b-post-quotes p, .e-time, i {
+        font-family: "pt_sansitalic",sans-serif;
+    }
+    .b-post p, .b-post-taxonomy h3, .b-post-taxonomy ol li:before, .b-post-quotes .blockquote-title {
+        font-family: "PT Serif",serif;
+    }
+    .b-image-title, .b-image-post h3 {
+        font-family: "pf_din_text_cond_promedium",serif;
+        font-size: 30px;
+        font-style: normal;
+        font-weight: normal;
+        line-height: 1em;
+        margin: 0 0 17px;
+        text-transform: uppercase;
+    }
+
+    .b-image-post .inline-img {
+        margin: 0 -3px 8px;
+        text-align: center;
+    }
+
+    .b-image-post.m-right-view a {
+        color: #FFFFFF;
+    }
+    a {
+        color: #333333;
+    }
+    a, input[type="button"], input[type="submit"], button {
+        transition: color 0.2s linear 0s, text-decoration 0.2s linear 0s, opacity 0.2s linear 0s, background-color 0.2s linear 0s;
+    }
+
+    .b-image-post .inline-img img {
+        display: inline-block;
+        max-width: 100%;
+        width: auto;
+    }
+    a img, fieldset {
+        border: medium none;
+    }
+
+    .b-image-post.m-right-view .desc-post-link {
+        margin: 0 30px 35px;
+    }
+    .b-image-post.m-right-view a {
+        color: #FFFFFF;
+    }
+    .b-image-post .desc-post-link {
+        margin: 0 0 20px;
+    }
+    .desc-post-link {
+        display: inline-block;
+        font-size: 1.286em;
+        font-weight: bold;
+        text-decoration: none;
+        text-transform: uppercase;
+    }
+    .desc-post-link, .commetn-count a {
+        text-decoration: none;
+    }
+    a {
+        color: #333333;
+    }
+    a, input[type="button"], input[type="submit"], button {
+        transition: color 0.2s linear 0s, text-decoration 0.2s linear 0s, opacity 0.2s linear 0s, background-color 0.2s linear 0s;
+    }
+
+    .b-image-post.m-right-view .b-icons-nav {
+        background: url("../img/border-pseudo-dashed-white.png") no-repeat scroll 0 0 transparent;
+        display: block;
+        text-align: center;
+    }
+    .b-image-post.m-right-view .b-icons-nav, .b-icons-nav {
+        background: url("../img/main-border-bg.png") repeat-x scroll left top transparent;
+    }
+    .b-icons-nav {
+        display: inline-block;
+        line-height: 1em;
+        padding: 10px 15px 0 20px;
+    }
+    .b-image-post.m-right-view .b-icons-nav, .b-icons-nav {
+        background: url("../img/main-border-bg.png") repeat-x scroll left top transparent;
+    }
+
+    .b-icons-nav img {
+        display: block;
+        margin: 0;
+    }
+
+    span.mySmallIcon {
+        display: inline-block;
+        width: 22px;
+        height: 22px;
+    }
+</style>
+
+<div class="b-image-post m-right-view">
+    <h3 class="b-image-title">образы россии</h3>
+    <div class="inline-img">
+        <a href="{{ path('armd_atlas_default_object_view', {id: object.id} ) }}">
+            {% if object.primaryImage is not empty %}
+                {% thumbnail object.images[0], 'searchAllResult' with {'alt': object.primaryImage.description, 'width': 202, 'height': 202} %}
+            {% endif %}
+        </a>
+    </div>
+    <a class="desc-post-link" href="{{ path('armd_atlas_default_object_view', {id: object.id} ) }}">{{ object.primaryImage.description }}</a>
+    <div class="b-icons-nav">
+        <span title="{{ "types_icons.video"|trans }}" class="ti-video {% if object.mediaVideos is not empty %}active{% endif %} mySmallIcon"></span>
+        <span title="{{ "types_icons.virtual_tour"|trans }}" class="ti-360 {% if object.virtualTours is not empty %}active{% endif %} mySmallIcon"></span>
+        <span title="{{ "types_icons.infographics"|trans }}" class="ti-info {% if object.image3d is not empty %}active{% endif %} mySmallIcon"></span>
+        <span title="{{ "types_icons.photo_gallery"|trans }}" class="ti-photo  {% if object.images is not empty %}active{% endif %} mySmallIcon"></span>
+        <span title="{{ "types_icons.archives"|trans }}" class="ti-list {% if object.archiveImages is not empty %}active{% endif %} mySmallIcon"></span>
+    </div>
+</div>

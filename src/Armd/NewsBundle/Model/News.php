@@ -4,8 +4,7 @@ namespace Armd\NewsBundle\Model;
 
 use Armd\ListBundle\Model\BaseList;
 
-class News extends BaseList implements NewsInterface
-{    
+class News extends BaseList implements NewsInterface {
     protected $date;
 
     /**
@@ -14,8 +13,7 @@ class News extends BaseList implements NewsInterface
      * @param string $title
      * @return BaseList
      */
-    public function setTitle($title)
-    {
+    public function setTitle($title) {
         $this->title = $title;
         return $this;
     }
@@ -25,19 +23,17 @@ class News extends BaseList implements NewsInterface
      *
      * @return string 
      */
-    public function getTitle()
-    {
+    public function getTitle() {
         return $this->title;
     }
 
     /**
      * Set date
      *
-     * @param datetime $date
+     * @param \DateTime $date
      * @return News
      */
-    public function setDate($date)
-    {
+    public function setDate(\DateTime $date) {
         $this->date = $date;
         return $this;
     }
@@ -45,10 +41,9 @@ class News extends BaseList implements NewsInterface
     /**
      * Get date
      *
-     * @return datetime 
+     * @return \DateTime
      */
-    public function getDate()
-    {
+    public function getDate() {
         return $this->date;
     }
 }

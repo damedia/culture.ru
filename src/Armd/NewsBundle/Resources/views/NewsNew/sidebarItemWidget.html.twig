@@ -1,0 +1,50 @@
+{% if tagsString %}
+    <div class="displayNone">Tags: {{ tagsString }}</div>
+{% endif %}
+
+{% if techTagsString %}
+    <div class="displayNone">Tech tags: {{ techTagsString|raw }}</div>
+{% endif %}
+
+{% if linkedObjects %}
+    <div class="sidebar-widget">
+        <div class="header-text-medium textAlignCenter paddingTopBottom20">
+            {{ 'Sidebar.LinkedContent.Header'|trans }}
+        </div>
+
+        {% for key, objects in linkedObjects %}
+            {% if key == 'special_projects' %}
+                Special projects widget is not implemented yet!
+            {% elseif key == 'news' %}
+                {% render 'ArmdNewsBundle:News:sidebarLinkedNewsWidget' with {'objects': objects} %}
+            {% elseif key == 'atlas_objects' %}
+                {% render 'ArmdAtlasBundle:Default:sidebarLinkedObjectsWidget' with {'objects': objects} %}
+            {% elseif key == 'lectures' %}
+                {% render 'ArmdLectureBundle:Default:sidebarLinkedLecturesWidget' with {'objects': objects} %}
+            {% else %}
+                <hr /><b>{{ key }}</b><br />
+                {% for object in objects %}
+                    {{ object }}<br />
+                {% endfor %}
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endif %}
+
+{% if relatedNews is not empty %}
+<div class="sidebar-related-widget">
+    <div class="header-text-medium textAlignCenter paddingTopBottom20 sidebar-bordered-block marginBottom15">
+        {{ 'Sidebar.RelatedContent.Header'|trans }}
+    </div>
+
+    {% for item in relatedNews %}
+        <a href="{{ path('armd_news_item_by_category', {id: item.id}) }}" class="sidebar-widget-item displayBlock positionRelative">
+            {% thumbnail item.image, 'billboard' with {'width': 240, 'height': 'auto', 'class': 'displayBlock'} %}
+            <span class="darkLayer"></span>
+            <div class="title-pane sidebar-item-title">
+                {{ item.title }}
+            </div>
+        </a>
+    {% endfor %}
+</div>
+{% endif %}

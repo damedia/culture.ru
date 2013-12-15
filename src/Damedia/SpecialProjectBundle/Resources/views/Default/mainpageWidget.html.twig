@@ -1,0 +1,31 @@
+{% spaceless %}
+{% if projects is not empty %}
+    <div class="b-main-wrap b-block-main m-clear-both m-specialproject positionRelative">
+        <div class="mainpage-header-title-holder">
+            <a href="{{ path('damedia_special_project_list') }}" class="noTextDecoration">
+                {{ 'Main.Widget.SpecialProject.Header'|trans }}
+            </a>
+        </div>
+
+        <header class="b-heading">
+            <h2 class="special-projects-header-expander"></h2>
+        </header>
+
+        <div class="b-simple-slider">
+            <div class="b-brand-icon"></div>
+            <div class="b-main-slides">
+                {% for item in projects %}
+                    <div>
+                        <a href="{{ path('damedia_special_project_view', {slug: item.slug}) }}" class="displayBlock b-special-project-mainpage-widget-block greyBackground">
+                            <img src="{% path item.bannerImage, 'default' %}" alt="" />
+                            <a href="{{ path('damedia_special_project_list') }}" class="e-project-goto">
+                                {{ 'Main.Widget.SpecialProject.Goto'|trans }}
+                            </a>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endif %}
+{% endspaceless %}

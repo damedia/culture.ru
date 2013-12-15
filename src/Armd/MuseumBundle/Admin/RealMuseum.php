@@ -21,7 +21,7 @@ use Sonata\AdminBundle\Admin\Admin;
 class RealMuseum extends Admin
 {
     protected $datagridValues = array(
-        '_sort_by'      => 'title',    
+        '_sort_by'      => 'title',
         '_sort_order'   => 'ASC',
     );
 
@@ -32,7 +32,7 @@ class RealMuseum extends Admin
     {
         parent::__construct($code, $class, $baseControllerName);
         $this->container = $serviceContainer;
-    }    
+    }
 
     /**
      * @param \Sonata\AdminBundle\Show\ShowMapper $showMapper
@@ -49,8 +49,8 @@ class RealMuseum extends Admin
             ->add('image')
             ->add('corrected')
         ;
-        
-        parent::configureShowField($showMapper);        
+
+        parent::configureShowFields($showMapper);
     }
 
     /**
@@ -62,7 +62,7 @@ class RealMuseum extends Admin
     {
         $formMapper
             ->with('General')
-                ->add('corrected', null, array('required' => false, 'disabled' => ($this->container->get('security.context')->isGranted('ROLE_CORRECTOR') ? false : true )))       
+                ->add('corrected', null, array('required' => false, 'disabled' => ($this->container->get('security.context')->isGranted('ROLE_CORRECTOR') ? false : true )))
                 ->add('title')
                 ->add('address')
                 ->add('phone')
@@ -82,7 +82,7 @@ class RealMuseum extends Admin
                     }
                 ))
                 ->add('schedule')
-                ->add('tags', 'armd_tag', array('required' => false, 'attr' => array('class' => 'select2-tags')))             
+                ->add('tags', 'armd_tag', array('required' => false, 'attr' => array('class' => 'select2-tags')))
             ->end()
             ->with('Images of Russia')
                 ->add('atlasObject', null, array(
@@ -122,17 +122,17 @@ class RealMuseum extends Admin
      * @return void
      */
     protected function configureListFields(ListMapper $listMapper)
-    {        
+    {
         $listMapper
-            ->addIdentifier('title')  
+            ->addIdentifier('title')
             ->add('corrected')
-            ->add('category')         
+            ->add('category')
             ->add('region')
         ;
-        
-        parent::configureListFields($listMapper);        
-    }  
-    
+
+        parent::configureListFields($listMapper);
+    }
+
     /**
      * @param \Sonata\AdminBundle\Datagrid\DatagridMapper $datagridMapper
      */
@@ -143,5 +143,5 @@ class RealMuseum extends Admin
             ->add('category')
             ->add('corrected')
         ;
-    }      
+    }
 }

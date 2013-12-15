@@ -1,0 +1,13 @@
+{% if isCommentable|default(false) %}
+    <div class="b-comments{% if not is_granted('ROLE_USER') %} not-login{% endif %}" id="post-comments">
+        <div class="commtents-header">{{ 'Comments.Header'|trans }}</div>
+
+        {% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': app.request.locale ~ '_' ~ entity_type ~ '_' ~ entity.id, 'buttonClass': palette_background, 'textClass': palette_color } %}
+
+        {% if not is_granted('ROLE_USER') %}
+            <div class="b-user-not-login">
+                {{ 'Comments.AuthRequire1'|trans }} <a href="{{ path('fos_user_security_login', {'post_auth_redirect': app.request.uri }) }}" class="{{ palette_color }}">{{ 'Comments.AuthRequire2'|trans }}</a> {{ 'Comments.AuthRequire3'|trans }}.
+            </div>
+        {% endif %}
+    </div>
+{% endif %}

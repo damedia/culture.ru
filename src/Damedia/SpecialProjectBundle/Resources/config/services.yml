@@ -4,3 +4,12 @@ services:
 
     string_twig_loader:
         class:		  Damedia\SpecialProjectBundle\Service\StringTwigLoader
+
+    special_project_snippet_parser:
+        class:        Damedia\SpecialProjectBundle\Service\SnippetParser
+        arguments:
+            entityManager: "@doctrine.orm.entity_manager"
+            neighborsCommunicator: "@special_project_neighbors_communicator"
+
+    special_project_neighbors_communicator:
+        class:        Damedia\SpecialProjectBundle\Service\NeighborsCommunicator

@@ -1,0 +1,16 @@
+<div style="border: 1px solid #EDEDED; width: 138px; height: 226px; display: inline-block;">
+    <div class="kol-block">
+        <a href="{{ path('armd_lecture_view', {'id': object.id}) }}" title="{{ object.title }}">
+            <span class="kol-image-link">
+                {% if object.isTop100Film %}<div class="top100-corner"></div>{% endif %}
+                {% thumbnail object.verticalBanner, 'tile' with {'alt': object.title, 'width': 160, 'height': 151, 'class': 'kol-image'} %}
+            </span>
+        </a>
+        <h3 class="kol-header">
+            <span class="autoscrolling-wrap">
+                <span class="autoscrollingHorChild" style="left: 0px;">{{ object.title }}</span>
+            </span>
+        </h3>
+        <p class="kol-stats">Просмотров: {{ object.viewCount }}</p>
+    </div>
+</div>

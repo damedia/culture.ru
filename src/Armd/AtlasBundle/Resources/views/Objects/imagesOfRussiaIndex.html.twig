@@ -1,0 +1,150 @@
+{% extends ':Frontend:new_base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    <link rel="stylesheet" href="{{ asset('vendor/selectgroup/jquery.ui.selectgroup.css') }}" />
+
+    <style type="text/css">
+        ul.hub-menu li a:hover {
+            color: {{ palette_color_hex }};
+        }
+        .imagesOfRussia-search-category-submit:hover {
+            color: #ffffff !important;
+            background-color: {{ palette_color_hex }};
+        }
+    </style>
+{% endblock %}
+
+{% block title %}{{ 'ImagesOfRussia'|trans }}{% endblock %}
+
+{% block body %}
+    <div class="b-post fullWidth overflowVisible positionRelative">
+        <div class="imagesOfRussia-counter">
+            <span class="count">{{ countTotal }}</span>
+            <span class="text">{{ 'IndexTotalCount'|trans }}</span>
+        </div>
+
+        <h1 class="hub-header-title">
+            {{ 'ImagesOfRussia'|trans }}
+        </h1>
+
+        {% render url('armd_atlas_images_of_russia_indexWidget') %}
+
+        <div class="search-category imagesOfRussia-search-category">
+            <div class="floatRight marginRight50">
+                <span class="marginRight8">
+                    {{ 'Filter'|trans }}:
+                </span>
+                <div class="imagesOfRussia-search-category-selects">
+                    <select name="object-region" id="object-region" class="uni">
+                        <option value="">{{ "search_category.region"|trans }}</option>
+                        {% for region in regions %}
+                            <option value="{{ region.id }}" {% if regionId == region.id %}selected{% endif %}>{{ region.title }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="imagesOfRussia-search-category-selects">
+                    <select name="object-type" id="object-type" class="uni">
+                        <option value="">{{ "search_category.type"|trans }}</option>
+                        {% for type in types %}
+                            <option value="{{ type.id }}">{{ type.title }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="imagesOfRussia-search-category-selects">
+                    <select name="object-thematic" id="object-thematic" class="uni">
+                        <option value="">{{ "search_category.theme"|trans }}</option>
+                        {% for thematic in thematics %}
+                            <option value="{{ thematic.id }}">{{ thematic.title }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div id="imagesOfRussia-searchButton" data-role="button" class="imagesOfRussia-search-category-submit displayInlineBlock {{ palette_color }}">
+                    {{ "search_category.show"|trans }}
+                </div>
+            </div>
+        </div>
+
+        <div id="imagesOfRussia-images-list-placeholder">
+            {% render url('armd_atlas_images_of_russia_list', {'region_id': regionId, 'search_text': searchQuery}) %}
+        </div>
+
+        <div id="imagesOfRussia-showMore" title="{{ 'ShowMore'|trans }}"></div>
+    </div>
+{% endblock %}
+
+{% block sidebar %}{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript" src="{{ asset('vendor/jquery-ui/jquery-ui-1.8.24.custom.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('vendor/selectgroup/jquery.ui.selectgroup.js') }}"></script>
+    <script type="text/javascript">
+        $(window).load(function(){
+            var itemsPlaceholder = $('#imagesOfRussia-images-list-placeholder'),
+                getCurrentFilters = function(){
+                    var filtersWrapper = $('div.imagesOfRussia-search-category'),
+                        region = $('select[name="object-region"]', filtersWrapper).val(),
+                        type = $('select[name="object-type"]', filtersWrapper).val(),
+                        thematic = $('select[name="object-thematic"]', filtersWrapper).val();
+
+                    return {
+                        region: region === "" ? undefined : region,
+                        type: type === "" ? undefined : type,
+                        thematic: thematic === "" ? undefined : thematic
+                    }
+                };
+
+            /* This CSS change is for slider widget "paginator".
+            Pagination is now added by javascript on page load for both main page and this page. I have to change CSS
+            here so the main page left untouched. */
+            $('div.b-pagination-nav').css('margin-top', '10px');
+
+            /* Activate jQuery widgets for filter selects. */
+            $('select.uni').each(function(){
+                $(this).selectgroup();
+            });
+            $('#imagesOfRussia-searchButton').on('click', function(){
+                var filters = getCurrentFilters(),
+                    data = {
+                        region: filters.region,
+                        type: filters.type,
+                        thematic: filters.thematic
+                    };
+
+                $.post(Routing.generate('armd_atlas_images_of_russia_list'), data, function(html){
+                    if (html.trim() === '') {
+                        itemsPlaceholder.html('{{ 'EmptyResult'|trans }}');
+                    }
+                    else {
+                        itemsPlaceholder.html(html);
+                    }
+                });
+            });
+
+            /* Show more button */
+            $('#imagesOfRussia-showMore').on('click', function(){
+                var loadedItems = $('.imageOfRussia-list-item', itemsPlaceholder),
+                    loadedIds = [],
+                    filters = getCurrentFilters(),
+                    data = {
+                        region: filters.region,
+                        type: filters.type,
+                        thematic: filters.thematic
+                    };
+
+                $.each(loadedItems, function(){
+                    loadedIds.push($(this).attr('data-id'));
+                });
+
+                data.loadedIds = loadedIds;
+
+                $.post(Routing.generate('armd_atlas_images_of_russia_list'), data, function(html){
+                    itemsPlaceholder.append(html);
+                });
+            });
+        });
+    </script>
+{% endblock %}

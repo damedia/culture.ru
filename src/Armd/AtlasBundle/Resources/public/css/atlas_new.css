@@ -822,3 +822,20 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ae0d94', end
 #atlas-objects-add-hint{ display:none; text-align:center; font-size:13px; color:#777; }
 
 .auth-required-msg{ padding:10px; font-size:13px; }
+
+.atlas-add-object-button {
+    background: linear-gradient(to bottom, #67DF88 0%, #2BB151 4%, #2EB050 11%, #29B050 26%,
+                    #2EB050 30%, #29B050 33%, #29B050 48%, #02A02D 56%, #02A02D 100%)
+                    repeat scroll 0 0 rgba(0, 0, 0, 0);
+    display: block;
+    margin: 13px auto;
+    width: 128px;
+}
+
+.profile-help_text {
+    border: 1px solid #D4D4D4;
+    color: #333333;
+    font-size: 13px;
+    padding: 20px 55px 20px 24px;
+    position: relative;
+}

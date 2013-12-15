@@ -1,0 +1,26 @@
+{% for museum in museums %}
+    <li class="js-carousel-item positionRelative floatLeft">
+        <a href="{{ path('armd_atlas_default_object_view', {id: museum.atlasObject.id}) }}" class="e-carousel-image displayBlock hubWidget-image-wrapper">
+            {% for h in museum.atlasObject.images|slice(0, 1) %}
+                {% thumbnail h, 'big' with {'alt': museum.title, 'class': 'greyBackground displayBlock', 'width': 700, 'height': 466} %}
+            {% endfor %}
+            <span class="image-description sidebar-item-title displayBlock">
+                <div class="item-title-pane">
+                    {{ museum.title }}
+                </div>
+                <div class="item-title-links">
+                    <a href="{{ museum.url }}" class="{{ palette_color }}">{{ 'VirtualTour'|trans }}</a>
+                    <a href="{{ path('armd_atlas_default_object_view', {id: museum.atlasObject.id}) }}" class="{{ palette_color }}">{{ 'AboutMuseum'|trans }}</a>
+                    <a href="{{ path('armd_atlas_default_object_view', {id: museum.atlasObject.id}) }}" class="{{ palette_color }}">{{ 'LookAtTheAtlas'|trans }}</a>
+                </div>
+                <div class="item-title-side">
+                    <div id="object-round-window-{{ museum.atlasObject.id }}" class="circle" data-id="{{ museum.atlasObject.id }}" data-lon="{{ museum.atlasObject.lon }}" data-lat="{{ museum.atlasObject.lat }}"></div>
+                    <span data-info="address">{{ museum.atlasObject.address|raw }}</span>
+                    <span data-info="siteUrl">{{ museum.atlasObject.siteUrl|raw }}</span>
+                    <span data-info="phone">{{ museum.atlasObject.phone|raw }}</span>
+                    <span data-info="workTime">{{ museum.atlasObject.workTime|raw }}</span>
+                </div>
+            </span>
+        </a>
+    </li>
+{% endfor %}

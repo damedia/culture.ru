@@ -1,0 +1,18 @@
+{% if items is not empty %}
+    {% for item in items %}
+        <div class="sidebar-item-wrapper">
+            <a href="{{ path('armd_atlas_default_object_view', {id: item.id}) }}" class="sidebar-widget-item">
+                {% thumbnail item.primaryImage, 'sideBanner' with {'width': 240, 'height': 'auto', 'display': 'block'} %}
+            </a>
+
+            <div class="sidebar-item-description">
+                <a class="type palette-color-1" href="{{ path('armd_atlas_russia_images') }}">
+                    {{ 'Sidebar.LinkedContent.Type.ImagesOfRussia'|trans }}
+                </a>
+                <a class="sidebar-item-title" href="{{ path('armd_atlas_default_object_view', {id: item.id}) }}">
+                    {{ item.title }}
+                </a>
+            </div>
+        </div>
+    {% endfor %}
+{% endif %}

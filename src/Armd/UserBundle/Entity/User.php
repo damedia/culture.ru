@@ -10,6 +10,7 @@
 
 namespace Armd\UserBundle\Entity;
 
+use Doctrine\ORM\Mapping AS ORM;
 use Sonata\UserBundle\Entity\BaseUser as BaseUser;
 
 /**
@@ -83,6 +84,9 @@ class User extends BaseUser
      * @var boolean
      */
     protected $storeViewedContent;
+
+    private $avatar;
+
 
     /**
      * @param \Doctrine\Common\Collections\Collection $subscriptions
@@ -377,4 +381,24 @@ class User extends BaseUser
 
         return $this;
     }
+
+    public function setAvatar(\Application\Sonata\MediaBundle\Entity\Media $avatar = null)
+    {
+        // SonataAdmin adds empty Media if image3d embedded form is not filled, so check it
+        if (is_null($avatar) || $avatar->isUploaded()) {
+            $this->avatar = $avatar;
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAvatar()
+    {
+        return $this->avatar;
+    }
+
+
 }
