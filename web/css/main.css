@@ -10380,17 +10380,6 @@ a.appstore-link {
     margin-top: 15px;
 }
 
-/**
- * qTip² styles override
- */
-#qtip-overlay div {
-    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
-    filter: alpha(opacity=20);
-    -moz-opacity: 0.2;
-    -khtml-opacity: 0.2;
-    opacity: 0.2;
-}
-
 .user-favorites-button img {
     width: 14px;
     vertical-align: 6px;
