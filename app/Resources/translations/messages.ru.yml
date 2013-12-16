@@ -160,9 +160,12 @@ Redirect after: Вы будете перенаправлены на Главну
 
 auth_account: Личный кабинет
 auth_logout: Выход
-auth_register: Регистрация
+auth_register: Зарегистрироваться
 auth_login: Войти
+auth_login_label: Логин
+auth_password_label: Пароль
 auth_or: или
+auth_forgot_password: Забыли пароль?
 site_search: Поиск по сайту
 
 ministerstvo: Министерство культуры<br/>Российской Федерации

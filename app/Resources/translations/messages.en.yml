@@ -162,7 +162,10 @@ auth_account: Account
 auth_logout: Logout
 auth_register: Register
 auth_login: Login
+auth_login_label: Login
+auth_password_label: Password
 auth_or: or
+auth_forgot_password: Forgot password?
 site_search: Site search
 
 ministerstvo: Ministry of Culture <br/> of the Russian Federation

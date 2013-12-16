@@ -3064,6 +3064,9 @@ a.sidebar-widget-item:hover > .darkLayer {
 .textAlignCenter {
     text-align: center;
 }
+.textAlignRight {
+    text-align: right;
+}
 
 .greyBackground {
     background-color: #E1E3E4;
@@ -3146,6 +3149,9 @@ a.sidebar-widget-item:hover > .darkLayer {
 }
 .paddingTop5Bottom25 {
     padding: 5px 0 25px 0 !important;
+}
+.paddingTop10Bottom5 {
+    padding: 10px 0 5px !important
 }
 .paddingTopBottom20 {
     padding: 20px 0;
@@ -4510,6 +4516,7 @@ ul.flex-direction-nav.itemMainGallery li.slideRight {
     font-size: 0.8em;
     position: relative;
     display: none;
+    color: #7D8687;
 }
 #login-popup .separator {
     margin-bottom: 12px;
@@ -4532,40 +4539,22 @@ ul.flex-direction-nav.itemMainGallery li.slideRight {
     text-align: center;
 }
 
-
-
-#login-popup dl {
-    border: 1px solid deepskyblue;
-    position: absolute;
-    top: 100px;
+#login-popup .auth-form-fields {
+    margin-top: 22px;
 }
-
-#login-popup .form-actions {
-    border: 1px solid red;
-    position: absolute;
-    top: 200px;
-}
-
-
-
-
-
-
-#login-popup dl dt {
+#login-popup .auth-form-fields label {
+    min-width: 55px;
     display: inline-block;
-    float: left;
-    clear: left;
 }
-#login-popup dl dd {
-    display: inline-block;
-    float: right;
-    clear: right;
+#login-popup .auth-form-fields input[type="text"],
+#login-popup .auth-form-fields input[type="password"] {
+    border: 1px solid #DDE1E1;
+    transition: border-color 0.3s ease 0s;
 }
-
-#login-popup div.form-actions ul {
-    list-style: none;
-}
-#login-popup div.form-actions ul li {
-    display: inline-block;
-    margin-right: 5px;
+#login-popup .auth-form-fields button {
+    color: #000000;
+    height: 28px;
+    margin: 0;
+    width: 60px;
+    cursor: pointer;
 }

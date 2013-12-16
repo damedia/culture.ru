@@ -10,48 +10,44 @@
             </div>
         </div>
 
-        <dl class="clearfix">
+        <div class="auth-form-fields">
             {% if error %}
-            <dt></dt>
-            <dd>
-                <ul class="error">
-                    <li>{{ error|trans({}, 'FOSUserBundle') }}</li>
-                </ul>
-            </dd>
+                <div class="error">
+                    {{ error|trans({}, 'FOSUserBundle') }}
+                </div>
             {% endif %}
-            <dt>
+            <p>
                 <label for="fos_user_registration_form_username-popup">
-                    {{ 'security.login.username'|trans({}, 'FOSUserBundle') }}
+                    {{ 'auth_login_label'|trans }}
                 </label>
-            </dt>
-            <dd>
-                <input type="text" id="username-popup" name="_username" value="{{ last_username }}"/>
-            </dd>
-
-            <dt>
+                <input type="text" id="username-popup" name="_username" value="{{ last_username }}" />
+            </p>
+            <p>
                 <label for="password-popup">
-                    {{ 'security.login.password'|trans({}, 'FOSUserBundle') }}
+                    {{ 'auth_password_label'|trans }}
                 </label>
-            </dt>
-            <dd>
-                <input type="password" id="password-popup" name="_password"/>
-            </dd>
-
-            <dt></dt>
-            <dd>
+                <input type="password" id="password-popup" name="_password" />
+            </p>
+            <p class="textAlignRight">
                 <label for="remember_me-popup">
-                    <input type="checkbox" id="remember_me-popup" name="_remember_me" value="on"/>
                     {{ 'security.login.remember_me'|trans({}, 'FOSUserBundle') }}
                 </label>
-            </dd>
-        </dl>
-
-        <div class="form-actions">
-            <input type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}"/>
-            <ul>
-                <li><a href="{{ path('fos_user_registration_register') }}">{{ "auth_register"|trans }}</a></li>
-                <li><a href="{{ path('fos_user_resetting_request') }}">{{ 'Forgot your password'|trans }}?</a></li>
-            </ul>
+                <input type="checkbox" id="remember_me-popup" name="_remember_me" value="on" />
+            </p>
+            <p class="textAlignCenter paddingTop10Bottom5">
+                <button type="submit" id="_submit" name="_submit">
+                    {{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}
+                </button>
+                {{ 'auth_or'|trans }}
+                <a href="{{ path('fos_user_registration_register') }}">
+                    {{ "auth_register"|trans }}
+                </a>
+            </p>
+            <p class="textAlignCenter">
+                <a href="{{ path('fos_user_resetting_request') }}">
+                    {{ 'auth_forgot_password'|trans }}
+                </a>
+            </p>
         </div>
     </form>
 </div>
