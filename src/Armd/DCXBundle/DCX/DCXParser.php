@@ -83,8 +83,10 @@ class DCXParser
                     $doc_array[$d_key] = $val;
                 }
                 else{
-                    $val = array_combine(array_map(function($k){ return strtolower($k); }, array_keys($val)),$val);
-                    $doc_array = array_merge($doc_array,$val); 
+                    if (!empty($val)) {
+                        $val = array_combine(array_map(function($k){ return strtolower($k); }, array_keys($val)),$val);
+                        $doc_array = array_merge($doc_array,$val);
+                    }
                 }
                 $files = array();
                 if ($d_key === 'files')
@@ -101,8 +103,10 @@ class DCXParser
                                 $file[$k] = $val;
                             }
                             else{
-                                $val = array_combine(array_map(function($k){ return strtolower($k); }, array_keys($val)),$val);
-                                $file = array_merge($file,$val); 
+                                if (!empty($val)) {
+                                    $val = array_combine(array_map(function($k){ return strtolower($k); }, array_keys($val)),$val);
+                                    $file = array_merge($file,$val);
+                                }
                             }
                         }
                         array_push($files,new DCXFile($file));
@@ -146,8 +150,10 @@ class DCXParser
                                         $val['href'] = (string)$href;
                                     }
                                 }
-                                $val = array_combine(array_map(function($k){ return strtolower($k); }, array_keys($val)),$val);
-                                $attached = array_merge($attached,$val); 
+                                if (!empty($val)) {
+                                    $val = array_combine(array_map(function($k){ return strtolower($k); }, array_keys($val)),$val);
+                                    $attached = array_merge($attached,$val); 
+                                }
                             }
                         }
                         array_push($files,new DCXAttached($attached));
