@@ -4,7 +4,7 @@
     {{ parent() }}
 
     <link rel="stylesheet" href="{{ asset('vendor/selectgroup/jquery.ui.selectgroup.css') }}" />
-    <link rel="stylesheet" href="{{ asset('vendor/fancybox/jquery.fancybox.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/new/jquery.fancybox.css') }}" />
     <style type="text/css">
         div.PGmap-copyright {
             display: none;
@@ -44,7 +44,6 @@
             <a href="#instruction" class="{{ palette_color }} displayBlock virt-museum-instr">
                 {{ 'OperationManual'|trans }}
             </a>
-
             <div id="instruction" class="displayNone">
                 <div class="window">
                     <div class="block window-content">
@@ -130,14 +129,13 @@
     <script type="text/javascript" src="{{ asset('vendor/jquery.form.js') }}"></script>
     <script type="text/javascript" src="{{ asset('vendor/jquery-ui/jquery-ui-1.8.24.custom.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('vendor/chosen/chosen.jquery.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('vendor/fancybox/jquery.fancybox.js?v=2.0.6') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/new/jquery.fancybox.min.js') }}"></script>
     <script type="text/javascript" charset="utf-8" src="http://js.tmcrussia.com/?{{ progorod_api_key }}&version=0.1.8"></script>
     <script type="text/javascript" src="{{ asset('bundles/damediaatlasjsmodule/js/module.atlas.js') }}"></script>
     <script type="text/javascript">
         {% if currentCategory == 'virtual' %}
             $(window).load(function(){
-                var instruction = $('.virt-museum-instr'),
-                    slider = $('#museums-images-widget-placeholder'),
+                var slider = $('#museums-images-widget-placeholder'),
                     sliderNav = slider.find('div.b-pagination-nav'),
                     sliderItems = slider.find('ul#museum_widget > li'),
                     sidebarMapPlaceholder = $('#slider-museum-item-map-placeholder'),
@@ -189,15 +187,14 @@
                     setupMapForCurrentItem();
                 });
 
-                if (instruction.length > 0) {
-                    instruction.fancybox({
-                        width: 900,
-                        height: 900,
-                        autoSize: false,
-                        transitionIn: 'none',
-                        transitionOut: 'none'
-                    });
-                }
+                //Virtual museum instruction
+                $('.virt-museum-instr').fancybox({
+                    width: 900,
+                    height: 900,
+                    autoSize: false,
+                    transitionIn: 'none',
+                    transitionOut: 'none'
+                });
 
                 /* Show more button */
                 var itemsPlaceholder = $('#museums-items-list');

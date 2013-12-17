@@ -259,7 +259,7 @@ var ATLAS_MODULE = (function(){
     }
 
     function initHacks() { //TODO: don't know what is this... these things exist on the page but invisible
-        $('.g-closer').live('click', function(){
+        $(document).on('click', '.g-closer', function(){
             $(this).closest('.b-balloon').data('point').hideBalloon();
             return false;
         });
@@ -393,7 +393,7 @@ var ATLAS_MODULE = (function(){
                 }
 
                 //'edit' button inside the balloon
-                $('.bubble_content .edit').live('click', function(){
+                $('.bubble_content').on('click', '.edit', function(){
                     var objectId = $(this).data('id'),
                         point = pgMap.balloon.currEl,
                         coord = point.coord;
@@ -624,7 +624,7 @@ var ATLAS_MODULE = (function(){
             jPopup = $('#add-object-form');
 
         //click on myObject list item
-        myObjlist.find('li span').live('click', function(){
+        myObjlist.find('li').on('click', 'span', function(){
             var jLi = $(this).closest('li'),
                 point = jLi.data('point');
 
@@ -633,7 +633,7 @@ var ATLAS_MODULE = (function(){
         });
 
         //click on myObject edit list item
-        myObjlist.find('li .edit').live('click', function(){
+        myObjlist.find('li').on('click', '.edit', function(){
             var jLi = $(this).closest('li'),
                 objectId = jLi.data('id'),
                 point = jLi.data('point'),
@@ -662,7 +662,7 @@ var ATLAS_MODULE = (function(){
         });
 
         //click on myObject delete list item
-        myObjlist.find('li .del').live('click', function(){
+        myObjlist.find('li').on('click', '.del', function(){
             if (confirm('Удалить?')) {
                 var el = $(this).closest('li'),
                     id = el.data('id');
@@ -694,7 +694,7 @@ var ATLAS_MODULE = (function(){
         });
 
         // Отправка объекта на модерацию
-        myObjlist.find('.moder').live('click', function(){
+        myObjlist.on('click', '.moder', function(){
             var el = $(this).closest('li'),
                 id = el.data('id'),
                 statusId = $(this).text(),
