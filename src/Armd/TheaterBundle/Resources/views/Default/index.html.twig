@@ -3,7 +3,7 @@
 {% block stylesheets %}
     {{ parent() }}
 
-    <link rel="stylesheet" href="{{ asset('vendor/selectgroup/jquery.ui.selectgroup.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/new/jquery.ui.selectmenu.css') }}" />
 
     <style type="text/css">
         ul.hub-menu li a:hover {
@@ -60,14 +60,14 @@
     {{ parent() }}
 
     <script type="text/javascript" src="{{ asset('vendor/jquery-ui/jquery-ui-1.8.24.custom.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('vendor/selectgroup/jquery.ui.selectgroup.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/new/jquery.ui.selectmenu.min.js') }}"></script>
     <script type="text/javascript">
         $(window).load(function(){
             $('#theater_block').removeClass('b-main-wrap marginBottomImportant88').find('.b-button-wrapper').remove();
 
             /* Activate jQuery widgets for filter selects. */
             $('select.uni').each(function(){
-                $(this).selectgroup({
+                $(this).selectmenu({
                     select: function(){
                         alert('shit!');
                     }

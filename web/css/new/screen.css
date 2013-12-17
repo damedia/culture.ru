@@ -3334,9 +3334,7 @@ a.sidebar-widget-item:hover > .darkLayer {
 .imagesOfRussia-search-category-selects {
     display: inline-block;
     vertical-align: top;
-    margin-top: 6px;
-    border: 1px solid #ddd;
-    background: #fff;
+    margin-top: 4px;
 }
 .imagesOfRussia-search-category-submit {
     text-transform: lowercase;
@@ -3359,9 +3357,7 @@ a.sidebar-widget-item:hover > .darkLayer {
 .performances-search-category-selects {
     display: inline-block;
     vertical-align: top;
-    margin-top: 6px;
-    border: 1px solid #ddd;
-    background: #080808;
+    margin-top: 4px;
 }
 .performances-search-category-submit {
     text-transform: lowercase;
@@ -3393,9 +3389,7 @@ a.sidebar-widget-item:hover > .darkLayer {
 .movies-search-category-selects {
     display: inline-block;
     vertical-align: top;
-    margin-top: 6px;
-    border: 1px solid #ddd;
-    background: #fff;
+    margin-top: 4px;
 }
 .movies-search-category-submit {
     text-transform: lowercase;
