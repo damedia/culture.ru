@@ -68,107 +68,106 @@ class DCXParser
     //@todo пришлось делать в спешке, надо бы переписать и отрефакторить
     private function baseParseDocument($xml)
     {
+        // echo $xml;
         $sxml = $this->xmlLoader($xml);
         $sxml->registerXPathNamespace('dcx', "http://www.digicol.com/xmlns/dcx");
+        $sxml->registerXPathNamespace('ns', "http://www.w3.org/1999/xhtml");
         $documents = $sxml->xpath("//dcx:document");
         foreach ($documents as $doc) {
-            $doc_array['doc_id'] = (string)$doc['id'];
-            foreach ($doc->children() as $d_key => $d_value) {
-                $val = null;
-                $val = ($d_key === 'body' && !array_key_exists($d_key, $doc_array)) && !isset($val) ?  (string) $d_value->asXml() : $val;
-                $val = ($d_key === 'pool_id' && !array_key_exists($d_key, $doc_array) && !isset($val)) ?  (string) $d_value['id'] : $val;
-                $val = ($d_key === 'head' && !array_key_exists($d_key, $doc_array) && !isset($val)) ? (array) $d_value->children()  : $val;
-                $val = (!array_key_exists($d_key, $doc_array) && !isset($val)) ?  (string) $d_value : $val;
-                if (!is_array($val)){
-                    $doc_array[$d_key] = $val;
-                }
-                else{
-                    if (!empty($val)) {
-                        $val = array_combine(array_map(function($k){ return strtolower($k); }, array_keys($val)),$val);
-                        $doc_array = array_merge($doc_array,$val);
-                    }
-                }
-                $files = array();
-                if ($d_key === 'files')
-                {
-                    foreach ($d_value as $f_value) {
-                        $file['id'] = (string)$f_value['id'];
-                        foreach ($f_value as $k => $v) {
-                            $val = null;
-                            $val = ($k === 'info' && !array_key_exists($k, $file) && !isset($val)) ? (array) $v->children()  : $val;
-                            $val = ($k === 'dev_id' && !array_key_exists($k, $file) && !isset($val)) ? (string)$v['id'] : $val;
-                            $val = ($k === 'doc_id' && !array_key_exists($k, $file) && !isset($val)) ? (string)$v['id'] : $val;
-                            $val = (!array_key_exists($k, $file) && !isset($val)) ? (string)$v : $val;
-                            if (!is_array($val)){
-                                $file[$k] = $val;
-                            }
-                            else{
-                                if (!empty($val)) {
-                                    $val = array_combine(array_map(function($k){ return strtolower($k); }, array_keys($val)),$val);
-                                    $file = array_merge($file,$val);
-                                }
-                            }
-                        }
-                        array_push($files,new DCXFile($file));
-                        unset($file);
-                    }
-                    $doc_array['files'] = $files;
-                }
-                if ($d_key === 'attached_to_story'){
-                    foreach ($d_value as $s_value) {
-                        $attached['id'] = (string)$s_value['id'];
-                        foreach ($s_value as $k => $v) {
-                            $val = null;
-                            $val = ($k === 'document_metadata' && !array_key_exists($k, $attached) && !isset($val)) ? (array) $v->children()  : $val;
-                            $val = ($k === 'fields' && !array_key_exists($k, $attached) && !isset($val)) ? (array) $v->children()  : $val;
-                            $val = ($k === 'slot' && !array_key_exists($k, $attached) && !isset($val)) ? array('slot'=>(string)$v, 'position'=>(string)$v['position']) : $val;
-                            $val = ($k === 'files' && !array_key_exists($k, $attached) && !isset($val)) ? array('files'=>$v) : $val;
-                            $val = (!array_key_exists($k, $attached) && !isset($val)) ? (string)$v : $val;
-                            if (!is_array($val)){
-                                $attached[$k] = $val;
-                            }
-                            else
-                            {
-                                foreach ($val as $nkey => $nvalue) {
-                                    if ($nkey === 'Type'){
-                                        $val[$nkey] = (string) $nvalue['topic'];
-                                    }
-                                    if($nkey === 'title' && is_object($nvalue)){
-                                        unset($val[$nkey]);
-                                    }
-                                    if($nkey === 'caption'){
-                                        $val['fields_title'] = $nvalue;
-                                        unset($val[$nkey]);
-                                    }
-                                    if($nkey === 'files' && is_object($nvalue)){
-                                        $val['variant'] = (string)$nvalue['variant'];
-                                        $check = $nvalue->xpath("dcx:file[@type='original']");
-                                        if (isset($check[0])){
-                                            $href = $check[0]['src'];
-                                        }
-                                        else $href = '';
-                                        $val['href'] = (string)$href;
-                                    }
-                                }
-                                if (!empty($val)) {
-                                    $val = array_combine(array_map(function($k){ return strtolower($k); }, array_keys($val)),$val);
-                                    $attached = array_merge($attached,$val); 
-                                }
-                            }
-                        }
-                        array_push($files,new DCXAttached($attached));
-                        unset($attached);
-                    }
-                    $doc_array['story_documents'] = $files;
+            $doc_fields['doc_id'] = $doc['id'];
+            $doc_fields['body'] = $doc->body->asXml();
+            $doc_fields['pool_id'] = $doc->xpath('dcx:pool_id/@id');
+            $doc_fields['created'] = $doc->xpath('dcx:created');
+            $doc_fields['modcount'] = $doc->xpath('dcx:modcount');
+            $doc_fields['modified'] = $doc->xpath('dcx:modified');
+            $doc_fields['unique'] = $doc->xpath('dcx:unique');
+            $doc_fields['type'] = $doc->xpath('dcx:head/dcx:Type');
+            $doc_fields['objectname'] = $doc->xpath('dcx:head/dcx:ObjectName');
+            $doc_fields['objecttype'] = $doc->xpath('dcx:head/dcx:ObjectType');
+            $doc_fields['owner'] = $doc->xpath('dcx:head/dcx:Owner');
+            $doc_fields['hotfolder'] = $doc->xpath('dcx:head/dcx:Hotfolder');
+            $doc_fields['importedby'] = $doc->xpath('dcx:head/dcx:ImportedBy');
+            $doc_fields['datecreated'] = $doc->xpath('dcx:head/dcx:DateCreated');
+            $doc_fields['dateimported'] = $doc->xpath('dcx:head/dcx:DateImported');
+            $doc_fields['filename'] = $doc->xpath('dcx:head/dcx:Filename');
+            $doc_fields['title'] = $doc->xpath('dcx:head/dcx:Title');
+            $doc_fields['wordcount'] = $doc->xpath('dcx:head/dcx:WordCount');
+            $doc_fields['charcount'] = $doc->xpath('dcx:head/dcx:CharCount');
+            $doc_fields['story_documents'] = array();
+            $doc_fields['files'] = array();
+            $this->NormalizeSimpleXmlArray($doc_fields);
+
+            //files section
+            $files = $doc->xpath('dcx:files/dcx:file');
+            if ($files != false){
+                foreach ($files as $f) {
+                    $file['id'] = $f->xpath('@id');
+                    $file['created'] = $f->xpath('dcx:created');
+                    $file['current'] = $f->xpath('dcx:current');
+                    $file['dev_id'] = $f->xpath('dcx:dev_id/@id');
+                    $file['displayname'] = $f->xpath('dcx:displayname');
+                    $file['doc_id'] = $f->xpath('dcx:doc_id/@id');
+                    $file['hash'] = $f->xpath('dcx:hash');
+                    $file['imagebits'] = $f->xpath('dcx:info/dcx:ImageBits');
+                    $file['imagecolorspace'] = $f->xpath('dcx:info/dcx:ImageColorspace');
+                    $file['imageheight'] = $f->xpath('dcx:info/dcx:ImageHeight');
+                    $file['imageorientation'] = $f->xpath('dcx:info/dcx:ImageOrientation');
+                    $file['imagewidth'] = $f->xpath('dcx:info/dcx:ImageWidth');
+                    $file['mimetype'] = $f->xpath('dcx:mimetype');
+                    $file['modcount'] = $f->xpath('dcx:modcount');
+                    $file['modified'] = $f->xpath('dcx:modified');
+                    $file['size'] = $f->xpath('dcx:size');
+                    $file['subpath'] = $f->xpath('dcx:subpath');
+                    $file['type'] = $f->xpath('dcx:type');
+                    $file['variant'] = $f->xpath('dcx:variant');
+                    $file['version'] = $f->xpath('dcx:version');
+                    $file['doc_id'] = $f->xpath('dcx:doc_id/@id');
+                    $this->NormalizeSimpleXmlArray($file);
+                    array_push($doc_fields['files'], new DCXFile($file));
+                    unset($file);
                 }
             }
-            $docs[] = new DCXDocument($doc_array);
-            unset($doc_array);
+
+            //attached_to_story section
+            $attached_to_story = $doc->xpath('dcx:attached_to_story/dcx:attached_document');
+            if ($attached_to_story != false){
+                foreach ($attached_to_story as $a) {
+                    $attach['id'] = $a->xpath('@id');
+                    $attach['type'] = $a->xpath('dcx:document_metadata/dcx:Type/@topic');
+                    $attach['title'] = $a->xpath('dcx:document_metadata/dcx:Title');
+                    $attach['fields_title'] = $a->xpath('dcx:fields/dcx:caption');
+                    $attach['alt'] = $a->xpath('dcx:fields/dcx:alt');
+                    $attach['byline'] = $a->xpath('dcx:fields/dcx:byline');
+                    $attach['slot'] = $a->xpath('dcx:slot');
+                    $attach['position'] = $a->xpath('dcx:slot/@position');
+                    $attach['variant'] = $a->xpath('dcx:files/@variant');
+                    $attach['href'] = $a->xpath("dcx:files/dcx:file[@type='original']/@src");
+                    $this->NormalizeSimpleXmlArray($attach);
+                    array_push($doc_fields['story_documents'], new DCXAttached($attach));
+                    unset($attach);
+                }
+            }
+            
+            $docs[] = new DCXDocument($doc_fields);
+            unset($doc_fields);
         }
         if (!isset($docs)){
             return false;
         }
         return $docs;
+    }
+
+
+    private function NormalizeSimpleXmlArray(&$array){
+        array_walk($array, function(&$v){
+                if ($v instanceof \SimpleXMLElement){
+                    $v = $v->__toString();
+                }
+                if (is_array($v) && !empty($v)){
+                    $v = $v[0]->__toString();
+                }
+            } 
+        );
     }
 
     private function parseTotalResult($xml)
