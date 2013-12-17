@@ -114,15 +114,17 @@ class ObjectCrudController extends BaseCrudController
         if(count($storyDocuments) > 0){
             $em = $this->getDoctrine()->getManager();
             $primaryStoryImage = $DcxObj->getPrimaryImage();
-            $binaryContentImage = $dcxClient->getImageFromArticle($primaryStoryImage->href);
-            $media = new Media();
-            $media->setTitle($primaryStoryImage->fields_title);
-            $media->setBinaryContent($binaryContentImage); 
-            $media->setContext('atlas');
-            $media->setProviderName('sonata.media.provider.dcx');
-            $em->persist($media);
-            $em->flush();
-            $object->setPrimaryImage($media);
+            if($primaryStoryImage != false){
+                $media = new Media();
+                $binaryContentImage = $dcxClient->getImageFromArticle($primaryStoryImage->href);
+                $media->setTitle($primaryStoryImage->fields_title);
+                $media->setBinaryContent($binaryContentImage);
+                $media->setContext('atlas');
+                $media->setProviderName('sonata.media.provider.dcx');
+                $em->persist($media);
+                $em->flush();
+                $object->setPrimaryImage($media);
+            }
 
             $galleryImages = $DcxObj->getGaleryImages();
             $media_gallery = array();
