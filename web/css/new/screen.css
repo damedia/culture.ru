@@ -4366,6 +4366,16 @@ ul.video-series li a {
     margin: 0 auto 50px;
     width: 700px;
 }
+#news-gallery {
+    margin: 0 auto 50px;
+    width: 700px;
+}
+#news-gallery ul {
+    padding: 0 !important;
+}
+#news-gallery ul li {
+    padding: 0 !important;
+}
 .theSlides {
     list-style: none outside none;
     margin: 0;
