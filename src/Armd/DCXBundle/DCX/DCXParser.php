@@ -65,10 +65,8 @@ class DCXParser
         return $docs[0];
     }
 
-    //@todo пришлось делать в спешке, надо бы переписать и отрефакторить
     private function baseParseDocument($xml)
     {
-        // echo $xml;
         $sxml = $this->xmlLoader($xml);
         $sxml->registerXPathNamespace('dcx', "http://www.digicol.com/xmlns/dcx");
         $sxml->registerXPathNamespace('ns', "http://www.w3.org/1999/xhtml");
@@ -91,11 +89,27 @@ class DCXParser
             $doc_fields['dateimported'] = $doc->xpath('dcx:head/dcx:DateImported');
             $doc_fields['filename'] = $doc->xpath('dcx:head/dcx:Filename');
             $doc_fields['title'] = $doc->xpath('dcx:head/dcx:Title');
+            $doc_fields['status'] = $doc->xpath('dcx:head/dcx:Status');
+            $doc_fields['storytype'] = $doc->xpath('dcx:head/dcx:StoryType');
+            $doc_fields['creator'] = $doc->xpath('dcx:head/dcx:Creator');
+            $doc_fields['region'] = $doc->xpath('dcx:head/dcx:Region');
+            $doc_fields['lead'] = $doc->xpath('dcx:head/dcx:Lead');
+            $doc_fields['uri'] = $doc->xpath('dcx:head/dcx:URI');
+            $doc_fields['email'] = $doc->xpath('dcx:head/dcx:Email');
+            $doc_fields['phone'] = $doc->xpath('dcx:head/dcx:Phone');
+            $doc_fields['address'] = $doc->xpath('dcx:head/dcx:Address');
+            $doc_fields['latitude'] = $doc->xpath('dcx:head/dcx:Latitude');
+            $doc_fields['longitude'] = $doc->xpath('dcx:head/dcx:Longitude');
+            $doc_fields['schedule'] = $doc->xpath('dcx:head/dcx:Schedule');
             $doc_fields['wordcount'] = $doc->xpath('dcx:head/dcx:WordCount');
             $doc_fields['charcount'] = $doc->xpath('dcx:head/dcx:CharCount');
+            $doc_fields['wordcount'] = $doc->xpath('dcx:head/dcx:WordCount');
+            $doc_fields['charcount'] = $doc->xpath('dcx:head/dcx:CharCount');
+           
+            $this->NormalizeSimpleXmlArray($doc_fields);
+           
             $doc_fields['story_documents'] = array();
             $doc_fields['files'] = array();
-            $this->NormalizeSimpleXmlArray($doc_fields);
 
             //files section
             $files = $doc->xpath('dcx:files/dcx:file');
@@ -166,6 +180,10 @@ class DCXParser
                 if (is_array($v) && !empty($v)){
                     $v = $v[0]->__toString();
                 }
+                else if(is_array($v) && empty($v)){
+                    $v = '';
+                }
+
             } 
         );
     }
