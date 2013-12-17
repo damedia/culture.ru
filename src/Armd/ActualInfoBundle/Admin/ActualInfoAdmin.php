@@ -46,6 +46,9 @@ class ActualInfoAdmin extends Admin
         $formMapper
             ->with('General')
             ->add('type', 'choice', array('choices' => $choices))
+            ->add('title', null, array('required' => false))
+            ->add('caption', null, array('required' => false))
+            ->add('url', null, array('required' => false))
             ->add(
                 'text',
                 null,

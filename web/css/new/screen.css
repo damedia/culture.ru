@@ -906,8 +906,18 @@ margin-bottom: 22px
 color: #313336;
 font: 14px/18px "PT Serif", serif
 }
+.b-citate-of-day .e-citate-content img {
+    display: block;
+    background-color: #E1E3E4;
+    min-width: 232px;
+    min-height: 154px;
+}
 .b-citate-of-day.video-of-day .e-citate-content {
 text-align: center;
+}
+.e-citate-caption {
+    padding: 5px;
+    text-align: right;
 }
 
 .m-bold {
