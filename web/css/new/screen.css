@@ -906,8 +906,18 @@ margin-bottom: 22px
 color: #313336;
 font: 14px/18px "PT Serif", serif
 }
+.b-citate-of-day .e-citate-content img {
+    display: block;
+    background-color: #E1E3E4;
+    min-width: 232px;
+    min-height: 154px;
+}
 .b-citate-of-day.video-of-day .e-citate-content {
 text-align: center;
+}
+.e-citate-caption {
+    padding: 5px;
+    text-align: right;
 }
 
 .m-bold {
@@ -2217,7 +2227,7 @@ background-color: #8a3d64
 
 .b-museums-block {
 float: right;
-width: 498px;
+width: 488px;
 background: url(../../img/new/column.png) 0 0 no-repeat;
 min-height: 468px;
 position: relative;
@@ -3052,6 +3062,9 @@ a.sidebar-widget-item:hover > .darkLayer {
 }
 .floatRight {
     float: right;
+}
+.clearBoth {
+    clear: both;
 }
 .clearRight {
     clear: right;
@@ -4356,6 +4369,16 @@ ul.video-series li a {
     margin: 0 auto 50px;
     width: 700px;
 }
+#news-gallery {
+    margin: 0 auto 50px;
+    width: 700px;
+}
+#news-gallery ul {
+    padding: 0 !important;
+}
+#news-gallery ul li {
+    padding: 0 !important;
+}
 .theSlides {
     list-style: none outside none;
     margin: 0;
@@ -4441,4 +4464,39 @@ ul.flex-direction-nav.itemMainGallery li.slideLeft {
 ul.flex-direction-nav.itemMainGallery li.slideRight {
     right: 10px;
     background: url(../../img/imagesOfRussia_icons/slide-right.png);
+}
+
+/* Cinema mainpage block */
+#cinema_block {
+    width: 458px;
+    float: left;
+    min-height: 468px;
+    padding-top: 20px;
+    position: relative;
+    margin: 0 !important;
+}
+#cinema_block header {
+    line-height: 15px;
+    padding: 0 0 15px;
+}
+#cinema_widget {
+    position: relative;
+    background: url(../../img/new/tape-left.png) right top repeat-y;
+}
+#cinema_widget section {
+    color: #2D3031;
+    position: relative;
+    padding: 10px 0 0 0 !important;
+    width: 418px;
+    background: none #EEEFF0;
+    min-height: 397px;
+}
+#cinema_widget section:before {
+    content: '';
+    position: absolute;
+    width: 40px;
+    background: url(../../img/new/tape-left.png) 0 0 repeat-y;
+    bottom: 0;
+    top: 0;
+    left: -40px;
 }
