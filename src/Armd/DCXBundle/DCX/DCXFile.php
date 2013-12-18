@@ -23,6 +23,7 @@ class DCXFile
     private $imageorientation;
     private $imagewidth;
     private $path;
+    private $displayname;
 
     public function __construct(array $fields)
     {
