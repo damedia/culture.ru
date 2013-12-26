@@ -133,16 +133,17 @@ class NewsRepository extends BaseRepository
     public function findForMainPage($date, $limit = 5)
     {
         $dt = new \DateTime();
-        $dt->setTime(0, 0, 0);
-        if ($date != '') {
-            $tmp = explode('-', $date);
-            $dt->setDate($tmp[0], $tmp[1], $tmp[2]);
-        }
+//        $dt->setTime(0, 0, 0);
+//        if ($date != '') {
+//            $tmp = explode('-', $date);
+//            $dt->setDate($tmp[0], $tmp[1], $tmp[2]);
+//        }
 
         $qb = $this->createQueryBuilder('p');
         return $qb->select('p')
             ->setMaxResults($limit)
             ->Where('p.published = TRUE')
+            ->andWhere('p.publishFromDate <= :dt')
 //            ->andWhere('p.showOnMain = TRUE')
 //            ->andWhere(
 //                $qb->expr()->orX(
@@ -161,7 +162,7 @@ class NewsRepository extends BaseRepository
 //                    $qb->expr()->andX('p.showOnMainFrom <= :dt', 'p.showOnMainTo >= :dt')
 //                )
 //            )
-//            ->setParameter('dt', $dt)
+            ->setParameter('dt', $dt)
 //            ->orderBy('p.showOnMainOrd')
             ->orderBy('p.newsDate', 'DESC')
             ->getQuery()
