@@ -5,6 +5,8 @@ namespace Armd\PerfomanceBundle\Repository;
 use Doctrine\ORM\EntityRepository;
 
 class PerfomanceRepository extends EntityRepository {
+    private $allIds = null;
+
     public function findForMainPage($date = '', $limit = 5, $type = 'recommend') {
         $dt = new \DateTime();
         $dt->setTime(0, 0, 0);
@@ -63,5 +65,39 @@ class PerfomanceRepository extends EntityRepository {
         }
 
         return $qb->getQuery()->getResult();
+    }
+
+
+
+    public function getRandomSet($amount = 1) {
+        $qb = $this->createQueryBuilder('p');
+        $randomIds = $this->getRandomIds($amount);
+
+        return $qb->select('p')
+            ->Where('p.id IN(:ids)')
+            ->setParameter('ids', $randomIds)
+            ->getQuery()
+            ->getResult();
+    }
+
+
+
+    private function getAllIds() {
+        if (is_array($this->allIds)) {
+            return $this->allIds;
+        }
+
+        $queryBuilder = $this->createQueryBuilder('p');
+        $allIdsAssocArray = $queryBuilder->select('p.id')->getQuery()->getResult();
+        $this->allIds = array_map('current', $allIdsAssocArray);
+
+        return $this->allIds;
+    }
+
+    private function getRandomIds($amount = 1) {
+        $result = array_rand($this->getAllIds(), (integer)$amount);
+        shuffle($result);
+
+        return $result;
     }
 }

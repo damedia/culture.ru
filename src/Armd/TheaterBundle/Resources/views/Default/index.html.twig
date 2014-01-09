@@ -19,7 +19,7 @@
 {% block title %}{{ 'Theater'|trans }}{% endblock %}
 
 {% block body %}
-    <div class="marginBottom50">
+    <div class="marginBottom70">
         <h1 class="b-left-title">
             {% if currentCategory == 'theaters' %}
                 {{ 'Theaters'|trans }}
@@ -40,18 +40,19 @@
             <!-- TOTAL COUNT CIRCLE -->
 
             {{ include('ArmdTheaterBundle:Default:performances_filters_section.html.twig', { 'theaters': theaters, 'genres': performancesGenres }) }}
+            {{ include('ArmdTheaterBundle:Default:performances_list.html.twig', { }) }}
 
-            THEATERS LIST 2 rows of 4 items each
-
-            SHOW MORE BUTTON
+            <!-- SHOW MORE BUTTON -->
         </div>
     {% endif %}
 
+    {#
     {% if currentCategory == 'theaters' or currentCategory is empty %}
         <div style="background-color: #d3d3d3; margin-top: 70px;">
             theaters list
         </div>
     {% endif %}
+    #}
 {% endblock %}
 
 {% block sidebar %}{% endblock %}

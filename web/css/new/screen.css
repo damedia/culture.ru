@@ -2332,11 +2332,9 @@ filter: alpha(opacity=100)
 }
 
 .b-performances-hub-section {
-    height: 353px;
     background: #080808;
     color: #fff;
     position: relative;
-    margin-bottom: 88px !important
 }
 .b-performances-hub-section:after {
     content: '';
@@ -2358,11 +2356,10 @@ filter: alpha(opacity=100)
 }
 
 .b-virtual-theatre {
-height: 353px;
-background: #080808;
-color: #fff;
-position: relative;
-margin-bottom: 88px !important
+    height: 353px;
+    background: #080808;
+    color: #fff;
+    position: relative;
 }
 
 .b-virtual-theatre a {
@@ -3360,6 +3357,16 @@ a.sidebar-widget-item:hover > .darkLayer {
     background-color: #FFFFFF;
     text-align: center;
     cursor: pointer;
+}
+
+.performances-list-item {
+    width: 225px;
+    display: inline-block;
+    background-color: red;
+}
+.performances-list-item-separator {
+    width: 20px;
+    display: inline-block;
 }
 .performances-search-category {
     height: 56px;

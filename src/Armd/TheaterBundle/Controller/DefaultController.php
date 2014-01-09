@@ -14,6 +14,7 @@ class DefaultController extends Controller
     private $palette_color = 'palette-color-5';
 
     const PALETTE_COLOR_HEX = '#5E3878';
+    const DEFAULT_LIST_LENGTH = 8;
 
     protected function getTheaterOrders()
     {
@@ -39,8 +40,11 @@ class DefaultController extends Controller
         $performancesGenres = $em->getRepository('\Armd\PerfomanceBundle\Entity\PerfomanceGanre')->findAll();
         $theaters = $em->getRepository('\Armd\TheaterBundle\Entity\Theater')->findBy(array(), array('title' => 'ASC'));
 
+        $performances = $em->getRepository('\Armd\PerfomanceBundle\Entity\Perfomance')->getRandomSet(self::DEFAULT_LIST_LENGTH);
+
         return array(
             'performancesGenres' => $performancesGenres,
+            'performances' => $performances,
             'theaters' => $theaters,
             'currentCategory' => $category,
             'palette_color' => $this->palette_color,
