@@ -1,22 +1,19 @@
 Theaters: Theaters
-Performances: Performances
-TheatersAndPerformances: Theaters and performances
-
-Theater: Theaters
+Theater: Theater
 Theater List: Theaters
 Theater categories: Theaters categories
 Theater Category List: Theaters categories
 Description: Description
-Image: Photo (cover)
-Gallery.galleryHasMedias: Media gallery
+Image: Cover
+Gallery.galleryHasMedias: Gallery
 Tvigle Video: Tvigle video
 Director: Director
 Address: Address
 Latitude: Latitude
 Longitude: Longitude
-Metro: Subway station
+Metro: Metro
 Ticket Office Mode: Ticket office mode
-Photo gallery: Theater gallery
+Photo gallery: Photo gallery
 Map: Map
 Interviews: Interviews
 
@@ -43,7 +40,3 @@ Thursday: Thursday
 Friday: Friday
 Saturday: Saturday
 Sunday: Sunday
-
-search_category:
-    theater: theater
-    genre: genre

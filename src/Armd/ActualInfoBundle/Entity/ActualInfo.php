@@ -16,7 +16,6 @@ class ActualInfo
     const TYPE_IMAGE = 'image';
     const TYPE_VIDEO = 'video';
 
-
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -31,6 +30,21 @@ class ActualInfo
     private $type;
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $title;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $caption;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $url;
+
+    /**
      * @ORM\Column(type="text", nullable=true)
      */
     private $text;
@@ -40,7 +54,6 @@ class ActualInfo
      * @ORM\JoinColumn(name="video_id", referencedColumnName="id", nullable=true)
      */
     private $video;
-
 
     /**
      * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"all"}, fetch="EAGER")
@@ -102,6 +115,75 @@ class ActualInfo
     public function setType($type)
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * Set title
+     *
+     * @param string $title
+     * @return ActualInfo
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Get caption
+     *
+     * @return string
+     */
+    public function getCaption()
+    {
+        return $this->caption;
+    }
+
+    /**
+     * Set caption
+     *
+     * @param string $caption
+     * @return ActualInfo
+     */
+    public function setCaption($caption)
+    {
+        $this->caption = $caption;
+
+        return $this;
+    }
+
+    /**
+     * Get url
+     *
+     * @return string
+     */
+    public function getUrl()
+    {
+        return $this->url;
+    }
+
+    /**
+     * Set url
+     *
+     * @param string $url
+     * @return ActualInfo
+     */
+    public function setUrl($url)
+    {
+        $this->url = $url;
 
         return $this;
     }

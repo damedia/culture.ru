@@ -76,7 +76,7 @@ class News extends Admin
                 ->add('newsDate', $dateFormType)
                 ->add('title')
                 ->add('announce', null, array('attr' => array('class' => 'span12')))
-                ->add('body', null, array('attr' => array('class' => 'tinymce')))
+                ->add('body', null, array('required' => false, 'attr' => array('class' => 'tinymce')))
                 ->add('source')
             ->end()
 //            ->with('Главная')

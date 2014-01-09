@@ -19,6 +19,8 @@
 {% block stylesheets %}
     {{ parent() }}
 
+    <link rel="stylesheet" href="{{ asset('vendor/flexslider/flexslider.css') }}" />
+    <link rel="stylesheet" href="{{ asset('vendor/fancybox/jquery.fancybox.css') }}" />
     <style type="text/css">
         ul.hub-menu li a:hover {
             color: {{ palette_color_hex }};
@@ -86,6 +88,30 @@
 
         {{ entity.body|raw }}
 
+        {% if entity.gallery is not empty %}
+            <div id="news-gallery">
+                <div class="theSlides-controls-wrapper">
+                    <div class="theSlides-controls">
+                        <span></span>
+                    </div>
+                </div>
+                <div id="image-slider">
+                    <ul class="theSlides image-slider">
+                        {% for h in entity.gallery.galleryHasMedias %}
+                            <li>
+                                <a class="fancybox" rel="slider" href="{% path h, 'reference' %}">
+                                    <img src="{% path h, 'big' %}" alt="{{ entity.title }}" width="700" height="auto" />
+                                </a>
+                                <div class="imageCounter displayNone">
+                                    {{ loop.index }} {{ 'search_of'|trans }} {{ entity.gallery.galleryHasMedias|length }}
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        {% endif %}
+
         {% if entity.stuff.count %}
             <div class="height50"></div>
 
@@ -109,9 +135,46 @@
     {{ parent() }}
 
     <script type="text/javascript" src="http://yandex.st/share/share.js" charset="utf-8"></script>
+    <script type="text/javascript" src="{{ asset('vendor/fancybox/jquery.fancybox.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('vendor/flexslider/jquery.flexslider-min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/damedia/addToFavorites.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/damedia/share.js') }}"></script>
     <script type="text/javascript">
+        $(window).load(function(){
+            var mainGallery = $('#news-gallery'),
+                mainGallery_numeratorPlaceholder = mainGallery.find('div.theSlides-controls > span');
+
+            $('#image-slider').flexslider({
+                selector: '.theSlides > li',
+                animation: 'slide',
+                slideshow: false,
+                start: function(flexsliderWrapper){
+                    var controlsPlaceholder = mainGallery.find('.theSlides-controls'),
+                        navControls = flexsliderWrapper.find('ul.flex-direction-nav'),
+                        counter = flexsliderWrapper.find('li.flex-active-slide .imageCounter').text(),
+                        slideLeft = navControls.find('li:first'),
+                        slideRight = navControls.find('li:last');
+
+                    navControls.addClass('itemMainGallery');
+                    slideLeft.addClass('slideLeft');
+                    slideRight.addClass('slideRight');
+
+                    mainGallery_numeratorPlaceholder.text(counter);
+                    navControls.detach().appendTo(controlsPlaceholder);
+                },
+                after: function(flexsliderWrapper){
+                    var counter = flexsliderWrapper.find('li.flex-active-slide .imageCounter').text();
+
+                    mainGallery_numeratorPlaceholder.text(counter);
+                }
+            });
+
+            $('.fancybox').fancybox({
+                prevEffect: 'none',
+                nextEffect: 'none'
+            });
+        });
+
         $(function(){
             var searchWrapper = $('#quick-search-wrapper'),
                     searchInput = $('#search-txt', searchWrapper),
