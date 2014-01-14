@@ -28,7 +28,6 @@ twig:
     strict_variables: %kernel.debug%
     globals:
         progorod_api_key: %progorod_api_key%
-        tvigle_player_api_version: %tvigle_player_api_version%
     form:
         resources:
             - 'ArmdMediaHelperBundle:Form:fields.html.twig'
@@ -629,6 +628,7 @@ armd_media_helper:
                 url:      http://pub.tvigle.ru/soap/index.php?wsdl
                 login:    Stella_l
                 password: armada
+                token:    6869f28a4377401cb588284a44e15d79
         dcx:
             filesystem: sonata.media.filesystem.local
             generator: sonata.media.generator.default
@@ -684,8 +684,6 @@ fpn_tag:
 
 parameters:
     sonata.user.admin.user.class: Armd\UserBundle\Admin\Entity\UserAdmin
-    tvigle_player_api_version: new
-#    tvigle_player_api_version: old
 
 armd_sitemap:
     host: culture.ru

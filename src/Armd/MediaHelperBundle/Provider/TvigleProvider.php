@@ -138,32 +138,120 @@ class TvigleProvider extends BaseVideoProvider
             return;
         }
 
-        //TODO: Property $media->binaryContent is ALWAYS empty so we should never reach the code below! Have to clean this up later =)
+        /**
+         * We are getting here once we add a Media entity in admin dashboard.
+         * For instance: add new 'Media Lecture Video' inside the Video*Video section.
+         */
 
-        $soap = new \SoapClient(
-            $this->api['url'],
-            array(
-                'login'    => $this->api['login'],
-                'password' => $this->api['password']
-            )
-        );
+        /*=========================================
+         * SOAP call code (old tvigle API):
+         *
 
-        $metadata = $soap->videoItem($media->getBinaryContent());
-        
-        if (!$metadata or !$metadata->id) {
-            throw new \RuntimeException('Unable to retrieve tvigle video information for :' .$media->getBinaryContent());
+         $soap = new \SoapClient(
+             $this->api['url'],
+             array(
+                 'login'    => $this->api['login'],
+                 'password' => $this->api['password']
+             )
+         );
+
+         $metadata = $soap->videoItem($media->getBinaryContent());
+
+         *
+         * Calling "print_r($metadata);" will give us something like:
+         *
+         * stdClass Object (
+         *      [id] => 2417314
+         *      [name] => «Культбюро» - 2013
+         *      [catalog] => 6330
+         *      [anons] => Лаборатория сценариев, короткого метра и редактуры
+         *      [tags] =>
+         *      [duration] => 293480
+         *      [geo] =>
+         *      [date] => 2013-11-05T12:02:01+04:00
+         *      [img] => http://photo.tvigle.ru/res/prt/85deec0537d438363b1c3b54dbe222e8/73/14/000002417314/pub.jpg
+         *      [swf] => http://pub.tvigle.ru/swf/tvigle_single_v2.swf?prt=85deec0537d438363b1c3b54dbe222e8&id=2417314&srv=pub.tvigle.ru&modes=1&nl=1
+         *      [frame] => http://pub.tvigle.ru/frame/p.htm?prt=85deec0537d438363b1c3b54dbe222e8&id=2417314&srv=pub.tvigle.ru&modes=1&nl=1
+         *      [rs] => 1
+         *      [code] =>
+         *      [subtitles] => 0
+         *      [under] => 0
+         *      [mob] => 0
+         * )
+         =========================================*/
+
+
+
+        /*=========================================
+         * REST call code (new tvigle API):
+         *
+         * Calling "print_r($metadata);" will give us something like:
+         *
+         * stdClass Object (
+         *      [embed_html] => <iframe src=\"http://cloud.tvigle.ru/video/4862607/?\" width=\"702\" height=\"405\" frameborder=\"no\" scrolling=\"no\" webkitAllowFullScreen mozallowfullscreen allowfullscreen></iframe>
+         *      [callback_url] =>
+         *      [duration] => 104:17
+         *      [id] => 4862607
+         *      [category] =>
+         *      [errors] => Array ( )
+         *      [country_restrictions] => Array ( )
+         *      [age_restrictions] => 0+
+         *      [progress] => 100
+         *      [thumbnail] => http://photo.tvigle.ru/res/2014/01/09/f539173f-c0f9-4e69-b007-c0673c7696b4.png
+         *      [resources] => Array (
+         *          [0] => stdClass Object (
+         *              [status] => finished
+         *              [progress] => 100
+         *              [errors] => Array ( )
+         *              [quality] => 720p
+         *              [id] => 510582
+         *          )
+         *          [1] => stdClass Object (
+         *              ...
+         *          )
+         *          ...
+         *      )
+         *      [status] => published
+         *      [description] =>
+         *      [tags] => Array ( )
+         *      [iframe_url] => http://cloud.tvigle.ru/video/4862607/?
+         *      [show_ad] =>
+         *      [embed_object] =>
+         *      [is_active] => 1
+         *      [is_playable] => 1
+         *      [duration_in_ms] => 6257920
+         *      [publication_date] =>
+         *      [status_display] => опубликован
+         *      [name] => Душа России
+         *      [url] => /client/videos/4862607/
+         *      [created_at] => 2014-01-09 14:13:35
+         *      [aspect_ratio] => 16:9
+         *      [distribution] => 1
+         *      [freezeFrame] => http://photo.tvigle.ru/res/2014/01/09/0c37fb66-e4d7-4c6d-b75e-aed80d27a418.png
+         * )
+         =========================================*/
+
+        //TODO: We may want to extract URL string into config. We also may want to create 'REST service' ot encapsulate call logic details.
+        $service_url = 'http://cloud.tvigle.ru/api/videos/'.$media->getBinaryContent().'/?access_token='.$this->api['token'];
+        $curl = curl_init($service_url);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        $curl_response = curl_exec($curl);
+
+        if ($curl_response === false) {
+            $info = curl_getinfo($curl);
+            curl_close($curl);
+            throw new \RuntimeException('Unable to retrieve tvigle video information for: '.$media->getBinaryContent().' (additional info: '.$info.')');
         }
 
-        $metadata = (array) $metadata;
-        
-        if (!$metadata['thumbnail_url'] = $soap->getStopCadrId($media->getBinaryContent())) {
-            throw new \RuntimeException('Unable to retrieve tvigle video thumbnail for :' .$media->getBinaryContent());
-        }
+        curl_close($curl);
+        $metadata = (array) json_decode($curl_response);
+
+        $metadata['thumbnail_url'] = $metadata['thumbnail'];
 
         try {
             $imgSize = getimagesize($metadata['thumbnail_url']);
-
-        } catch(Exception $e) {
+        }
+        catch(\Exception $e) {
             $imgSize = array(0, 0);
         }
 
@@ -180,8 +268,8 @@ class TvigleProvider extends BaseVideoProvider
     {
         try {
             $metadata = $this->getMetadata($media);
-
-        } catch (\RuntimeException $e) {
+        }
+        catch (\RuntimeException $e) {
             $media->setEnabled(false);
             $media->setProviderStatus(MediaInterface::STATUS_ERROR);
 
@@ -194,7 +282,7 @@ class TvigleProvider extends BaseVideoProvider
         // update Media common fields from metadata
         if ($force) {
             $media->setName($metadata['name']);
-            $media->setDescription($metadata['anons']);
+            $media->setDescription($metadata['description']);
         }
 
         $media->setWidth($metadata['width']);
@@ -222,10 +310,10 @@ class TvigleProvider extends BaseVideoProvider
 
         // update Media common field from metadata
         $media->setName($metadata['name']);
-        $media->setDescription($metadata['anons']);
+        $media->setDescription($metadata['description']);
         $media->setWidth($metadata['width']);
         $media->setHeight($metadata['height']);
-        $media->setLength($metadata['duration']);
+        $media->setLength($metadata['duration_in_ms']);
         $media->setContentType('video/x-flv');
         $media->setProviderStatus(MediaInterface::STATUS_OK);
 

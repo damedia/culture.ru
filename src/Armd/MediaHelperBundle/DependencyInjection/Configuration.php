@@ -51,6 +51,7 @@ class Configuration implements ConfigurationInterface
                                         ->scalarNode('url')->defaultValue('http://pub.tvigle.ru/soap/index.php?wsdl')->end()
                                         ->scalarNode('login')->cannotBeEmpty()->end()
                                         ->scalarNode('password')->cannotBeEmpty()->end()
+                                        ->scalarNode('token')->cannotBeEmpty()->end()
                                     ->end()
                                 ->end()
                             ->end()
