@@ -89,7 +89,7 @@ class DefaultController extends Controller
      *      defaults={"offset"="0", "limit"="0"}
      * )
      */
-    public function  theaterListDataAction($offset = 0, $limit = 0)
+    public function theaterListDataAction($offset = 0, $limit = 0)
     {
         $orders = $this->getTheaterOrders();
 

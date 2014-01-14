@@ -3230,6 +3230,9 @@ a.sidebar-widget-item:hover > .darkLayer {
 .marginBottom70 {
     margin-bottom: 70px;
 }
+.marginBottom100 {
+    margin-bottom: 100px;
+}
 .marginBottomImportant88 {
     margin-bottom: 88px !important;
 }
@@ -3362,17 +3365,45 @@ a.sidebar-widget-item:hover > .darkLayer {
 .performances-list-item {
     width: 225px;
     display: inline-block;
-    background-color: red;
+    vertical-align: top;
+}
+.performances-list-item span {
+    color: #ffffff;
+    margin: 10px 0 5px 0;
+}
+.performances-list-item a.theater {
+    display: block;
+    color: #ffffff;
+    margin-bottom: 20px;
+}
+.performances-list-item a.theater:hover {
+    text-decoration: underline !important;
+}
+.performances-list-item .image-wrapper {
+    width: 225px;
+    height: 154px;
+    line-height: 154px;
+}
+.performances-list-item .image-wrapper img {
+    max-width: 225px;
+    max-height: 154px;
+    height: auto;
+    vertical-align: middle;
+}
+.performances-list-item div.no-image {
+    background-color: #E1E3E4;
+    display: block;
+    min-height: 154px;
+    min-width: 225px;
 }
 .performances-list-item-separator {
     width: 20px;
     display: inline-block;
 }
 .performances-search-category {
-    height: 56px;
-    padding: 6px 0 0 25px;
-    border: 1px solid #ddd;
+    height: 33px;
     background: #fff;
+    padding: 25px 0;
 }
 .performances-search-category-selects {
     display: inline-block;
