@@ -83,7 +83,12 @@ class DefaultController extends Controller {
                 ->innerJoin('g.genres', 'gen')
                 ->where('st.code = :super_type_code')
                 ->andWhere('gen.id = :genre')
-                ->setParameters(array('super_type_code' => 'LECTURE_SUPER_TYPE_CINEMA', 'genre' => $genre->getId()))
+                ->andWhere('g.published = :published')
+                ->setParameters(array(
+                    'super_type_code' => 'LECTURE_SUPER_TYPE_CINEMA',
+                    'genre' => $genre->getId(),
+                    'published' => true
+                ))
                 ->getQuery()->getSingleScalarResult();
             $totals[$genre->getSlug()] = $count;
         }
