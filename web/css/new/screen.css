@@ -2335,6 +2335,7 @@ filter: alpha(opacity=100)
     background: #080808;
     color: #fff;
     position: relative;
+    padding-bottom: 40px;
 }
 .b-performances-hub-section:after {
     content: '';
@@ -3362,6 +3363,31 @@ a.sidebar-widget-item:hover > .darkLayer {
     cursor: pointer;
 }
 
+.theaters-counter {
+    width: 59px;
+    height: 59px;
+    background: url(../../img/theaters_icons/circle.png) 0 0 no-repeat;
+    position: absolute;
+    left: -100px;
+    color: #ffffff;
+    text-align: center;
+    top: 7px;
+}
+.theaters-counter .count {
+    font-weight: bolder;
+    font-size: 1.5em;
+    margin-top: 13px;
+    display: block;
+}
+.theaters-counter .text {
+    font-size: 0.7em;
+    margin-top: -7px;
+    display: block;
+}
+
+.performances-list-holder {
+    margin-bottom: 10px;
+}
 .performances-list-item {
     width: 225px;
     display: inline-block;
@@ -3402,8 +3428,7 @@ a.sidebar-widget-item:hover > .darkLayer {
 }
 .performances-search-category {
     height: 33px;
-    background: #fff;
-    padding: 25px 0;
+    padding: 20px 0;
 }
 .performances-search-category-selects {
     display: inline-block;
@@ -3639,6 +3664,13 @@ a.sidebar-widget-item:hover > .darkLayer {
     width: 172px;
     height: 43px;
     margin: -20px auto 50px auto;
+    cursor: pointer;
+}
+#performances-showMore {
+    background: url(../../img/theaters_icons/show-more.png) 0 0 no-repeat;
+    width: 172px;
+    height: 43px;
+    margin: 0 auto;
     cursor: pointer;
 }
 

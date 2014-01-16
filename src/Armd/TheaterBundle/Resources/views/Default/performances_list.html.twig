@@ -1,7 +1,6 @@
 {% spaceless %}
-<div class="performances-list-holder">
     {% for entity in performances %}
-        <div class="performances-list-item">
+        <div class="performances-list-item" data-id="{{ entity.id }}">
             <a href="{{ path('armd_perfomance_item', {'id': entity.id }) }}" class="noTextDecoration" title="{{ entity.title|escape }}">
                 {% if entity.gallery and entity.gallery|length > 0 %}
                     <div class="image-wrapper">
@@ -26,7 +25,6 @@
             <div class="performances-list-item-separator"></div>
         {% endif %}
     {% endfor %}
-</div>
 {% endspaceless %}
 
 

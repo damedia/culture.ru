@@ -8,8 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Armd\TheaterBundle\Entity\TheaterManager;
 use Armd\PerfomanceBundle\Entity\PerfomanceManager;
 
-class DefaultController extends Controller
-{
+class DefaultController extends Controller {
     static $limit = 24;
     private $palette_color = 'palette-color-5';
 
@@ -40,15 +39,34 @@ class DefaultController extends Controller
         $performancesGenres = $em->getRepository('\Armd\PerfomanceBundle\Entity\PerfomanceGanre')->findAll();
         $theaters = $em->getRepository('\Armd\TheaterBundle\Entity\Theater')->findBy(array(), array('title' => 'ASC'));
 
-        $performances = $em->getRepository('\Armd\PerfomanceBundle\Entity\Perfomance')->getRandomSet(self::DEFAULT_LIST_LENGTH);
+        $performancesRepository = $em->getRepository('\Armd\PerfomanceBundle\Entity\Perfomance');
+        $performancesCount = count($performancesRepository->findAll());
+        $performances = $performancesRepository->getRandomSet(self::DEFAULT_LIST_LENGTH);
 
         return array(
             'performancesGenres' => $performancesGenres,
             'performances' => $performances,
+            'performancesCount' => $performancesCount,
             'theaters' => $theaters,
             'currentCategory' => $category,
             'palette_color' => $this->palette_color,
             'palette_color_hex' => self::PALETTE_COLOR_HEX
+        );
+    }
+
+    /**
+     * @Route("/performances-list/", name="armd_performances_list", options={"expose"=true})
+     * @Template("ArmdTheaterBundle:Default:performances_list.html.twig")
+     */
+    public function performancesListAction() {
+        $em = $this->getDoctrine()->getManager();
+        $selectedIds = $request = $this->getRequest()->get('loadedIds');
+
+        $performancesRepository = $em->getRepository('\Armd\PerfomanceBundle\Entity\Perfomance');
+        $performances = $performancesRepository->getRandomSet(self::DEFAULT_LIST_LENGTH, $selectedIds);
+
+        return array(
+            'performances' => $performances
         );
     }
 

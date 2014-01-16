@@ -5,8 +5,6 @@ namespace Armd\PerfomanceBundle\Repository;
 use Doctrine\ORM\EntityRepository;
 
 class PerfomanceRepository extends EntityRepository {
-    private $allIds = null;
-
     public function findForMainPage($date = '', $limit = 5, $type = 'recommend') {
         $dt = new \DateTime();
         $dt->setTime(0, 0, 0);
@@ -68,34 +66,40 @@ class PerfomanceRepository extends EntityRepository {
     }
 
 
-
-    public function getRandomSet($amount = 1) {
+    /**
+     * @param int $amount
+     * @param array $excludeIds
+     *
+     * @return array
+     */
+    public function getRandomSet($amount = 1, $excludeIds = array()) {
         $qb = $this->createQueryBuilder('p');
-        $randomIds = $this->getRandomIds($amount);
+        $excludeIds = array_map('intval', $excludeIds);
+        $randomIds = $this->getRandomIds($amount, $excludeIds);
 
-        return $qb->select('p')
-            ->Where('p.id IN(:ids)')
-            ->setParameter('ids', $randomIds)
-            ->getQuery()
-            ->getResult();
+        return $qb->select('p')->where($qb->expr()->in('p.id', $randomIds))->getQuery()->getResult();
     }
 
 
 
-    private function getAllIds() {
-        if (is_array($this->allIds)) {
-            return $this->allIds;
+    private function getAllIds($excludeIds = array()) {
+        $qb = $this->createQueryBuilder('p');
+        if (count($excludeIds) > 0) {
+            $qb->select('p.id')->where($qb->expr()->notIn('p.id', $excludeIds));
         }
+        else {
+            $qb->select('p.id');
+        }
+        $allIdsAssocArray = $qb->getQuery()->getResult();
 
-        $queryBuilder = $this->createQueryBuilder('p');
-        $allIdsAssocArray = $queryBuilder->select('p.id')->getQuery()->getResult();
-        $this->allIds = array_map('current', $allIdsAssocArray);
+        $gg = array_map('current', $allIdsAssocArray);
 
-        return $this->allIds;
+print_r($gg);
+        return $gg;
     }
 
-    private function getRandomIds($amount = 1) {
-        $result = array_rand($this->getAllIds(), (integer)$amount);
+    private function getRandomIds($amount = 1, $excludeIds = array()) {
+        $result = array_rand($this->getAllIds($excludeIds), (integer)$amount);
         shuffle($result);
 
         return $result;

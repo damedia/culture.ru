@@ -1,11 +1,11 @@
 <div id="performances-search" class="search-category performances-search-category">
-    <div class="floatRight marginRight50">
+    <div class="marginRight50">
         <span class="marginRight8">
             {{ 'Filter'|trans }}:
         </span>
         <div class="performances-search-category-selects">
             <select name="theaters" id="theaters" class="uni">
-                <option value="" selected>{{ "search_category.theater"|trans }}</option>
+                <option value="" selected>{{ "SearchCategory.Theater"|trans }}</option>
                 {% for theater in theaters %}
                     <option value="{{ theater.id }}">{{ theater.title }}</option>
                 {% endfor %}
@@ -13,7 +13,7 @@
         </div>
         <div class="performances-search-category-selects">
             <select name="genres" id="genres" class="uni">
-                <option value="" selected>{{ "search_category.genre"|trans }}</option>
+                <option value="" selected>{{ "SearchCategory.Genre"|trans }}</option>
                 {% for genre in genres %}
                     <option value="{{ genre.id }}">{{ genre.title }}</option>
                 {% endfor %}

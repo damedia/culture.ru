@@ -37,12 +37,18 @@
         {% render 'ArmdPerfomanceBundle:Perfomance:mainpageWidget' %}
 
         <div class="b-performances-hub-section">
-            <!-- TOTAL COUNT CIRCLE -->
+            <div class="theaters-counter">
+                <span class="count">{{ performancesCount }}</span>
+                <span class="text">{{ 'Counter.Performances'|trans }}</span>
+            </div>
 
             {{ include('ArmdTheaterBundle:Default:performances_filters_section.html.twig', { 'theaters': theaters, 'genres': performancesGenres }) }}
-            {{ include('ArmdTheaterBundle:Default:performances_list.html.twig', { }) }}
 
-            <!-- SHOW MORE BUTTON -->
+            <div class="performances-list-holder">
+                {{ include('ArmdTheaterBundle:Default:performances_list.html.twig', { }) }}
+            </div>
+
+            <div id="performances-showMore" title="{{ 'ShowMore'|trans }}"></div>
         </div>
     {% endif %}
 
@@ -88,6 +94,58 @@
                 if (containerFor === 'ui-genres') {
                     console.log('filterByGenre');
                 }
+            });
+
+            /* Show more button */
+            $('#performances-showMore').on('click', function(){
+                var itemsPlaceholder = $('.performances-list-holder'),
+                    loadedItems = itemsPlaceholder.find('.performances-list-item'),
+                    loadedIds = [],
+                    ajaxUrl = Routing.generate('armd_performances_list'),
+                    ajaxData = { };
+
+                $.each(loadedItems, function(){
+                    loadedIds.push($(this).attr('data-id'));
+                });
+
+                ajaxData.loadedIds = loadedIds;
+
+                $.post(ajaxUrl, ajaxData, function(html){
+                    if (html.trim() !== '') {
+                        itemsPlaceholder.append(html);
+                    }
+                });
+
+                /*
+
+                    genreId = sectionWrapper.attr('data-genreId'),
+                    genreSlug = sectionWrapper.attr('data-genreSlug'),
+                    itemsPlaceholder = sectionWrapper.find('.movies-genre-section'),
+                    ,
+                    ajaxUrl = Routing.generate('armd_movies_genre_section_list', {genreId: genreId}),
+                    firstLetter = $('.movies-alphabet-filter', sectionWrapper).find('span.active').attr('data-letter'),
+                    ajaxData = {
+                        genreSlug: genreSlug,
+                        firstLetter: firstLetter,
+                        limit: '{ limit }',
+                        selectedGenreId: '{ selectedGenreId }',
+                        tagId: '{ tagId }',
+                        searchQuery: '{ searchQuery }',
+                        extra: true
+                    };
+
+
+
+                ajaxData.loadedIds = loadedIds;
+
+                $.post(ajaxUrl, ajaxData, function(html){
+                    if (html.trim() !== '') {
+                        itemsPlaceholder.find('.movies-genre-section-spacer:last').remove();
+                        itemsPlaceholder.find('.movies-goto-section-button-holder').remove();
+                        itemsPlaceholder.append(html);
+                    }
+                });
+                */
             });
         });
     </script>
