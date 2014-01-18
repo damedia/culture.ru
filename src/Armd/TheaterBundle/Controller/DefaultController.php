@@ -2,6 +2,7 @@
 
 namespace Armd\TheaterBundle\Controller;
 
+use Armd\TheaterBundle\Admin\TheaterAdmin;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -13,7 +14,8 @@ class DefaultController extends Controller {
     private $palette_color = 'palette-color-5';
 
     const PALETTE_COLOR_HEX = '#5E3878';
-    const DEFAULT_LIST_LENGTH = 8;
+    const PERFORMANCES_DEFAULT_LIST_LENGTH = 8;
+    const THEATERS_DEFAULT_LIST_LENGTH = 9;
 
     protected function getTheaterOrders()
     {
@@ -35,18 +37,18 @@ class DefaultController extends Controller {
      */
     public function hubIndexAction($category) {
         $em = $this->getDoctrine()->getManager();
-
-        $performancesGenres = $em->getRepository('\Armd\PerfomanceBundle\Entity\PerfomanceGanre')->findAll();
-        $theaters = $em->getRepository('\Armd\TheaterBundle\Entity\Theater')->findBy(array(), array('title' => 'ASC'));
-
+        $genresRepository = $em->getRepository('\Armd\PerfomanceBundle\Entity\PerfomanceGanre');
+        $theatersRepository = $em->getRepository('\Armd\TheaterBundle\Entity\Theater');
         $performancesRepository = $em->getRepository('\Armd\PerfomanceBundle\Entity\Perfomance');
-        $performancesCount = count($performancesRepository->findAll());
-        $performances = $performancesRepository->getRandomSet(self::DEFAULT_LIST_LENGTH);
+
+        $genres = $genresRepository->findAll();
+        $theaters = $theatersRepository->getAllTheatersOrderedByTitleAsc();
+        $performancesCount = $performancesRepository->getPerformancesCount();
 
         return array(
-            'performancesGenres' => $performancesGenres,
-            'performances' => $performances,
+            'performancesGenres' => $genres,
             'performancesCount' => $performancesCount,
+            'theatersCount' => count($theaters),
             'theaters' => $theaters,
             'currentCategory' => $category,
             'palette_color' => $this->palette_color,
@@ -59,14 +61,52 @@ class DefaultController extends Controller {
      * @Template("ArmdTheaterBundle:Default:performances_list.html.twig")
      */
     public function performancesListAction() {
+        $request = $request = $this->getRequest();
         $em = $this->getDoctrine()->getManager();
-        $selectedIds = $request = $this->getRequest()->get('loadedIds');
+
+        $selectedIds = $request->get('loadedIds', array());
+        $selectedTheater = $request->get('selectedTheater', 0);
+        $selectedGenre = $request->get('selectedGenre', 0);
 
         $performancesRepository = $em->getRepository('\Armd\PerfomanceBundle\Entity\Perfomance');
-        $performances = $performancesRepository->getRandomSet(self::DEFAULT_LIST_LENGTH, $selectedIds);
+        $performances = $performancesRepository->getRandomSet(self::PERFORMANCES_DEFAULT_LIST_LENGTH, $selectedIds, $selectedTheater, $selectedGenre);
 
         return array(
             'performances' => $performances
+        );
+    }
+
+    /**
+     * @Route("/theaters-list/", name="armd_theaters_list", options={"expose"=true})
+     * @Template("ArmdTheaterBundle:Default:theaters_list.html.twig")
+     */
+    public function theatersListAction() {
+        $limit = self::THEATERS_DEFAULT_LIST_LENGTH;
+        $request = $request = $this->getRequest();
+        $selectedIds = $request->get('loadedIds', array());
+        $cityId = $request->get('cityId');
+        $categoryId = $request->get('categoryId');
+
+        if ($cityId || $categoryId) {
+            $limit = 0;
+        }
+
+        /**
+         * If we are using TheaterManager class (which extends ListManager) and adding CRITERIA_RANDOM option
+         * we often end up with an error (NoResultException: 'No result was found for query although at least
+         * one row was expected.'). I don't know why exactly it is but the problem is in the class - ListManager,
+         * method - getRandomObjectsFromQueryBuilder(). Therefore we are using my own implementation (into
+         * Repository classes).
+         *
+         * And it also works a lot faster! Yay!
+         */
+
+        $em = $this->getDoctrine()->getManager();
+        $theaterRepository = $em->getRepository('\Armd\TheaterBundle\Entity\Theater');
+        $objects = $theaterRepository->getRandomSet($limit, $selectedIds, $cityId, $categoryId);
+
+        return array(
+            'objects' => $objects
         );
     }
 

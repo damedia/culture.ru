@@ -1,0 +1,22 @@
+<div class="theaters-list-item-big" data-id="{{ item.id }}">
+    <a href="#" class="city" data-cityId="{{ item.city.id }}">
+        {{ item.city.title }}
+    </a>
+
+    <a href="{{ path('armd_theater_item', {'id': item.id}) }}" class="noTextDecoration" data-id="{{ item.id }}">
+        {% if item.image %}
+            <div class="image-wrapper">
+                {% thumbnail item.image, 'item' with {'alt' : item.title|escape} %}
+            </div>
+        {% else %}
+            <div class="no-image"></div>
+        {% endif %}
+        <span class="sidebar-item-title">
+            {{ item.title }}
+        </span>
+    </a>
+
+    {% for category in item.categories %}
+        <a href="#" class="category" data-categoryId="{{ category.id }}">{{ category.title }}</a>{{ not loop.last ? ', ' : '' }}
+    {% endfor %}
+</div>

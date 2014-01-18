@@ -4,9 +4,11 @@ TheatersAndPerformances: Театры и спектакли
 ShowMore: показать еще
 Counter:
     Performances: спектакля
+    Theaters: театров
 SearchCategory:
     Theater: театр
     Genre: жанр
+    NotFound: Результатов не найдено
 
 Theater: Театр
 Theater List: Театры

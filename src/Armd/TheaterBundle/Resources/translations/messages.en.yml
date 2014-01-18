@@ -4,9 +4,11 @@ TheatersAndPerformances: Theaters and performances
 ShowMore: show more
 Counter:
     Performances: performances
+    Theaters: theaters
 SearchCategory:
     Theater: theater
     Genre: genre
+    NotFound: No results were found
 
 Theaters: Theaters
 Theater: Theater

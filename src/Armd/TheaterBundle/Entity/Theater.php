@@ -8,7 +8,7 @@ use Application\Sonata\MediaBundle\Entity\Media;
 use Armd\MainBundle\Model\ChangeHistorySavableInterface;
 
 /**
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="Armd\TheaterBundle\Repository\TheaterRepository")
  * @ORM\Table(name="armd_theater")
  */
 class Theater implements ChangeHistorySavableInterface

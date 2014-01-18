@@ -1,5 +1,4 @@
 <?php
-
 namespace Armd\PerfomanceBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
@@ -65,43 +64,88 @@ class PerfomanceRepository extends EntityRepository {
         return $qb->getQuery()->getResult();
     }
 
+    /**
+     * @return int
+     */
+    public function getPerformancesCount() {
+        $qb = $this->createQueryBuilder('p');
+
+        return $qb->select('count(p.id)')
+            ->where($qb->expr()->eq('p.published', $qb->expr()->literal(true)))
+            ->getQuery()->getSingleScalarResult();
+    }
 
     /**
      * @param int $amount
      * @param array $excludeIds
+     * @param int $selectedTheater
+     * @param int $selectedGenre
      *
      * @return array
      */
-    public function getRandomSet($amount = 1, $excludeIds = array()) {
+    public function getRandomSet($amount = 1, $excludeIds = array(), $selectedTheater = 0, $selectedGenre = 0) { //TODO: too many parameters
+        $randomSet = array();
         $qb = $this->createQueryBuilder('p');
         $excludeIds = array_map('intval', $excludeIds);
-        $randomIds = $this->getRandomIds($amount, $excludeIds);
+        $randomIds = $this->getRandomIds($amount, $excludeIds, $selectedTheater, $selectedGenre);
 
-        return $qb->select('p')->where($qb->expr()->in('p.id', $randomIds))->getQuery()->getResult();
+        if (count($randomIds) > 0) {
+            $randomSet = $qb->select('p')
+                ->where($qb->expr()->in('p.id', $randomIds))
+                ->andWhere($qb->expr()->eq('p.published', $qb->expr()->literal(true)))
+                ->getQuery()->getResult();
+        }
+
+        return $randomSet;
     }
 
 
 
-    private function getAllIds($excludeIds = array()) {
-        $qb = $this->createQueryBuilder('p');
+    private function getRandomIds($amount = 1, $excludeIds = array(), $selectedTheater = 0, $selectedGenre = 0) {
+        $randomIds = array();
+        $allIds = $this->getAllIds($excludeIds, $selectedTheater, $selectedGenre);
+
+        if (count($allIds) == 0) {
+            return $randomIds;
+        }
+
+        $amount = (count($allIds) < $amount) ? count($allIds) : $amount;
+        $randomKeys = array_rand($allIds, $amount);
+
+        if (!is_array($randomKeys)) {
+            $randomKeys = array();
+        }
+
+        foreach ($randomKeys as $key) {
+            $randomIds[] = $allIds[$key];
+        }
+
+        shuffle($randomIds);
+
+        return $randomIds;
+    }
+
+    private function getAllIds($excludeIds = array(), $selectedTheater = 0, $selectedGenre = 0) {
+        $qb = $this->createQueryBuilder('p')
+                   ->select('p.id');
+
         if (count($excludeIds) > 0) {
-            $qb->select('p.id')->where($qb->expr()->notIn('p.id', $excludeIds));
+            $qb->andWhere($qb->expr()->notIn('p.id', $excludeIds));
         }
-        else {
-            $qb->select('p.id');
+
+        if ($selectedTheater) {
+            $qb->leftJoin('p.theater', 't')
+               ->andWhere($qb->expr()->eq('t.id', $selectedTheater));
         }
+
+        if ($selectedGenre) {
+            $qb->leftJoin('p.ganres', 'g')
+               ->andWhere($qb->expr()->eq('g.id', $selectedGenre));
+        }
+
         $allIdsAssocArray = $qb->getQuery()->getResult();
+        $allIds = array_map('current', $allIdsAssocArray);
 
-        $gg = array_map('current', $allIdsAssocArray);
-
-print_r($gg);
-        return $gg;
-    }
-
-    private function getRandomIds($amount = 1, $excludeIds = array()) {
-        $result = array_rand($this->getAllIds($excludeIds), (integer)$amount);
-        shuffle($result);
-
-        return $result;
+        return $allIds;
     }
 }
