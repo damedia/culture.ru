@@ -5,4 +5,20 @@ LECTURE_SUPER_TYPE_TOP100: 100 фильмов для школьников
 LECTURE_SUPER_TYPE_PERFOMANCES: Спектакль
 LECTURE_SUPER_TYPE_NEWS: Видео
 
+VideoSelector:
+    Trailer: трейлер
+    Performance: спектакль
+
+Description:
+    Year: Год
+    Theater: Театр
+    Genre: Жанр
+    Description: Описание
+
+Interview: Интервью
+Gallery: Фотогалерея
+Reviews: Рецензии
+AddReview: Добавить рецензию
+CommentReview: Комментировать
+ReviewComments: Комментарии
 reviews_auth_require: Чтобы оставлять рецензии необходимо <a href="%loginUrl%">авторизоваться</a> на сайте.

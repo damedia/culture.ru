@@ -5,17 +5,17 @@
         </span>
         <div class="performances-search-category-selects">
             <select name="theaters" id="theaters" class="uni">
-                <option value="" selected>{{ "SearchCategory.Theater"|trans }}</option>
+                <option value=""{% if theaterId is empty %} selected{% endif %}>{{ "SearchCategory.Theater"|trans }}</option>
                 {% for theater in theaters %}
-                    <option value="{{ theater.id }}">{{ theater.title }}</option>
+                    <option value="{{ theater.id }}"{% if theaterId == theater.id %} selected{% endif %}>{{ theater.title }}</option>
                 {% endfor %}
             </select>
         </div>
         <div class="performances-search-category-selects">
             <select name="genres" id="genres" class="uni">
-                <option value="" selected>{{ "SearchCategory.Genre"|trans }}</option>
+                <option value=""{% if genreId is empty %} selected{% endif %}>{{ "SearchCategory.Genre"|trans }}</option>
                 {% for genre in genres %}
-                    <option value="{{ genre.id }}">{{ genre.title }}</option>
+                    <option value="{{ genre.id }}"{% if genreId == genre.id %} selected{% endif %}>{{ genre.title }}</option>
                 {% endfor %}
             </select>
         </div>

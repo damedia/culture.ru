@@ -1,9 +1,3 @@
-<style>
-    textarea {
-        width: 100%;
-        height: 150px;
-    }
-</style>
 {% if not is_granted('ROLE_USER') %}
     <div class="comments-auth-block">
         <p>{{ "reviews_auth_require"|trans({ '%loginUrl%': path('fos_user_security_login', {'post_auth_redirect': app.request.uri }) })|raw }}</p>
@@ -11,19 +5,18 @@
     </div>
 {% else %}
     {% if form %}
-        <h3>Написать рецензию</h3>
-            <form id="review_form" action="{{ path('armd_perfomance_review', {'perfomance_id': perfomance_id }) }}" method="post" {{ form_enctype(form) }}>
-            
-                <div class="fos_comment_form_errors">{{ form_errors(form) }}</div>
-                
+        <form id="review_form" action="{{ path('armd_perfomance_review', {'perfomance_id': perfomance_id }) }}" method="post" {{ form_enctype(form) }}>
+            <div class="fos_comment_form_errors">{{ form_errors(form) }}</div>
+
+            <div class="b-right-col fos_comment_submit">
+                <input type="submit" class="post-review-submit-button comment-post-button {{ palette_background }}" value="Добавить рецензию" />
+            </div>
+
+            <div class="reviews-body-form-wrapper">
                 {{ form_widget(form.body) }}
                 {{ form_rest(form) }}
-            
-                <div class="fos_comment_submit">
-                    <input type="submit" value="Опубликовать"/>
-                </div>
-            </form>
-
-    {% endif %}    
-{% endif %}  
+            </div>
+        </form>
+    {% endif %}
+{% endif %}
 

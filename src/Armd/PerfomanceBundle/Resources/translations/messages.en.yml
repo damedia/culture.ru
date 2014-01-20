@@ -5,4 +5,20 @@ LECTURE_SUPER_TYPE_TOP100: 100 films for kids
 LECTURE_SUPER_TYPE_PERFOMANCES: Performance
 LECTURE_SUPER_TYPE_NEWS: Video
 
+VideoSelector:
+    Trailer: trailer
+    Performance: performance
+
+Description:
+    Year: Year
+    Theater: Theater
+    Genre: Genre
+    Description: Description
+
+Interview: Interview
+Gallery: Gallery
+Reviews: Reviews
+AddReview: Add review
+CommentReview: Comment
+ReviewComments: Comments
 reviews_auth_require: You need to <a href="%loginUrl%">login</a> to post a review.

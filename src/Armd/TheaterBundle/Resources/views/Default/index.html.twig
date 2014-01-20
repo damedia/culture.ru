@@ -42,7 +42,7 @@
                 <span class="text">{{ 'Counter.Performances'|trans }}</span>
             </div>
 
-            {{ include('ArmdTheaterBundle:Default:performances_filters_section.html.twig', { 'theaters': theaters, 'genres': performancesGenres }) }}
+            {{ include('ArmdTheaterBundle:Default:performances_filters_section.html.twig', { 'theaters': theaters, 'genres': performancesGenres, 'theaterId': theaterId, 'genreId': genreId }) }}
 
             <div class="performances-list-holder"></div>
 

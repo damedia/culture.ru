@@ -1,0 +1,49 @@
+{% if (entity.gallery and entity.gallery|length > 0) or entity.interviewVideo %}
+    {% if entity.mediaInterviewVideo is not empty %}
+        <div class="imagesOfRussia-item-sidebar-virtualTours">
+            <div class="header-text-medium textAlignCenter paddingTopBottom20 sidebar-bordered-block marginBottom15">
+                {{ 'Interview'|trans }}
+            </div>
+
+            <a class="fancybox displayBlock positionRelative" href="#data-1">
+                <img src="{{ entity.mediaInterviewVideo.providerMetadata.thumbnail_url }}" alt="{{ entity.interviewTitle|escape }}" width="240" height="auto" />
+                <span class="play"></span>
+            </a>
+            <div id="data-1" class="displayNone">
+                <div class="fancybox-video-wrapper">
+                    {% media entity.mediaInterviewVideo, 'reference' with {'width': 700, 'height': 520} %}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    {% if entity.gallery and entity.gallery|length > 0 %}
+        <div id="imageOfRussia-archiveGallery" class="imagesOfRussia-item-sidebar-archives positionRelative">
+            <div class="header-text-medium textAlignCenter paddingTopBottom20 sidebar-bordered-block-noBottom height60">
+                {{ 'Gallery'|trans }}
+            </div>
+            <div class="archiveSlides-controls-wrapper positionAbsolute">
+                <div class="archiveSlides-controls">
+                    <span></span>
+                </div>
+            </div>
+            <div id="archive-slider" data-width="240" data-height="175">
+                <ul class="archiveSlides image-slider">
+                    {% for h in entity.gallery.galleryHasMedias %}
+                        <li>
+                            <a class="fancybox" rel="slider" href="{% path h.media, 'xxbig' %}">
+                                {% media h.media, 'big' with {'alt': entity.interviewTitle|escape, 'width': 240, 'height': 'auto'} %}
+                            </a>
+                            <div class="imageCounter displayNone">
+                                {{ loop.index }} {{ 'search_of'|trans }} {{ entity.gallery.galleryHasMedias|length }}
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="sidebar-bordered-block-noTop archive-slider-bottom-fix"></div>
+        </div>
+    {% endif %}
+{% else %}
+    {% render url('armd_perfomance_list_related', {'tags': entity.tags|extract_array_values('getName'), 'limit':4, 'id': entity.id }) %}
+{% endif %}

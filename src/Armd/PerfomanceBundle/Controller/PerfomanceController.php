@@ -9,20 +9,28 @@ use Symfony\Component\HttpFoundation\Response;
 use Armd\PerfomanceBundle\Entity\PerfomanceManager;
 use Armd\PerfomanceBundle\Entity\PerfomanceGanre;
 use Armd\UserBundle\Entity\UserManager;
+use Armd\UserBundle\Entity\Favorites;
+use Armd\PerfomanceBundle\Entity\PerfomanceReview;
 
-class PerfomanceController extends Controller
-{
+class PerfomanceController extends Controller {
 	static $count = 32;
 	static $abc = array('А','Б','В','Г','Д','Е','Ё','Ж','З','И','К','Л','М','Н','О','П','Р','С','Т','У','Ф','Х','Ц','Ч','Ш','Щ','Э','Ю','Я');
     static $video_width = 610;
     static $video_width_fancybox = 640;
 
+    const PALETTE_COLOR_HEX = '#327BA7';
+
+    private $palette_color = 'palette-color-5';
+    private $palette_color_hex = '#5E3878';
+    private $palette_background = 'palette-background-5';
+    private $palette_favoritesIcon = 'palette-favoritesIcon-5';
+    private $palette_favoritesIconAdded = 'palette-favoritesIconAdded-5';
+
     /**
      * @Route("/", name="armd_perfomance_index")
      * @Template("ArmdPerfomanceBundle:Perfomance:index.html.twig")
      */
-    public function indexAction()
-    {
+    public function indexAction() {
         return array();
     }
 
@@ -162,51 +170,43 @@ class PerfomanceController extends Controller
      * @Route("/item/{id}/", requirements={"id"="\d+"}, name="armd_perfomance_item")
      * @Template("ArmdPerfomanceBundle:Perfomance:item.html.twig")
      */
-    public function itemAction($id)
-    {
+    public function itemAction($id) {
         $em = $this->getEntityManager();
-        $entity = $em->getRepository('ArmdPerfomanceBundle:Perfomance')->find($id);
+        $performancesRepository = $em->getRepository('ArmdPerfomanceBundle:Perfomance');
 
-        if(!$entity || !$entity->getPublished()) {
+        $entity = $performancesRepository->find($id);
+
+        if (!$entity || !$entity->getPublished()) {
             throw $this->createNotFoundException('Perfomance not found');
         }
+
         $this->getTagManager()->loadTagging($entity);
 
         $entity->addViewCount();
         $em->flush();
 
-        // fix menu
-        $this->get('armd_main.menu.main')->setCurrentUri(
-            $this->get('router')->generate('armd_perfomance_list')
-        );
-
-        if ($trailer = $entity->getMediaTrailerVideo())
-            $video_sizes = self::getViewFormat($trailer->getWidth(), $trailer->getHeight());
-        elseif ($perfomance = $entity->getMediaPerfomanceVideo())
-            $video_sizes = self::getViewFormat($perfomance->getWidth(), $perfomance->getHeight());
-
-        if ($interview = $entity->getMediaInterviewVideo())
-            $interview_sizes = self::getViewFormat($interview->getWidth(), $interview->getHeight(),true);
+        $favoritesManager = $this->get('armd_favorites_manager');
+        $isInFavorites = $favoritesManager->entityIsInFavorites(Favorites::TYPE_PERFORMANCE, $entity->getId());
 
         return array(
             'entity' => $entity,
-            'video_sizes' => $video_sizes,
-            'interview_sizes' => isset($interview_sizes) ? $interview_sizes : array(),
-            'ganres' => $this -> getEntityManager() -> getRepository('\Armd\PerfomanceBundle\Entity\PerfomanceGanre') -> findAll(),
-            'theaters' => $this->getEntityManager()->getRepository('\Armd\TheaterBundle\Entity\Theater')->findBy(array(), array('title' => 'ASC')),
+            'palette_color' => $this->palette_color,
+            'palette_color_hex' => $this->palette_color_hex,
+            'palette_background' => $this->palette_background,
+            'palette_favoritesIcon' => $this->palette_favoritesIcon,
+            'palette_favoritesIconAdded' => $this->palette_favoritesIconAdded,
+            'isInFavorites' => $isInFavorites
         );
     }
 
     /**
-     *
      * @Route("/item-video/{id}/{mode}/", requirements={"id"="\d+"}, name="armd_perfomance_item_video", defaults={"mode"="perfomance"}, options={"expose"=true})
      */
-    public function itemVideoAction($id, $mode='perfomance')
-    {
+    public function itemVideoAction($id, $mode = 'perfomance') {
         $em = $this->getEntityManager();
         $entity = $em->getRepository('ArmdPerfomanceBundle:Perfomance')->find($id);
 
-        if(!$entity || !$entity->getPublished()) {
+        if (!$entity || !$entity->getPublished()) {
             throw $this->createNotFoundException('Perfomance not found');
         }
 
@@ -219,11 +219,8 @@ class PerfomanceController extends Controller
 		$media_twig_extension = $this->get('sonata.media.twig.extension');
 		$media_twig_extension->initRuntime($this->get('twig'));
 
-        $video_sizes = self::getViewFormat($media->getWidth(), $media->getHeight());
-
-        echo $media_twig_extension->media($media, 'reference', array('width' => $video_sizes['width'], 'height' => $video_sizes['height']));
-		exit();
-
+        echo $media_twig_extension->media($media, 'reference', array('width' => 700, 'height' => 520));
+		exit;
     }
 
     /**
@@ -231,51 +228,49 @@ class PerfomanceController extends Controller
      * @Template("ArmdPerfomanceBundle:Perfomance:review.html.twig")
      */
     public function reviewAction($perfomance_id) {
-
         $em = $this->getEntityManager();
-        $perfomance = $em->getRepository('ArmdPerfomanceBundle:Perfomance')->find($perfomance_id);
+        $performancesRepository = $em->getRepository('ArmdPerfomanceBundle:Perfomance');
+        $performance = $performancesRepository->find($perfomance_id);
 
-        if (!$perfomance)
-            return ;
+        if (!$performance) {
+            return;
+        }
 
-        if ($author = $this -> getAuthUser()) {
+        $author = $this->getAuthUser();
 
-            $request = $this -> getRequest();
+        if ($author) {
+            $request = $this->getRequest();
 
-            $review = new \Armd\PerfomanceBundle\Entity\PerfomanceReview();
-            $review -> setPerfomance($perfomance);
-
-            $form = $this -> getReviewForm($review);
+            $review = new PerfomanceReview();
+            $review->setPerfomance($performance);
+            $form = $this->getReviewForm($review);
 
             if ($request->isMethod('POST')) {
                 $form->bind($request);
 
                 if ($form->isValid()) {
+                    $review->setAuthor($author);
+                    $review->setCreatedAt(new \DateTime());
+                    $review->setPublished(true);
 
-                    $review -> setAuthor($author);
-                    $review -> setCreatedAt(new \DateTime());
-                    $review -> setPublished(true);
+                    $em->persist($review);
+                    $em->flush();
 
-                    $em -> persist($review);
-                    $em -> flush();
+                    $this->notify();
 
-                    $this -> notify();
+                    $review = new PerfomanceReview();
+                    $review->setPerfomance($performance);
 
-                    $review = new \Armd\PerfomanceBundle\Entity\PerfomanceReview();
-                    $review -> setPerfomance($perfomance);
-
-                    $form = $this -> getReviewForm($review);
-
+                    $form = $this->getReviewForm($review);
                 }
             }
-
         }
 
         return array(
-            'form' => isset($form) ? $form -> createView() : null,
-            'perfomance_id' => $perfomance_id
+            'form' => isset($form) ? $form->createView() : null,
+            'perfomance_id' => $perfomance_id,
+            'palette_background' => $this->palette_background
         );
-
     }
 
     /**
@@ -283,15 +278,14 @@ class PerfomanceController extends Controller
      * @Template("ArmdPerfomanceBundle:Perfomance:review-list.html.twig")
      */
     public function reviewListAction($perfomance_id) {
-
         $em = $this->getEntityManager();
-        $perfomance = $em->getRepository('ArmdPerfomanceBundle:Perfomance')->find($perfomance_id);
+        $performancesRepository = $em->getRepository('ArmdPerfomanceBundle:Perfomance');
+        $performance = $performancesRepository->find($perfomance_id);
 
-        if (!$perfomance)
-            return ;
+        $reviews = $performance ? $this->getReviewList($performance) : array();
 
         return array(
-            'reviews' => $this -> getReviewList($perfomance)
+            'reviews' => $reviews
         );
     }
 
@@ -300,9 +294,8 @@ class PerfomanceController extends Controller
      * @Template("FOSCommentBundle:Thread:async.html.twig")
      */
     public function reviewCommentAction($review_id) {
-
         return array(
-            'id' => $this -> getRequest() -> getLocale() . '_perfomance_review_' . $review_id
+            'id' => $this->getRequest()->getLocale().'_perfomance_review_'.$review_id
         );
     }
 
@@ -364,13 +357,16 @@ class PerfomanceController extends Controller
      * Список рецензий
      */
     public function getReviewList($perfomance) {
-
-        $list = $this->getEntityManager()->getRepository('\Armd\PerfomanceBundle\Entity\PerfomanceReview')->findBy(array('perfomance' => $perfomance, 'published' => true), array('createdAt' => 'DESC'));
+        $em = $this->getEntityManager();
+        $performancesReviewsRepository = $em->getRepository('\Armd\PerfomanceBundle\Entity\PerfomanceReview');
+        $list = $performancesReviewsRepository->findBy(
+            array('perfomance' => $perfomance, 'published' => true),
+            array('createdAt' => 'DESC')
+        );
 
         if (count($list)) {
             foreach ($list as $review) {
-
-                $review->setCommentCount($this -> getReviewCommentCount($review));
+                $review->setCommentCount($this->getReviewCommentCount($review));
             }
         }
 

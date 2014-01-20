@@ -1611,7 +1611,68 @@ text-transform: lowercase
 }
 
 .b-comments {
-margin-bottom: 96px
+    margin-bottom: 96px;
+}
+.b-reviews {
+    margin-bottom: 96px;
+    margin-right: 260px;
+}
+#damedia_review_thread {
+    font-size: 1.1em;
+}
+#damedia-reviews-total {
+    color: #878F90;
+    float: left;
+}
+.review-item {
+    background: url("../../img/new/main-border-bg.png") repeat-x scroll left top rgba(0, 0, 0, 0);
+    font-size: 14px;
+    padding: 25px 0 8px;
+}
+.review-item .review-info {
+    float: left;
+    padding: 0 32px 0 40px;
+    width: 105px;
+}
+.review-body {
+    min-height: 100px !important;
+}
+#add_new_review {
+    display: none;
+    clear: both;
+    width: 100%;
+    padding: 25px 0;
+    background: url("../../img/new/main-border-bg.png") repeat-x scroll left top rgba(0, 0, 0, 0);
+}
+.post-review-submit-button {
+    width: 160px;
+    height: 54px;
+    font-size: 0.82em !important;
+}
+#form_body {
+    min-height: 130px !important;
+    width: 100%;
+    -moz-box-sizing: border-box;
+    border: 1px solid #B3BEBF;
+    height: 160px;
+    overflow: auto;
+    resize: vertical;
+}
+.reviews-body-form-wrapper:after {
+    background: url("../../img/new/icons-sb7c6234ca4.png") no-repeat scroll 0 -763px rgba(0, 0, 0, 0);
+    content: "";
+    height: 12px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 12px;
+    z-index: 5;
+}
+.reviews-body-form-wrapper {
+    position: relative;
+    margin: 0 0 0 40px;
+    overflow: hidden;
+    padding: 0 10px 0 0;
 }
 
 .b-comments.not-login {
@@ -1646,59 +1707,67 @@ border: 1px solid #e1e3e4;
 margin: 30px 0 0
 }
 
+.reviews-header {
+    position: relative;
+    padding: 15px 0;
+    background: #e1e3e4;
+    font-size: 30px;
+    line-height: 1em;
+    text-transform: uppercase;
+    text-align: center;
+    margin: 0 0 26px;
+    font-family: "pf_din_text_cond_promedium",serif;
+}
+
 .commtents-header {
-position: relative;
-padding: 15px 0;
-background: #e1e3e4;
-font-size: 30px;
-line-height: 1em;
-text-transform: uppercase;
-text-align: center;
-margin: 0 0 26px
+    position: relative;
+    padding: 15px 0;
+    background: #e1e3e4;
+    font-size: 30px;
+    line-height: 1em;
+    text-transform: uppercase;
+    text-align: center;
+    margin: 0 0 26px;
 }
-
 .commtents-header .header-tooltip {
-display: none;
-position: absolute;
-text-transform: none;
-left: 100%;
-top: 50%;
-padding: 20px 22px 22px 22px;
-border: 1px solid #e1e3e4;
-font-size: 14px;
-line-height: 24px;
-min-width: 195px;
-margin: -2px 0 0 19px;
-text-align: left;
-background: #fff
+    display: none;
+    position: absolute;
+    text-transform: none;
+    left: 100%;
+    top: 50%;
+    padding: 20px 22px 22px 22px;
+    border: 1px solid #e1e3e4;
+    font-size: 14px;
+    line-height: 24px;
+    min-width: 195px;
+    margin: -2px 0 0 19px;
+    text-align: left;
+    background: #fff;
 }
-
 .commtents-header .header-tooltip:before {
-content: '';
-position: absolute;
-top: -1px;
-right: 100%;
-width: 0;
-height: 0;
-border-top: 11px solid #e1e3e4;
-border-left: 11px solid rgba(255, 255, 255, 0)
+    content: '';
+    position: absolute;
+    top: -1px;
+    right: 100%;
+    width: 0;
+    height: 0;
+    border-top: 11px solid #e1e3e4;
+    border-left: 11px solid rgba(255, 255, 255, 0);
 }
-
 .commtents-header .header-tooltip:after {
-content: '';
-position: absolute;
-top: 0;
-right: 100%;
-margin-right: -1px;
-width: 0;
-height: 0;
-border-top: 10px solid #fff;
-border-left: 10px solid rgba(255, 255, 255, 0)
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 100%;
+    margin-right: -1px;
+    width: 0;
+    height: 0;
+    border-top: 10px solid #fff;
+    border-left: 10px solid rgba(255, 255, 255, 0);
 }
-
 .commtents-header+.comment-item {
-border-top: 0 none;
-background: none
+    border-top: 0 none;
+    background: none;
 }
 
 .comment-item {
@@ -3498,6 +3567,25 @@ a.sidebar-widget-item:hover > .darkLayer {
     display: inline-block;
     vertical-align: top;
 }
+
+.performance-video-selector li {
+    display: inline-block;
+    list-style: none outside none;
+    margin-right: 10px;
+}
+.performance-video-selector li a {
+    text-decoration: none;
+    font-size: 1.1em;
+}
+.performance-video-selector li.active a {
+    font-size: 1.3em;
+    text-decoration: underline;
+    font-weight: bolder;
+}
+.performance-video-selector li a:hover {
+    text-decoration: underline;
+}
+
 .ui-selectgroup-list {
     max-height: 400px;
     overflow: auto;
@@ -4132,6 +4220,15 @@ textarea[name="fos_comment_comment[body]"] {
 .palette-color-5 {
     color: #5E3878 !important;
 }
+.palette-background-5 {
+    background-color: #5E3878;
+}
+.palette-favoritesIcon-5 {
+    background: url(../../img/new/icons/palette-favorites-icon-5.png) no-repeat;
+}
+.palette-favoritesIconAdded-5 {
+    background: url(../../img/new/icons/palette-favorites-icon-added-5.png) no-repeat;
+}
 .palette-color-6 {
     color: #8A3D64 !important;
 }
@@ -4703,6 +4800,21 @@ ul.flex-direction-nav.itemMainGallery li.slideLeft {
 ul.flex-direction-nav.itemMainGallery li.slideRight {
     right: 10px;
     background: url(../../img/imagesOfRussia_icons/slide-right.png);
+}
+ul.flex-direction-nav.itemMainGallery li.slideLeftPurple {
+    left: 10px;
+    background: url(../../img/theaters_icons/slide-left.png);
+}
+ul.flex-direction-nav.itemMainGallery li.slideRightPurple {
+    right: 10px;
+    background: url(../../img/theaters_icons/slide-right.png);
+}
+
+.fancybox-video-wrapper iframe {
+    display: block;
+}
+.flex-viewport {
+    background: url("/img/imagesOfRussia_icons/archives-back.png") repeat-y;
 }
 
 /* Cinema mainpage block */

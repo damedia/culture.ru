@@ -1,0 +1,21 @@
+<div id="post-reviews" class="b-reviews">
+    <div class="reviews-header">
+        {{ 'Reviews'|trans }}
+    </div>
+
+    <div id="damedia_review_thread" data-thread="{{ app.request.locale ~ '_' ~ entity_type ~ '_' ~ entity.id }}">
+        <p id="damedia-reviews-total">
+            {{ 'Reviews'|trans }}: <span></span>
+        </p>
+        <p id="show_add_new_review" class="floatRight palette-text {{ palette_color }}">
+            {{ 'AddReview'|trans }}
+        </p>
+        <div id="add_new_review">
+            {% render url('armd_perfomance_review', {'perfomance_id' : entity.id}) %}
+        </div>
+    </div>
+
+    <div id="review_list_container" class="reviews-block clearBoth">
+        {% render url('armd_perfomance_review_list', {'perfomance_id' : entity.id}) %}
+    </div>
+</div>

@@ -41,6 +41,10 @@ class DefaultController extends Controller {
         $theatersRepository = $em->getRepository('\Armd\TheaterBundle\Entity\Theater');
         $performancesRepository = $em->getRepository('\Armd\PerfomanceBundle\Entity\Perfomance');
 
+        $request = $request = $this->getRequest();
+        $genreId = $request->get('genreId');
+        $theaterId = $request->get('theaterId');
+
         $genres = $genresRepository->findAll();
         $theaters = $theatersRepository->getAllTheatersOrderedByTitleAsc();
         $performancesCount = $performancesRepository->getPerformancesCount();
@@ -52,7 +56,9 @@ class DefaultController extends Controller {
             'theaters' => $theaters,
             'currentCategory' => $category,
             'palette_color' => $this->palette_color,
-            'palette_color_hex' => self::PALETTE_COLOR_HEX
+            'palette_color_hex' => self::PALETTE_COLOR_HEX,
+            'genreId' => $genreId,
+            'theaterId' => $theaterId
         );
     }
 
