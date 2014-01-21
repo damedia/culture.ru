@@ -1,0 +1,28 @@
+{% spaceless %}
+    {% for entity in performances %}
+        <div class="performances-list-item" data-id="{{ entity.id }}">
+            <a href="{{ path('armd_perfomance_item', {'id': entity.id }) }}" class="noTextDecoration" title="{{ entity.title|escape }}">
+                {% if entity.gallery and entity.gallery|length > 0 %}
+                    <div class="image-wrapper">
+                        {% for img in entity.gallery.galleryHasMedias|slice(0,1) %}
+                            {% media img.media, 'tile' with {'alt' : entity.title|escape} %}
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="no-image"></div>
+                {% endif %}
+                <span class="sidebar-item-title black">
+                    {{ entity.title }}, {{ entity.year }}
+                </span>
+            </a>
+            {% if entity.theater is not empty %}
+                <a href="{{ path('armd_theater_item', {'id': entity.theater.id }) }}" class="theater black noTextDecoration">
+                    {{ entity.theater.title }}
+                </a>
+            {% endif %}
+        </div>
+        {% if loop.index % 3 != 0 %}
+            <div class="performances-list-item-separator-small"></div>
+        {% endif %}
+    {% endfor %}
+{% endspaceless %}

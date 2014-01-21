@@ -52,3 +52,19 @@ Thursday: Thursday
 Friday: Friday
 Saturday: Saturday
 Sunday: Sunday
+
+TheaterDescription:
+    Description: Description
+    Performances: Theatre performances
+    Address: How to find us
+    Comments: Leave a comment
+    Header: About the theater
+    Director: Artistic Director of Theatre
+
+TheaterDescriptionTable:
+    Address: Address
+    SubwayStation: Subway
+    Phone: Phone
+    CashOperatingMode: Cash operating mode
+    Email: Email
+    Website: Website

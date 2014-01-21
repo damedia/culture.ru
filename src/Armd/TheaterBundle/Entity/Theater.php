@@ -6,13 +6,14 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Application\Sonata\MediaBundle\Entity\Media;
 use Armd\MainBundle\Model\ChangeHistorySavableInterface;
+use Armd\MkCommentBundle\Model\CommentableInterface;
+use Armd\MkCommentBundle\Entity\Thread;
 
 /**
  * @ORM\Entity(repositoryClass="Armd\TheaterBundle\Repository\TheaterRepository")
  * @ORM\Table(name="armd_theater")
  */
-class Theater implements ChangeHistorySavableInterface
-{
+class Theater implements CommentableInterface, ChangeHistorySavableInterface {
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -139,6 +140,26 @@ class Theater implements ChangeHistorySavableInterface
      * @ORM\Column(name="corrected", type="boolean", nullable=true)
      */
     protected $corrected;
+
+    /**
+     * This entity comments thread
+     *
+     * @var \Armd\MkCommentBundle\Entity\Thread
+     * @ORM\ManyToOne(targetEntity="\Armd\MkCommentBundle\Entity\Thread", cascade={"all"}, fetch="EAGER")
+     */
+    protected $thread;
+
+    /**
+     * implements Commentable interface
+     */
+    public function setThread(Thread $thread = null) {
+        $this->thread = $thread;
+
+        return $this;
+    }
+    public function getThread() {
+        return $this->thread;
+    }
 
     public function __toString()
     {

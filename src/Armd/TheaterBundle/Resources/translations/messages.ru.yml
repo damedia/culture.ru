@@ -55,3 +55,19 @@ Sunday: Воскресенье
 search_category:
     theater: театр
     genre: жанр
+
+TheaterDescription:
+    Description: Описание
+    Performances: Спектакли театра
+    Address: Как нас найти
+    Comments: Оставить комментарий
+    Header: О театре
+    Director: Художественный руководитель, директор театра
+
+TheaterDescriptionTable:
+    Address: Адрес
+    SubwayStation: Метро
+    Phone: Телефон
+    CashOperatingMode: Режим работы кассы
+    Email: Email
+    Website: Сайт

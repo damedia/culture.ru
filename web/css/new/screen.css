@@ -2435,6 +2435,9 @@ filter: alpha(opacity=100)
     height: 40px;
     padding-top: 19px;
 }
+.theaters-item-image {
+    margin: 20px 0 50px 0;
+}
 
 .b-virtual-theatre {
     height: 353px;
@@ -3333,6 +3336,10 @@ a.sidebar-widget-item:hover > .darkLayer {
     overflow: hidden !important;
 }
 
+.noWrap {
+    white-space: nowrap;
+}
+
 .header-text-medium {
     font-family: "pf_din_text_cond_promedium", serif;
     font-size: 1.8em;
@@ -3517,6 +3524,36 @@ a.sidebar-widget-item:hover > .darkLayer {
     vertical-align: middle;
 }
 
+.theater-contacts-map-wrap {
+    background: none repeat scroll 0 0 #F5F5F5;
+    float: left;
+    margin-right: 24px;
+    padding: 14px;
+    width: 280px;
+}
+.theater-contacts-wrap {
+    margin-left: 330px;
+    min-height: 235px;
+}
+.theater-contacts caption {
+    border-bottom: 3px solid #ECECEC;
+    color: #F79016;
+    font-size: 14px;
+    font-weight: bold;
+    padding-bottom: 6px;
+    text-align: left;
+}
+.theater-contacts td.label {
+    color: #7E7E7E;
+    font-weight: bold;
+    padding-right: 30px;
+}
+.theater-contacts td {
+    background: url("../img/table-dots.gif") repeat-x scroll 0 100% rgba(0, 0, 0, 0);
+    padding: 7px 30px 8px 0;
+    vertical-align: top;
+}
+
 .performances-list-holder {
     margin-bottom: 10px;
 }
@@ -3529,10 +3566,20 @@ a.sidebar-widget-item:hover > .darkLayer {
     color: #ffffff;
     margin: 10px 0 5px 0;
 }
+.performances-list-item span.black {
+    color: #000000;
+    margin: 10px 0 5px 0;
+}
+.performances-list-item span.black:hover {
+    color: #7d8687;
+}
 .performances-list-item a.theater {
     display: block;
     color: #ffffff;
     margin-bottom: 20px;
+}
+.performances-list-item a.theater.black {
+    color: #000000;
 }
 .performances-list-item a.theater:hover {
     text-decoration: underline !important;
@@ -3557,6 +3604,10 @@ a.sidebar-widget-item:hover > .darkLayer {
 }
 .performances-list-item-separator {
     width: 20px;
+    display: inline-block;
+}
+.performances-list-item-separator-small {
+    width: 12px;
     display: inline-block;
 }
 .performances-search-category {

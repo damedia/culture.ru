@@ -1,216 +1,87 @@
-{% extends ':Frontend:layout_two_column.html.twig' %}
+{% extends ':Frontend:new_base.html.twig' %}
+
+{% block title %}{{ entity.title|default(entity.title) }} &mdash; {{ parent() }}{% endblock %}
+{% block meta_keywords %}{{ entity.seoKeywords|default('') }}{% endblock %}
+{% block meta_description %}{{ entity.seoDescription|default('') }}{% endblock %}
+
+{% block opengraph %}
+    <meta property="og:title" content="{{ entity.title }}" />
+    <meta property="og:description" content="{{ entity.description|striptags }}" />
+    <meta property="og:site_name" content="{{ 'Portal title'|trans }}" />
+    <meta property="og:url" content="{{ app.request.uri }}" />
+    {% if entity.image is not empty %}
+        <meta property="og:image" content="{% path entity.image, 'reference' %}" />
+    {% endif %}
+{% endblock %}
 
 {% block stylesheets %}
     {{ parent() }}
-    <style>
-        .content.collapsed{ height:200px; overflow:hidden; }
-        .fancybox-video-wrapper iframe{ display:block; }
+
+    <!--
+    OLD flexslider css!
+    New is in "css/new/flexslider.css" but we can't use it right now because slider controls will break...
+    -->
+    <link rel="stylesheet" href="{{ asset('vendor/flexslider/flexslider.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/new/jquery.fancybox.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/new/jquery.easytabs.css') }}" />
+    <style type="text/css">
+        .theater-contacts a {
+            color: {{ palette_color_hex }};
+        }
+        #imagesOfRussia-item-info-placeholder a {
+            color: {{ palette_color_hex }};
+        }
+        .b-comments {
+            margin: 0 !important;
+        }
+        .commtents-header {
+            display: none;
+        }
     </style>
 {% endblock %}
 
+{% block body %}
+    <div class="b-post marginBottom70">
+        <h1 class="b-left-title">
+            {{ 'Theater'|trans }}
+        </h1>
 
-{% block title %}{{ parent() }} — {{ 'Театры'|trans }}{% endblock %}
+        <div class="header-text-medium marginTop100 marginBottom10">
+            {{ entity.title }}
+        </div>
 
-{% block page_header_title %}
-    Театры
-{% endblock %}
+        <div class="theaters-item-image">
+            <img src="{% path entity.image, 'item' %}" alt="{{ entity.title }}" />
 
-{% block page_header_search %}
-    <div class="search-category wide-search">
-    
-    {#<form id="theater-filter" action="{{ path('armd_theater_list') }}" method="get">
-            <span class="search-dates-label">Регион</span>
-            <div class="search-category-selects">
-                <select id="filter-city" class="uni" name="city">
-                    <option value="0">все</option>
-                    
-                    {% for value in cityList %}
-                        <option value="{{ value.id }}">{{ value.title }}</option>
-                    {% endfor %}
-                </select>
-            </div>
-            
-            <span class="search-dates-label">&nbsp;&nbsp;Категория</span>
-            <div class="search-category-selects">
-                <select id="filter-category" class="uni" name="category">
-                    <option value="0">все</option>
-                    
-                    {% for value in categoryList %}
-                        <option value="{{ value.id }}">{{ value.title }}</option>
-                    {% endfor %}
-                </select>
-            </div>
-            
-            <button id="lectures-filter-submit" type="submit" class="button search-dates-button">Показать</button>
-        </form>#}
-    </div>
-{% endblock %}
-
-{% block page_header_search_scope %}
-    <div class="search-checkboxes">
-        <label><input type="checkbox" name="search-this-section" id="search-this-section"/><span>Искать в текущем разделе</span></label>
-    </div>
-{% endblock %}
-
-
-{#--------------------------------------------------------------------------------------------------------------------#}
-{% block pre_content %}
-<ul class="breadcrumbs">
-    <li><a href="/">{{ 'menu.mainpage'|trans }}</a></li>
-    <li><a href="{{ path('armd_theater_list') }}">{{ 'menu.theaters'|trans }}</a></li>
-    <li><span>{{ object.title }}</span></li>
-</ul>
-{% endblock %}
-{% block left_column %}
-    
-
-    
-    <div class="theatre-one">
-        <section class="theatre-one-main clearfix">
-            <h1>
-                {{ object.title }}
-                    
+            <div class="entity-image-footer">
                 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                    <a class="user-favorites-button" title="Добавить в «Избранное»" href="#" data-type="{{ constant('Armd\\UserBundle\\Entity\\Favorites::TYPE_THEATER') }}" data-id="{{ object.id }}">
-                        <img alt="*" src="{{ asset('img/favorites.png') }}" />
-                    </a>
+                    {% if isInFavorites %}
+                        {{ include('ArmdMainBundle:Generics:favoriteIcon.html.twig', {
+                            'palette_color': palette_color,
+                            'palette_icon': palette_favoritesIconAdded,
+                            'action': 'remove',
+                            'text': 'Entity.RemoveFromFavorites'|trans
+                        }) }}
+                    {% else %}
+                        {{ include('ArmdMainBundle:Generics:favoriteIcon.html.twig', {
+                            'palette_color': palette_color,
+                            'palette_icon': palette_favoritesIcon,
+                            'action': 'add',
+                            'text': 'Entity.AddToFavorites'|trans
+                        }) }}
+                    {% endif %}
                 {% endif %}
-            </h1>
-            <div class="theatre-one-stats">
-                <div class="theatre-tags">
-                    {% for category in object.categories %}                      
-                        <span style="white-space: nowrap;">
-                            <a href="{{ path('armd_theater_list', { 'category': category.id }) }}" data-category-id="{{ category.id }}">{{ category.title }}</a>
-                            {{ not loop.last ? ', ' : '' }}
-                        </span>
-                    {% endfor %}                   
-                </div>
-                <div class="theatre-stats-contacts">
-                    <p>
-                        {{ object.address }}<br />
-                        {{ object.phone }}<br />
-                        <a href="{{ object.url }}" target="_blank" class="external">{{ object.url }}</a>
-                    </p>
-                </div>
-                {% if object.director %}
-                <div class="theatre-stats-head">
-                    <p>
-                        Художественный руководитель,<br />директор театра: 
-                        <b>{{ object.director }}</b>
-                    </p>
-                </div>
-                {% endif %} 
             </div>
-            <div class="theatre-one-image">
-                <img src="{% path object.image, 'item' %}" alt="" />                                        
-            </div>
-            
-        </section>    
-        {#<div class="theatre-one-description">
-            {{ object.description|raw }}
-        </div>#}
-        <div id="content-collapsed" class="theatre-one-description content {% if object.description is not empty %}collapsed{% endif %}">
-            {{ object.description|raw }}
-            {{ add_viewed_content(object, path('armd_theater_item', {id: object.id})) }}
         </div>
-        {% if object.description is not empty %}
-            <div class="more more3">
-                <p><a href="#">{{ "read_more"|trans }}</a></p>
-            </div>
-        {% endif %}        
-        
-        <div class="content-tabs">
-            {% if object.performances|length > 0 %}
-                <a href="#c-tab1" class="active">Спектакли театра</a>
-            {% endif %}
-                
-            <a href="#c-tab2" {{ object.performances|length > 0 ? '' : 'class="active"' }}>Как нас найти</a>
-            
-            {% if billboards|length > 0 %}
-                <a href="#c-tab3">афиша</a>
-            {% endif %}
-            <a href="#c-tab4">Оставить комментарий</a>
-        </div>
-            
-        {% if object.performances|length > 0 %}    
-            {# Спектакли театра  #}
-            <div class="content-tab" id="c-tab1">
-                <div id="performance-container" class="plitka perfomances-list">
-                    {% render url('armd_theater_performance_list_data', { 'theater_id': object.id, 'limit': 12 }) %}
-                </div>
-                {% if object.performances|length > 12 %}
-                    <div id="lecture-more-container" class="more more2">
-                        <p><a id="show-more" href="#">Ещё спектакли</a></p>
-                    </div> 
-                {% endif %}
 
-            </div>
-        {% endif %}
-            
-        {# Контакты #}
-        <div class="content-tab clearfix" id="c-tab2" {{ object.performances|length > 0 ? 'style="display: none"' : '' }}>
-            <div class="theater-contacts-map-wrap">
-                <div class="theater-contacts-map">
-                    {% if object.latitude and object.longitude %}
-                        <!--<img src="http://maps.googleapis.com/maps/api/staticmap?markers=55.760169,37.618645&zoom=16&size=278x200&sensor=false" alt="" />-->
-                        <img src="http://static-maps.yandex.ru/1.x/?l=map&pt={{ object.longitude }},{{ object.latitude }},pm2blm&z=15&size=278,200" alt="" />
-                    {% endif %}
-                </div>
-            </div>
-            <div class="theater-contacts-wrap">
-                <table class="theater-contacts">
-                    <caption>{{ object.title }}</caption>
-                    {% if object.address %}
-                    <tr>
-                        <td class="label">
-                            Адрес: 
-                        </td>
-                        <td>
-                            {{ object.address }}
-                        </td>
-                    </tr>
-                    {% endif %}
-                    {% if object.metro %}
-                    <tr>
-                        <td class="label">Метро:</td>
-                        <td>{{ object.metro }}</td>
-                    </tr>
-                    {% endif %}
-                    {% if object.phone %}
-                    <tr>
-                        <td class="label">Телефон:</td>
-                        <td>{{ object.phone }}</td>
-                    </tr>
-                    {% endif %}
-                    {% if object.ticketOfficeMode %}
-                    <tr>
-                        <td class="label">Режим работы кассы:</td>
-                        <td>{{ object.ticketOfficeMode }}</td>
-                    </tr>
-                    {% endif %}
-                    {% if object.email %}
-                    <tr>
-                        <td class="label">Email:</td>
-                        <td><a href="mailto:{{ object.email }}">{{ object.email }}</a></td>
-                    </tr>
-                    {% endif %}
-                    {% if object.url %}
-                    <tr>
-                        <td class="label">Сайт:</td>
-                        <td><a href="{{ object.url }}" target="_blank">{{ object.url }}</a></td>
-                    </tr>
-                    {% endif %}
-                </table>
-            </div>
-        </div>
-        
-        {# Афиша #}
+        {# Possibly there will be one more tab: Billboards #}
+        <!--
         {% if billboards|length > 0 %}
             <div class="content-tab" id="c-tab3"  style="display:none;">
                 <div class="sub-tabs">
                     {% for i, month in billboards %}
                         <a href="#s-tab{{ i }}" class="{{ loop.first ? 'active' : '' }}">{{ month[0].date|date('F')|trans }}</a>
-                    {% endfor %}               
+                    {% endfor %}
                 </div>
                 {% for i, month in billboards %}
                     <div class="sub-tab" id="s-tab{{ i }}" {{ not loop.first ? 'style="display: none;"' : '' }}>
@@ -219,7 +90,6 @@
                                 <tr>
                                     <td class="at-name">
                                         <b>{{ b.title }}</b>
-                                        <!--<i>Драматические спектакли</i>-->        
                                     </td>
                                     <td class="at-day">
                                         {{ b.date|date('l')|trans }}
@@ -231,96 +101,155 @@
                             {% endfor %}
                         </table>
                     </div>
-                {% endfor %}                      
+                {% endfor %}
             </div>
         {% endif %}
-        
-        {# Комментарий #}
-        <div class="content-tab" id="c-tab4">           
-            <div class="more-comments-show">
-                <div id="comments" class="comments comments-gray clearfix">
-                    {% set comment_thread_id = app.request.locale ~ '_'~constant('Armd\\MkCommentBundle\\Model\\CommentInterface::SECTION_THEATER')~'_' ~ object.id %}
-                    {% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': comment_thread_id } %}
+        -->
 
-                    {% if not is_granted('ROLE_USER') %}
-                        <div class="comments-auth-block">
-                            <p>{{ "comments_auth_require"|trans({ '%loginUrl%': path('fos_user_security_login', {'post_auth_redirect': app.request.uri }) })|raw }}</p>
-                            {% render url('armd_social_auth_auth_links', { 'redirectUrl': app.request.uri }) %}
+        <div class="content-anons marginBottom70">
+            <div id="tab-container" class="tab-container">
+                <ul class='etabs'>
+                    <li class='tab'><a href="#tabs1-description">{{ 'TheaterDescription.Description'|trans }}</a></li>
+                    <li class='tab'><a href="#tabs1-performances">{{ 'TheaterDescription.Performances'|trans }}</a></li>
+                    <li class='tab'><a href="#tabs1-address">{{ 'TheaterDescription.Address'|trans }}</a></li>
+                    <li class='tab'><a href="#tabs1-comments">{{ 'TheaterDescription.Comments'|trans }}</a></li>
+                </ul>
+                <div class="panel-container">
+                    <div id="tabs1-description">
+                        {{ entity.description|raw }}
+                    </div>
+
+                    <div id="tabs1-performances">
+                        {% render url('armd_performances_list_for_theater', { 'selectedTheater': entity.id }) %}
+                    </div>
+
+                    <div id="tabs1-address" class="positionRelative">
+                        <div class="theater-contacts-map-wrap">
+                            {% if entity.latitude and entity.longitude %}
+                                <img src="http://static-maps.yandex.ru/1.x/?l=map&pt={{ entity.longitude }},{{ entity.latitude }},pm2blm&z=15&size=278,200" alt="" />
+                            {% endif %}
                         </div>
-                    {% endif %}
+                        <div class="theater-contacts-wrap">
+                            <table class="theater-contacts">
+                                <caption>
+                                    {{ entity.title }}
+                                </caption>
+
+                                {% if entity.address %}
+                                    <tr><td class="label">{{ 'TheaterDescriptionTable.Address'|trans }}:</td><td>{{ entity.address }}</td></tr>
+                                {% endif %}
+
+                                {% if entity.metro %}
+                                    <tr><td class="label">{{ 'TheaterDescriptionTable.SubwayStation'|trans }}:</td><td>{{ entity.metro }}</td></tr>
+                                {% endif %}
+
+                                {% if entity.phone %}
+                                    <tr><td class="label">{{ 'TheaterDescriptionTable.Phone'|trans }}:</td><td>{{ entity.phone }}</td></tr>
+                                {% endif %}
+
+                                {% if entity.ticketOfficeMode %}
+                                    <tr><td class="label">{{ 'TheaterDescriptionTable.CashOperatingMode'|trans }}:</td><td>{{ entity.ticketOfficeMode }}</td></tr>
+                                {% endif %}
+
+                                {% if entity.email %}
+                                    <tr><td class="label">{{ 'TheaterDescriptionTable.Email'|trans }}:</td><td><a href="mailto:{{ entity.email }}">{{ entity.email }}</a></td></tr>
+                                {% endif %}
+
+                                {% if entity.url %}
+                                    <tr><td class="label">{{ 'TheaterDescriptionTable.Website'|trans }}:</td><td><a href="{{ entity.url }}" target="_blank">{{ entity.url }}</a></td></tr>
+                                {% endif %}
+                            </table>
+                        </div>
+                    </div>
+
+                    <div id="tabs1-comments">
+                        {{ include('ArmdMkCommentBundle:Default:placeholder.html.twig', { 'entity_type': 'theater', 'palette_background': palette_background }) }}
+                    </div>
                 </div>
             </div>
-        </div>                          
-        <div class="back-link"><p><a href="{{ referer }}">Назад</a></p></div>
-        <div class="event-one_footer clearfix">
-            <div href="#" class="publish-links"> <a href="#"></a> Опубликовать в социальных сетях: <span id="yandex-share"></span></div>
-        </div>         
+
+            <div class="b-share-buttons">
+                <span class="small-title m-first">{{ 'Entity.SocialShare'|trans }}:</span>
+                <span id="yandex-share"></span>
+            </div>
+        </div>
     </div>
 {% endblock %}
 
-{#--------------------------------------------------------------------------------------------------------------------#}
-{% block right_column %}
-    <div class="buffer"  style="height:35px;"></div>
-    {# % render url('armd_news_memorial_events') % #}
-    {# % render url('armd_atlas_related_objects', {'tags': {}, 'limit': 1}) % #}
-    {% if object.mediaInterviews|length > 0 or object.gallery|length > 0 %}
-        {% if object.mediaInterviews|length > 0 %}
-        <div class="right-video-block static-block-2">
-            <div class="orange-slider-block orange-slider-first">
-                <h3 class="o-slider-header">{{ "Interview"|trans }}</h3>
-                <div class="flexslider">
-                    <ul class="slides">
-                        {% for i, video in object.mediaInterviews %}
-                            <li>
-                                <article class="period-block">
-                                    <a href="#interview-{{ i }}" class="period-block_image in-fancybox">
-                                        <img width="306" height="179" src="{{ video.providerMetadata.thumbnail_url }}"  />
-                                        <span class="play"></span>
-                                    </a>
-                                    <div class="period-block_text">
-                                        <h4>{{ video.name }}</h4>
-                                        <p>{{ video.description[:120] ~ (video.description|length > 120 ? '...' : '') }}</p>
-                                    </div>
+{% block sidebar %}
+    <div id="imagesOfRussia-item-info-placeholder" class="sidebar-bordered-block">
+        <div class="header">
+            {{ 'TheaterDescription.Header'|trans }}
+        </div>
+        <p>
+            {% for category in entity.categories %}
+                <span class="noWrap">
+                    <a href="{{ path('armd_theater_list', { 'category': category.id }) }}" data-category-id="{{ category.id }}">{{ category.title }}</a>{{ not loop.last ? ', ' : '' }}
+                </span>
+            {% endfor %}
+        </p>
+        <p>{{ entity.address }}</p>
+        <p>{{ entity.phone }}</p>
+        <p><a href="{{ entity.url }}" target="_blank" class="external">{{ entity.url }}</a></p>
+        {% if entity.director %}
+            <p>{{ 'TheaterDescription.Director'|trans }}: <b class="noWrap">{{ entity.director }}</b></p>
+        {% endif %}
+    </div>
 
-                                </article>
-                            </li>                        
+    {% if (entity.gallery and entity.gallery|length > 0) or (entity.mediaInterviews and entity.mediaInterviews|length > 0) %}
+        {% if entity.mediaInterviews is not empty %}
+            <div class="imagesOfRussia-item-sidebar-virtualTours">
+                <div class="header-text-medium textAlignCenter paddingTopBottom20 sidebar-bordered-block marginBottom15">
+                    {{ 'Interview'|trans }}
+                </div>
+
+                <div id="archive-slider" data-width="240" data-height="175">
+                    <ul class="archiveSlides image-slider">
+                        {% for i, video in entity.mediaInterviews %}
+                            <li>
+                                <a class="fancybox" rel="slider" href="#interview-{{ i }}">
+                                    <img width="240" height="175" src="{{ video.providerMetadata.thumbnail_url }}" />
+                                    <span class="play"></span>
+                                </a>
+                                <div class="period-block_text">
+                                    <h4>{{ video.name }}</h4>
+                                    <p>{{ video.description[:120] ~ (video.description|length > 120 ? '...' : '') }}</p>
+                                </div>
+                                <div class="imageCounter displayNone">
+                                    {{ loop.index }} {{ 'search_of'|trans }} {{ entity.gallery.galleryHasMedias|length }}
+                                </div>
+                            </li>
                         {% endfor %}
-                    </ul>            
+                    </ul>
                 </div>
             </div>
-            </div>
-            {% for i, video in object.mediaInterviews %}
-                <div id="interview-{{ i }}" style="display: none;">
-                    <div class="fancybox-video-wrapper" style="width:640px; height:365px;">
-                        {% media video, 'reference' with { 'width': 640, 'height': 360} %}
+        {% endif %}
+
+        {% if entity.gallery and entity.gallery|length > 0 %}
+            <div id="imageOfRussia-archiveGallery" class="imagesOfRussia-item-sidebar-archives positionRelative">
+                <div class="header-text-medium textAlignCenter paddingTopBottom20 sidebar-bordered-block-noBottom height60">
+                    {{ 'Gallery'|trans }}
+                </div>
+                <div class="archiveSlides-controls-wrapper positionAbsolute">
+                    <div class="archiveSlides-controls">
+                        <span></span>
                     </div>
                 </div>
-            {% endfor %}
-        {% endif %}
-        {% if object.gallery and object.gallery|length > 0 %}
-        <div class="right-video-block static-block-2">
-            <div class="orange-slider-block">
-                <h3 class="o-slider-header">{{ "Photo gallery"|trans }}</h3>
-                <div class="flexslider">              
-                    <ul class="slides">
-                        {% for image in object.gallery.galleryHasMedias %}
+                <div id="archive-slider" data-width="240" data-height="175">
+                    <ul class="archiveSlides image-slider">
+                        {% for h in entity.gallery.galleryHasMedias %}
                             <li>
-                                <article class="period-block">
-                                    <a href="{% path image.media, 'item' %}" rel="images_group" class="period-block_image in-fancybox">
-                                        <img width="306" height="179" src="{% path image.media, 'thumbnail' %}"  />
-                                    </a>
-                                    {#
-                                    <div class="period-block_text">
-                                        {% if image.media.name %}<h4>{{ image.media.name }}</h4>{% endif %}   
-                                        {% if image.media.description %}<p>{{ image.media.description }}</p>{% endif %}   
-                                    </div>
-                                    #}
-                                </article>
-                            </li>                               
-                        {% endfor %}               
-                    </ul>            
+                                <a class="fancybox" rel="slider" href="{% path h.media, 'item' %}">
+                                    <img width="240" height="175" src="{% path h.media, 'thumbnail' %}" />
+                                </a>
+                                <div class="imageCounter displayNone">
+                                    {{ loop.index }} {{ 'search_of'|trans }} {{ entity.gallery.galleryHasMedias|length }}
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
                 </div>
-            </div>
+                <div class="sidebar-bordered-block-noTop archive-slider-bottom-fix"></div>
             </div>
         {% endif %}
     {% else %}
@@ -328,37 +257,86 @@
     {% endif %}
 {% endblock %}
 
-
 {% block javascripts %}
     {{ parent() }}
-    <script type="text/javascript" src="{{ asset('bundles/armdtheater/js/theater_item.js') }}"></script>
+
     <script type="text/javascript" src="http://yandex.st/share/share.js" charset="utf-8"></script>
+    <script type="text/javascript" src="{{ asset('js/new/jquery.fancybox.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/damedia/addToFavorites.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/damedia/share.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/new/jquery.flexslider.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/new/jquery.easytabs.min.js') }}"></script>
+
     <script type="text/javascript">
-        
-        function initSocialShare() {
-            new Ya.share({
-                element: 'yandex-share',
-                l10n:{% if app.request.locale == 'ru' %}'ru'{% else %}'en'{% endif %},
-                elementStyle: {
-                    'type': 'none',
-                    'border': false,
-                    'quickServices': ['vkontakte', 'lj', 'twitter', 'facebook', 'odnoklassniki']
-                },
-                link: '{{ url('armd_theater_item', { 'id': object.id }) }}',
-                title: '{{ object.title }}'
+        $(window).load(function(){
+            $('#tab-container').easytabs();
+
+            DamediaShare.init({
+                locale: '{{ app.request.locale }}',
+                link: '{{ url('view_blog', { 'id': entity.id }) }}',
+                title: '{{ entity.title }}',
+                description: '{{ entity.description|replace({"\n":'',"\r":''})|striptags }}'
             });
-        }        
-        
-        $(function () {
-            
-            $('.more3').click(function(){
-                $('#content-collapsed').removeClass('collapsed');
-                $(this).hide();
-                return false;
-            });     
-            
-            armdMkTheaterItem.init({{ object.id }}); 
-            initSocialShare();       
+
+            DamediaAddToFavorites.init({
+                entityType: '{{ constant('Armd\\UserBundle\\Entity\\Favorites::TYPE_ATLAS') }}',
+                entityId: '{{ entity.id }}',
+                htmlReplacementForAdd: '{{ include('ArmdMainBundle:Generics:favoriteIcon.html.twig', {
+                    'palette_color': palette_color,
+                    'palette_icon': palette_favoritesIconAdded,
+                    'action': 'remove',
+                    'text': 'Entity.RemoveFromFavorites'|trans
+                }) }}',
+                htmlReplacementForRemove : '{{ include('ArmdMainBundle:Generics:favoriteIcon.html.twig', {
+                    'palette_color': palette_color,
+                    'palette_icon': palette_favoritesIcon,
+                    'action': 'add',
+                    'text': 'Entity.AddToFavorites'|trans
+                }) }}'
+            });
+
+            /* Sliders and Fancyboxes */
+            $('.fancybox').fancybox({
+                prevEffect: 'none',
+                nextEffect: 'none'
+            });
+
+            $('.iframe').fancybox({
+                'width': '100%',
+                'height': '100%',
+                'autoScale': true,
+                'transitionIn': 'none',
+                'transitionOut': 'none',
+                'type': 'iframe'
+            });
+
+            var archiveGallery = $('#imageOfRussia-archiveGallery'),
+                archiveGallery_numeratorPlaceholder = archiveGallery.find('div.archiveSlides-controls > span');
+
+            $('#archive-slider').flexslider({
+                selector: '.archiveSlides > li',
+                animation: 'slide',
+                slideshow: false,
+                start: function(flexsliderWrapper){
+                    var controlsPlaceholder = archiveGallery.find('.archiveSlides-controls'),
+                            navControls = flexsliderWrapper.find('ul.flex-direction-nav'),
+                            counter = flexsliderWrapper.find('li.flex-active-slide .imageCounter').text(),
+                            slideLeft = navControls.find('li:first'),
+                            slideRight = navControls.find('li:last');
+
+                    navControls.addClass('itemMainGallery');
+                    slideLeft.addClass('slideLeftPurple');
+                    slideRight.addClass('slideRightPurple');
+
+                    archiveGallery_numeratorPlaceholder.text(counter);
+                    navControls.detach().appendTo(controlsPlaceholder);
+                },
+                after: function(flexsliderWrapper){
+                    var counter = flexsliderWrapper.find('li.flex-active-slide .imageCounter').text();
+
+                    archiveGallery_numeratorPlaceholder.text(counter);
+                }
+            });
         });
     </script>
 {% endblock %}

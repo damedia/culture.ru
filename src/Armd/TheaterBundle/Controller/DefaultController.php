@@ -8,10 +8,16 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Armd\TheaterBundle\Entity\TheaterManager;
 use Armd\PerfomanceBundle\Entity\PerfomanceManager;
+use Armd\UserBundle\Entity\Favorites;
 
 class DefaultController extends Controller {
     static $limit = 24;
+
     private $palette_color = 'palette-color-5';
+    private $palette_color_hex = '#5E3878';
+    private $palette_background = 'palette-background-5';
+    private $palette_favoritesIcon = 'palette-favoritesIcon-5';
+    private $palette_favoritesIconAdded = 'palette-favoritesIconAdded-5';
 
     const PALETTE_COLOR_HEX = '#5E3878';
     const PERFORMANCES_DEFAULT_LIST_LENGTH = 8;
@@ -67,6 +73,26 @@ class DefaultController extends Controller {
      * @Template("ArmdTheaterBundle:Default:performances_list.html.twig")
      */
     public function performancesListAction() {
+        $request = $request = $this->getRequest();
+        $em = $this->getDoctrine()->getManager();
+
+        $selectedIds = $request->get('loadedIds', array());
+        $selectedTheater = $request->get('selectedTheater', 0);
+        $selectedGenre = $request->get('selectedGenre', 0);
+
+        $performancesRepository = $em->getRepository('\Armd\PerfomanceBundle\Entity\Perfomance');
+        $performances = $performancesRepository->getRandomSet(self::PERFORMANCES_DEFAULT_LIST_LENGTH, $selectedIds, $selectedTheater, $selectedGenre);
+
+        return array(
+            'performances' => $performances
+        );
+    }
+
+    /**
+     * @Route("/performances-list-for-theater/", name="armd_performances_list_for_theater", options={"expose"=true})
+     * @Template("ArmdTheaterBundle:Default:performances_list_for_theater.html.twig")
+     */
+    public function performancesListForTheaterAction() {
         $request = $request = $this->getRequest();
         $em = $this->getDoctrine()->getManager();
 
@@ -198,19 +224,11 @@ class DefaultController extends Controller {
     }
 
     /**
-     * @Route("/item/{id}", name="armd_theater_item",
-     *     requirements={"id"="\d+"}, defaults={"id"=0}
-     * )
+     * @Route("/item/{id}", name="armd_theater_item", requirements={"id"="\d+"}, defaults={"id"=0})
      * @Template("ArmdTheaterBundle:Default:theater_item.html.twig")
      */
-    public function theaterItemAction($id)
-    {
+    public function theaterItemAction($id) {
         $billboards = array();
-
-        $this->get('armd_main.menu.main')->setCurrentUri(
-            $this->get('router')->generate('armd_theater_list')
-        );
-
         $object = $this->getTheaterManager()->getObject($id);
 
         if (!$object) {
@@ -222,29 +240,46 @@ class DefaultController extends Controller {
         $m2 = $now->modify('+1 month')->format('Y-m-01');
         $m3 = $now->modify('+1 month')->format('Y-m-01');
 
-        foreach ($object->getBillboards() as $b) {
-            $now = new \DateTime();
+        $objectBillboards = $object->getBillboards();
+
+        foreach ($objectBillboards as $b) {
             $bdf = $b->getDate()->format('Y-m-01');
 
             if ($bdf == $m1) {
                 $billboards['m1'][] = $b;
-            } elseif ($bdf == $m2) {
+            }
+            elseif ($bdf == $m2) {
                 $billboards['m2'][] = $b;
-            } elseif ($bdf == $m3) {
+            }
+            elseif ($bdf == $m3) {
                 $billboards['m3'][] = $b;
             }
         }
 
+        $request = $this->getRequest();
         $em = $this->getDoctrine()->getManager();
+        $cityRepository = $em->getRepository('ArmdAddressBundle:City');
+        $theaterCategoryRepository = $em->getRepository('ArmdTheaterBundle:TheaterCategory');
+
+        $favoritesManager = $this->get('armd_favorites_manager');
+        $isInFavorites = $favoritesManager->entityIsInFavorites(Favorites::TYPE_THEATER, $object->getId());
+
+        $commentsIntegrator = $this->get('armd_comments_integrator');
+        $isCommentable = $commentsIntegrator->entityIsCommentable($object);
 
         return array(
-            'object' => $object,
+            'palette_color_hex' => self::PALETTE_COLOR_HEX,
+            'palette_color' => $this->palette_color,
+            'palette_background' => $this->palette_background,
+            'palette_favoritesIcon' => $this->palette_favoritesIcon,
+            'palette_favoritesIconAdded' => $this->palette_favoritesIconAdded,
+            'isInFavorites' => $isInFavorites,
+            'isCommentable' => $isCommentable,
+            'entity' => $object,
             'billboards' => $billboards,
-            'referer' => $this->getRequest()->headers->get('referer'),
-            'cityList' => $em->getRepository('ArmdAddressBundle:City')
-                ->findBy(array(), array('title' => 'ASC')),
-            'categoryList' => $em->getRepository('ArmdTheaterBundle:TheaterCategory')
-                ->findBy(array(), array('title' => 'ASC'))
+            'referer' => $request->headers->get('referer'),
+            'cityList' => $cityRepository->findBy(array(), array('title' => 'ASC')),
+            'categoryList' => $theaterCategoryRepository->findBy(array(), array('title' => 'ASC'))
         );
     }
 
