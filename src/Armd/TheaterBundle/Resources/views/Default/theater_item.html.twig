@@ -184,7 +184,7 @@
         <p>
             {% for category in entity.categories %}
                 <span class="noWrap">
-                    <a href="{{ path('armd_theater_list', { 'category': category.id }) }}" data-category-id="{{ category.id }}">{{ category.title }}</a>{{ not loop.last ? ', ' : '' }}
+                    <a href="{{ path('armd_theaters_hub', { 'category': 'theaters', 'categoryId': category.id }) }}">{{ category.title }}</a>{{ not loop.last ? ', ' : '' }}
                 </span>
             {% endfor %}
         </p>

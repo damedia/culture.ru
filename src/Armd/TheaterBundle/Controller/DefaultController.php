@@ -50,6 +50,7 @@ class DefaultController extends Controller {
         $request = $request = $this->getRequest();
         $genreId = $request->get('genreId');
         $theaterId = $request->get('theaterId');
+        $categoryId = $request->get('categoryId');
 
         $genres = $genresRepository->findAll();
         $theaters = $theatersRepository->getAllTheatersOrderedByTitleAsc();
@@ -64,7 +65,8 @@ class DefaultController extends Controller {
             'palette_color' => $this->palette_color,
             'palette_color_hex' => self::PALETTE_COLOR_HEX,
             'genreId' => $genreId,
-            'theaterId' => $theaterId
+            'theaterId' => $theaterId,
+            'categoryId' => $categoryId
         );
     }
 

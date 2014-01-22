@@ -150,6 +150,10 @@
                         ajaxUrl = Routing.generate('armd_theaters_list', {categoryId: options.categoryId});
                     }
 
+                    {% if categoryId %}
+                        ajaxUrl = Routing.generate('armd_theaters_list', {categoryId: {{ categoryId }}});
+                    {% endif %}
+
                     if (!options) {
                         $.each(loadedItems, function(){
                             loadedIds.push($(this).attr('data-id'));

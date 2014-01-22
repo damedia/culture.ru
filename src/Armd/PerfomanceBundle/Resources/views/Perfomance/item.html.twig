@@ -49,12 +49,12 @@
         {% if entity.mediaTrailerVideo is not empty and entity.mediaPerfomanceVideo is not empty %}
             <div id="switch_view" class="performance-video-selector">
                 <ul>
-                    <li class="active">
+                    <li class="active" data-videoType="trailer">
                         <a href="#" rel="{{ path('armd_perfomance_item_video', {'id': entity.id, 'mode': 'trailer'}) }}">
                             {{ 'VideoSelector.Trailer'|trans }}
                         </a>
                     </li>
-                    <li>
+                    <li data-videoType="performance">
                         <a href="#" rel="{{ path('armd_perfomance_item_video', {'id': entity.id, 'mode': 'perfomance'}) }}">
                             {{ 'VideoSelector.Performance'|trans }}
                         </a>
@@ -103,7 +103,7 @@
                     {% endif %}
                 {% endif %}
 
-                <span class="floatRight">
+                <span id="performance-viewCount" class="floatRight displayNone">
                     {{ 'ViewsCount'|trans }}: {{ entity.viewCount }}
                 </span>
             </div>
@@ -165,7 +165,8 @@
                 reviewsHolder = $('#post-reviews'),
                 reviewsCount = reviewsHolder.find('.review-item').length,
                 reviewsFormContainer = $('#add_new_review'),
-                reviewsCountHolder = $('#damedia-reviews-total').find('span');
+                reviewsCountHolder = $('#damedia-reviews-total').find('span'),
+                performanceViewsCountHolder = $('#performance-viewCount');
 
             $('#search-form').on('submit', function(event){
                 if ($('#search-this-section').prop('checked')) {
@@ -186,8 +187,18 @@
                     url: option.attr('rel'),
                     dataType: 'html',
                     success: function(data, textStatus, jqXHR){
+                        var parentLi = option.parent('li');
+
                         videoSwitcher.find('li').removeClass('active');
-                        option.parent('li').addClass('active');
+                        parentLi.addClass('active');
+
+                        if (parentLi.attr('data-videoType') == 'trailer') {
+                            performanceViewsCountHolder.hide();
+                        }
+                        else {
+                            performanceViewsCountHolder.show();
+                        }
+
                         videoContainer.html(data);
                     }
                 });
@@ -199,7 +210,7 @@
                 locale: '{{ app.request.locale }}',
                 link: '{{ url('view_blog', { 'id': entity.id }) }}',
                 title: '{{ entity.title }}',
-                description: '{{ entity.description|replace({"\n":'',"\r":''})|striptags }}'
+                description: '{{ entity.description|replace({"\n":'',"\r":''})|striptags|slice(0, 500) ~ '...' }}'
             });
 
             DamediaAddToFavorites.init({
