@@ -3651,8 +3651,8 @@ a.sidebar-widget-item:hover > .darkLayer {
 .atlas-simple-search-address {
     width: 239px;
     position: absolute;
-    right: 500px;
     top: 11px;
+    padding-left: 20px;
 }
 .atlas-simple-search-address input[type="text"] {
     height: 23px;
