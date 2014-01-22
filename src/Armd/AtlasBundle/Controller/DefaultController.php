@@ -27,8 +27,10 @@ use Armd\UserBundle\Entity\Favorites;
 class DefaultController extends Controller {
     const MAX_USER_OBJECTS = 10;
     const PALETTE_COLOR_HEX = '#167667';
+    const PALETTE_COLOR_HEX_HUB = '#CF5539';
 
     private $palette_color = 'palette-color-2';
+    private $palette_color_hub = 'palette-color-8';
     private $palette_favoritesIcon = 'palette-favoritesIcon-2';
     private $palette_favoritesIconAdded = 'palette-favoritesIconAdded-2';
 
@@ -333,28 +335,27 @@ class DefaultController extends Controller {
      * @Route("/object/side", name="armd_atlas_default_objectside", options={"expose"=true})
      * @Template("ArmdAtlasBundle:Default:object_side.html.twig")
      */
-    public function objectSideAction()
-    {
+    public function objectSideAction() {
         $id = (int)$this->getRequest()->query->get('id');
         $repo = $this->getDoctrine()->getRepository('ArmdAtlasBundle:Object');
+
         if ($id) {
             $entity = $repo->findOneBy(array('id' => $id, 'published' => true));
-            if ($entity)
-                return array(
-                    'entity' => $entity,
-                );
-            else
+
+            if ($entity) {
+                return array('entity' => $entity);
+            }
+            else {
                 throw new NotFoundHttpException("Page not found");
+            }
         }
+
+        return array();
     }
 
     /**
-     * @Route("/{filterType}",
-     *  name="armd_atlas_index",
-     *  defaults={"filterType"="filter_culture_objects"},
-     *  options={"expose"=true}
-     * )
-     * @Template()
+     * @Route("/{filterType}", name="armd_atlas_index", defaults={"filterType"="filter_culture_objects"}, options={"expose"=true})
+     * @Template("ArmdAtlasBundle:Default:index.html.twig")
      */
     public function indexAction($filterType) {
         $request = $this->getRequest();
@@ -389,7 +390,9 @@ class DefaultController extends Controller {
             'regions' => $regions,
             'weekends' => $weekends,
             'filterType' => $filterType,
-            'objectId' => $objectId
+            'objectId' => $objectId,
+            'palette_color_hex' => self::PALETTE_COLOR_HEX_HUB,
+            'palette_color_hub' => $this->palette_color_hub
         );
     }
 

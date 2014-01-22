@@ -3263,6 +3263,12 @@ a.sidebar-widget-item:hover > .darkLayer {
 .top7 {
     top: 7px;
 }
+.top100 {
+    top: 100px;
+}
+.top630 {
+    top: 630px;
+}
 
 .marginTop3 {
     margin-top: 3px;
@@ -3278,6 +3284,9 @@ a.sidebar-widget-item:hover > .darkLayer {
 }
 .marginTop123 {
     margin-top: 123px;
+}
+.marginTop225 {
+    margin-top: 225px;
 }
 .marginLeft2 {
     margin-left: 2px;
@@ -3320,6 +3329,9 @@ a.sidebar-widget-item:hover > .darkLayer {
 }
 .marginBottom100 {
     margin-bottom: 100px;
+}
+.marginBottom150 {
+    margin-bottom: 150px;
 }
 .marginBottomImportant88 {
     margin-bottom: 88px !important;
@@ -3428,7 +3440,6 @@ a.sidebar-widget-item:hover > .darkLayer {
 }
 .imagesOfRussia-search-category {
     position: absolute;
-    top: 630px;
     left: -20px;
     width: 996px;
     height: 56px;
@@ -3635,6 +3646,16 @@ a.sidebar-widget-item:hover > .darkLayer {
 }
 .performance-video-selector li a:hover {
     text-decoration: underline;
+}
+
+.atlas-simple-search-address {
+    width: 239px;
+    position: absolute;
+    right: 500px;
+    top: 11px;
+}
+.atlas-simple-search-address input[type="text"] {
+    height: 23px;
 }
 
 .ui-selectgroup-list {

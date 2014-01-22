@@ -1,0 +1,220 @@
+<!-- object form popup -->
+<div class="add-object-form draggable add" id="add-object-form">
+    <a href="#" class="exit" title="Закрыть"></a>
+    <form action="{{ path('armd_atlas_default_objectsadd') }}" method="POST">
+        <h2 class="add">{{ "atlas.object.add"|trans }}</h2>
+        <h2 class="edit">{{ "atlas.object.edit"|trans }}</h2>
+
+        <input id="object-id" name="id" type="hidden" value="">
+
+        <ul class="add-object-form-fields">
+            <li>
+                <label for="title">{{ "atlas.object.title"|trans }}</label>
+                <input id="title" name="title" type="text" value="" placeholder="" />
+            </li>
+
+            <li>
+                <label for="announce">{{ "atlas.object.announce"|trans }}</label>
+                <textarea id="announce" name="announce" cols="30" rows="10"></textarea>
+            </li>
+
+            <li class="coords">
+                <div class="coords-block">
+                    <label for="lat">{{ "atlas.object.lat"|trans }}</label>
+                    <input id="lat" name="lat" type="text" value="" />
+                </div>
+                <div class="coords-block last">
+                    <label for="lon">{{ "atlas.object.lon"|trans }}</label>
+                    <input id="lon" name="lon" type="text" value="" />
+                </div>
+            </li>
+
+            <li>
+                {{ "atlas.object.classification"|trans }}
+            </li>
+
+            <!-- TODO: This form field twig logic duplicates the same field logic from SonataAdmin! -->
+            <li>
+                <label for="primaryCategory">{{ "atlas.object.primaryCategory"|trans }}</label>
+                <select id="primaryCategory" name="primaryCategory" class="chzn-select atlas-object-form-select" data-placeholder="{{ "atlas.object.choose_category"|trans }}">
+                    <option value=""></option>
+                    {% for optgroup in categories if (optgroup.title == 'Object Type' or optgroup.title == 'Тип объекта' or optgroup.title == 'Theme' or optgroup.title == 'Тематика') %}
+                        <optgroup label="{{ optgroup.title }}">
+                            {% for tag in optgroup.tags if tag.hasIcon %}
+                                <option value="{{ tag.id }}">{{ tag.title }}</option>
+                            {% endfor %}
+                        </optgroup>
+                    {% endfor %}
+                </select>
+            </li>
+
+            <li>
+                <label for="secondaryCategories">{{ "atlas.object.secondaryCategories"|trans }}</label>
+                <select id="secondaryCategories" name="secondaryCategories[]" class="chzn-select atlas-object-form-select" multiple="multiple" data-placeholder="{{ "atlas.object.choose_category"|trans }}">
+                    <option value=""></option>
+                    {% for optgroup in categories %}
+                        <optgroup label="{{ optgroup.title }}">
+                            {% for tag in optgroup.tags %}
+                                <option value="{{ tag.id }}">{{ tag.title }}</option>
+                            {% endfor %}
+                        </optgroup>
+                    {% endfor %}
+                </select>
+            </li>
+
+            <li>
+                {{ "atlas.object.contacts"|trans }}
+            </li>
+
+            <li>
+                <label for="siteUrl">{{ "atlas.object.siteUrl"|trans }}</label>
+                <input id="siteUrl" name="siteUrl" type="text" value="" placeholder="" />
+            </li>
+
+            <li>
+                <label for="email">{{ "atlas.object.email"|trans }}</label>
+                <input id="email" name="email" type="text" value="" placeholder="" />
+            </li>
+
+            <li>
+                <label for="phone">{{ "atlas.object.phone"|trans }}</label>
+                <input id="phone" name="phone" type="text" value="" placeholder="" />
+            </li>
+
+            <li>
+                <label for="regions">{{ "atlas.object.regions"|trans }}</label>
+                <select id="regions" name="regions[]" class="chzn-select atlas-object-form-select" multiple="multiple" data-placeholder="{{ "atlas.object.choose_region"|trans }}">
+                    <option value=""></option>
+                    {% for region in regions %}
+                        <option value="{{ region.id }}">{{ region.title }}</option>
+                    {% endfor %}
+                </select>
+            </li>
+
+            <li>
+                <label for="address">{{ "atlas.object.address"|trans }}</label>
+                <input id="address" name="address" type="text" value="" placeholder="" />
+            </li>
+
+            <li>
+                <label for="workTime">{{ "atlas.object.workTime"|trans }}</label>
+                <input id="workTime" name="workTime" type="text" value="" placeholder="" />
+            </li>
+
+            <li>
+                <label for="weekends">{{ "atlas.object.weekends"|trans }}</label>
+                <select id="weekends" name="weekends[]" class="chzn-select atlas-object-form-select" multiple="multiple" data-placeholder="{{ "atlas.object.choose_weekends"|trans }}">
+                    <option value=""></option>
+                    {% for weekend in weekends %}
+                        <option value="{{ weekend.id }}">{{ weekend.name }}</option>
+                    {% endfor %}
+                </select>
+            </li>
+
+            <li>
+                {{ "atlas.object.media"|trans }}
+            </li>
+
+            <li class="objectImages add-photos">
+                <div id="file-uploader"></div>
+                <div class="added-images"></div>
+            </li>
+
+            <!-- template for #file-uploader -->
+            <script id="file-uploader-template" type="text/x-jquery-tmpl">
+                    <div class="qq-uploader">
+                        <div class="qq-upload-drop-area"></div>
+                        <div class="qq-upload-button">{{ "atlas.object.upload_button"|trans }}</div>
+                        <ul class="qq-upload-list"></ul>
+                    </div>
+                </script>
+            <!-- /template for #file-uploader -->
+
+            <!-- template for .added-images -->
+            <script id="added-image-template" type="text/x-jquery-tmpl">
+                    <div class="added-image" data-id="${id}">
+                        <div class="image-wrapper">
+                            <img src="${imageUrl}" alt="" />
+                        </div>
+                        <ins class="del" title="{{ "atlas.delete"|trans }}"></ins>
+                        <input type="hidden" name="media[]" value="${id}" />
+                    </div>
+                </script>
+            <!-- /template for .added-images -->
+        </ul>
+
+        <fieldset class="form-buttons">
+            <input type="submit" class="button sbmt-btn" value="{{ "atlas.save"|trans }}" />
+            <input type="reset" class="button rst-btn" value="{{ "atlas.cancel"|trans }}" />
+        </fieldset>
+    </form>
+</div>
+<!-- /object form popup -->
+
+<!-- success add popup -->
+<div class="add-object-form success-object-form draggable" id="success-object-form">
+    <a href="#" class="exit" title="{{ "atlas.alert.close"|trans }}"></a>
+    <form action="{{ path('armd_atlas_default_objectmakepublic') }}" method="POST">
+        <input class="object-id" name="id" type="hidden"/>
+        <h2>{{ "atlas.alert.successfully_complete"|trans }}</h2>
+        <div class="section-add">
+            <p>{{ "atlas.alert.object_created"|trans|raw }}</p>
+            <label class="sof-check"><input name="is_public" type="checkbox" />{{ "atlas.alert.add_to_map"|trans }}</label>
+        </div>
+        <div class="section-edit">
+            <p>{{ "atlas.alert.changes_saved"|trans }}</p>
+            <label class="sof-check"><input name="is_public" type="checkbox" checked="checked"/>{{ "atlas.alert.send_to_map"|trans }}</label>
+        </div>
+        <p class="note">{{ "atlas.alert.will_available"|trans }}</p>
+        <fieldset class="form-buttons">
+            <input type="submit" class="button sbmt-btn" value="{{ "atlas.alert.complete"|trans }}" />
+        </fieldset>
+    </form>
+</div>
+<!-- /success add popup -->
+
+<!-- moderation request popup -->
+<div class="add-object-form moderation-object-form draggable" id="moderation-object-form">
+    <a href="#" class="exit" title="{{ "atlas.alert.close"|trans }}"></a>
+    <form action="{{ path('armd_atlas_default_objectmakepublic') }}" method="POST">
+        <input id="moderation-object-id" class="object-id" name="id" type="hidden"/>
+        <input type="hidden" name="is_public" value="on">
+        <h2>{{ "atlas.alert.want_to_send"|trans }}</h2>
+        <p class="note">{{ "atlas.alert.will_available"|trans|raw }}</p>
+        <fieldset class="form-buttons">
+            <input type="submit" class="button sbmt-btn" value="{{ "atlas.yes"|trans }}"/>
+            <input type="reset" class="button rst-btn" value="{{ "atlas.later"|trans }}"/>
+        </fieldset>
+    </form>
+</div>
+<div class="add-object-form moderation-object-form draggable" id="moderation-object-form-1">
+    <a href="#" class="exit" title="{{ "atlas.alert.close"|trans }}"></a>
+    <div>
+        <h2>{{ "atlas.alert.waiting_moderation"|trans }}</h2>
+        <p class="note">{{ "atlas.alert.will_available"|trans|raw }}</p>
+        <fieldset class="form-buttons">
+            <input type="submit" class="button rst-btn" value="{{ "atlas.alert.close"|trans }}"/>
+        </fieldset>
+    </div>
+</div>
+<div class="add-object-form moderation-object-form draggable" id="moderation-object-form-2">
+    <a href="#" class="exit" title="{{ "atlas.alert.close"|trans }}"></a>
+    <div>
+        <h2>{{ "atlas.alert.successfully_added"|trans }}</h2>
+        <p class="note">{{ "atlas.alert.approved"|trans|raw }}</p>
+        <fieldset class="form-buttons">
+            <input type="submit" class="button rst-btn" value="{{ "atlas.alert.close"|trans }}"/>
+        </fieldset>
+    </div>
+</div>
+<div class="add-object-form moderation-object-form draggable" id="moderation-object-form-3">
+    <a href="#" class="exit" title="{{ "atlas.alert.close"|trans }}"></a>
+    <div>
+        <h2>{{ "atlas.alert.rejected_warning"|trans }}</h2>
+        <p class="note">{{ "atlas.alert.rejected_message"|trans|raw }}</p>
+        <fieldset class="form-buttons">
+            <input type="submit" class="button rst-btn" value="{{ "atlas.alert.close"|trans }}"/>
+        </fieldset>
+    </div>
+</div>
+<!-- /moderation request popup -->
