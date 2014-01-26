@@ -3330,6 +3330,9 @@ a.sidebar-widget-item:hover > .darkLayer {
 .marginBottom100 {
     margin-bottom: 100px;
 }
+.marginBottom110 {
+    margin-bottom: 110px;
+}
 .marginBottom150 {
     margin-bottom: 150px;
 }
@@ -3438,6 +3441,16 @@ a.sidebar-widget-item:hover > .darkLayer {
     font-weight: normal;
     font-family: "pf_din_text_cond_promedium", serif
 }
+
+.lectures-filter-section {
+    position: absolute;
+    left: -20px;
+    width: 996px;
+    height: 56px;
+    background: url(../../img/russia_images_icons/filters-pane.png) 0 0 no-repeat;
+    padding: 9px 0 0 25px;
+}
+
 .imagesOfRussia-search-category {
     position: absolute;
     left: -20px;
@@ -3882,6 +3895,13 @@ a.sidebar-widget-item:hover > .darkLayer {
     margin: 0 auto 20px auto;
     cursor: pointer;
 }
+#lectures-showMore {
+    background: url(../../img/lectures_icons/show-more.png) 0 0 no-repeat;
+    width: 172px;
+    height: 43px;
+    margin: 0 auto 20px auto;
+    cursor: pointer;
+}
 .movies-showMore {
     background: url(../../img/movies_icons/show-more.png) 0 0 no-repeat;
     width: 172px;
@@ -3896,6 +3916,41 @@ a.sidebar-widget-item:hover > .darkLayer {
     margin: 0 auto;
     cursor: pointer;
 }
+
+#lectures-list-placeholder {
+    margin: 55px 0 20px 0;
+}
+#lectures-list-placeholder .lectures-list-item {
+    display: inline-block;
+    margin: 15px 10px 25px;
+    vertical-align: top;
+    width: 220px;
+}
+#lectures-list-placeholder .lectures-list-item img {
+    width: 220px;
+    height: 138px;
+}
+#lectures-list-placeholder .lectures-list-item b {
+    display: block;
+    line-height: 18px;
+    margin: 0 0 10px;
+}
+#lectures-list-placeholder .lectures-list-item .description p {
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+}
+#lectures-list-placeholder .lectures-list-item.big {
+    margin: 0;
+    padding: 15px 10px 25px;
+    background-color: #E1E3E4;
+}
+#lectures-list-placeholder .lectures-list-item-6pack {
+    display: inline-block;
+    vertical-align: top;
+    width: 720px;
+}
+
 
 #imagesOfRussia-images-list-placeholder {
     overflow: visible;

@@ -1,0 +1,13 @@
+{% import 'ArmdLectureBundle::lecture_implode_macro.html.twig' as implodeMacro %}
+
+<div class="lectures-list-item" data-id="{{ item.id }}">
+    <a href="{{ path('armd_lecture_view', {'id': item.id}) }}">
+        {% thumbnail item.mediaLectureVideo, 'tile' with {'title': implodeMacro.genresToString(item)|trim ~ ' - ' ~ item.lecturer} %}
+    </a>
+
+    <b>{{ item.lecturer }}:</b>
+
+    <a href="{{ path('armd_lecture_view', {id: item.id }) }}" class="desc-post-link">
+        {{ item.title }}
+    </a>
+</div>

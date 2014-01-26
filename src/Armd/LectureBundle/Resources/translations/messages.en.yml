@@ -2,6 +2,7 @@ Movies: Movies
 searchCategoryGenre: Genre
 CounterText: movies
 SidebarRecommended: recommended
+NoGenre: no genre
 
 LECTURE_SUPER_TYPE_LECTURE: Lecture
 LECTURE_SUPER_TYPE_VIDEO_TRANSLATION: Broadcasting

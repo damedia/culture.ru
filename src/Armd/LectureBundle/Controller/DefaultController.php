@@ -17,6 +17,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 class DefaultController extends Controller {
     const PALETTE_COLOR_HEX = '#327BA7';
+    const LECTURES_LIST_DEFAULT_LIMIT = 11;
 
     private $palette_color = 'palette-color-4';
     private $palette_background = 'palette-background-4';
@@ -227,29 +228,53 @@ class DefaultController extends Controller {
     }
 
     /**
-     * @Route("/lecture/", name="armd_lecture_lecture_index")
+     * @Route("/lecture-lectures-list/", name="armd_lectures_list", options={"expose": true})
+     * @Template("ArmdLectureBundle:Default:lecturesList.html.twig")
+     */
+    public function lecturesListAction() {
+        $request = $this->getRequest();
+        $lecturesManager = $this->getLectureManager();
+
+        $criteria = array(
+            LectureManager::CRITERIA_SUPER_TYPE_CODES_OR => array('LECTURE_SUPER_TYPE_LECTURE'),
+            LectureManager::CRITERIA_RANDOM => true,
+            LectureManager::CRITERIA_LIMIT => self::LECTURES_LIST_DEFAULT_LIMIT
+        );
+
+        $selectedGenre = $request->get('selectedGenre');
+        if ($selectedGenre) {
+            $criteria[LectureManager::CRITERIA_GENRE_IDS_AND] = array($selectedGenre);
+        }
+
+        $loadedIds = $request->get('loadedIds');
+        if ($loadedIds) {
+            $criteria[LectureManager::CRITERIA_NOT_IDS] = $loadedIds;
+        }
+
+        $lectures = $lecturesManager->findObjects($criteria);
+
+        return array(
+            'lectures' => $lectures
+        );
+    }
+
+    /**
+     * @Route("/lecture/", name="armd_lecture_lecture_index", options={"expose": true})
+     * @Template("ArmdLectureBundle:Default:index.html.twig")
      */
     public function lectureIndexAction() {
         $request = $this->getRequest();
-        $genreId = $request->get('genre_id');
-        $genreIds = array();
+        $em = $this->getDoctrine()->getManager();
 
-        if ($genreId) {
-            $genreIds[] = $genreId;
-        }
+        $genresRepository = $em->getRepository('ArmdLectureBundle:LectureSuperType');
+        $lectureSuperType = $genresRepository->findOneByCode('LECTURE_SUPER_TYPE_LECTURE');
+        $genres = $this->getGenres($lectureSuperType);
 
-        return $this->forward(
-            'ArmdLectureBundle:Default:index',
-            array(
-                'lectureSuperTypeCode' => 'LECTURE_SUPER_TYPE_LECTURE'
-            ),
-            array(
-                'genre_ids' => $genreIds,
-                'first_letter' => $request->get('first_letter'),
-                'sort_by' => $request->get('sort_by'),
-                'offset' => $request->get('offset'),
-                'search_query' => $request->get('search_query')
-            )
+        $selectedGenre = $request->get('genre_ids');
+
+        return array(
+            'genres' => $genres,
+            'selectedGenreId' => $selectedGenre
         );
     }
 

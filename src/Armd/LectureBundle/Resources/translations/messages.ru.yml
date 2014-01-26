@@ -2,6 +2,7 @@ Movies: Кино
 searchCategoryGenre: Жанр
 CounterText: фильмов
 SidebarRecommended: рекомендуем
+NoGenre: без категории
 
 LECTURE_SUPER_TYPE_LECTURE: Лекция
 LECTURE_SUPER_TYPE_VIDEO_TRANSLATION: Трансляция

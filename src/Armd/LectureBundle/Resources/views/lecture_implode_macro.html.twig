@@ -1,0 +1,17 @@
+{% macro genresToString(item) %}
+    {% set genresString = '' %}
+
+    {% for g in item.genres %}
+        {% set genresString = genresString ~ g.title %}
+
+        {% if not loop.last %}
+            {% set genresString = genresString ~ ', ' %}
+        {% endif %}
+    {% endfor %}
+
+    {% if genresString == '' %}
+        {% set genresString = 'NoGenre'|trans %}
+    {% endif %}
+
+    {{ genresString }}
+{% endmacro %}
