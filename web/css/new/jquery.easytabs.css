@@ -9,8 +9,6 @@
     background-color: #fff;
     border: 1px solid #D5D4D4;
     border-bottom: none;
-    -moz-border-radius: 4px 4px 0 0;
-    -webkit-border-radius: 4px 4px 0 0;
 }
 .tab a {
     font-size: 14px;
@@ -18,9 +16,10 @@
     display: block;
     padding: 0 10px;
     outline: none;
+    text-decoration: none;
 }
 .tab a:hover {
-    text-decoration: underline;
+    text-decoration: none;
 }
 .tab.active {
     background: #fff;
