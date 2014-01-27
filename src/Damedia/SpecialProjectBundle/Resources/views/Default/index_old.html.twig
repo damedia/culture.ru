@@ -1,0 +1,86 @@
+{% extends ':Frontend:base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    <style type="text/css">
+        .triangle-isosceles {
+            border-radius: 5px 0 0 5px;
+            color: #989898;
+            margin-bottom: 7px;
+            padding: 3px 3px 3px 15px;
+            position: relative;
+            width: 400px;
+        }
+        .triangle-isosceles.right { /* makes element width shorter */
+            background: none repeat scroll 0 0 #F0F0F0;
+            margin-right: 10px;
+        }
+
+        /* these two things create a small cute triangle */
+        .triangle-isosceles:after {
+            border-color: #F0F0F0 transparent;
+            border-style: solid;
+            border-width: 15px 15px 0;
+            bottom: -10px;
+            content: "";
+            display: block;
+            left: 10px;
+            position: absolute;
+            width: 0;
+        }
+        .triangle-isosceles.right:after {
+            border-color: transparent #F0F0F0;
+            border-width: 14px 0 14px 10px;
+            bottom: auto;
+            left: auto;
+            right: -10px;
+            top: 0;
+        }
+
+        .triangle-isosceles.right:hover {
+            background-color: #F79016;
+            color: #FFFFFF;
+        }
+        .triangle-isosceles.right:hover:after {
+            border-color: transparent #F79016;
+        }
+
+        .triangle-isosceles a {
+            display: inline-block;
+            width: 100%;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .spacer {
+            margin-left: 40px;
+        }
+    </style>
+{% endblock %}
+
+{% block title %}
+    {{ parent() }} - {{ PageTitle }}
+{% endblock %}
+
+{% block page_header_title %}
+    {{ PageTitle }}
+{% endblock %}
+
+{% block body %}
+    {% block breadcrumbs %}
+        {{ include('DamediaSpecialProjectBundle:Default:breadcrumbs.html.twig', { 'Breadcrumbs': Breadcrumbs }) }}
+    {% endblock %}
+
+    {% if Projects|length == 0 %}
+        Опубликованные спецпроекты отсутствуют.
+    {% else %}
+        {% for item in Projects %}
+            <p class="triangle-isosceles right {% if item.padding > 0 %}spacer{% endif %}"><a href="{{ item.href }}">{{ item.caption }}</a></p>
+        {% endfor %}
+    {% endif %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}

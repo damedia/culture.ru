@@ -1,0 +1,7 @@
+{% for item in objects %}
+    <div class="sprojects-list-item">
+        <a href="{{ path('damedia_special_project_view', {slug: item.slug}) }}" class="displayBlock b-special-project-mainpage-widget-block greyBackground">
+            <img src="{% path item.bannerImage, 'default' %}" alt="" />
+        </a>
+    </div>
+{% endfor %}

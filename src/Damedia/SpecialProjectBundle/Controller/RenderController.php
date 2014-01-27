@@ -1,10 +1,14 @@
 <?php
 namespace Damedia\SpecialProjectBundle\Controller;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 
 class RenderController extends Controller {
+    const DEFAULT_LIST_LIMIT = 5;
+
     public function snippetAction($entity, $itemId, $view) { //rename to: renderSnippetAction()
         $communicator = $this->get('special_project_neighbors_communicator');
         $entityDescription = $communicator->getFriendlyEntityDescription($entity);
@@ -31,7 +35,12 @@ class RenderController extends Controller {
 		return $this->render('DamediaSpecialProjectBundle:Default:footerMenu.html.twig', array('ProjectsFooterMenu' => $menuElements));
 	}
 
+    /**
+     * @Route("/project", name="damedia_special_project_list", options={"expose"=true})
+     * @Template("DamediaSpecialProjectBundle:Default:index.html.twig")
+     */
 	public function indexAction() {
+        /*
         $helper = $this->get('special_project_helper');
         $breadcrumbs = $helper->createInitialBreadcrumbsArray($this);
 
@@ -53,11 +62,36 @@ class RenderController extends Controller {
                 }
             }
         }
+        */
 
-		return $this->render('DamediaSpecialProjectBundle:Default:index.html.twig', array('PageTitle' => 'Спецпроекты',
-                                                                                          'Breadcrumbs' => $breadcrumbs,
-                                                                                          'Projects' => $projects));
+		return array(
+            //'Breadcrumbs' => $breadcrumbs,
+            //'Projects' => $projects
+        );
 	}
+
+    /**
+     * @Route("/project-service/get-list", name="damedia_sprojects_list", options={"expose"=true})
+     * @Template("DamediaSpecialProjectBundle:Default:list.html.twig")
+     */
+    public function listAction() {
+        $request = $this->getRequest();
+        $em = $this->getDoctrine()->getManager();
+        $pagesRepository = $em->getRepository('\Damedia\SpecialProjectBundle\Entity\Page');
+
+        $offset = $request->get('loadedItemsCount', false);
+
+        $objects = $pagesRepository->findBy(
+            array('isPublished' => true, 'parent' => null),
+            array('id' => 'DESC') ,
+            self::DEFAULT_LIST_LIMIT,
+            $offset
+        );
+
+        return array(
+            'objects' => $objects
+        );
+    }
 
     public function viewAction($slug) { //rename to: previewPageAction()
     	$pageRepository = $this->getDoctrine()->getRepository('DamediaSpecialProjectBundle:Page');

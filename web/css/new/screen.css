@@ -3355,6 +3355,10 @@ a.sidebar-widget-item:hover > .darkLayer {
     white-space: nowrap;
 }
 
+.spacer {
+    margin-left: 40px;
+}
+
 .header-text-medium {
     font-family: "pf_din_text_cond_promedium", serif;
     font-size: 1.8em;
@@ -3857,6 +3861,10 @@ a.sidebar-widget-item:hover > .darkLayer {
     margin-top: 10px;
 }
 
+#sprojects-list-placeholder .sprojects-list-item {
+    margin-bottom: 20px;
+}
+
 #museums-items-list {
     margin-top: 40px;
     width: 700px;
@@ -3893,6 +3901,13 @@ a.sidebar-widget-item:hover > .darkLayer {
     width: 172px;
     height: 43px;
     margin: 0 auto 20px auto;
+    cursor: pointer;
+}
+#sprojects-showMore {
+    background: url(../../img/specialProjects_icons/show-more.png) 0 0 no-repeat;
+    width: 172px;
+    height: 43px;
+    margin: 20px auto 20px auto;
     cursor: pointer;
 }
 #lectures-showMore {
