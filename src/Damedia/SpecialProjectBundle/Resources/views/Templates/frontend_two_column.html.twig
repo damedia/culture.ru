@@ -3,6 +3,8 @@
 {% block stylesheets %}
     {{ parent() }}
 
+    <link rel="stylesheet" href="{{ asset('vendor/flexslider/flexslider.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/new/jquery.fancybox.css') }}" />
     <style type="text/css">
         {{ Stylesheet|raw }}
     </style>
@@ -52,6 +54,8 @@
 {% block javascripts %}
     {{ parent() }}
 
+    <script type="text/javascript" src="{{ asset('js/new/jquery.flexslider.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/new/jquery.fancybox.min.js') }}"></script>
     <script type="text/javascript">
         {{ Javascript|raw }}
     </script>
