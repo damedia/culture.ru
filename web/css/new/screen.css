@@ -3355,10 +3355,6 @@ a.sidebar-widget-item:hover > .darkLayer {
     white-space: nowrap;
 }
 
-.spacer {
-    margin-left: 40px;
-}
-
 .header-text-medium {
     font-family: "pf_din_text_cond_promedium", serif;
     font-size: 1.8em;
