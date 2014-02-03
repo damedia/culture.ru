@@ -78,7 +78,9 @@
                 {% endif %}
 
                 <span class="description">
-                    {{ entity.image.description }}
+                    {% if entity.image is not empty %}
+                        {{ entity.image.description }}
+                    {% endif %}
                     {% if entity.source is not empty %}
                         <span class="source">{{ 'Entity.Source'|trans }}: {{ entity.source }}</span>
                     {% endif %}
