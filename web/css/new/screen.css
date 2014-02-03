@@ -1,5 +1,17 @@
 @import url(http://fonts.googleapis.com/css?family=PT+Serif&subset=latin,cyrillic,latin-ext,cyrillic-ext);
 
+@media only screen and (min-width: 699px), only screen and (min-device-width: 699px) {
+    body {
+        overflow-x: hidden;
+    }
+}
+
+@media only screen and (max-width: 699px), only screen and (max-device-width: 699px) {
+    body {
+        overflow-x: scroll;
+    }
+}
+
 .b-sidebar {
 float: right
 }
