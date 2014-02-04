@@ -345,31 +345,16 @@ z-index: 100
 
 /*======================
 ==== Stroke lines ====*/
-section.underMenuLine-right {
-    width: 960px;
-    min-width: 960px;
-    margin: -28px auto 28px;
-}
-section.underMenuLine-right div {
-    height: 2px;
-}
-section.underMenuLine-right div:before {
-    width: 100%;
-    height: inherit;
-    display: block;
+.underMenuLine {
     background-color: #2d3031;
-    content: "";
-    position: absolute;
+    height: 2px;
+    margin: -28px 0 28px 0;
 }
 
-section.dottedLine-full {
-    width: 960px;
-    min-width: 960px;
-}
-section.dottedLine-full div {
+.dottedLine-full {
     height: 1px;
 }
-section.dottedLine-full div:before {
+.dottedLine-full:after {
     width: 100%;
     height: inherit;
     display: block;
@@ -377,6 +362,42 @@ section.dottedLine-full div:before {
     content: "";
     position: absolute;
     left: 0;
+}
+
+h2.dottedLine-full-title {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+
+    font-family: "pf_din_text_cond_promedium",serif;
+    font-size: 29px;
+    font-weight: normal;
+    letter-spacing: 1px;
+    line-height: 25px;
+    text-transform: uppercase;
+}
+h2.dottedLine-full-title:after {
+    display: block;
+    margin: -13px 0 0 -350px;
+    height: 1px;
+    left: 100%;
+    position: absolute;
+    content: "";
+    width: 100%;
+    max-width: 502px;
+    background: url("../../img/new/main-border-bg.png") repeat-x scroll left bottom rgba(0, 0, 0, 0);
+}
+h2.dottedLine-full-title:before {
+    display: block;
+    margin: 13px -350px 0 0;
+    height: 1px;
+    right: 100%;
+    position: absolute;
+    content: "";
+    width: 100%;
+    max-width: 502px;
+    background: url("../../img/new/main-border-bg.png") repeat-x scroll left bottom rgba(0, 0, 0, 0);
 }
 
 .lang-icon-wrapper {
@@ -2759,11 +2780,12 @@ padding: 0;
 }
 
 body {
-font-family: "PTSansRegular", sans-serif;
-font-weight: normal;
-font-size: 14px;
-line-height: 1.71em;
-color: #333
+    font-family: "PTSansRegular", sans-serif;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 1.71em;
+    color: #333;
+    min-width: 1200px;
 }
 
 a img, fieldset {
@@ -2793,8 +2815,8 @@ height: 100%
 
 body>div:first-child {
 min-height: 100%;
-min-width: 1000px;
-overflow: hidden;
+min-width: 1200px;
+/*overflow: hidden;*/
 position: relative
 }
 
@@ -3362,6 +3384,9 @@ a.sidebar-widget-item:hover > .darkLayer {
 }
 .marginBottom150 {
     margin-bottom: 150px;
+}
+.marginBottomImportant20 {
+    margin-bottom: 20px !important;
 }
 .marginBottomImportant88 {
     margin-bottom: 88px !important;
@@ -4283,6 +4308,7 @@ textarea[name="fos_comment_comment[body]"] {
 }
 
 
+
 /*==================
 ==== Main page ===*/
 .goto-link-button {
@@ -4295,34 +4321,7 @@ textarea[name="fos_comment_comment[body]"] {
     padding: 0;
     text-decoration: none !important;
 }
-.special-projects-header-expander {
-    width: 220px;
-    height: 29px;
-}
-.lectures-header-expander {
-    width: 130px;
-    height: 29px;
-}
-.virtualTours-header-expander {
-    width: 300px;
-    height: 29px;
-    float: left;
-    margin-left: -20px;
-    padding-left: 20px;
-    left: -10px;
-}
-.mainpage-header-title-holder {
-    position: absolute;
-    width: 100%;
-    text-align: center;
-    top: -13px;
-    font-family: "pf_din_text_cond_promedium", serif;
-    font-size: 29px;
-    font-weight: normal;
-    letter-spacing: 1px;
-    line-height: 25px;
-    text-transform: uppercase;
-}
+
 
 
 /*================
