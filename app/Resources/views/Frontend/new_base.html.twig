@@ -149,6 +149,9 @@
                                                  'currentClass': 'm-active',
                                                  'ancestorClass': 'm-active',
                                                  'depth': 3 }) }}
+
+                <section class="underMenuLine-right"><div></div></section>
+
                 <div class="logo">
                     <a href="{{ path('armd_main_homepage') }}">
                         <img src="/img/new/{% if app.request.locale == 'ru' %}logo_ru.png{% else %}logo_en.png{% endif %}" width="502" height="118" alt="{{ 'Main.SiteName'|trans }}" />
@@ -158,8 +161,22 @@
                         <img src="/img/new/calendar.png" width="121" height="100" />
                     </a>
                 </div>
+
+                <div class="lang-icon-wrapper">
+                    <ul class="b-lang-box">
+                        {% if app.request.locale == 'en' %}
+                            <li class="m-lang-rus m-lang-active"><a href="{{ path('armd_main_homepage', {'_locale': 'ru'}) }}" title="Русская версия сайта">Ru</a></li>
+                            <li class="m-lang-eng"><a href="{{ path('armd_main_homepage', {'_locale': 'en'}) }}" title="Английская версия сайта">En</a></li>
+                        {% else %}
+                            <li class="m-lang-rus"><a href="{{ path('armd_main_homepage', {'_locale': 'ru'}) }}" title="Русская версия сайта">Ru</a></li>
+                            <li class="m-lang-eng m-lang-active"><a href="{{ path('armd_main_homepage', {'_locale': 'en'}) }}" title="Английская версия сайта">En</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
             </div>
         </div>
+
+        <section class="dottedLine-full"><div></div></section>
 
         <div class="b-main">
             <div class="b-sidebar">
@@ -251,18 +268,6 @@
                 </div>
                 {% endblock %}
             </div>
-        </div>
-
-        <div class="b-vertical">
-            <ul class="b-lang-box">
-            {% if app.request.locale == 'en' %}
-                <li class="m-lang-rus m-lang-active"><a href="{{ path('armd_main_homepage', {'_locale': 'ru'}) }}" title="Русская версия сайта">Ru</a></li>
-                <li class="m-lang-eng"><a href="{{ path('armd_main_homepage', {'_locale': 'en'}) }}" title="Английская версия сайта">En</a></li>
-            {% else %}
-                <li class="m-lang-rus"><a href="{{ path('armd_main_homepage', {'_locale': 'ru'}) }}" title="Русская версия сайта">Ru</a></li>
-                <li class="m-lang-eng m-lang-active"><a href="{{ path('armd_main_homepage', {'_locale': 'en'}) }}" title="Английская версия сайта">En</a></li>
-            {% endif %}
-            </ul>
         </div>
     </div>
     <div class="b-footer">

@@ -1,17 +1,5 @@
 @import url(http://fonts.googleapis.com/css?family=PT+Serif&subset=latin,cyrillic,latin-ext,cyrillic-ext);
 
-@media only screen and (min-width: 1024px), only screen and (min-device-width: 1024px) {
-    body {
-        overflow-x: hidden;
-    }
-}
-
-@media only screen and (max-width: 1023px), only screen and (max-device-width: 1023px) {
-    body {
-        overflow-x: scroll;
-    }
-}
-
 .b-sidebar {
 float: right
 }
@@ -68,10 +56,6 @@ border-top: 1px dashed #313336
 
 .m-secondary, .comment-item, .b-image-post.m-right-view .b-icons-nav, .b-icons-nav, .b-movies-block, .b-movies-block:after, .b-heading, .b-heading:after, .b-heading:before {
 background: url("../../img/new/main-border-bg.png") left top repeat-x
-}
-
-.b-header-inner:before, .b-header-inner:after, .b-header-inner {
-background: url("../../img/new/main-border-bg.png") left bottom repeat-x
 }
 
 .b-page .b-link-list.m-left-bordered li {
@@ -359,17 +343,46 @@ background-position: 0 -384px;
 z-index: 100
 }
 
-.b-header-inner:before, .b-header-inner:after {
-content: "";
-display: block;
-position: absolute;
-bottom: auto;
-height: 1px;
-width: 100%;
-z-index: 2;
-top: 100%;
-margin-top: -1px;
-margin-right: 2px
+/*======================
+==== Stroke lines ====*/
+section.underMenuLine-right {
+    width: 960px;
+    min-width: 960px;
+    margin: -28px auto 28px;
+}
+section.underMenuLine-right div {
+    height: 2px;
+}
+section.underMenuLine-right div:before {
+    width: 100%;
+    height: inherit;
+    display: block;
+    background-color: #2d3031;
+    content: "";
+    position: absolute;
+}
+
+section.dottedLine-full {
+    width: 960px;
+    min-width: 960px;
+}
+section.dottedLine-full div {
+    height: 1px;
+}
+section.dottedLine-full div:before {
+    width: 100%;
+    height: inherit;
+    display: block;
+    background: url("../../img/new/main-border-bg.png") repeat-x scroll left bottom rgba(0, 0, 0, 0);
+    content: "";
+    position: absolute;
+    left: 0;
+}
+
+.lang-icon-wrapper {
+    position: absolute;
+    top: 0;
+    right: 0;
 }
 
 .m-firefox .b-menu:after {
@@ -378,7 +391,7 @@ top: auto !important
 
 .b-header-inner {
 padding-bottom: 24px;
-position: relative
+/*position: relative*/
 }
 
 .b-header-inner:before {
@@ -390,13 +403,13 @@ left: 100%
 }
 
 .b-header-inner .b-menu {
-border-bottom: 2px solid #2d3031;
+/*border-bottom: 2px solid #2d3031;*/
 display: table;
 margin-bottom: 28px;
 position: relative;
 width: 100%
 }
-
+/*
 .b-header-inner .b-menu:after {
 content: '';
 display: block;
@@ -409,6 +422,7 @@ bottom: 0;
 z-index: 2;
 border-bottom: 2px solid #2d3031
 }
+*/
 
 .b-header-inner .b-menu li {
 display: table-cell;
@@ -597,7 +611,7 @@ visibility: hidden
 
 .b-lang-box {
 background: url('../../img/new/icons-sb7c6234ca4.png') 0 -246px;
-padding-right: 6px
+/*padding-right: 6px*/
 }
 
 .b-lang-box li {
@@ -2462,6 +2476,7 @@ filter: alpha(opacity=100)
 color: #fff
 }
 
+
 .b-virtual-theatre:after {
 content: '';
 position: absolute;
@@ -2786,7 +2801,7 @@ position: relative
 .b-page {
 width: 960px;
 margin: 0 auto;
-position: relative
+/*position: relative*/
 }
 
 .b-vertical {
