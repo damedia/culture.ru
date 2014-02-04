@@ -162,10 +162,7 @@ class Builder extends ContainerAware {
         $atlasMenu->setAttribute('class', 'm-color-8');
 
         //The year of culture
-        $yearOfCulture = $menu->addChild('menu.year_of_culture', array(
-            'route' => 'damedia_special_project_view',
-            'routeParameters' => array('slug' => 'year-of-culture')
-        ));
+        $yearOfCulture = $menu->addChild('menu.year_of_culture', array('route' => 'year_of_culture'));
         $yearOfCulture->setAttribute('class', 'm-color-9');
 
         //SpecialProjects

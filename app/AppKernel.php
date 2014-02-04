@@ -90,6 +90,7 @@ class AppKernel extends Kernel
             new Armd\ActualInfoBundle\ActualInfoBundle(),
             new Damedia\SonataAdminWrapperBundle\DamediaSonataAdminWrapperBundle(),
             new Damedia\AtlasJsModuleBundle\DamediaAtlasJsModuleBundle(),
+            new Damedia\CustomRouterBundle\DamediaCustomRouterBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test', 'dev_en'))) {

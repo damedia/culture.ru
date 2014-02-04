@@ -684,6 +684,8 @@ fpn_tag:
 
 parameters:
     sonata.user.admin.user.class: Armd\UserBundle\Admin\Entity\UserAdmin
+    router.options.generator_class: Damedia\CustomRouterBundle\Routing\Generator\UrlGenerator
+    router.options.generator_base_class: Damedia\CustomRouterBundle\Routing\Generator\UrlGenerator
 
 armd_sitemap:
     host: culture.ru

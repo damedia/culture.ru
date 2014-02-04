@@ -1,3 +1,8 @@
+year_of_culture:
+    pattern: /year-of-culture
+    defaults:
+        _url: "http://year-of-culture.ru/"
+
 damedia_tinymce:
     resource: "@DamediaTinymceBundle/Resources/config/routing.yml"
     prefix:   /
