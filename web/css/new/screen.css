@@ -3902,7 +3902,7 @@ a.sidebar-widget-item:hover > .darkLayer {
     display: inline-block;
     vertical-align: top;
 }
-#museums-items-list .spacer {
+#museums-items-list .listSpacer {
     width: 12px;
     height: 330px;
     display: inline-block;
