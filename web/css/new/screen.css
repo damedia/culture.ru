@@ -354,13 +354,13 @@ z-index: 100
 .dottedLine-full {
     height: 1px;
 }
-.dottedLine-full:after {
-    width: 100%;
+.dottedLine-full:before {
     height: inherit;
     display: block;
     background: url("../../img/new/main-border-bg.png") repeat-x scroll left bottom rgba(0, 0, 0, 0);
     content: "";
     position: absolute;
+    width: 100%;
     left: 0;
 }
 
