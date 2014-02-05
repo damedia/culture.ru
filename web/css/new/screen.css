@@ -3510,11 +3510,12 @@ a.sidebar-widget-item:hover > .darkLayer {
 
 .imagesOfRussia-search-category {
     position: absolute;
-    left: -20px;
     width: 996px;
     height: 56px;
     background: url(../../img/russia_images_icons/filters-pane.png) 0 0 no-repeat;
     padding: 6px 0 0 25px;
+    top: 340px;
+    margin-left: -20px;
 }
 .imagesOfRussia-search-category-selects {
     display: inline-block;
