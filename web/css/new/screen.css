@@ -3426,6 +3426,10 @@ a.sidebar-widget-item:hover > .darkLayer {
     left: -100px;
 }
 
+.spacer {
+    margin-left: 40px;
+}
+
 
 /*=================
 ==== Entities ===*/
