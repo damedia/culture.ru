@@ -3747,12 +3747,11 @@ a.sidebar-widget-item:hover > .darkLayer {
 }
 .movies-search-category {
     position: absolute;
-    top: 150px;
-    left: -20px;
     width: 729px;
     height: 54px;
     background: url(../../img/movies_icons/filters-pane.png) 0 0 no-repeat;
     padding: 6px 0 0 25px;
+    margin-left: -20px;
 }
 .movies-search-category-selects {
     display: inline-block;
