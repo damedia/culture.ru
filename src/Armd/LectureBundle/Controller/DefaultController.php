@@ -125,6 +125,7 @@ class DefaultController extends Controller {
         $selectedGenreId = $request->get('selectedGenreId');
         $tagId = $request->get('tagId');
         $searchQuery = $request->get('searchQuery');
+        $currentGenreSlug = $request->get('current_genre');
 
         $genreIds = array($genreId);
 
@@ -163,7 +164,8 @@ class DefaultController extends Controller {
             'genreSlug' => $genreSlug,
             'palette_colored_box' => $this->palette_colored_box,
             'movies' => $movies,
-            'extra' => $extra
+            'extra' => $extra,
+            'current_genre' => $currentGenreSlug
         );
     }
 

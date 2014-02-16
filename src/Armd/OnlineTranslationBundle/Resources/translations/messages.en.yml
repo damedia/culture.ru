@@ -1,1 +1,29 @@
-OnlineTranslation: Online Translation
+OnlineTranslation: Broadcast
+NoBroadcastsAnnounces: Broadcasts for the near future is not announced.
+
+Mainpage:
+    Online: Broadcast online
+    TimeTillStart: Time till broadcast start
+    Remind: Remind
+    Goto: go to Broadcast
+    Form:
+        Email: Email
+        RemindIn: Remind in
+        3Days: 3 days
+        1Day: 1 day
+        6Hours: 6 hours
+        3Hours: 3 hours
+        1Hour: 1 hour
+        30Mins: 30 minutes
+        10Mins: 10 minutes
+        Captcha: Code
+        EmailError: Please, fill out the "Email" field!
+        CaptchaError: Please, input the code from the image!
+        WrongCaptcha: Incorrect code from the image!
+        ProcessingError: Processing form error!
+        CompletedMessage: Notification saved!
+
+Mail:
+    Sincerely: Sincerely
+    NotificationService: notification service of portal Culture.ru
+    Subject: Broadcast on Culture.ru portal

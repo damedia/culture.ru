@@ -41,9 +41,11 @@
             {% set counter = counter + 1 %}
         {% endfor %}
 
-        {{ _self.gotoButton(palette_colored_box, genreSlug) }}
+        {% if current_genre is empty %}
+            {{ _self.gotoButton(palette_colored_box, genreSlug) }}
+        {% endif %}
     {% else %}
-        {% if extra is empty %}
+        {% if extra is empty and current_genre is empty %}
             {{ _self.gotoButton(palette_colored_box, genreSlug) }}
         {% endif %}
     {% endif %}

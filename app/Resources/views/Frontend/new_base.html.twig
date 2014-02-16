@@ -26,6 +26,7 @@
 
 {% block stylesheets %}
     <link rel="stylesheet" href="/css/new/jquery-ui.min.css" type="text/css"/>
+    <link rel="stylesheet" href="{{ asset('css/new/jquery.ui.selectmenu.css') }}" />
     <link rel="stylesheet" href="{{ asset('bundles/armdsocialauth/css/styles.css') }}" type="text/css"/>
     <link href="/css/new/screen.css" media="screen, projection" rel="stylesheet" type="text/css"/>
     <!--[if lt IE 9]><link rel="stylesheet" media="screen" href="/css/new/ie.css" /><![endif]-->
@@ -38,8 +39,11 @@
     <script src="/js/new/jquery.carouFredSel-6.2.1-packed.js" type="text/javascript"></script>
     <script src="/js/new/init.js" type="text/javascript"></script>
     <script src="/js/core.js" type="text/javascript" ></script>
+    <script type="text/javascript" src="{{ asset('vendor/moment.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/new/jquery.ui.selectmenu.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
     <script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+    <script type="text/javascript" src="{{ asset('js/damedia/numeralsLocalizator.js') }}"></script>
     <script type="text/javascript">
         $(function(){
             (function(){
@@ -205,7 +209,8 @@
                     </div>
 
                     {% block sidebar %}
-                        {% render 'ActualInfoBundle:Default:mainpageWidget' %} <!-- TODO: this line doing nothing?.. -->
+                        {% render 'ArmdOnlineTranslationBundle:Default:mainpageWidget' %}
+                        {% render 'ActualInfoBundle:Default:mainpageWidget' %}
                         {% render 'ArmdNewsBundle:News:lastAnnounce' %}
                     {% endblock %}
                 </div>

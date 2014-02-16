@@ -207,10 +207,7 @@ class Builder extends ContainerAware {
         $menu->addChild('menu.atlas', array('route' => 'armd_atlas_index'));
 
         //The year of culture
-        $menu->addChild('menu.year_of_culture', array(
-            'route' => 'damedia_special_project_view',
-            'routeParameters' => array('slug' => 'year-of-culture')
-        ));
+        $menu->addChild('menu.year_of_culture', array('route' => 'year_of_culture'));
 
         //SpecialProjects
         $menu->addChild('menu.special_projects', array('route' => 'damedia_special_project_list'));

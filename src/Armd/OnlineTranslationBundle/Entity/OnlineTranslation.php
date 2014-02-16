@@ -7,6 +7,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use DoctrineExtensions\Taggable\Taggable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Armd\MainBundle\Model\ChangeHistorySavableInterface;
+use Application\Sonata\MediaBundle\Entity\Media;
 
 /**
  * Armd\OnlineTranslationBundle\Entity\OnlineTranslation
@@ -14,10 +15,9 @@ use Armd\MainBundle\Model\ChangeHistorySavableInterface;
  * @ORM\Entity
  * @ORM\Table(name="online_translation")
  */
-class OnlineTranslation implements Taggable, ChangeHistorySavableInterface
-{
-    const TYPE_ANNOUNCE = 0;
-    const TYPE_TRANSLATION = 1;
+class OnlineTranslation implements Taggable, ChangeHistorySavableInterface {
+    const STATUS_ANNOUNCE = 0;
+    const STATUS_LIVE = 1;
 
     /**
      * @ORM\Id
@@ -34,7 +34,7 @@ class OnlineTranslation implements Taggable, ChangeHistorySavableInterface
     /**
      * @ORM\Column(type="smallint")
      */
-    private $type = 0;
+    private $type = self::STATUS_LIVE;
 
     /**
      * @ORM\Column(type="string")
@@ -46,6 +46,11 @@ class OnlineTranslation implements Taggable, ChangeHistorySavableInterface
      * @ORM\Column(type="datetime")
      */
     private $date;
+
+    /**
+     * @ORM\Column(type="smallint")
+     */
+    private $duration = 0;
     
     /**
      * @ORM\Column(type="string")
@@ -63,7 +68,13 @@ class OnlineTranslation implements Taggable, ChangeHistorySavableInterface
      * @ORM\Column(name="full_description", type="text")
      */
     private $fullDescription;
-    
+
+    /**
+     * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"all"})
+     * @Assert\NotBlank()
+     */
+    private $sidebarImage;
+
     /**
      * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"all"})
      * @Assert\NotBlank()
@@ -83,38 +94,28 @@ class OnlineTranslation implements Taggable, ChangeHistorySavableInterface
      */
     protected $corrected;    
 
-    public function __toString()
-    {
+
+
+    public function __toString() {
         return $this->getTitle();
     }
-    
-    public function getTags()
-    {
+
+
+
+    public function getTags() {
         $this->tags = $this->tags ? : new ArrayCollection();
 
         return $this->tags;
     }
-
-    public function setTags($tags)
-    {
+    public function setTags($tags) {
         $this->tags = $tags;
 
         return $this;
     }
-
-    /**
-     * @return string
-     */
-    public function getTaggableType()
-    {
+    public function getTaggableType() {
         return 'armd_online_translation';
     }
-
-    /**
-     * @return int
-     */
-    public function getTaggableId()
-    {
+    public function getTaggableId() {
         return $this->getId();
     }
 
@@ -123,8 +124,7 @@ class OnlineTranslation implements Taggable, ChangeHistorySavableInterface
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -134,8 +134,7 @@ class OnlineTranslation implements Taggable, ChangeHistorySavableInterface
      * @param boolean $published
      * @return OnlineTranslation
      */
-    public function setPublished($published)
-    {
+    public function setPublished($published) {
         $this->published = $published;
     
         return $this;
@@ -146,8 +145,7 @@ class OnlineTranslation implements Taggable, ChangeHistorySavableInterface
      *
      * @return boolean 
      */
-    public function getPublished()
-    {
+    public function getPublished() {
         return $this->published;
     }
 
@@ -157,8 +155,7 @@ class OnlineTranslation implements Taggable, ChangeHistorySavableInterface
      * @param string $title
      * @return OnlineTranslation
      */
-    public function setTitle($title)
-    {
+    public function setTitle($title) {
         $this->title = $title;
     
         return $this;
@@ -169,8 +166,7 @@ class OnlineTranslation implements Taggable, ChangeHistorySavableInterface
      *
      * @return string 
      */
-    public function getTitle()
-    {
+    public function getTitle() {
         return $this->title;
     }
 
@@ -180,8 +176,7 @@ class OnlineTranslation implements Taggable, ChangeHistorySavableInterface
      * @param \DateTime $date
      * @return OnlineTranslation
      */
-    public function setDate($date)
-    {
+    public function setDate($date) {
         $this->date = $date;
     
         return $this;
@@ -192,9 +187,29 @@ class OnlineTranslation implements Taggable, ChangeHistorySavableInterface
      *
      * @return \DateTime 
      */
-    public function getDate()
-    {
+    public function getDate() {
         return $this->date;
+    }
+
+    /**
+     * Set broadcast duration in minutes
+     *
+     * @param integer
+     * @return OnlineTranslation
+     */
+    public function setDuration($duration) {
+        $this->duration = $duration;
+
+        return $this;
+    }
+
+    /**
+     * Get broadcast duration in minutes
+     *
+     * @return integer
+     */
+    public function getDuration() {
+        return $this->duration;
     }
 
     /**
@@ -203,8 +218,7 @@ class OnlineTranslation implements Taggable, ChangeHistorySavableInterface
      * @param string $location
      * @return OnlineTranslation
      */
-    public function setLocation($location)
-    {
+    public function setLocation($location) {
         $this->location = $location;
     
         return $this;
@@ -215,8 +229,7 @@ class OnlineTranslation implements Taggable, ChangeHistorySavableInterface
      *
      * @return string 
      */
-    public function getLocation()
-    {
+    public function getLocation() {
         return $this->location;
     }
 
@@ -226,8 +239,7 @@ class OnlineTranslation implements Taggable, ChangeHistorySavableInterface
      * @param string $shortDescription
      * @return OnlineTranslation
      */
-    public function setShortDescription($shortDescription)
-    {
+    public function setShortDescription($shortDescription) {
         $this->shortDescription = $shortDescription;
     
         return $this;
@@ -238,8 +250,7 @@ class OnlineTranslation implements Taggable, ChangeHistorySavableInterface
      *
      * @return string 
      */
-    public function getShortDescription()
-    {
+    public function getShortDescription() {
         return $this->shortDescription;
     }
 
@@ -249,8 +260,7 @@ class OnlineTranslation implements Taggable, ChangeHistorySavableInterface
      * @param string $fullDescription
      * @return OnlineTranslation
      */
-    public function setFullDescription($fullDescription)
-    {
+    public function setFullDescription($fullDescription) {
         $this->fullDescription = $fullDescription;
     
         return $this;
@@ -261,8 +271,7 @@ class OnlineTranslation implements Taggable, ChangeHistorySavableInterface
      *
      * @return string 
      */
-    public function getFullDescription()
-    {
+    public function getFullDescription() {
         return $this->fullDescription;
     }
 
@@ -272,8 +281,7 @@ class OnlineTranslation implements Taggable, ChangeHistorySavableInterface
      * @param string $dataCode
      * @return OnlineTranslation
      */
-    public function setDataCode($dataCode)
-    {
+    public function setDataCode($dataCode) {
         $this->dataCode = $dataCode;
     
         return $this;
@@ -284,19 +292,38 @@ class OnlineTranslation implements Taggable, ChangeHistorySavableInterface
      *
      * @return string 
      */
-    public function getDataCode()
-    {
+    public function getDataCode() {
         return $this->dataCode;
+    }
+
+    /**
+     * Set sidebar image for the mainpage
+     *
+     * @param Media $sidebarImage
+     * @return OnlineTranslation
+     */
+    public function setSidebarImage(Media $sidebarImage) {
+        $this->sidebarImage = $sidebarImage;
+
+        return $this;
+    }
+
+    /**
+     * Get sidebar image for the mainpage
+     *
+     * @return Media
+     */
+    public function getSidebarImage() {
+        return $this->sidebarImage;
     }
 
     /**
      * Set image
      *
-     * @param \Application\Sonata\MediaBundle\Entity\Media $image
+     * @param Media $image
      * @return OnlineTranslation
      */
-    public function setImage(\Application\Sonata\MediaBundle\Entity\Media $image = null)
-    {
+    public function setImage(Media $image = null) {
         $this->image = $image;
     
         return $this;
@@ -305,10 +332,9 @@ class OnlineTranslation implements Taggable, ChangeHistorySavableInterface
     /**
      * Get image
      *
-     * @return \Application\Sonata\MediaBundle\Entity\Media 
+     * @return Media
      */
-    public function getImage()
-    {
+    public function getImage() {
         return $this->image;
     }
 
@@ -318,8 +344,7 @@ class OnlineTranslation implements Taggable, ChangeHistorySavableInterface
      * @param integer $type
      * @return OnlineTranslation
      */
-    public function setType($type)
-    {
+    public function setType($type) {
         $this->type = $type;
     
         return $this;
@@ -330,8 +355,7 @@ class OnlineTranslation implements Taggable, ChangeHistorySavableInterface
      *
      * @return integer 
      */
-    public function getType()
-    {
+    public function getType() {
         return $this->type;
     }
     
@@ -341,8 +365,7 @@ class OnlineTranslation implements Taggable, ChangeHistorySavableInterface
      * @param boolean $corrected
      * @return OnlineTranslation
      */
-    public function setCorrected($corrected)
-    {
+    public function setCorrected($corrected) {
         $this->corrected = $corrected;
     
         return $this;
@@ -353,13 +376,11 @@ class OnlineTranslation implements Taggable, ChangeHistorySavableInterface
      *
      * @return boolean 
      */
-    public function getCorrected()
-    {
+    public function getCorrected() {
         return $this->corrected;
     }
 
-    public function getClassName()    
-    {
+    public function getClassName() {
         return get_class($this);
     }    
 }

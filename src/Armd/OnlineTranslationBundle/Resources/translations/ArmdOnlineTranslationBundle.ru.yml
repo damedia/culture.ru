@@ -1,14 +1,16 @@
 OnlineTranslation: Онлайн трансляции
 Published: Опубликовано
-Type: Тип
+Type: Статус
 Title: Заголовок
 Date: Дата
-Location: Место
+Duration: Продолжительность (в минутах)
+Location: Место проведения
 Short Description: Краткое описание
 Full Description: Полное описание
 Data Code: Код плеера
 General: Основные
 Media: Медиа
+Sidebar Image: Изображение сайдбара
 Image: Изображение афиши
 Online Translation List: Онлайн трансляции
 Corrected: Откорректировано

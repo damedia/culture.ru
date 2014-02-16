@@ -1,0 +1,42 @@
+{% import 'ArmdNewsBundle::date_macro.html.twig' as armd_news %}
+
+{% if entity %}
+    <div class="b-colored-articles-block m-sidebar-wrap-last marginBottom17">
+        <h3 class="e-block-title">
+            <a class="noTextDecoration" href="{{ path('armd_online_translation') }}">{{ 'OnlineTranslation'|trans }}</a>
+        </h3>
+
+        <article id="broadcast-container" class="b-colored-article palette-colored-box-11">
+            <h3 class="broadcast-date">{{ armd_news.news_date_short_with_day(entity.date) }}</h3>
+
+            <a href="{{ path('armd_online_translation') }}">
+                {% thumbnail entity.sidebarImage, 'default' with { 'width': 240, 'height': 'auto' } %}
+            </a>
+
+            <h1 class="e-article-title">
+                <a class="desc-post-link" href="{{ path('armd_online_translation') }}">{{ entity.title }}</a>
+            </h1>
+
+            <section class="e-article-description">
+                <div class="broadcast-location">
+                    {{ entity.location }} / <b>{{ entity.date|date('H:i') }}</b>
+                </div>
+
+                <p>{{ entity.shortDescription }}</p>
+
+                {% if entity.type == constant('Armd\\OnlineTranslationBundle\\Entity\\OnlineTranslation::STATUS_LIVE') %}
+                    <div class="broadcast-online">
+                        {{ 'Mainpage.Online'|trans }}
+                    </div>
+                {% else %}
+                    {% include "ArmdOnlineTranslationBundle:Default:countdownTimer.html.twig" %}
+                    {% include "ArmdOnlineTranslationBundle:Default:reminder.html.twig" %}
+                {% endif %}
+            </section>
+
+            <a class="goto-link-button noTextDecoration fullWidth noPadding" href="{{ path('armd_online_translation') }}">
+                {{ 'Mainpage.Goto'|trans }}
+            </a>
+        </article>
+    </div>
+{% endif %}

@@ -1,2 +1,29 @@
-OnlineTranslation: Онлайн-трансляция
-Online translation: Онлайн-трансляция
+OnlineTranslation: Трансляция
+NoBroadcastsAnnounces: На ближайшее время трансляций не анонсируется.
+
+Mainpage:
+    Online: Трансляция онлайн
+    TimeTillStart: Время до начала вещания
+    Remind: Напомнить
+    Goto: перейти к Трансляции
+    Form:
+        Email: Эл. почта
+        RemindIn: Напомнить за
+        3Days: 3 дня
+        1Day: 1 день
+        6Hours: 6 часов
+        3Hours: 3 часа
+        1Hour: 1 час
+        30Mins: 30 минут
+        10Mins: 10 минут
+        Captcha: Код
+        EmailError: Пожалуйста, заполните поле "Эл. почта"!
+        CaptchaError: Пожалуйста, введите код с картинки!
+        WrongCaptcha: Неверный код с картинки!
+        ProcessingError: Ошибка обработки формы!
+        CompletedMessage: Напоминание сохранено!
+
+Mail:
+    Sincerely: С уважением
+    NotificationService: служба оповещения портала Культура.рф
+    Subject: Онлайн-трансляция на портале Культура.рф

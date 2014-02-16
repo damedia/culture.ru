@@ -1,327 +1,92 @@
-{% extends ':Frontend:layout_two_column.html.twig' %}
-{% import 'ArmdLectureBundle::lecture_macro.html.twig' as lectureMacro %}
+{% extends ':Frontend:new_base.html.twig' %}
+{% import 'ArmdNewsBundle::date_macro.html.twig' as armd_news %}
 
-{% block page_header_title %}
-    {{ "Online translation"|trans }}
+{% block stylesheets %}
+    {{ parent() }}
+
+    <style type="text/css">
+        /* */
+    </style>
 {% endblock %}
 
-{% block left_column %}
-{% if entity %}
-<div class="online-translation">
-    <h2>{{ entity.title }}</h2>
-    {#<div class="player-container">    </div> <!-- /player-container -->#}
-        {% if entity.type == 1 %}
-            {{ entity.dataCode|raw }}
-        {% else %}
-            {% thumbnail entity.image, 'reference' with {'width': '100%', 'height': 'auto', 'style': 'height: auto'} %}
-        {% endif %}
+{% block title %}{{ 'OnlineTranslation'|trans }}{% endblock %}
 
-        <div class="translation-desc">
-            <h3>{{ params.date }}</h3>
-            <h4>{{ entity.location }} / <i>{{ entity.date|date('H:i') }}</i></h4>
-            <p>{{ entity.shortDescription }}</p>
-        </div><!-- /description -->
+{% block body %}
+    <div class="b-main-wrap b-post">
+        <h1 class="b-left-title">
+            {{ 'OnlineTranslation'|trans }}
+        </h1>
 
-    {% if entity.type != 1 %}
-        <div class="translation-coutdown">
-            <p>До трансляции осталось:<br> <span id="countdown"></span></p>
-            <a id="online_translation_notification" class="button remind" href="#online_translation_notification_form">Напомнить</a>
-        </div><!-- /translation-coutdown -->
+        <div class="marginTop100">
+            {% if entity %}
+                <div class="header-text-medium marginBottom10">
+                    {{ entity.title }}
+                </div>
 
-        {% include 'ArmdOnlineTranslationBundle:Default:countdown_remind.html.twig' with {'entity': entity, 'params': params} %}
-    {% endif %}
+                {% if entity.type == constant('Armd\\OnlineTranslationBundle\\Entity\\OnlineTranslation::STATUS_LIVE') %}
+                    {{ entity.dataCode|raw }}
+                {% else %}
+                    {% thumbnail entity.image, 'reference' with { 'width': '100%', 'height': 'auto' } %}
+                {% endif %}
 
-        <div class="full-description">
-            {{ entity.fullDescription|raw }}
-        </div>
-        <div class="event-one_footer clearfix">
-        <div href="#" class="publish-links">{{ "Publish to Social networks"|trans }}: <span id="yandex-share"></span></div>
+                <h3>{{ armd_news.news_date_short_with_day(entity.date) }}</h3>
+
+                <article id="broadcast-container">
+                    <div class="broadcast-location">
+                        {{ entity.location }} /
+                        <b>{{ entity.date|date('H:i') }}</b>
+                    </div>
+
+                    <p>{{ entity.shortDescription }}</p>
+
+                    {% if entity.type == constant('Armd\\OnlineTranslationBundle\\Entity\\OnlineTranslation::STATUS_ANNOUNCE') %}
+                        {% include "ArmdOnlineTranslationBundle:Default:countdownTimer.html.twig" %}
+                        {% include "ArmdOnlineTranslationBundle:Default:reminder.html.twig" %}
+                    {% endif %}
+                </article>
+
+                <div class="broadcast-entity-description">
+                    {{ entity.fullDescription|raw }}
+                </div>
+
+                <div class="b-share-buttons">
+                    <span class="small-title m-first">{{ 'Entity.SocialShare'|trans }}:</span>
+                    <span id="yandex-share"></span>
+                </div>
+            {% else %}
+                {{ 'NoBroadcastsAnnounces'|trans }}
+            {% endif %}
         </div>
     </div>
-{% else %}
-    <div class="empty-message">
-        В настоящее время трансляции не проводятся, посмотреть прошедшие вы можете в <a href="{{ path('armd_lecture_translation_index') }}">архиве</a>.
-    </div>
-{% endif %}
-
-{#
-    <section class="block">
-        <h2 class="long-border type-1"><span>Архив трансляций</span></h2>
-        <div class="plitka">
-            {% for translation in archiveTranslations %}
-                {% set translationHref = path('armd_lecture_view', {'id': translation.id}) %}
-                <div class="plitka-one-wrap">
-                    <div class="plitka-one">
-                        <a href="{{ translationHref }}" class="plitka-one-image-wrapper">
-                            <div class="plitka-one-image">
-                                {{ lectureMacro.lectureThumbnail(translation, 'lectureW160H120', {'alt': translation.title, 'height': 'auto', 'style': 'height: auto'}) }}
-                            </div>
-                            {% thumbnail translation.image, 'broadcastW600' with {'class': 'plitka-image'} %}
-                        </a>
-                        <div class="plitka-text">
-                            <span class="plitka-name">{{ translation.title|truncate(30) }}</span>
-
-
-                            {% if translation.productionYear is not empty %}
-                                {{ translation.productionYear }} /
-                            {% endif %}
-
-                            {% if translation.timeLength is not empty %}
-                                {{ translation.timeLength }} мин. /
-                            {% endif %}
-
-
-                            {% if translation.categories[0] is defined %}
-                                {{ translation.categories[0].title }}
-                            {% endif %}
-                            {% if translation.categories[1] is defined %}
-                                / {{ translation.categories[1].title }}
-                            {% endif %}
-                        </div>
-                        <div class="plitka-footer">
-                            <a href="{{ translationHref }}">{{ translation.lectureSuperType.name }}</a>
-                        </div>
-                    </div>
-                </div>
-
-            {% endfor %}
-#}
- {#           <div class="plitka-one-wrap">
-                <div class="plitka-one">
-                    <a href="#">
-                        <img alt="" class="plitka-image" src="images/kino2.jpg">
-                    </a>	
-                    <div class="plitka-text">
-                        <span class="plitka-name">
-                            1150-летие российской<br>
-                            государственности.
-                            Призвание Рюрика</span>
-                        Лектор: Александр Ужанков<br>
-                        Продолжительность: 44 мин.
-                    </div>
-                    <div class="plitka-footer">
-                        <a href="#">Лекции</a>
-                    </div>
-                </div>
-
-            </div>	
-            <div class="plitka-one-wrap">
-                <div class="plitka-one">
-                    <a href="#">
-                        <img alt="" class="plitka-image" src="images/kino3.jpg">
-                    </a>	
-                    <div class="plitka-text">
-                        <span class="plitka-name">В зоне особого<br>
-                            внимания</span>
-                        1977 / 98 мин. / Боевик<br>
-                        Режиссер: Малюков Андрей
-                    </div>
-                    <div class="plitka-footer">
-                        <a href="#">Фильмы</a> / <a class="sub" href="#">Документальный</a>
-                    </div>
-                </div>
-
-            </div>	
-            <div class="plitka-one-wrap">
-                <div class="plitka-one">
-                    <a href="#">
-                        <img alt="" class="plitka-image" src="images/kino1.jpg">
-                    </a>	
-                    <div class="plitka-text">
-                        <span class="plitka-name">Белое солнце<br>пустыни</span>
-                        1969 / 81 мин. / <a href="#">Документальное</a><br>
-                        Режиссер: Мотыль Владимир
-                    </div>
-                    <div class="plitka-footer">
-                        <a href="#">Кино</a>
-                    </div>
-                </div>
-
-            </div>
-            <div class="plitka-one-wrap">
-                <div class="plitka-one">
-                    <a href="#">
-                        <img alt="" class="plitka-image" src="images/kino2.jpg">
-                    </a>	
-                    <div class="plitka-text">
-                        <span class="plitka-name">
-                            1150-летие российской<br>
-                            государственности.
-                            Призвание Рюрика</span>
-                        Лектор: Александр Ужанков<br>
-                        Продолжительность: 44 мин.
-                    </div>
-                    <div class="plitka-footer">
-                        <a href="#">Кино</a>
-                    </div>
-                </div>
-
-            </div>	
-            <div class="plitka-one-wrap">
-                <div class="plitka-one">
-                    <a href="#">
-                        <img alt="" class="plitka-image" src="images/kino3.jpg">
-                    </a>	
-                    <div class="plitka-text">
-                        <span class="plitka-name">В зоне особого<br>
-                            внимания</span>
-                        1977 / 98 мин. / Боевик<br>
-                        Режиссер: Малюков Андрей
-                    </div>
-                    <div class="plitka-footer">
-                        <a href="#">Фильмы</a> / <a class="sub" href="#">Документальный</a>
-                    </div>
-                </div>
-
-            </div>	
-            <div class="plitka-one-wrap">
-                <div class="plitka-one">
-                    <a href="#">
-                        <img alt="" class="plitka-image" src="images/kino1.jpg">
-                    </a>	
-                    <div class="plitka-text">
-                        <span class="plitka-name">Белое солнце<br>пустыни</span>
-                        1969 / 81 мин. / <a href="#">Приключения</a><br>
-                        Режиссер: Мотыль Владимир
-                    </div>
-                    <div class="plitka-footer">
-                        <a href="#">Фильмы</a>
-                    </div>
-                </div>
-
-            </div>
-            <div class="plitka-one-wrap">
-                <div class="plitka-one">
-                    <a href="#">
-                        <img alt="" class="plitka-image" src="images/kino2.jpg">
-                    </a>	
-                    <div class="plitka-text">
-                        <span class="plitka-name">
-                            1150-летие российской<br>
-                            государственности.
-                            Призвание Рюрика</span>
-                        Лектор: Александр Ужанков<br>
-                        Продолжительность: 44 мин.
-                    </div>
-                    <div class="plitka-footer">
-                        <a href="#">Лекции</a>
-                    </div>
-                </div>
-
-            </div>	
-            <div class="plitka-one-wrap">
-                <div class="plitka-one">
-                    <a href="#">
-                        <img alt="" class="plitka-image" src="images/kino3.jpg">
-                    </a>	
-                    <div class="plitka-text">
-                        <span class="plitka-name">В зоне особого<br>
-                            внимания</span>
-                        1977 / 98 мин. / Боевик<br>
-                        Режиссер: Малюков Андрей
-                    </div>
-                    <div class="plitka-footer">
-                        <a href="#">Фильмы</a> / <a class="sub" href="#">Документальный</a>
-                    </div>
-                </div>
-
-            </div>	
-            <div class="plitka-one-wrap">
-                <div class="plitka-one">
-                    <a href="#">
-                        <img alt="" class="plitka-image" src="images/kino1.jpg">
-                    </a>	
-                    <div class="plitka-text">
-                        <span class="plitka-name">Белое солнце<br>пустыни</span>
-                        1969 / 81 мин. / <a href="#">Приключения</a><br>
-                        Режиссер: Мотыль Владимир
-                    </div>
-                    <div class="plitka-footer">
-                        <a href="#">Фильмы</a>
-                    </div>
-                </div>
-
-            </div>
-            <div class="plitka-one-wrap">
-                <div class="plitka-one">
-                    <a href="#">
-                        <img alt="" class="plitka-image" src="images/kino2.jpg">
-                    </a>	
-                    <div class="plitka-text">
-                        <span class="plitka-name">
-                            1150-летие российской<br>
-                            государственности.
-                            Призвание Рюрика</span>
-                        Лектор: Александр Ужанков<br>
-                        Продолжительность: 44 мин.
-                    </div>
-                    <div class="plitka-footer">
-                        <a href="#">Лекции</a>
-                    </div>
-                </div>
-
-            </div>	
-            <div class="plitka-one-wrap">
-                <div class="plitka-one">
-                    <a href="#">
-                        <img alt="" class="plitka-image" src="images/kino3.jpg">
-                    </a>	
-                    <div class="plitka-text">
-                        <span class="plitka-name">В зоне особого<br>
-                            внимания</span>
-                        1977 / 98 мин. / Боевик<br>
-                        Режиссер: Малюков Андрей
-                    </div>
-                    <div class="plitka-footer">
-                        <a href="#">Фильмы</a> / <a class="sub" href="#">Документальный</a>
-                    </div>
-                </div>
-
-            </div>		#}
-{#
-        </div>
-
-    </section>
-#}
 {% endblock %}
 
-{% block right_column %}
-    {#{% render url('armd_news_memorial_events') %}#}
-
-    {% render url('armd_atlas_related_objects', {'tags': {}, 'limit': 1}) %}
-
-    {% if app.request.locale == 'ru' %}
-        <div class="right-video-block">
-            {% render url('armd_lecture_related_lectures', {'tags': {}, 'limit':4, 'superTypeCode': 'LECTURE_SUPER_TYPE_CINEMA' }) %}
-        </div>
-        <div class="right-video-block">
-            {% render url('armd_lecture_related_lectures', {'tags': {}, 'limit': 4, 'superTypeCode': 'LECTURE_SUPER_TYPE_LECTURE' }) %}
-        </div>
-    {% endif %}
+{% block sidebar %}
+    {% render url('armd_news_sidebar_index_widget') %}
 {% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
 
     <script type="text/javascript" src="http://yandex.st/share/share.js" charset="utf-8"></script>
+    <script type="text/javascript" src="{{ asset('js/damedia/simpleSlider.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/damedia/share.js') }}"></script>
     <script type="text/javascript">
-        $(function () {
-            new Ya.share({
-                element:'yandex-share',
-                l10n:{% if app.request.locale == 'ru' %}'ru'{% else %}'en'{% endif %},
-                elementStyle:{
-                    'type':'none',
-                    'border':false,
-                    'quickServices':['vkontakte', 'lj', 'twitter', 'facebook', 'odnoklassniki']
-                },
-                {% if entity.image %}
-                    image:'{% path entity.image, 'broadcastW600' %}',
-                {% endif %}
-               {# link:'{{ url('armd_news_item_by_category', { 'id': entity.id, 'category': entity.category.slug }) }}', #}
-                title:'{{ entity.title }}',
-                description:'{{ entity.shortDescription|replace({"\n":'',"\r":''})|striptags }}'
+        $(function(){
+            /* Sidebar slider widget */
+            $.each($('div.sidebar-movies-widget-switcher'), function(){
+                DamediaSimpleSlider.init($(this),{
+                    next: '{{ 'Sidebar.LinkedContent.Next'|trans }}'
+                });
             });
+
+            {% if entity %}
+                DamediaShare.init({
+                    locale: '{{ app.request.locale }}',
+                    link: '{{ url('view_blog', { 'id': entity.id }) }}',
+                    title: '{{ entity.title }}',
+                    description: '{{ entity.shortDescription|replace({"\n":'',"\r":''})|striptags|slice(0, 500) ~ '...' }}'
+                });
+            {% endif %}
         });
     </script>
-
 {% endblock %}

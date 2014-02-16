@@ -37,7 +37,7 @@
 {% block title %}{{ 'Movies'|trans }}{% endblock %}
 
 {% block body %}
-    <div class="b-main-wrap b-post">
+    <div class="b-main-wrap">
         <h1 class="b-left-title">
             {{ 'Movies'|trans }}
         </h1>
@@ -74,7 +74,7 @@
         {% endif %}
 
         {% for genre in genresForSections %}
-            <div class="movies-genre-section-holder marginBottom20" data-genreId="{{ genre.id }}" data-genreSlug="{{ genre.slug }}">
+            <div class="movies-genre-section-holder marginBottom20 positionRelative" data-genreId="{{ genre.id }}" data-genreSlug="{{ genre.slug }}">
                 <div class="movies-counter">
                     <span class="count">{{ totals[genre.slug] }}</span>
                     <span class="text">{{ 'CounterText'|trans }}</span>
@@ -96,7 +96,7 @@
                 </div>
 
                 <div class="movies-genre-section" data-genreId="{{ genre.id }}">
-                    {% render url('armd_movies_genre_section_list', {'genreId': genre.id, 'genreSlug': genre.slug, 'limit': limit, 'selectedGenreId': selectedGenreId, 'tagId': tagId, 'searchQuery': searchQuery}) %}
+                    {% render url('armd_movies_genre_section_list', {'genreId': genre.id, 'genreSlug': genre.slug, 'limit': limit, 'selectedGenreId': selectedGenreId, 'tagId': tagId, 'searchQuery': searchQuery, 'current_genre': current_genre }) %}
                 </div>
 
                 <div class="movies-showMore" title="{{ 'ShowMore'|trans }}"></div>
@@ -152,7 +152,8 @@
                         selectedGenreId: '{{ selectedGenreId }}',
                         tagId: '{{ tagId }}',
                         searchQuery: '{{ searchQuery }}',
-                        extra: true
+                        extra: true,
+                        current_genre: '{{ current_genre }}'
                     };
 
                 $.each(loadedItems, function(){

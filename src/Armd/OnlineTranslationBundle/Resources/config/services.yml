@@ -1,7 +1,0 @@
-parameters:
-#    armd_online_translation.example.class: Armd\OnlineTranslationBundle\Example
-
-services:
-    armd_online_translation.manager.online_translation:
-        class: Armd\OnlineTranslationBundle\Entity\TranslationManager
-        arguments: [@doctrine.orm.entity_manager]

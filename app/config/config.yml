@@ -117,9 +117,9 @@ sonata_user:
 
 sonata_media:
     default_context: news
-    db_driver: doctrine_orm # or doctrine_mongodb
+    db_driver: doctrine_orm
     contexts:
-        default:  # the default context is mandatory
+        default:
             download:
                 strategy: sonata.media.security.public_strategy
                 mode: http
@@ -131,9 +131,8 @@ sonata_media:
                 - sonata.media.provider.culturetv
                 - sonata.media.provider.tvigle
                 - sonata.media.provider.dcx
-
             formats:
-                adminPreview: { width: 314, height: 187, quality: 90}
+                adminPreview: { width: 314, height: 187, quality: 90 }
 
         sproject_banner:
             download:
@@ -145,6 +144,7 @@ sonata_media:
                 default: {width: 960, height: 246}
                 big_thumbnail: { width: 240, height: 174 }
                 thumbnail: { width: 85, height: 85 }
+
         blog_image:
                 download:
                     strategy: sonata.media.security.public_strategy
@@ -152,9 +152,10 @@ sonata_media:
                 providers:
                     - sonata.media.provider.image
                 formats:
-                    default: {width: 698, height: 476}
+                    default: { width: 698, height: 476 }
                     big_thumbnail: { width: 240, height: 174 }
                     thumbnail: { width: 85, height: 85 }
+
         user_avatar:
                 download:
                     strategy: sonata.media.security.public_strategy
@@ -162,7 +163,7 @@ sonata_media:
                 providers:
                     - sonata.media.provider.image
                 formats:
-                    default: {width: 105, height: 105}
+                    default: { width: 105, height: 105 }
                     thumbnail: { width: 40, height: 40 }
         stuff:
             download:
@@ -185,9 +186,8 @@ sonata_media:
                 - sonata.media.provider.culturetv
                 - sonata.media.provider.tvigle
                 - sonata.media.provider.youtube
-
             formats:
-                adminPreview: { width: 314 , height: 187, quality: 90}
+                adminPreview: { width: 314 , height: 187, quality: 90 }
                 billboard: { width: 761, height: 507 }
                 eventsBillboard: { width: 358, height: 319 }
                 latest: { width: 85, height: 65 }
@@ -206,7 +206,6 @@ sonata_media:
                 - sonata.media.provider.culturetv
                 - sonata.media.provider.tvigle
                 - sonata.media.provider.youtube
-
             formats:
                 main: { width: 232 }
                 thumbnail: { width: 85, height: 85 }
@@ -218,7 +217,7 @@ sonata_media:
             providers:
                 - sonata.media.provider.image
             formats:
-                adminPreview: { width: 314, height: 187, quality: 90}
+                adminPreview: { width: 314, height: 187, quality: 90 }
                 list: { width: 592 }
 
         atlas:
@@ -250,7 +249,7 @@ sonata_media:
                 - sonata.media.provider.image
                 - sonata.media.provider.dcx
             formats:
-                default: {width: 27, height: 45}
+                default: { width: 27, height: 45}
 
         user_avatar:
             download:
@@ -259,7 +258,7 @@ sonata_media:
             providers:
                 - sonata.media.provider.image
             formats:
-                default: {width: 105, height: 105}
+                default: { width: 105, height: 105 }
                 thumbnail: { width: 40, height: 40 }
 
         blog_image:
@@ -269,7 +268,7 @@ sonata_media:
             providers:
                 - sonata.media.provider.image
             formats:
-                default: {width: 698, height: 476}
+                default: { width: 698, height: 476 }
                 big_thumbnail: { width: 240, height: 174 }
                 thumbnail: { width: 85, height: 85 }
 
@@ -286,7 +285,7 @@ sonata_media:
             formats:
                 xbig: { width: 670, height: 378 }
                 big: { width: 335, height: 189 }
-                tile: {width: 295, height: 228 }
+                tile: { width: 295, height: 228 }
                 medium: { width: 111 }
                 small: { width: 85 }
                 searchAllResult: { width: 160, height: 107 }
@@ -340,7 +339,6 @@ sonata_media:
 
         paper_archive:
             download:
-
                 strategy: sonata.media.security.public_strategy
                 mode: http
             providers:
@@ -357,6 +355,7 @@ sonata_media:
             providers:
                 - sonata.media.provider.image
             formats:
+                sidebar: { width: 240 }
                 default: { width: 278 }
                 broadcastW600: { width: 600 }
 
@@ -407,7 +406,7 @@ sonata_media:
                 xxbig: { width: 1200, height: 900 }
                 xbig: { width: 670, height: 378 }
                 big: { width: 335, height: 189 }
-                tile: {width: 295, height: 228 }
+                tile: { width: 295, height: 228 }
                 medium: { width: 111 }
                 small: { width: 85 }
                 searchAllResult: { width: 160, height: 107 }
@@ -434,7 +433,6 @@ sonata_media:
             formats:
                 item: { height: 120 }
 
-
         route:
             download:
                 strategy: sonata.media.security.public_strategy
@@ -456,7 +454,7 @@ sonata_media:
             providers:
                 - sonata.media.provider.image
             formats:
-                default: {width: 27, height: 45}
+                default: { width: 27, height: 45 }
 
         war_gallery:
             download:

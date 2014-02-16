@@ -9,54 +9,46 @@ use Symfony\Component\Form\FormView;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class MediaFileType extends AbstractType
-{
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
+class MediaFileType extends AbstractType {
+    public function buildForm(FormBuilderInterface $builder, array $options) {
         $subscriber = new AddRemoveFieldSubscriber($builder->getFormFactory());
         $builder->addEventSubscriber($subscriber);
 
         $builder
-            ->add('formFile', 'file',
-            array(
+            ->add('formFile', 'file', array(
                 'label' => ' ',
-                'required' => true
+                'required' => false
             ))
             ->add('context', 'hidden', array('data' => $options['media_context']))
             ->add('providerName', 'hidden', array('data' => $options['media_provider']));
 
-        if($options['with_title']) {
+        if ($options['with_title']) {
             $builder->add('title');
         }
-        if($options['with_description']) {
+
+        if ($options['with_description']) {
             $builder->add('description');
         }
     }
 
-    public function buildView(FormView $view, FormInterface $form, array $options)
-    {
+    public function buildView(FormView $view, FormInterface $form, array $options) {
         $view->vars['media_provider'] = $options['media_provider'];
         $view->vars['media_format'] = $options['media_format'];
     }
 
-
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
-    {
+    public function setDefaultOptions(OptionsResolverInterface $resolver) {
         $resolver->setDefaults(array(
             'data_class' => 'Application\Sonata\MediaBundle\Entity\Media',
             'with_remove' => false,
             'with_description' => false,
             'with_title' => false,
             'media_context' => 'default',
-            'media_format' => 'thumbnail',
+            'media_format' => 'thumbnail'
         ))->setRequired(array('media_provider'));
 
     }
 
-    public function getName()
-    {
+    public function getName() {
         return 'armd_media_file_type';
     }
-
-
 }

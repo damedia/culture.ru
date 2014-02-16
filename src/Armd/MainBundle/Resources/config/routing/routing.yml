@@ -82,10 +82,6 @@ armd_main_project_news:
     pattern: /project-news/
     defaults: { _controller: ArmdMainBundle:Project:news }
 
-armd_main_online_translation:
-    pattern:  /online-translation/
-    defaults: { _controller: ArmdMainBundle:Main:onlineTranslation }
-
 armd_main_latest_topics:
     pattern: /latest-topics
     defaults: { _controller: ArmdMainBundle:Main:latestTopics }

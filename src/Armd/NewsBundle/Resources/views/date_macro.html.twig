@@ -1,9 +1,13 @@
 {% macro news_date(value) %}
-    {{ value|date('j ')}}{{ ('calendar.full.'~value|date('M'))|trans }}{{ value|date(' /Y') }}
+    {{ value|date('j ') }}{{ ('calendar.full.'~value|date('M'))|trans }}{{ value|date(' /Y') }}
 {% endmacro %}
 
 {% macro news_date_short(value) %}
-    {{ value|date('j ')}}{{ ('calendar.full.'~value|date('M'))|trans }}
+    {{ value|date('j ') }}{{ ('calendar.full.'~value|date('M'))|trans }}
+{% endmacro %}
+
+{% macro news_date_short_with_day(value) %}
+    {{ value|date('l')|trans }}, {{ value|date('j ')}}{{ ('calendar.full.'~value|date('M'))|trans }}
 {% endmacro %}
 
 {% macro news_month(value) %}
@@ -11,7 +15,7 @@
 {% endmacro %}
 
 {% macro macro_date_standart(value) %}
-    {{ value|date('j ')}}{{ ('calendar.full.'~value|date('M'))|trans }}{{ value|date(' Y') }}
+    {{ value|date('j ') }}{{ ('calendar.full.'~value|date('M'))|trans }}{{ value|date(' Y') }}
 {% endmacro %}
 
 {% macro macro_date_full(value) %}

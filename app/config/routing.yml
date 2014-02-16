@@ -205,8 +205,9 @@ armd_oauth:
     prefix:   /oauth
 
 armd_online_translation:
-    resource: '@ArmdOnlineTranslationBundle/Resources/config/routing.yml'
-    prefix:   /broadcasts
+    resource: "@ArmdOnlineTranslationBundle/Controller/DefaultController.php"
+    type:     annotation
+    prefix:   /broadcast
 
 armd_tag:
     resource: "@ArmdTagBundle/Controller/"

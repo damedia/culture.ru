@@ -45,13 +45,8 @@ class MainController extends Controller
 //
 //        if ($this->getRequest()->getLocale() === 'en') {
 //            $newsCount = 3;
-//        } else {
+//        }else {
 //            $newsCount = 16;
-//            $activeTranslation = $this->get('armd_online_translation.manager.online_translation')
-//                                 ->getActiveTranslation();
-//            if (!empty($activeTranslation)) {
-//                $newsCount -= 9;
-//            }
 //        }
 //        $news = $this->getNewsManager()->findObjects(
 //            array(
@@ -238,11 +233,6 @@ class MainController extends Controller
     public function bannersAction()
     {
         return $this->renderTemplate('banners');
-    }
-
-    public function onlineTranslationAction()
-    {
-        return $this->renderTemplate('online_translation');
     }
 
 	public function printAction()

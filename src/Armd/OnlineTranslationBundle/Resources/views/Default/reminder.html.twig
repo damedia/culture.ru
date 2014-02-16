@@ -1,0 +1,139 @@
+<div class="broadcast-reminder">
+    <a id="broadcast-reminder-link" href="#broadcast_notification_form">{{ 'Mainpage.Remind'|trans }}</a>
+</div>
+<div id="broadcast_notification_form" class="displayNone" title="{{ 'Mainpage.Remind'|trans }}">
+    <p id="broadcast_notification_form_completed_message" class="displayNone">
+        {{ 'Mainpage.Form.CompletedMessage'|trans }}
+    </p>
+
+    <fieldset>
+        <p id="broadcast_notification_form_error_message" class="errorMessage"></p>
+
+        <p>
+            <label for="email">{{ 'Mainpage.Form.Email'|trans }}</label>
+            <input id="email" type="email" name="email" required />
+        </p>
+
+        <p>
+            <label for="period">{{ 'Mainpage.Form.RemindIn'|trans }}</label>
+            <select id="period" name="period">
+                <option value="4320">{{ 'Mainpage.Form.3Days'|trans }}</option>
+                <option value="1440">{{ 'Mainpage.Form.1Day'|trans }}</option>
+                <option value="360">{{ 'Mainpage.Form.6Hours'|trans }}</option>
+                <option value="180">{{ 'Mainpage.Form.3Hours'|trans }}</option>
+                <option value="60">{{ 'Mainpage.Form.1Hour'|trans }}</option>
+                <option value="30">{{ 'Mainpage.Form.30Mins'|trans }}</option>
+                <option value="10">{{ 'Mainpage.Form.10Mins'|trans }}</option>
+            </select>
+        </p>
+
+        <div class="captcha-holder">
+            <img id="notification_captcha_img" src="{{ path('armd_online_translation_captcha') }}" />
+        </div>
+
+        <p>
+            <label for="captcha">
+                {{ 'Mainpage.Form.Captcha'|trans }}
+            </label>
+            <input id="captcha" name="captcha" type="text" required />
+        </p>
+
+        <p class="marginTop10 textAlignCenter marginBottom17">
+            <button id="submit" type="submit">{{ 'Mainpage.Remind'|trans }}</button>
+        </p>
+    </fieldset>
+    <script type="text/javascript">
+        (function(){
+            $('#broadcast-reminder-link').on('click', function(event){
+                var formId = $(this).attr('href'),
+                    notificationForm = $(formId),
+                    notificationFormFieldset = notificationForm.find('fieldset'),
+                    errorsHolder = $('#broadcast_notification_form_error_message'),
+                    completedMessage = $('#broadcast_notification_form_completed_message'),
+                    captchaImage = $('#notification_captcha_img'),
+                    clearErrors = function(){
+                        errorsHolder.html('');
+                    },
+                    showError = function(message){
+                        errorsHolder.html(message);
+                    },
+                    showFieldset = function(){
+                        notificationFormFieldset.show();
+                        completedMessage.hide();
+                    },
+                    showCompleted = function(dialog){
+                        notificationFormFieldset.hide();
+                        completedMessage.fadeIn();
+
+                        setTimeout(function(){
+                            dialog.dialog('close');
+                        }, 1000);
+                    };
+
+                event.preventDefault();
+
+                clearErrors();
+                showFieldset();
+
+                notificationForm.dialog({
+                    modal: true,
+                    create: function(){
+                        $('#period').selectmenu();
+                        $('#submit').on('click', function(){
+                            var email = $.trim($('#email', notificationForm).val()),
+                                period = $.trim($('#period', notificationForm).val()),
+                                captcha = $.trim($('#captcha', notificationForm).val());
+
+                            clearErrors();
+
+                            if (!email) {
+                                showError('{{ 'Mainpage.Form.EmailError'|trans }}');
+                                return;
+                            }
+
+                            if (!captcha) {
+                                showError('{{ 'Mainpage.Form.CaptchaError'|trans }}');
+                                return;
+                            }
+
+                            $.ajax({
+                                url: '{{ path('armd_online_translation_set_notification') }}',
+                                type: 'post',
+                                data: {
+                                    id: {{ entity.id }},
+                                    email: email,
+                                    period: period,
+                                    captcha: captcha
+                                },
+                                dataType: 'html',
+                                success: function(data){
+                                    data = $.trim(data);
+
+                                    switch (data) {
+                                        case 'ok':
+                                            showCompleted(notificationForm);
+                                            break;
+
+                                        case 'invalid_email':
+                                            showError('{{ 'Mainpage.Form.EmailError'|trans }}');
+                                            break;
+
+                                        case 'invalid_captcha':
+                                            showError('{{ 'Mainpage.Form.WrongCaptcha'|trans }}');
+                                            break;
+
+                                        default:
+                                            showError('{{ 'Mainpage.Form.ProcessingError'|trans }}');
+                                    }
+                                },
+                                complete: function(){
+                                    captchaImage.attr('src', '{{ path('armd_online_translation_captcha') }}' + '?rand=' + Math.random());
+                                }
+                            });
+                        });
+                    }
+                });
+            });
+        }());
+    </script>
+</div>

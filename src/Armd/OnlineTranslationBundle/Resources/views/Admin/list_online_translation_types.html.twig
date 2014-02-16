@@ -1,11 +1,11 @@
 {% extends 'SonataAdminBundle:CRUD:base_list_field.html.twig' %}
 
 {% block field %}
-    {% if value == 0 %}
+    {% if value == constant('Armd\\OnlineTranslationBundle\\Entity\\OnlineTranslation::STATUS_ANNOUNCE') %}
         Анонс
-    {% elseif value == 1 %}
-        Трансляция
-    {% else%}
-        value
+    {% elseif value == constant('Armd\\OnlineTranslationBundle\\Entity\\OnlineTranslation::STATUS_LIVE') %}
+        Онлайн
+    {% else %}
+        unknown
     {% endif %}
 {% endblock %}

@@ -3362,6 +3362,9 @@ a.sidebar-widget-item:hover > .darkLayer {
 .marginBottom15 {
     margin-bottom: 15px;
 }
+.marginBottom17 {
+    margin-bottom: 17px;
+}
 .marginBottom20 {
     margin-bottom: 20px;
 }
@@ -3436,6 +3439,41 @@ a.sidebar-widget-item:hover > .darkLayer {
 
 /*=================
 ==== Entities ===*/
+#broadcast-container .broadcast-date {
+    margin: 0 8px 0 14px;
+}
+#broadcast-container .broadcast-location {
+    color: #989898;
+    margin-bottom: 3px;
+}
+#broadcast-container .broadcast-location b {
+    color: #000000;
+    font-size: 12px;
+}
+#broadcast-container .broadcast-timer {
+    border-top: 1px solid #d1d1d1;
+    padding: 7px 0 7px 30px;
+    color: #989898;
+}
+#broadcast-container .broadcast-online {
+    text-align: center;
+    border-top: 1px solid #d1d1d1;
+    padding: 7px 0;
+    color: #989898;
+}
+#broadcast-container .broadcast-clocks-background {
+    background: url(../../img/clocks.png) no-repeat 0 8px;
+}
+#broadcast-container .broadcast-reminder {
+    text-align: center;
+    margin-left: -6px;
+}
+.broadcast-entity-description {
+    border-top: 1px solid #D1D1D1;
+    padding-top: 30px;
+    margin-top: 10px;
+}
+
 .museums-sidebar-header {
     padding: 19px 40px 20px;
 }
@@ -3823,6 +3861,57 @@ a.sidebar-widget-item:hover > .darkLayer {
     cursor: pointer;
 }
 
+/*================================
+==== Broadcast reminder form ===*/
+#broadcast_notification_form {
+    font-family: "PTSansRegular", sans-serif;
+    font-size: 0.8em;
+    position: relative;
+    display: none;
+    color: #7D8687;
+}
+#broadcast_notification_form label {
+    min-width: 90px;
+    display: inline-block;
+    margin-bottom: 5px;
+}
+#broadcast_notification_form input[type="text"],
+#broadcast_notification_form input[type="email"],
+#broadcast_notification_form select {
+    border: 1px solid #DDE1E1;
+    transition: border-color 0.3s ease 0s;
+}
+#broadcast_notification_form select {
+    width: 150px;
+}
+#broadcast_notification_form .captcha-holder {
+    margin: 20px 0 5px;
+    text-align: center;
+}
+#broadcast_notification_form button {
+    color: #000000;
+    cursor: pointer;
+    height: 28px;
+    margin: 0;
+    width: 90px;
+}
+#broadcast_notification_form .errorMessage {
+    color: #ED7476;
+    text-align: center;
+    background: #FFEDED;
+    margin-bottom: 20px;
+    border-radius: 3px;
+}
+#broadcast_notification_form_completed_message {
+    display: none;
+    padding-top: 30px;
+    text-align: center;
+    color: #C9DB9C;
+}
+
+.movies-genre-section-holder {
+    max-width: 700px;
+}
 .movies-genre-section {
     margin-bottom: 30px;
 }
@@ -4421,6 +4510,13 @@ textarea[name="fos_comment_comment[body]"] {
 }
 .palette-color-11 {
     color: #D4D7DA !important;
+}
+.palette-background-11 {
+    background-color: #D4D7DA;
+}
+.palette-colored-box-11 .goto-link-button:hover {
+    background-color: #D4D7DA;
+    text-decoration: underline !important;
 }
 
 
