@@ -1,59 +1,69 @@
-{% extends ':Frontend:base.html.twig' %}
-{% import 'ArmdNewsBundle::date_macro.html.twig' as armd_date %}
-
-{% block page_header_title %}
-    <h1>{{ 'Search results'|trans }}</h1>
-{% endblock %}
-
-{% block page_header_search %}
-    <div class="search-dates"></div>
-{% endblock %}
-
-{% block body %}
-<p class="search-query"><span>{{ 'Query'|trans }}:</span> {{ searchQuery }}</p>
-
-{% if searchResults|length > 0 %}
-    <ul class="search-result">
-    {% for searchResult in searchResults %}
-        {% spaceless %}
-            <li>
-                <span class="search-result-type">{{ searchResult.section.name }}</span>
-                {% if searchResult.object.date is not empty %}
-                    <span class="search-result-date">,{{ armd_date.news_date(searchResult.object.date) }} </span>
-                {% endif %}
-                <a class="search-result-title" href="{{ searchResult.object.url }}"
-                        {% if searchResult.object.target_blank|default(false) %}target="_blank"{% endif %}
-                        >
-                    {{ searchResult.object.title|raw }}
-                </a>
-
-                <a class="search-result-image" href="{{ searchResult.object.url }}"
-                        {% if searchResult.object.target_blank|default(false) %}target="_blank"{% endif %}
-                        >
-                    {% if searchResult.object.imageUrl is defined %}
-                        <img src="{{ searchResult.object.imageUrl }}" />
-                    {% endif %}
-                </a>
-
-                <div class="search-result-text">
-                    <p>{{ searchResult.object.announce|raw }}</p>
-                </div>
-
-            </li>
-        {% endspaceless %}
-    {% endfor %}
-    </ul>
-
-{#<div class="navigation">#}
-    {#{{ pagination.render()|raw }}#}
-{#</div>#}
-{% else %}
-    {{ 'Not found'|trans }}
-{% endif %}
-
-{% endblock %}
+{% extends ':Frontend:new_base.html.twig' %}
 
 {% block stylesheets %}
     {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('bundles/armdsearch/css/search.css') }}">
+
+    <link rel="stylesheet" href="{{ asset('bundles/armdsearch/css/search.css') }}" />
+{% endblock %}
+
+{% block title %}{{ 'Search results'|trans }}{% endblock %}
+
+{% block body %}
+    <div class="b-post fullWidth overflowVisible positionRelative">
+        <h1 class="hub-header-title">
+            {{ 'Search results'|trans }}
+        </h1>
+
+        <div class="searchResults-query">
+            <span>{{ 'Query'|trans }}:</span> {{ searchQuery }}
+        </div>
+
+        <div class="searchResults-wrapper">
+            {% if searchResults|length > 0 %}
+                <ul class="searchResults-list">
+                    {% for searchResult in searchResults %}
+                        {% spaceless %}
+                            <li>
+                                <span class="searchResults-list-type">
+                                    {{ searchResult.section.name }}
+                                </span>
+
+                                {% if searchResult.object.date is not empty %}
+                                    <span class="searchResults-list-date">,{{ armd_date.news_date(searchResult.object.date) }}</span>
+                                {% endif %}
+
+                                <a class="searchResults-list-title" href="{{ searchResult.object.url }}"{% if searchResult.object.target_blank|default(false) %} target="_blank"{% endif %}>
+                                    {{ searchResult.object.title|raw }}
+                                </a>
+
+                                <a class="searchResults-list-image" href="{{ searchResult.object.url }}"{% if searchResult.object.target_blank|default(false) %} target="_blank"{% endif %}>
+                                    {% if searchResult.object.imageUrl is defined %}
+                                        <img src="{{ searchResult.object.imageUrl }}" />
+                                    {% endif %}
+                                </a>
+
+                                <div class="searchResults-list-text">
+                                    <p>{{ searchResult.object.announce|raw }}</p>
+                                </div>
+                            </li>
+                        {% endspaceless %}
+                    {% endfor %}
+                </ul>
+            {% else %}
+                {{ 'Not found'|trans }}
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block sidebar %}{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            //
+        });
+    </script>
 {% endblock %}

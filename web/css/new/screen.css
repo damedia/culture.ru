@@ -3469,9 +3469,7 @@ a.sidebar-widget-item:hover > .darkLayer {
     margin-left: -6px;
 }
 .broadcast-entity-description {
-    border-top: 1px solid #D1D1D1;
-    padding-top: 30px;
-    margin-top: 10px;
+    padding-top: 40px;
 }
 
 .museums-sidebar-header {

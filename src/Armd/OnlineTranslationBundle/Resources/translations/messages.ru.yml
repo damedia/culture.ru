@@ -1,5 +1,7 @@
 OnlineTranslation: Трансляция
 NoBroadcastsAnnounces: На ближайшее время трансляций не анонсируется.
+BroadcastStart: Начало
+BroadcastPlace: Место
 
 Mainpage:
     Online: Трансляция онлайн

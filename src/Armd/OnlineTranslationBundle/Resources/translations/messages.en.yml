@@ -1,5 +1,7 @@
 OnlineTranslation: Broadcast
 NoBroadcastsAnnounces: Broadcasts for the near future is not announced.
+BroadcastStart: Start
+BroadcastPlace: Place
 
 Mainpage:
     Online: Broadcast online

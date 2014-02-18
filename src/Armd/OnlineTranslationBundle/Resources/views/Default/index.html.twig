@@ -4,9 +4,7 @@
 {% block stylesheets %}
     {{ parent() }}
 
-    <style type="text/css">
-        /* */
-    </style>
+    <link rel="stylesheet" href="{{ asset('bundles/armdonlinetranslation/css/broadcast.css') }}" />
 {% endblock %}
 
 {% block title %}{{ 'OnlineTranslation'|trans }}{% endblock %}
@@ -29,21 +27,28 @@
                     {% thumbnail entity.image, 'reference' with { 'width': '100%', 'height': 'auto' } %}
                 {% endif %}
 
-                <h3>{{ armd_news.news_date_short_with_day(entity.date) }}</h3>
+                <p>{{ entity.shortDescription }}</p>
 
-                <article id="broadcast-container">
-                    <div class="broadcast-location">
-                        {{ entity.location }} /
-                        <b>{{ entity.date|date('H:i') }}</b>
+                <div class="broadcast-fancyBlock">
+                    <div class="timer-block">
+                        {% if entity.type == constant('Armd\\OnlineTranslationBundle\\Entity\\OnlineTranslation::STATUS_ANNOUNCE') %}
+                            <h3>{{ 'Mainpage.TimeTillStart'|trans }}:</h3>
+                            <span id="countdown"></span>
+                            <br />
+                            <a id="broadcast-reminder-link" href="#broadcast_notification_form">{{ 'Mainpage.Remind'|trans }}</a>
+
+                            {% include "ArmdOnlineTranslationBundle:Default:countdownTimerJavascript.html.twig" %}
+                            {% include "ArmdOnlineTranslationBundle:Default:reminderForm.html.twig" %}
+                        {% endif %}
                     </div>
-
-                    <p>{{ entity.shortDescription }}</p>
-
-                    {% if entity.type == constant('Armd\\OnlineTranslationBundle\\Entity\\OnlineTranslation::STATUS_ANNOUNCE') %}
-                        {% include "ArmdOnlineTranslationBundle:Default:countdownTimer.html.twig" %}
-                        {% include "ArmdOnlineTranslationBundle:Default:reminder.html.twig" %}
-                    {% endif %}
-                </article>
+                    <div class="info-block">
+                        <span class="title">{{ 'BroadcastStart'|trans }}:</span>
+                        <span class="text">{{ armd_news.news_date_short_with_day(entity.date) }} / {{ entity.date|date('H:i') }}</span>
+                        <hr />
+                        <span class="title">{{ 'BroadcastPlace'|trans }}:</span>
+                        <span class="text">{{ entity.location }}</span>
+                    </div>
+                </div>
 
                 <div class="broadcast-entity-description">
                     {{ entity.fullDescription|raw }}

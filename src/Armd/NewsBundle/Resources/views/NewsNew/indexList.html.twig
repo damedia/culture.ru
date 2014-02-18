@@ -5,7 +5,9 @@
         <article>
             <div class="teaser-thumb">
                 {% if item.image %}
-                    <img alt="{{ item.title|escape }}" src="{% path item.image, 'adminPreview' %}" />
+                    <a href="{{ path('armd_news_item_by_category', {'id': item.id }) }}">
+                        <img alt="{{ item.title|escape }}" src="{% path item.image, 'adminPreview' %}" />
+                    </a>
                 {% endif %}
             </div>
 

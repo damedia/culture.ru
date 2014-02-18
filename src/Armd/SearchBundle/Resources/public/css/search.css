@@ -1,14 +1,22 @@
-.search-query {
+.searchResults-query {
     margin-bottom: 20px;
 }
 
-.search-result li {
+.searchResults-query span {
+    font-weight: bold;
+}
+
+.searchResults-wrapper {
+    margin-bottom: 50px;
+}
+
+.searchResults-list li {
     padding-bottom: 25px;
     list-style: none;
     overflow: hidden;
 }
 
-.search-result-image {
+.searchResults-list-image {
     color: #7791A4;
     float: left;
     font-size: 11px;
@@ -16,17 +24,17 @@
     text-decoration: none;
 }
 
-.search-result-type {
+.searchResults-list-type {
     color: #7791A4;
     font-size: 11px;
 }
 
-.search-result-date {
+.searchResults-list-date {
     color: #7791A4;
     font-size: 11px;
 }
 
-.search-result-title {
+.searchResults-list-title {
     color: #000000;
     display: block;
     font-size: 14px;
@@ -35,11 +43,7 @@
     text-decoration: none;
 }
 
-.search-result-text {
+.searchResults-list-text {
     font-size: 12px;
     overflow: hidden;
-}
-
-.search-query span {
-    font-weight: bold;
 }

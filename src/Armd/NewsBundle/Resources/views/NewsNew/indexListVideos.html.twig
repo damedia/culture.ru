@@ -15,8 +15,12 @@
             <section class="hub-list-item">
                 <article>
                     <div class="teaser-thumb positionRelative">
-                        {{ lectureMacro.lectureThumbnail(item, 'tile', { 'alt': item.title }) }}
-                        <span class="play"></span>
+                        {% if item.mediaLectureVideo %}
+                            <a href="{{ path('armd_lecture_view', {'id': item.id }) }}" class="noTextDecoration">
+                                <img alt="{{ item.title|escape }}" src="{% path item.mediaLectureVideo, 'tile' %}" />
+                                <span class="play"></span>
+                            </a>
+                        {% endif %}
                     </div>
 
                     <div class="teaser-header">

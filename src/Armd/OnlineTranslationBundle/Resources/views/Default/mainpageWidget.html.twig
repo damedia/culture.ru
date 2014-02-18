@@ -29,8 +29,17 @@
                         {{ 'Mainpage.Online'|trans }}
                     </div>
                 {% else %}
-                    {% include "ArmdOnlineTranslationBundle:Default:countdownTimer.html.twig" %}
-                    {% include "ArmdOnlineTranslationBundle:Default:reminder.html.twig" %}
+                    <div class="broadcast-timer broadcast-clocks-background">
+                        <p>{{ 'Mainpage.TimeTillStart'|trans }}:<br /><span id="countdown"></span></p>
+                    </div>
+
+                    {% include "ArmdOnlineTranslationBundle:Default:countdownTimerJavascript.html.twig" %}
+
+                    <div class="broadcast-reminder">
+                        <a id="broadcast-reminder-link" href="#broadcast_notification_form">{{ 'Mainpage.Remind'|trans }}</a>
+                    </div>
+
+                    {% include "ArmdOnlineTranslationBundle:Default:reminderForm.html.twig" %}
                 {% endif %}
             </section>
 
