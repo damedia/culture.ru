@@ -30,7 +30,7 @@ class BroadcastUnpublishCommand extends DoctrineCommand {
             'type' => OnlineTranslation::STATUS_LIVE
         ));
 
-        if ($broadcast->getDuration() != 0 AND $this->durationExceeded($broadcast->getDate(), $broadcast->getDuration())) {
+        if ($broadcast AND $this->durationExceeded($broadcast->getDate(), $broadcast->getDuration())) {
             $broadcast->setType(OnlineTranslation::STATUS_ANNOUNCE);
             $broadcast->setPublished(false);
 
@@ -41,6 +41,6 @@ class BroadcastUnpublishCommand extends DoctrineCommand {
     private function durationExceeded($broadcastDate, $duration) {
         $now = new \DateTime();
 
-        return (($broadcastDate->getTimestamp() + $duration * 60 - $now->getTimestamp()) <= 0);
+        return ($duration != 0 AND ($broadcastDate->getTimestamp() + $duration * 60 - $now->getTimestamp()) <= 0);
     }
 }

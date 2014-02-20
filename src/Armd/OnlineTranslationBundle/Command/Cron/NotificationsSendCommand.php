@@ -33,32 +33,34 @@ class NotificationsSendCommand extends DoctrineCommand {
             $notifications = $notificationsRepository->findAll();
 
             foreach ($notifications as $notification) {
-                $broadcast = $notification->getOnlineTranslation();
-                $broadcastDate = $broadcast->getDate();
-                $notificationPeriod = $notification->getPeriod();
+                if ($notification) {
+                    $broadcast = $notification->getOnlineTranslation();
+                    $broadcastDate = $broadcast->getDate();
+                    $notificationPeriod = $notification->getPeriod();
 
-                if ($this->itIsTimeToSendAnEmail($broadcastDate, $notificationPeriod)) {
-                    $emailTo = $notification->getEmail();
+                    if ($this->itIsTimeToSendAnEmail($broadcastDate, $notificationPeriod)) {
+                        $emailTo = $notification->getEmail();
 
-                    $subject = $translator->trans('Mail.Subject') . $broadcast->getTitle();
+                        $subject = $translator->trans('Mail.Subject') . $broadcast->getTitle();
 
-                    $body = $templating->render('ArmdOnlineTranslationBundle:Default:email.html.twig', array(
-                        'title' => $broadcast->getTitle(),
-                        'date' => $broadcastDate->format('d m Y H:i'),
-                        'location' => $broadcast->getLocation(),
-                        'description' => $broadcast->getFullDescription()
-                    ));
+                        $body = $templating->render('ArmdOnlineTranslationBundle:Default:email.html.twig', array(
+                            'title' => $broadcast->getTitle(),
+                            'date' => $broadcastDate->format('d m Y H:i'),
+                            'location' => $broadcast->getLocation(),
+                            'description' => $broadcast->getFullDescription()
+                        ));
 
-                    $message = \Swift_Message::newInstance()
-                        ->setSubject($subject)
-                        ->setFrom($emailFrom)
-                        ->setTo($emailTo)
-                        ->setBody($body)
-                        ->setContentType("text/html");
+                        $message = \Swift_Message::newInstance()
+                            ->setSubject($subject)
+                            ->setFrom($emailFrom)
+                            ->setTo($emailTo)
+                            ->setBody($body)
+                            ->setContentType("text/html");
 
-                    $mailer->send($message);
+                        $mailer->send($message);
 
-                    $em->remove($notification);
+                        $em->remove($notification);
+                    }
                 }
             }
 
