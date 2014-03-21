@@ -25,11 +25,13 @@
             Вопросы и&nbsp;предложения просим присылать по&nbsp;адресу:<br>
             <a href="mailto:portal@culture.ru">portal@culture.ru</a></p>
 
-            <h2><span>Контакты:</span></h2>
-            <h3>Главный редактор</h3>
-            <p>Завьялова Наталия Вениаминовна<br>
-            <a href="mailto:Natalia.zavyalova@culture.ru">Natalia.zavyalova@culture.ru</a><br>
-            Моб:&nbsp;<span class="nowrap">+7 (910) 402 3412</span></p>
+            {% if app.request.locale != 'ru' %} Не знаю как в вашем говнотвиге коментарить блок!
+                <h2><span>Контакты:</span></h2>
+                <h3>Главный редактор</h3>
+                <p>Завьялова Наталия Вениаминовна<br>
+                <a href="mailto:Natalia.zavyalova@culture.ru">Natalia.zavyalova@culture.ru</a><br>
+                Моб:&nbsp;<span class="nowrap">+7 (910) 402 3412</span></p>
+            {% endif %}
         {% else %}
             <h2><span>Address:</span></h2>
             <p>7/6 bldg 1-2, Maly Gnezdnikovsky per., Moscow, Russia 125993<br>
