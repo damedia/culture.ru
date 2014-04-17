@@ -92,7 +92,8 @@ class TvigleProvider extends BaseVideoProvider
          */
 
         $params = array(
-            'src'         => $media->getMetadataValue('frame'),
+            'src'         => $media->getMetadataValue('frame'), //old tvigle API JSON parameter
+            'embed_html'  => $media->getMetadataValue('embed_html'), //new tvigle API JSON parameter
             'id'          => uniqid('tvigle_player_'),
             'width'       => $width,
             'height'      => $height,

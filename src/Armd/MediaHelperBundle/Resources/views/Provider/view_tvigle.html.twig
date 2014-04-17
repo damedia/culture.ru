@@ -9,4 +9,6 @@
             mozallowfullscreen=""
             allowfullscreen="">
     </iframe>
+{% else %}
+    {{ options.embed_html|raw }}
 {% endif %}
