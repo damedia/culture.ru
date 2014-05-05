@@ -2,9 +2,12 @@
 
 {% block title %}{{ 'Portal title'|trans }}{% endblock %}
 
+{# This is our new mainpage template! #}
 {% block body %}
-    {% render 'ArmdNewsBundle:News:mainpageWidget' %}
+    <div class="displayInlineBlock"></div>
+
     {% render 'ArmdAtlasBundle:Default:mainpageWidget' %}
+    {% render 'ArmdNewsBundle:News:mainpageWidget' %}
     {% render 'DamediaSpecialProjectBundle:Render:mainpageWidget' %}
 
     <div class="b-main-wrap b-block-main clearfix clearBoth">
